@@ -3,8 +3,6 @@
   Will call the setName, setPhone, setBirthday, and setAddress functions
   to add to the Meteor.users database. 
 */
-import { Accounts } from 'meteor/accounts-base'
-
 
 Template.createProfileForm.events({
 	'submit form': function(){
