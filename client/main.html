@@ -1,10 +1,30 @@
 <!-- Main login page -->
-
 <head>
-  <title>Doctors To You</title>
+  <title>flow-router</title>
 </head>
 
 <body>
+  {{> App_body}}
+</body>
+
+
+
+
+
+
+<template name="App_body">
+{{> Template.dynamic template=top}}
+{{> Template.dynamic template=main}}
+{{> Template.dynamic template=bottom}}
+{{> Template.dynamic template=footer}}
+  
+  
+</template>
+
+
+
+
+<template name='main_page'>
   <h1>Doctors To You</h1>
   <p>{{> loginButtons}}</p>
-</body>
+</template>
