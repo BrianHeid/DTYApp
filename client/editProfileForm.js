@@ -4,7 +4,7 @@
   to add to the Meteor.users database. 
 */
 
-Template.createProfileForm.events({
+Template.editProfileForm.events({
 	'submit form': function(){
         event.preventDefault();
         var firstName = event.target.firstName.value;
