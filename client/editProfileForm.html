@@ -1,15 +1,17 @@
-<!-- createProfileForm html -->
+<!-- Page to edit user profile -->
+
 <template name= 'show_form_page'>
-  <h1 class="ui header two column centered container">Profile</h1>
-  <p>{{>editProfileForm}}</p>
+	<p>{{>editProfileForm}}</p>
+  	<!-- <p>{{>editProfileForm_mobile}}</p> -->
 </template>
 
 
-
+<!-- Computer version -->
 
 <template name="editProfileForm">
 	<div class="ui stackable two column centered container">
-		<div class="ui column stackable form">
+		<h1 class="ui header two column centered container">Profile</h1>
+		<div class="ui column stackable form success">
 			<div class="column equal width fields">
 				<div class="required field">
 					<label>First Name</label>
@@ -24,17 +26,22 @@
 					<input type="text" name="lastName" placeholder="Last Name">
 				</div>
 			</div>
-
-			<div class="column equal width fields">
+			<div class="column equal width fields required">
 				<div class="required field">
 					<label>Phone Number</label>
 					<input type="text" name="phoneNumber" placeholder="Phone Number">
 				</div>
-				<div class="required field">
+			    <div class="required field">
 					<label>Birthday</label>
 					<input type="date" name="birthday" min="1887-01-01" max="1999-04-01">
 				</div>
 			</div>
+
+			<!-- <div class="column equal width fields">
+				<div class="required field">
+					<label>Phone Number</label>
+					<input type="text" name="phoneNumber" placeholder="Phone Number">
+				</div> -->
 			
 			<div class="column fields">
 				<div class="eight wide required field">
@@ -49,7 +56,7 @@
 					<label>State</label>
 					<input type="text" name="state" placeholder="State">
 				</div>
-				<div class=" required field">
+				<div class="required field">
 					<label>Country</label>
 					{{>countriesList}}
 				</div>
@@ -64,7 +71,7 @@
 					<input type="text" name="aptNumSuite" placeholder="Apt # / Suite">
 				</div>
 			</div>
-			<div class="inline field">
+			<div class="inline required field">
 			    <div class="ui checkbox">
 			      <input type="checkbox" id="terms">
 			      <label for="terms">I agree to the terms and conditions</label>
@@ -72,5 +79,12 @@
 			 </div>
 			<input class="fluid ui primary button" type="submit" name="submitBtn" value="Save">
 		</div>
+		<!-- SUCCESS MESSAGE -->
+		<!-- <div class="ui success message">
+		    <div class="header">Saved!</div>
+		    <p>You're settings have saved.</p>
+		</div> -->
 	</div>
 </template>
+
+<!-- Mobile version NEED TO WORK ON LATER -->
