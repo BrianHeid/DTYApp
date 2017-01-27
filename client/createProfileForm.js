@@ -22,8 +22,8 @@ Template.createProfileForm.events({
         var state = event.target.state.value;
         var country = event.target.country.value;
         var zipcode = event.target.zipcode.value;
-        var roomNumSuite = event.target.roomNumSuite.value;
-        Meteor.call('setAddress', street, city, state, country, zipcode, roomNumSuite);
+        var aptNumSuite = event.target.aptNumSuite.value;
+        Meteor.call('setAddress', street, city, state, country, zipcode, aptNumSuite);
 
     }
 });

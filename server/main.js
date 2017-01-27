@@ -12,4 +12,4 @@ Accounts.onCreateUser(
     
     return user
     }
-    )
+)

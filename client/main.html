@@ -1,9 +1,4 @@
 <!-- Main login page -->
-<head>
-  <title>Doctors To You</title>
-  <link rel="icon" sizes="16x16 32x32" href="/images/favicon.ico">
-</head>
-
 <body>
   {{> App_body}}
 </body>
@@ -14,7 +9,7 @@
 
 
 <template name="App_body">
-{{> Template.dynamic template=top}}
+{{> Template.dynamic template=header}}
 {{> Template.dynamic template=main}}
 {{> Template.dynamic template=bottom}}
 {{> Template.dynamic template=footer}}  
