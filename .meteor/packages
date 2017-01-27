@@ -24,6 +24,6 @@ accounts-password
 accounts-ui
 kadira:blaze-layout
 check
-semantic:ui
 less
 juliancwirko:postcss
+semantic:ui
