@@ -3,10 +3,19 @@
 <template name="footer_temp">
     <div class="ui inverted padding-wrapper footer segment">
     	<center>
-	    	<div class="ui container">
-	    		Copyright &copy; 2017 <a href="doctorstoyou.com">Doctors To You</a>, LLC. All Rights Reserved.
+	    	<div class="ui container" id="footerCopyright">
+	    		<!-- footerCopyright goes here -->
 	    	</div>
     	</center>
     </div>
-</template>
 
+    <!-- Changes year dynamically -->
+    <script type="text/javascript">
+		var date = new Date();
+		var year = date.getFullYear();
+
+		var footerCopyright = "Copyright &copy;" + " " + year + "<a href=\"doctorstoyou.com\"> Doctors To You</a>, LLC. All Rights Reserved.";
+
+		document.getElementById("footerCopyright").innerHTML = footerCopyright;
+	</script>
+</template>
