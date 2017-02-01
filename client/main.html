@@ -6,8 +6,6 @@
 
 
 
-
-
 <template name="App_body">
 {{> Template.dynamic template=header}}
 {{> Template.dynamic template=main}}
@@ -19,6 +17,54 @@
 
 
 <template name='main_page'>
-  <h1>Doctors To You</h1>
-  <p>{{> loginButtons}}</p>
+  	<center>
+	  	<h1 class="ui icon centered header">
+			<div class="content">
+				Doctors To You
+				<div class="sub header">Need a doctor? We're on our way.</div>
+			</div>
+		</h1>
+	
+  <!-- <p>{{> loginButtons}}</p> -->
+	<div class="ui raised very padded text container">
+	  <div class="column">
+	    <h2 class="ui image header">
+	      <div class="content centered">
+	        Login to your account
+	      </div>
+	    </h2>
+	    <form class="ui large form">
+	      <div class="ui stacked secondary segment">
+	        <div class="field">
+	          <div class="ui left icon input">
+	            <i class="user icon"></i>
+	            <input type="text" name="email" placeholder="E-mail address">
+	          </div>
+	        </div>
+	        <div class="field">
+	          <div class="ui left icon input">
+	            <i class="lock icon"></i>
+	            <input type="password" name="password" placeholder="Password">
+	          </div>
+	        </div>
+	        <div class="ui fluid large teal submit button">Login</div>
+	      </div>
+
+	      <div class="ui error message"></div>
+
+	    </form>
+
+	    <div class="register ui message">
+	      New to Doctors To You? <a>Register here</a>
+	    </div>
+	  </div>
+	</div>
+	</center>
+	<script>
+	    $(document).ready(function(){
+	        $('#register').click(function(){
+	            $('#register-modal').modal('show');
+	        });
+	    });
+	</script>
 </template>

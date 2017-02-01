@@ -4,4 +4,35 @@
   		<title>Doctors To You</title>
  		<link rel="icon" sizes="16x16 32x32" href="/images/favicon.ico">
 	</head>
+
+	{{>menu_temp}}
+</template>
+
+<template name="menu_temp">
+	<div class="ui small menu">
+	  <a class="active item">
+	    Home
+	  </a>
+	  <a class="item">
+	  	<i class="history icon"></i>
+	    History
+	  </a>
+
+	  <div class="labeled icon right menu">
+	  	<a class="item">
+		  	<i class="user icon"></i>
+		    Profile
+	  	</a>
+	    <div class="ui dropdown item">
+	      Language <i class="dropdown icon"></i>
+	      <div class="menu">
+	        <a class="item">English</a>
+	        <a class="item">Spanish</a>
+	      </div>
+	    </div>
+	    <div class="item">
+	        <div class="ui primary button">Sign Out</div>
+	    </div>
+	  </div>
+	</div>
 </template>

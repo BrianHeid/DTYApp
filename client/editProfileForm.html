@@ -10,7 +10,18 @@
 
 <template name="editProfileForm">
 	<div class="ui stackable two column centered container">
-		<h1 class="ui header two column centered container">Profile</h1>
+		<br>
+
+		<h2 class="ui header">
+		  <i class="edit icon"></i>
+		  <div class="content">
+		    Profile Settings
+		    <div class="sub header">Manage your profile and preferences</div>
+		  </div>
+		</h2>
+
+		<br>
+
 		<div class="ui column stackable form success">
 			<div class="column equal width fields">
 				<div class="required field">
@@ -44,11 +55,11 @@
 				</div> -->
 			
 			<div class="column fields">
-				<div class="eight wide required field">
+				<div class="six wide required field">
 					<label>Street</label>
 					<input type="text" name="street" placeholder="Street">
 				</div>
-				<div class="five wide required field">
+				<div class="four wide required field">
 					<label>City</label>
 					<input type="text" name="city" placeholder="City">
 				</div>
@@ -56,7 +67,7 @@
 					<label>State</label>
 					<input type="text" name="state" placeholder="State">
 				</div>
-				<div class="required field">
+				<div class="three wide required field">
 					<label>Country</label>
 					{{>countriesList}}
 				</div>
