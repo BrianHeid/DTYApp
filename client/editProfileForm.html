@@ -1,0 +1,132 @@
+<!-- Page to edit user profile -->
+
+<template name= 'show_profile_page'>
+	<p>{{>editProfileForm}}</p>
+  	<!-- <p>{{>editProfileForm_mobile}}</p> -->
+</template>
+
+
+<!-- Computer version -->
+
+<template name="editProfileForm">
+	<div class="ui stackable two column centered container">
+		<br>
+
+		<h2 class="ui header">
+		  <i class="edit icon"></i>
+		  <div class="content">
+		    Profile Settings
+		    <div class="sub header">Manage your profile and preferences</div>
+		  </div>
+		</h2>
+
+		<br>
+
+		<div class="ui column stackable form success">
+
+			<div class="column equal width fields">
+				<div class="required field">
+					<label>First Name</label>
+					<input type="text" name="firstName" placeholder="First Name" autofocus>
+				</div>
+			<!--<div class="field">
+					<label>Middle Name</label>
+					<input type="text" name="middleName" placeholder="Middle Name">
+				</div> -->
+				<div class="field required">
+					<label>Last Name</label>
+					<input type="text" name="lastName" placeholder="Last Name">
+				</div>
+			</div>
+
+			<div class="column equal width fields required">
+				<div class="required field">
+					<label>Phone Number</label>
+					<input type="text" name="phoneNumber" placeholder="Phone Number">
+				</div>
+			    <div class="required field">
+					<label>Birthday</label>
+					<input type="date" name="birthday" min="1887-01-01" max="1999-04-01">
+				</div>
+			</div>
+
+			<div class="column fields">
+				<div class="six wide required field">
+					<label>Street</label>
+					<input type="text" name="street" placeholder="Street">
+				</div>
+				<div class="four wide required field">
+					<label>City</label>
+					<input type="text" name="city" placeholder="City">
+				</div>
+				<div class="three wide required field">
+					<label>State</label>
+					<input type="text" name="state" placeholder="State">
+				</div>
+				<div class="three wide required field">
+					<label>Country</label>
+					{{>countriesList}}
+				</div>
+			</div>
+			<div class="column equal width fields">
+				<div class="required field">
+					<label>Zipcode</label>
+					<input type="text" name="zipcode" placeholder="Zipcode" minlength="5">
+				</div>
+				<div class="field">
+					<label>Apt # / Suite</label>
+					<input type="text" name="aptNumSuite" placeholder="Apt # / Suite">
+				</div>
+			</div>
+			<div class="field required">
+				<label>Email</label>
+				<input type="email" name="email" placeholder="example@gmail.com">
+			</div>
+			<div class="field required">
+				<label>Password</label>
+				<input type="password" name="password" placeholder="Password">
+			</div>
+			<div class="field required">
+				<label>Confirm Password</label>
+				<input type="password" name="confirmPassword" placeholder="Confirm Password">
+			</div>
+
+
+			<h3 class="ui header">
+			  <i class="alarm outline icon"></i>
+			  <div class="content">
+			    Notification Preferences
+			  </div>
+			</h3>
+			
+			<div class="ui selection dropdown">
+				<input type="hidden" name="notifications">
+				  <i class="dropdown icon"></i>
+				  <div class="default text">Choose your notification preferences...</div>
+				  <div class="menu">
+				    <div class="item" data-value="both">Receive email and text notifications</div>
+				    <div class="item" data-value="emailOnly">Receive email only</div>
+				  </div>
+			</div>
+
+			<br><br>
+
+			<input class="fluid ui primary button" type="submit" name="submitBtn" value="Save">
+		</div>
+
+		<!-- SUCCESS MESSAGE -->
+		<div class="ui success message">
+		    <div class="header">Saved!</div>
+		    <p>You're settings have saved.</p>
+		</div>
+		
+	</div>
+
+	<script type="text/javascript">
+		$('.ui.dropdown')
+		  .dropdown()
+		;
+	</script>
+</template>
+
+<!-- Mobile version NEED TO WORK ON LATER -->

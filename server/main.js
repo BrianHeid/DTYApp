@@ -15,7 +15,8 @@ Accounts.onCreateUser(
 	user.profile = options.profile ? options.profile : {};
     
     return user
-    })
+
+    });
 
 /*
 	Current collections:
@@ -36,3 +37,4 @@ Accounts.onCreateUser(
 				: Invoices
 
 */
+

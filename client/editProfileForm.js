@@ -3,10 +3,8 @@
   Will call the setName, setPhone, setBirthday, and setAddress functions
   to add to the Meteor.users database. 
 */
-import { Accounts } from 'meteor/accounts-base'
 
-
-Template.createProfileForm.events({
+Template.editProfileForm.events({
 	'submit form': function(){
         event.preventDefault();
         var firstName = event.target.firstName.value;
@@ -24,8 +22,8 @@ Template.createProfileForm.events({
         var state = event.target.state.value;
         var country = event.target.country.value;
         var zipcode = event.target.zipcode.value;
-        var roomNumSuite = event.target.roomNumSuite.value;
-        Meteor.call('setAddress', street, city, state, country, zipcode, roomNumSuite);
+        var aptNumSuite = event.target.aptNumSuite.value;
+        Meteor.call('setAddress', street, city, state, country, zipcode, aptNumSuite);
 
     }
 });
