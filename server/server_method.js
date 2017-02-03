@@ -1,7 +1,7 @@
 //server methods
 
 
-email_regex = 
+
 
 
 var isEmailValid = function(address) {

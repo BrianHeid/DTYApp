@@ -1,10 +1,10 @@
 import { Meteor } from 'meteor/meteor';
-import { Mongo } from 'meteor/mongo'
+import { Mongo } from 'meteor/mongo';
 
 Meteor.startup(() => {
   // code to run on server at startup
-export const Documents = new Mongo.Collection('User_Documents')
-export const Reviews = new Mongo.Collection('Reviews')
+//export const Documents = new Mongo.Collection('User_Documents')
+//export const Reviews = new Mongo.Collection('Reviews')
 
 });
 
