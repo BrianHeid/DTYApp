@@ -16,12 +16,19 @@
 
 
 <template name="App_body">
-{{> Template.dynamic template=top}}
+{{> Template.dynamic template=header}}
+
+{{#if currentUser}}
+	{{> Template.dynamic template=user_dashboard}}
+{{else}}	
+	{{> Template.dynamic template=logoff_dashboard}}
+{{/if}}
+
+
 {{> Template.dynamic template=main}}
 {{> Template.dynamic template=bottom}}
+
 {{> Template.dynamic template=footer}}
-  
-  
 </template>
 
 
@@ -31,3 +38,5 @@
   <h1>Doctors To You</h1>
   <p>{{> loginButtons}}</p>
 </template>
+
+
