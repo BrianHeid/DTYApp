@@ -1,0 +1,52 @@
+<template name="callPage">
+	<center>
+		<h1 class="ui header container">
+		  <div class="content">
+		    Please standby for your call...
+		  </div>
+		</h1>
+
+		<h2 class="ui header container">
+		  <div class="content" id="callText">
+		  	<!-- Call text goes here! -->
+		  </div>
+		</h2>
+
+		<br>
+
+		<button class="cancelBtn negative ui button">Cancel Request</button>
+
+	</center>
+
+	<div class="ui modal">
+	  <i class="close icon"></i>
+	  <div class="header">
+	    Reason for Cancellation
+	  </div>
+
+
+	  <div class="actions">
+	    <div class="ui fluid negative deny button">
+	      Cancel Request
+	    </div>
+	  </div>
+	</div>
+
+	<script type="text/javascript">
+		var providerName = "Ernest";
+		var timeEstimate = 15;
+
+		var callText = providerName + " will call you in approximately " + timeEstimate + " minutes. <br> Thank you for choosing Doctors To You!";
+
+		document.getElementById("callText").innerHTML = callText;
+
+
+		$(document).ready(function(){
+			$(".cancelBtn").click(function(){
+				$('.ui.modal')
+				  .modal('show');	
+			});
+		});
+	</script>
+
+</template>
