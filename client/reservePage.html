@@ -1,0 +1,98 @@
+<template name="reservePage">
+	<h2 class="ui header container">
+	  <div class="content">
+	    Reserve a Physician
+	  </div>
+	</h2>
+	<div class="ui container">
+		<form class="ui form">
+			Please fill out the billing information below to reserve your doctor:
+			<br><br>
+
+			<div class="field required">
+				<label>Name on card</label>
+				<input type="text" name="lastName" placeholder="First and last name">
+			</div>
+
+			<div class="field required">
+				<label>Credit card number</label>
+				<input type="text" name="cardNumber" placeholder="Credit card number">
+			</div>
+
+			<div class="column equal width fields">
+				<div class="field required">
+					<select name="expirationMonth" placeholder="month">
+						<option value="1">January</option>
+						<option value="2">February</option>
+						<option value="3">March</option>
+						<option value="4">April</option>
+						<option value="5">May</option>
+						<option value="6">June</option>
+						<option value="7">July</option>
+						<option value="8">August</option>
+						<option value="9">September</option>
+						<option value="10">October</option>
+						<option value="11">November</option>
+						<option value="12">December</option>
+					</select>
+				</div>
+				<div class="field required">	
+					<input type="text" name="expirationYear" placeholder="year">
+				</div>
+			</div>
+
+			<div class="inline field">
+			    <div class="ui toggle checkbox">
+			      <input type="checkbox" tabindex="0" class="hidden">
+			      <label>Billing address is the same as current address?</label>
+			    </div>
+		    </div>
+
+		    Billing address
+		    <br><br>
+		
+			<div class="column equal width fields">
+				<div class="required field">
+					<label>Street</label>
+					<input type="text" name="street" placeholder="Street">
+				</div>
+				<div class="required field">
+					<label>City</label>
+					<input type="text" name="city" placeholder="City">
+				</div>
+			</div>
+
+			<div class="column equal width fields">
+				<div class="required field">
+					<label>State</label>
+					<input type="text" name="state" placeholder="State">
+				</div>
+				<div class="required field">
+					<label>Country</label>
+					{{>countriesList}}
+				</div>
+			</div>
+			<div class="column equal width fields">
+				<div class="required field">
+					<label>Zipcode</label>
+					<input type="text" name="zipcode" placeholder="Zipcode" minlength="5">
+				</div>
+				<div class="field">
+					<label>Apt # / Suite</label>
+					<input type="text" name="aptNumSuite" placeholder="Apt # / Suite">
+				</div>
+			</div>
+
+			<label><input type="checkbox" value="agree_checkbox" required>I agree to <a href="/consenttocard">Consent to provide care</a> and <a href="/hipaa">HIPAA Privacy Notice</a></label>
+
+			<br><br>
+
+			<input class="fluid ui primary button" type="submit" name="submitRequestBtn" value="Reserve">
+		</form>
+
+		<div class="ui success message">
+		    <div class="header">Successfully reserved!</div>
+		</div>
+	</div>
+
+</template>
