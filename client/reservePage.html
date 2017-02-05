@@ -2,13 +2,11 @@
 	<h2 class="ui header container">
 	  <div class="content">
 	    Reserve a Physician
+	    <div class="sub header">Please fill out the billing information below to reserve your doctor:</div>
 	  </div>
 	</h2>
 	<div class="ui container">
 		<form class="ui form">
-			Please fill out the billing information below to reserve your doctor:
-			<br><br>
-
 			<div class="field required">
 				<label>Name on card</label>
 				<input type="text" name="lastName" placeholder="First and last name">
@@ -22,6 +20,7 @@
 			<div class="column equal width fields">
 				<div class="field required">
 					<select name="expirationMonth" placeholder="month">
+					  <option value="">Enter expiration month</option>
 						<option value="1">January</option>
 						<option value="2">February</option>
 						<option value="3">March</option>
@@ -37,7 +36,7 @@
 					</select>
 				</div>
 				<div class="field required">	
-					<input type="text" name="expirationYear" placeholder="year">
+					<input type="text" name="expirationYear" placeholder="Enter expiration year">
 				</div>
 			</div>
 
