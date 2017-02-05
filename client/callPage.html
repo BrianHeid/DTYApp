@@ -18,18 +18,47 @@
 
 	</center>
 
-	<div class="ui modal">
+	<div class="ui small modal" id="reasonModal">
 	  <i class="close icon"></i>
 	  <div class="header">
 	    Reason for Cancellation
 	  </div>
 
+	  <div class="content">
+	  	<select id="multi-select" name="reasonForCancellation" multiple="" class="ui fluid dropdown required">
+		  <option value="">Select all that apply:</option>
+			<option value="feelbetter">I feel better</option>
+			<option value="longWait">Long wait time</option>
+		</select>
 
-	  <div class="actions">
-	    <div class="ui fluid negative deny button">
-	      Cancel Request
-	    </div>
+		<br>
+
+	  	<div class="inline"><label>Other: </label><textarea rows="1" style="width: 300px;"></textarea></div>
 	  </div>
+
+	  <div class="actions" id="cancelReq">
+	    <button class="ui fluid negative deny button">
+	      Cancel Request
+	    </button>
+	  </div>
+	</div>
+
+	<div class="ui cancelled-redirect small modal">
+		<i class="close icon"></i>
+    	<div class="header">
+    		You have cancelled your request
+  		</div>
+
+  		<div class="content">
+  			<center><h3>We will now redirect you to your dashboard.</h3></center>
+  		</div>
+
+  		<div class="actions" id="returnDashboard">
+			<button class="ui fluid primary button">
+		    	Return to Dashboard
+		    </button>
+		</div>
+
 	</div>
 
 	<script type="text/javascript">
@@ -42,11 +71,42 @@
 
 
 		$(document).ready(function(){
+
 			$(".cancelBtn").click(function(){
-				$('.ui.modal')
-				  .modal('show');	
+				$('#reasonModal').modal('show');	
+			}),
+
+			$("#cancelReq").click(function(){
+				$('#reasonModal').modal('hide');
+				$('.cancelled-redirect').modal('show');
+				
+			}),
+
+			$("#returnDashboard").click(function(){
+				$('#returnDashboard').modal('hide');
+				FlowRouter.go('/dashboard');
 			});
+
 		});
+
+		$('#multi-select')
+		  .dropdown()
+		;
+
 	</script>
 
+</template>
+
+<template name="cancelledRequestCallPage">
+	<center>
+		<h1 class="ui header container">
+		  <div class="content">
+		    You have cancelled your request
+		  </div>
+		</h1>
+
+		<button class="ui large primary button">
+	    	Return to Dashboard
+	    </button>
+	</center>
 </template>
