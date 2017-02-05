@@ -5,6 +5,9 @@
 	    <div class="sub header">Please fill out the billing information below to reserve your doctor:</div>
 	  </div>
 	</h2>
+
+	<br>
+
 	<div class="ui container">
 		<form class="ui form">
 			<div class="field required">
@@ -19,8 +22,7 @@
 
 			<div class="column equal width fields">
 				<div class="field required">
-					<select name="expirationMonth" placeholder="month">
-					  <option value="">Enter expiration month</option>
+					<select name="expirationMonth">
 						<option value="1">January</option>
 						<option value="2">February</option>
 						<option value="3">March</option>
@@ -47,7 +49,7 @@
 			    </div>
 		    </div>
 
-		    Billing address
+		    <label>Billing Address</label>
 		    <br><br>
 		
 			<div class="column equal width fields">
@@ -82,16 +84,98 @@
 				</div>
 			</div>
 
-			<label><input type="checkbox" value="agree_checkbox" required>I agree to <a href="/consenttocard">Consent to provide care</a> and <a href="/hipaa">HIPAA Privacy Notice</a></label>
+			 <div class="field">
+			 	<div class="ui checkbox">
+			    	<input type="checkbox" value="agree_checkbox" class="hidden" required>
+			    	<label>I agree to <a id="consent">Consent to Provide Care</a> and <a id="hipaa">HIPAA Privacy Notice</a></label>
+			    </div>
+			</div>
 
-			<br><br>
+			<br>
 
-			<input class="fluid ui primary button" type="submit" name="submitRequestBtn" value="Reserve">
+			<input id="reserve" class="fluid ui primary button" type="submit" name="submitRequestBtn" value="Reserve">
 		</form>
 
-		<div class="ui success message">
+		<div class="ui success message hidden" id="success">
 		    <div class="header">Successfully reserved!</div>
 		</div>
 	</div>
 
+	<div id="provide-care" class="ui long modal">
+		<i class="close icon"></i>
+    	<div class="header">
+    		CONSENT FOR MEDICAL TREATMENT
+  		</div>
+
+  		<div class="content">
+  			<p>Knowing that I desire medical evaluation and/or treatment by <i>Doctors To You</i>, I voluntarily consent to such care. I consent to routine diagnostic procedures, including but not limited to x-rays, blood draw, laboratory tests, administration of medication and to medical or surgical treatment by doctors and staff members of <i>Doctors To You</i> and other health care providers who may be called upon to consult or assist in my care as judged necessary by my treating doctor. I am aware that the practice of medicine is not an exact science and I acknowledge that no guaranties have been made to me as to the results of my examination or treatment. I acknowledge that treatment by <i>Doctors To You</i> is of a primary care doctor or other specialized doctor. In order to provide the best chance for successful treatment I intended to address specific episodic illnesses or injury and is not intended to substitute for comprehensive care in lieu accept responsibility to follow the advice of my treating health provider including compliance with medications, discharge instructions and re-evaluation with follow up or referral doctors. I agree to follow with my doctor or seek care in an
+			Emergency Department of a hospital if my condition substantially changes. I further agree to hold harmless the providers and staff of <i>Doctors To You</i> should I fail to comply with the above conditions.</p><br>
+
+			<p>Patients cared for by <i>Doctors To You</i> will be treated regardless of race, color, age, national origin, disability or religion. Notwithstanding the above criteria, <i>Doctors To You</i> reserves the right to refuse care to any individual who may have an unpaid balance, exhibits rude or disruptive behavior, or any other reason at the discretion of the doctor on duty.</p><br>
+
+			<p>This consent shall remain in force until such time as it is specifically revoked.</p>
+  		</div>
+
+  		<div class="actions">
+			<div class="ui positive fluid button">
+		    	OK
+		    </div>
+		</div>
+
+	</div>
+
+	<div id="hipaa-modal" class="ui long modal">
+		<i class="close icon"></i>
+    	<div class="header">
+    		HIPAA INFORMATION AND CONSENT
+  		</div>
+
+  		<div class="content">
+  			<p>The Health Insurance Portability and Accountability Act (HIPAA) provides safeguards to protect your privacy as a patient. Implementation of HIPAA requirements officially began on April 14, 2003. There are rules and restrictions on who may see or be notified of your Protected Health Information (PHI). HIPAA provides certain rights and protections to you as the patient. Additional information is available from the U.S. Department of Health and Human Services online at: <a href="www.hhs.gov">www.hhs.gov</a></p>
+
+  			<h2 class="ui header">Doctors To You HIPAA Policy</h2>
+
+  			<br>
+
+  			<p>Patient information will be kept confidential except when it is necessary to provide services or to ensure that all administrative matters related to your care are handled properly. This may include, but not limited to, the sharing of information with other healthcare providers, laboratories, and health insurance companies. Patient information (diagnosis, treatment plans, insurance forms, etc) will be stored securely. Preparing for and during your visit such records may be left, at least temporarily, in the provider’s desk, car, phone, or other equipment. Those records will not be available to persons unless they are directly involved in your care or fulfilling an administrative purpose that supports your care. We send out notifications to our patients. We do this by one or more of the following: e-mail, texting, calling, or by mail. We may send you other communications informing you of changes to our policy. We also may send out newsletters or special promotions that we are offering.</p>
+
+  			<ol type="1">
+			  <li>You agree to the normal procedures utilized for the handling of patient records, PHI and other documents or information.</li>
+			  <li>You agree to us sending electronic e-referrals to specialists, which include your PHI and x-rays, if needed. <i>Doctors To You</i> may also send electronic claims to your insurance, which includes submitting PHI to receive payment for services provided.</li>
+			  <li>You give <i>Doctors To You</i> permission to call in any prescriptions you may need and share your PHI with the pharmacist.</li>
+			  <li>You understand that <i>Doctors To You</i> utilizes a number of vendors in the conduct of business. These vendors may have access to PHI but must agree to abide by the confidentiality rules of HIPAA.</li>
+			  <li>You understand and agree to inspections and review of documents which may include PHI by government agencies or insurance payers in normal performance of their duties.</li>
+			  <li>You agree to bring any concerns or complaints regarding privacy to the attention of the doctor or administrative staff assigned to your care, and understand that you have the right to file a complaint. You will not be penalized for filing a complaint.</li>
+			  <li>Your confidential information will not be used for the purposes of marketing or advertising of products, goods or services without your permission.</li>
+			  <li><i>Doctors To You</i> agrees to provide patients with access to their records in accordance with state and federal laws. We may update this policy as needed to better serve the needs of our patients and our practice.</li>
+			</ol>
+
+			<p>After reviewing this document, I agree that, I have been offered the HIPAA policy, and understand and acknowledge my agreement to the terms set forth in the HIPAA information and consent form and any future updates to this policy.</p>
+  		</div>
+
+  		<div class="actions">
+			<div class="ui positive fluid button">
+		    	OK
+		    </div>
+		</div>
+  	</div>
+
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$("#reserve").click(function(){
+				$('#success').show(500);
+				event.preventDefault();	
+			});
+
+			$("#consent").click(function(){
+				$('#provide-care').modal('show');	
+			});
+
+			$("#hipaa").click(function(){
+				$('#hipaa-modal').modal('show');	
+			});
+		});
+
+		$('.ui.checkbox').checkbox('attach events', '.toggle.button');
+	</script>
 </template>

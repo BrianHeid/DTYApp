@@ -115,11 +115,11 @@
 
 			<br><br>
 
-			<input class="fluid ui primary button" type="submit" name="submitBtn" value="Save">
+			<input class="fluid ui primary button" id="save" type="submit" name="submitBtn" value="Save">
 		</div>
 
 		<!-- SUCCESS MESSAGE -->
-		<div class="ui success message">
+		<div class="ui success message hidden" id="success">
 		    <div class="header">Saved!</div>
 		    <p>You're settings have saved.</p>
 		</div>
@@ -127,6 +127,13 @@
 	</div>
 
 	<script type="text/javascript">
+		$(document).ready(function(){
+			$("#save").click(function(){
+				$('#success').show(500);
+				event.preventDefault();	
+			});
+		});
+
 		$('.ui.dropdown')
 		  .dropdown()
 		;
