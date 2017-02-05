@@ -1,4 +1,6 @@
 <template name="reservePage">
+	<link rel="stylesheet" type="text/css" href="reservePage.css">
+
 	<h2 class="ui header container">
 	  <div class="content">
 	    Reserve a Physician
@@ -42,56 +44,62 @@
 				</div>
 			</div>
 
-			<div class="inline field">
-			    <div class="ui toggle checkbox">
-			      <input type="checkbox" tabindex="0" class="hidden">
-			      <label>Billing address is the same as current address?</label>
-			    </div>
+			<div class="inline">
+				<label>Billing address the same as current address?</label>
+				<label class="switch">
+					<input class="switch-input" type="checkbox" id="myonoffswitch"/>
+					<span class="switch-label" data-on="Yes" data-off="No"></span> 
+					<span class="switch-handle"></span> 
+				</label>
+			</div>
+
+			<br>	
+
+		    <div id="billing-input">
+			    <label>Billing Address</label>
+			    <br><br>
+			
+				<div class="column equal width fields">
+					<div class="required field">
+						<label>Street</label>
+						<input type="text" name="street" placeholder="Street">
+					</div>
+					<div class="required field">
+						<label>City</label>
+						<input type="text" name="city" placeholder="City">
+					</div>
+				</div>
+
+				<div class="column equal width fields">
+					<div class="required field">
+						<label>State</label>
+						<input type="text" name="state" placeholder="State">
+					</div>
+					<div class="required field">
+						<label>Country</label>
+						{{>countriesList}}
+					</div>
+				</div>
+				<div class="column equal width fields">
+					<div class="required field">
+						<label>Zipcode</label>
+						<input type="text" name="zipcode" placeholder="Zipcode" minlength="5">
+					</div>
+					<div class="field">
+						<label>Apt # / Suite</label>
+						<input type="text" name="aptNumSuite" placeholder="Apt # / Suite">
+					</div>
+				</div>
+			</div>
+
+			
+		 	<div class="ui checkbox">
+		    	<input type="checkbox" value="agree_checkbox" data-toggle="toggle" data-on="Yes" data-off="No" class="hidden" required>
+		    	<label>I agree to <a id="consent">Consent to Provide Care</a> and <a id="hipaa">HIPAA Privacy Notice</a></label>
 		    </div>
 
-		    <label>Billing Address</label>
-		    <br><br>
-		
-			<div class="column equal width fields">
-				<div class="required field">
-					<label>Street</label>
-					<input type="text" name="street" placeholder="Street">
-				</div>
-				<div class="required field">
-					<label>City</label>
-					<input type="text" name="city" placeholder="City">
-				</div>
-			</div>
 
-			<div class="column equal width fields">
-				<div class="required field">
-					<label>State</label>
-					<input type="text" name="state" placeholder="State">
-				</div>
-				<div class="required field">
-					<label>Country</label>
-					{{>countriesList}}
-				</div>
-			</div>
-			<div class="column equal width fields">
-				<div class="required field">
-					<label>Zipcode</label>
-					<input type="text" name="zipcode" placeholder="Zipcode" minlength="5">
-				</div>
-				<div class="field">
-					<label>Apt # / Suite</label>
-					<input type="text" name="aptNumSuite" placeholder="Apt # / Suite">
-				</div>
-			</div>
-
-			 <div class="field">
-			 	<div class="ui checkbox">
-			    	<input type="checkbox" value="agree_checkbox" class="hidden" required>
-			    	<label>I agree to <a id="consent">Consent to Provide Care</a> and <a id="hipaa">HIPAA Privacy Notice</a></label>
-			    </div>
-			</div>
-
-			<br>
+			<br><br>
 
 			<input id="reserve" class="fluid ui primary button" type="submit" name="submitRequestBtn" value="Reserve">
 		</form>
@@ -162,9 +170,8 @@
 
 	<script type="text/javascript">
 		$(document).ready(function(){
-			$("#reserve").click(function(){
-				$('#success').show(500);
-				event.preventDefault();	
+			$("#myonoffswitch").click(function(){
+				$('#billing-input').toggle();
 			});
 
 			$("#consent").click(function(){
@@ -174,6 +181,12 @@
 			$("#hipaa").click(function(){
 				$('#hipaa-modal').modal('show');	
 			});
+
+			$("#reserve").click(function(){
+				$('#success').show(500);
+				event.preventDefault();	
+			});
+
 		});
 
 		$('.ui.checkbox').checkbox('attach events', '.toggle.button');
