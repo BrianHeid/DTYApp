@@ -130,7 +130,7 @@
     position: relative;
     display: block;
     height: inherit;
-    font-size: 10px; /* BUTTON TEXT SIZE */
+    font-size: 14px; /* BUTTON TEXT SIZE */
     text-transform: uppercase;
     background: #eceeef;
     border-radius: inherit;
