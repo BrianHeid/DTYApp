@@ -1,8 +1,8 @@
 // meteor add email
-//import { Email } from 'meteor/email';
+import { Email } from 'meteor/email';
 
 
-
+/*
 Template.notify_button.events({
 	'click button': function(){
 		to = 'Meteor.users.find(this.user).fetch().profile.email'
@@ -13,7 +13,7 @@ Template.notify_button.events({
 		meteor.call('email',to, from, subject, body)
 		}
 	});
-
+*/
 
 /*
 	Notification message templates:
