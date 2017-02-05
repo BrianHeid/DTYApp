@@ -9,27 +9,26 @@
 		<form class="ui form">
 			<div class="inline field">
 			    <div class="ui toggle checkbox">
-			      <input type="checkbox" tabindex="0" class="hidden">
+			      <input type="checkbox" tabindex="0" class="hidden" name='for_someone_else'>
 			      <label>For someone else</label>
 			    </div>
 		    </div>
 
-		    <div class="ui selection dropdown">
-			  <input type="hidden" name="relationship">
-			  <i class="dropdown icon"></i>
-			  <div class="default text">Choose your relationship...</div>
-			  <div class="menu">
-			    <div class="item" data-value="family">For my family member</div>
-			    <div class="item" data-value="friend">For my friend</div>
-			    <div class="item" data-value="other">Other</div>
-			  </div>
-			</div>
+
+			<div class="field">
+			      <select class="ui dropdown" name="relationship">
+			        <option value="">Choose your relationship</option>
+			        <option value="male">For my family member</option>
+			        <option value="female">For my friend</option>
+			        <option value="female">Other</option>
+			      </select>
+			    </div>
 
 			<br>
 
 			<div class="field">
 				<label>Symptoms</label>
-	    		<textarea rows="3"></textarea>
+	    		<textarea rows="3" name= 'symptoms'></textarea>
 			</div>
 
 			<button class="ui labeled icon medium button">

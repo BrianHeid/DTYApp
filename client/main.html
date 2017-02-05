@@ -8,15 +8,25 @@
 
 <template name="App_body">
 {{> Template.dynamic template=header}}
+
+{{#if currentUser}}
+	{{> Template.dynamic template=user_dashboard}}
+{{else}}	
+	{{> Template.dynamic template=logoff_dashboard}}
+{{/if}}
+
 {{> Template.dynamic template=main}}
 {{> Template.dynamic template=bottom}}
 {{> Template.dynamic template=footer}}  
+
 </template>
 
 
 
 
 <template name='main_page'>
+
+
   	<center>
 	  	<h1 class="ui icon centered header">
 			<div class="content">
@@ -61,3 +71,4 @@
 	</div>
 	</center>
 </template>
+
