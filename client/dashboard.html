@@ -1,7 +1,13 @@
 <template name= 'show_dashboard_page'>
 	<p>{{>dashboard}}</p>
   	<!-- <p>{{>dashboard_mobile}}</p> -->
+  	{{#if isRequest}}
   	<p>{{>requestPage}}</p>
+  	{{/if}}
+
+  	{{#if isCall}}
+  	<p>{{>callPage}}</p>
+  	{{/if}}
 </template>
 
 <template name="dashboard">
@@ -13,6 +19,8 @@
 	</h2>
 
 	<div class="ui six top attached steps">
+
+		{{#if isRequest 'request'}}
 	  <a class="active step">
 	    <i class="hand paper icon"></i>
 	    <div class="content">
@@ -20,6 +28,25 @@
 	      <div class="description">Request a consultation</div>
 	    </div>
 	  </a>
+	  	{{else}}
+	  <a class="disabled step">
+	    <i class="hand paper icon"></i>
+	    <div class="content">
+	      <div class="title">Request</div>
+	      <div class="description">Request a consultation</div>
+	    </div>
+	  </a>
+	  	{{/if}}
+
+	  	{{#if isCall 'call'}}
+	  	<a class="active step">
+	    <i class="call icon"></i>
+	    <div class="content">
+	      <div class="title">Call</div>
+	      <div class="description">Your doctor will call you</div>
+	    </div>
+	  </a>
+	  	{{else}}
 	  <a class="disabled step">
 	    <i class="call icon"></i>
 	    <div class="content">
@@ -27,6 +54,17 @@
 	      <div class="description">Your doctor will call you</div>
 	    </div>
 	  </a>
+	  {{/if}}
+
+	  {{#if isReserve 'reserve'}}
+	  <a class="active step">
+	    <i class="payment icon"></i>
+	    <div class="content">
+	      <div class="title">Reserve</div>
+	      <div class="description">Enter billing information to reserve a doctor</div>
+	    </div>
+	  </a>
+	  {{else}}
 	  <a class="disabled step">
 	    <i class="payment icon"></i>
 	    <div class="content">
@@ -34,6 +72,17 @@
 	      <div class="description">Enter billing information to reserve a doctor</div>
 	    </div>
 	  </a>
+	  {{/if}}
+
+	  {{#if isTreatment 'treatment'}}
+	  <a class="active step">
+	    <i class="treatment icon"></i>
+	    <div class="content">
+	      <div class="title">Treatment</div>
+	      <div class="description">Your doctor will treat you</div>
+	    </div>
+	  </a>
+	  {{else}}
 	  <a class="disabled step">
 	    <i class="treatment icon"></i>
 	    <div class="content">
@@ -41,6 +90,17 @@
 	      <div class="description">Your doctor will treat you</div>
 	    </div>
 	  </a>
+	  {{/if}}
+
+	  {{#if isFollowUp 'followup'}}
+	  <a class="active step">
+	    <i class="comments outline icon"></i>
+	    <div class="content">
+	      <div class="title">Follow-up</div>
+	      <div class="description">Your doctor will follow-up with you</div>
+	    </div>
+	  </a>
+	  {{else}}
 	  <a class="disabled step">
 	    <i class="comments outline icon"></i>
 	    <div class="content">
@@ -48,6 +108,18 @@
 	      <div class="description">Your doctor will follow-up with you</div>
 	    </div>
 	  </a>
+	  {{/if}}
+
+	  {{#if isReview 'review'}}
+	  <a class="active step">
+	    <i class="file text icon"></i>
+	    <div class="content">
+	      <div class="title">Review</div>
+	      <div class="description">Review your care</div>
+	    </div>
+	  </a>
+	  {{else}}
+
 	  <a class="disabled step">
 	    <i class="file text icon"></i>
 	    <div class="content">
@@ -55,6 +127,7 @@
 	      <div class="description">Review your care</div>
 	    </div>
 	  </a>
+	  {{/if}}
 	</div>
 	<div class="ui attached segment">
 	  <p></p>

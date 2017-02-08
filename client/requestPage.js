@@ -1,8 +1,25 @@
 
 Template.requestPage.onRendered(
 	function(){
+		this.$('.ui.dropdown').hide()
+		
+		this.$('.checkbox').checkbox({
+			onChecked: function(){
+				$('.ui.dropdown').show()
+				
+			
+			},
+			onUnchecked: function(){
+				$('.ui.dropdown').hide()
+			}
+			})
 		this.$('.ui.form').form({
 			inline: true,
+			onSuccess: function(event,fields){
+				event.preventDefault()
+				console.log(fields)
+				FlowRouter.go('/dashboard')
+			},
 			fields: 
 			{
 				symptoms:
