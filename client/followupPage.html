@@ -1,0 +1,32 @@
+<template name="followupPage">
+	<link rel="stylesheet" type="text/css" href="followupPage.css">
+
+	<center>
+		<div class="ui raised very padded text container segment">
+			<h1 class="ui header container">
+			  <div class="content" id="followupTitle">
+			    <!-- Please rest up now, FIRST NAME OF PATIENT -->
+			  </div>
+			</h1>
+
+			<h2 class="ui header container">
+			  <div class="content" id="followupText">
+			  	<!-- Follow up text goes here -->
+			  </div>
+			</h2>
+		</div>
+	</center>
+
+	<script type="text/javascript">
+		var providerName = "Ernest";
+		var patientFirstName = "Pauline"
+		var date = "February 15, 2017".fontcolor("#00bde8"); var time = "11:00AM".fontcolor("#00bde8");
+
+		var followupTitle = "Please rest up now, " + patientFirstName;
+
+		var followupText = providerName + " will follow up with you on " + date + " at " + time + " to make sure everything is OK.";
+
+		document.getElementById("followupTitle").innerHTML = followupTitle;
+		document.getElementById("followupText").innerHTML = followupText;
+	</script>
+</template>
