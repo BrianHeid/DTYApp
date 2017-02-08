@@ -65,10 +65,84 @@
 	    </form>
 
 	    <div class="register ui message">
-	      New to Doctors To You? <a href="/account">Register here</a>
+	      New to Doctors To You? <a id='register'>Register here</a>
 	    </div>
 	  </div>
 	</div>
 	</center>
 </template>
 
+<template name='create_account'>
+
+
+  	<center>
+	  	<h1 class="ui icon centered header">
+			<div class="content">
+				Doctors To You
+				<div class="sub header">Need a doctor? We're on our way.</div>
+			</div>
+		</h1>
+	
+  <!-- <p>{{> loginButtons}}</p> -->
+	<div class="ui raised very padded text container">
+	  <div class="column">
+	    <h2 class="ui image header">
+	      <div class="content centered">
+	        Create your account
+	      </div>
+	    </h2>
+	    <form class="ui large form">
+	      <div class="ui stacked secondary segment">
+
+	      <div class='two fields'>
+	        <div class="field">
+	          <div class="ui left icon input">
+	            <i class="user icon"></i>
+	            <input type="text" name="firstnme" placeholder="First name">
+	          </div>
+	        </div>
+	        <div class="field">
+	          <div class="ui left icon input">
+	            <i class="user icon"></i>
+	            <input type="text" name="lastname" placeholder="Last name">
+	          </div>
+	        </div>
+	        </div>
+
+	        <div class="field">
+	          <div class="ui left icon input">
+	            <i class="user icon"></i>
+	            <input type="text" name="email" placeholder="E-mail address">
+	          </div>
+	        </div>
+	        <div class="field">
+	          <div class="ui left icon input">
+	            <i class="lock icon"></i>
+	            <input type="password" name="password" placeholder="Password">
+	          </div>
+	        </div>
+			<div class="field">
+	          <div class="ui left icon input">
+	            <i class="lock icon"></i>
+	            <input type="password" name="password" placeholder="Confirm password">
+	          </div>
+	        </div>
+
+
+	        <div class="ui fluid large teal submit button">Create Account</div>
+	      </div>
+
+
+
+
+	      <div class="ui error message"></div>
+
+	    </form>
+
+	    <div class="register ui message">
+	      New to Doctors To You? <a id='login'>Login</a>
+	    </div>
+	  </div>
+	</div>
+	</center>
+</template>

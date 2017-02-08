@@ -56,7 +56,7 @@ Template.registerHelper('search', (search_id, target_field, target_collection)=>
 
 Template.main_page.onRendered(function(){
 		this.$('.ui.form').form({
-						inline: true,
+			inline: true,
 			on: 'blur',
 			transition: 'slide down',
 			onSuccess: function(event,fields){
@@ -92,7 +92,14 @@ Template.main_page.onRendered(function(){
 					]
 			}
 		}},
-		);
+		)
+		this.$('#register').click(
+			function(){
+				        BlazeLayout.render("App_body", {header: "header_temp",
+                                        main: "create_account",
+                                        footer: "footer_temp"});
+			}
+			)
 	});
 
 
@@ -102,3 +109,16 @@ Template.main_page.events({
 	    template.$(".ui.form").hide();
 		}
 });
+
+
+Template.create_account.onRendered(function(){
+	this.$('#login').click(
+		function(){
+	        BlazeLayout.render("App_body", {header: "header_temp",
+                                main: "main_page",
+                                footer: "footer_temp"});
+		})
+
+});
+
+
