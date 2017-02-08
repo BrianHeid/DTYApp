@@ -1,4 +1,6 @@
 <template name="requestPage">
+	<link rel="stylesheet" type="text/css" href="requestPage.css">
+
 	<h2 class="ui header container">
 	  <div class="content">
 	    Request a Consultation
@@ -7,12 +9,21 @@
 
 	<div class="ui container">
 		<form class="ui form">
-			<div class="inline field">
+			<!-- <div class="inline field">
 			    <div class="ui toggle checkbox">
 			      <input type="checkbox" tabindex="0" class="hidden" name='for_someone_else'>
 			      <label>For someone else</label>
 			    </div>
-		    </div>
+		    </div> -->
+
+		    <label>Is this request for someone else?</label>
+		    <div class="field">
+				<label class="switch">
+					<input class="switch-input" type="checkbox" id="myonoffswitch" name="for_someone_else"/>
+					<span class="switch-label" data-on="Yes" data-off="No"></span> 
+					<span class="switch-handle"></span> 
+				</label>
+			</div>
 
 
 			<div class="field">
@@ -26,8 +37,8 @@
 
 			<br>
 
+			<label>Symptoms</label>
 			<div class="field">
-				<label>Symptoms</label>
 	    		<textarea rows="3" name= 'symptoms'></textarea>
 			</div>
 
