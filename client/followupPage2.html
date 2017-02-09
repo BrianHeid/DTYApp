@@ -1,0 +1,139 @@
+<template name="followupPage2">
+		<div id="followupSent" class="ui raised text container segment" style="display: none;">
+			<center>
+			<h3 class="ui header container">
+			  <div class="content" id="followupNeededTitle">
+				<!-- PROVIDER FIRST NAME has received your feedback
+			    	 and will follow-up with you shortly, PATIENT FIRST NAME. -->
+			  </div>
+			</h3>
+			</center>
+		</div>
+		<div id="followupContent" class="ui raised text container segment">
+			<center>
+			<h3 class="ui header container">
+			  <div class="content" id="followupTitle">
+			    <!-- Please let FIRST NAME OF PROVIDER know how you are feeling
+			    	 by selecting your current status below -->
+			  </div>
+			</h3>
+			</center>
+
+			<br><br>
+
+			<!-- HEALTH STATUS SMILEY BUTTONS -->
+			<div class="ui column centered grid">
+				<center>
+				<div class="ui column images">
+					<img id="happy" class="ui circular image" height="100" width="100" src="/images/happy-face.png">
+					<img id="straight" class="ui circular image" height="100" width="100" src="/images/straight-face.png">
+					<img id="unhappy" class="ui circular image" height="100" width="100" src="/images/unhappy-face.png">
+				</div>
+				</center>
+			</div>
+
+			<h2 class="ui centered header" id="health-status">
+				<!-- Health status clicked on -->
+			</h2>
+
+			<center>
+				<div class="inline"><label>Comments: </label><textarea rows="1" style="width: 300px;"></textarea></div>
+			</center>
+
+			<br>
+
+			<button id="submit-btn" class="ui primary fluid button" style='visibility:hidden'> 
+				Submit Status
+			</button>
+
+			<div class="ui positive message hidden" id="success">
+			  <div class="header">
+			  	Feedback was sent successfully!
+			  </div>
+			</div>
+		</div>
+
+		<!-- IF PATIENT IS ALL BETTER -->
+
+		<div id="happyDiv" class="ui raised text container segment" style="display: none;">
+			<center>
+			<h2 class="ui header container" id="happyStatus">
+				<!-- We are so glad to hear you are all better now, PATIENT FIRST NAME!
+					 Please let PROVIDER FIRST NAME conclude your care and you will receive 
+					 your medical report and invoice ...HERE(button) -->
+			</h2>
+			
+			<br>
+
+			<button class="ui huge primary button">
+				HERE
+			</button>
+
+			</center>
+		</div>
+
+		<!-- END OF ALL BETTER -->
+
+	<script type="text/javascript">
+		var providerFirstName = "Ernest";
+		var patientFirstName = "Pauline"
+
+		var followupTitle = "Please let " + providerFirstName + " know how you are feeling by selecting your current status below:";
+
+		document.getElementById("followupTitle").innerHTML = followupTitle;
+
+		var followupNeededTitleText = providerFirstName + " has received your feedback and will follow-up with you shortly, " + patientFirstName + ".";
+
+		document.getElementById("followupNeededTitle").innerHTML = followupNeededTitleText;
+
+		var happyText = "We are so glad to hear you are all better now, " + patientFirstName + "!<br>Please let " + providerFirstName + " conclude your care and you will receive your medical report and invoice";
+
+		document.getElementById("happyStatus").innerHTML = happyText;
+
+		var status;
+
+		$(document).ready(function(){
+			$("#happy").click(function(){
+				$("#happy").css("opacity", "1.0");
+				$("#straight").css("opacity", "0.5");
+				$("#unhappy").css("opacity", "0.5");
+				status = "happy";
+				document.getElementById("health-status").innerHTML = "I feel all better.";
+			});
+
+			$("#straight").click(function(){
+				$("#straight").css("opacity", "1.0");
+				$("#happy").css("opacity", "0.5");
+				$("#unhappy").css("opacity", "0.5");
+				status = "straight";
+				document.getElementById("health-status").innerHTML = "I feel somewhat better.";
+			});
+
+			$("#unhappy").click(function(){
+				$("#unhappy").css("opacity", "1.0");
+				$("#straight").css("opacity", "0.5");
+				$("#happy").css("opacity", "0.5");
+				status = "unhappy";
+				document.getElementById("health-status").innerHTML = "I feel no improvement.";
+			});
+
+			$("#happy, #straight, #unhappy").click(function(){
+				$("#submit-btn").css("visibility", "visible");
+			});
+
+			$("#submit-btn").click(function(){
+				event.preventDefault();
+				$("#happy, #straight, #unhappy").off("click");
+				document.getElementById("submit-btn").disabled = true;
+				$('#success').show(500);
+				$("#success").delay(500).fadeOut(1000);
+				if (status == "straight" || status == "unhappy") {
+					$("#followupSent").delay(2000).show(500);
+				} else {
+					$("#followupContent").delay(3000).fadeOut(500);
+					$("#happyDiv").delay(3500).show(500);
+				}	
+			});
+		});
+	</script>
+</template>
