@@ -1,13 +1,23 @@
 <template name="treatmentPage">
 	<link rel="stylesheet" type="text/css" href="treatmentPage.css">
 
-	<div class="ui container">
-	  <center>/providerphoto/ <br><br>
-	    You have reserved /providername/.
+	<div class="ui raised very padded text container segment">
+		<!-- dashboard -->
+		<div class="ui centered card">
+		  <div class="image">
+		    <img src="/images/drbrown.jpg">
+		  </div>
+		  <div class="content">
+		    <a class="header">Dr. Brown</a>
+		  </div>
+		</div>
+	  <center>
+	    You have reserved <b>Dr. Ernest Brown</b>.
 	    <br>
 	    <br>
 	    You will receive care at approximately /time/.
+	    <br><br>
 	</center>
-	<center><button>Cancel reservation</button></center>
+	<center><div class="ui negative button">Cancel reservation</div></center>
 	</div>
 </template>
