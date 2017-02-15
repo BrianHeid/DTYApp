@@ -4,20 +4,110 @@
 	<div class="ui raised very padded text container segment">
 		<!-- dashboard -->
 		<div class="ui centered card">
-		  <div class="image">
-		    <img src="/images/drbrown.jpg">
+		  <div id="imageProvider" class="image">
+		  	<!-- image of provider -->
 		  </div>
 		  <div class="content">
-		    <a class="header">Dr. Brown</a>
+		  	<h3 id="providerName" class="ui header"><!-- Provider name --></h3>
 		  </div>
 		</div>
 	  <center>
-	    You have reserved <b>Dr. Ernest Brown</b>.
+	    <h3 id="reserveProviderText" class="ui header"></h3>
+	    
+	    <h3 id="timeApproxText" class="ui header"></h3>
+
 	    <br>
-	    <br>
-	    You will receive care at approximately /time/.
-	    <br><br>
+	  
+		<div class="cancelBtn ui negative button">
+			Cancel Reservation
+		</div>
+
 	</center>
-	<center><div class="ui negative button">Cancel reservation</div></center>
 	</div>
+
+	<div class="ui small modal" id="reasonModal">
+	  <i class="close icon"></i>
+	  <div class="header">
+	    Reason for Cancellation
+	  </div>
+
+	  <div class="content">
+	  	<select id="multi-select" name="reasonForCancellation" multiple="" class="ui fluid dropdown required">
+		  <option value="">Select all that apply:</option>
+			<option value="feelbetter">I feel better</option>
+			<option value="longWait">Long wait time</option>
+		</select>
+
+		<br>
+
+	  	<div class="inline"><label>Other: </label><textarea rows="1" style="width: 300px;"></textarea></div>
+	  </div>
+
+	  <div class="actions" id="cancelReq">
+	    <button class="ui fluid negative deny button">
+	      Confirm Cancellation
+	    </button>
+	  </div>
+	</div>
+
+	<div class="ui cancelled-redirect small modal">
+		<i class="close icon"></i>
+    	<div class="header">
+    		You have cancelled your reservation.
+  		</div>
+
+  		<div class="content">
+  			<center><h3>We will now redirect you to your dashboard.</h3></center>
+  		</div>
+
+  		<div class="actions" id="returnDashboard">
+			<button class="ui fluid primary button">
+		    	Return to Dashboard
+		    </button>
+		</div>
+
+	</div>
+
+	<script type="text/javascript">
+		var providerName = "Ernest";
+		var timeApproxHr = "3";
+		var timeApproxMin = "00";
+		var timeApproxPeriod = "PM";
+
+		document.getElementById("providerName").innerHTML = providerName;
+
+		var reservedProviderText = "You have reserved " + providerName + ".";
+		document.getElementById("reserveProviderText").innerHTML = reservedProviderText;
+
+		var imageSrc = "/images/drbrown.jpg";
+		var imageHTML = "<img src=\"" + imageSrc + "\">";
+		document.getElementById("imageProvider").innerHTML = imageHTML;
+
+		var timeApproxText = "You will receive care at approximately " + timeApproxHr + ":" + timeApproxMin + timeApproxPeriod;
+		document.getElementById("timeApproxText").innerHTML = timeApproxText;
+
+
+		$(document).ready(function(){
+
+			$(".cancelBtn").click(function(){
+				$('#reasonModal').modal('show');	
+			});
+
+			$("#cancelReq").click(function(){
+				$('#reasonModal').modal('hide');
+				$('.cancelled-redirect').modal('show');
+				
+			});
+
+			$("#returnDashboard").click(function(){
+				$('#returnDashboard').modal('hide');
+				FlowRouter.go('/dashboard');
+			});
+
+		});
+
+		$('#multi-select')
+		  .dropdown()
+		;
+	</script>
 </template>
