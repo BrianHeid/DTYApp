@@ -1,4 +1,6 @@
 <template name="reviewPage2">
+	<link rel="stylesheet" type="text/css" href="reviewPage2.css">
+
 	<h2 class="ui header container">
 	  <div class="content">
 	    Review your care
@@ -15,8 +17,8 @@
 		<table class="ui celled unstackable table">
 			<thead>
     			<tr>
-     		 		<th class="nine wide">File Name</th>
-     		 		<th class="seven wide">Download Files</th>
+     		 		<th class="nine wide"><h3 class="header">File Name</h3></th>
+     		 		<th class="seven wide"><h3 class="header">Download Files</h3></th>
      		 	</tr>
      		</thead>
      		<tbody>
@@ -37,24 +39,59 @@
 
 		<h3 class="header">Feedback</h3>
 
-		<table class="ui celled unstackable blue table">
+		<table class="ui celled stackable blue table attached segment">
 		  <thead>
 		    <tr>
-		    	<th>Category</th>
-		    	<th>Rating</th>
+		    	<th class="nine wide"><h3 class="header">Category</h3></th>
+		    	<th class="seven wide"><h3 class="header">Rating</h3></th>
 		  	</tr>
 		  </thead>
 		  <tbody>
 		    <tr>
-		      <td><h4 class="header">Punctual</h4></td>
+		      <td>
+		      	<h4 class="header">Punctual</h4>
+		      	<div class="sub header">Was your provider on time? Were the time estimates accurate?</div>
+		      </td>
 		      <td><div class="ui massive star rating" data-rating="5" data-max-rating="5"></div></td>
 		    </tr>
 		    <tr>
-		      <td><h4 class="header">Professional</h4></td>
+		      <td>
+		      	<h4 class="header">Professional</h4>
+		      	<div class="sub header">Was your provider professional?</div>
+		      </td>
 		      <td><div class="ui massive star rating" data-rating="5" data-max-rating="5"></div></td>
+		    </tr>
+		    <tr>
+		      <td>
+		      	<h4 class="header">Courteous</h4>
+		      	<div class="sub header">Was your provider polite throughout your care?</div>
+		      </td>
+		      <td><div class="ui massive star rating" data-rating="5" data-max-rating="5"></div></td>
+		    </tr>
+		    <tr>
+		      <td>
+		      	<h4 class="header">Caring</h4>
+		      	<div class="sub header">Was your provider gentle? Did they listen to your concerns?</div>
+		      </td>
+		      <td><div class="ui massive star rating" data-rating="5" data-max-rating="5"></div></td>
+		    </tr>
+		    <tr>
+		      <td>
+		      	<h4 class="header">Follow-Up</h4>
+		      	<div class="sub header">Did you receive quality follow-up care? Did you feel cared for?</div>
+		      </td>
+		      <td><div class="ui massive star rating" data-rating="5" data-max-rating="5"></div></td>
+		    </tr>
+		    <tr>
+		      <td>
+		      	<h4 class="header">Additional Comments:</h4>
+		      	<div class="sub header">Is there anything else you would like to share with us? How can we improve?</div>
+		      </td>
+		      <td><textarea rows="2" maxlength="1000" placeholder="Additional comments..."></textarea></td>
 		    </tr>
 		  </tbody>
 		</table>
+		<div class="ui bottom attached primary button" tabindex="0">Submit Feedback</div>
 	</div>
 
 	<script type="text/javascript">
