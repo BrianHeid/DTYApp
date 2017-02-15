@@ -1,0 +1,64 @@
+<template name="reviewPage2">
+	<h2 class="ui header container">
+	  <div class="content">
+	    Review your care
+	    <div class="sub header">Provided will be your medical report and invoice. In order to conclude your care, please submit your feedback. We value your opinion and love to hear from our patients!</div>
+	  </div>
+	</h2>
+
+	<br>
+
+	<div class="ui container">
+
+		<h3 class="header">Documents</h3>
+
+		<table class="ui celled unstackable table">
+			<thead>
+    			<tr>
+     		 		<th class="nine wide">File Name</th>
+     		 		<th class="seven wide">Download Files</th>
+     		 	</tr>
+     		</thead>
+     		<tbody>
+			    <tr>
+			      <td><h4 class="header">MedicalReport.pdf</h4></td>
+			      <td>
+			        <button class="ui primary button fluid">Download&nbsp; &nbsp;<i class="download icon"></i></button>
+			      </td>
+			    </tr>
+			    <tr>
+			      <td><h4 class="header">Invoice.pdf</h4></td>
+			      <td>
+			        <button class="ui primary button fluid">Download&nbsp; &nbsp;<i class="download icon"></i></button>
+			      </td>
+			    </tr>
+			</tbody>
+		</table>
+
+		<h3 class="header">Feedback</h3>
+
+		<table class="ui celled unstackable blue table">
+		  <thead>
+		    <tr>
+		    	<th>Category</th>
+		    	<th>Rating</th>
+		  	</tr>
+		  </thead>
+		  <tbody>
+		    <tr>
+		      <td><h4 class="header">Punctual</h4></td>
+		      <td><div class="ui massive star rating" data-rating="5" data-max-rating="5"></div></td>
+		    </tr>
+		    <tr>
+		      <td><h4 class="header">Professional</h4></td>
+		      <td><div class="ui massive star rating" data-rating="5" data-max-rating="5"></div></td>
+		    </tr>
+		  </tbody>
+		</table>
+	</div>
+
+	<script type="text/javascript">
+		$('.rating').rating();
+	</script>
+	
+</template>
