@@ -70,6 +70,7 @@
 
 	<script type="text/javascript">
 		var providerName = "Ernest";
+		var patientName = "Pauline";
 		var timeApproxHr = "3";
 		var timeApproxMin = "00";
 		var timeApproxPeriod = "PM";
@@ -83,7 +84,7 @@
 		var imageHTML = "<img src=\"" + imageSrc + "\">";
 		document.getElementById("imageProvider").innerHTML = imageHTML;
 
-		var timeApproxText = "You will receive care at approximately " + timeApproxHr + ":" + timeApproxMin + timeApproxPeriod;
+		var timeApproxText = "You will receive care at approximately " + timeApproxHr + ":" + timeApproxMin + timeApproxPeriod + "<br>Please rest up now, " + patientName;
 		document.getElementById("timeApproxText").innerHTML = timeApproxText;
 
 
