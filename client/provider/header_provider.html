@@ -1,0 +1,33 @@
+<!-- Header for all pages -->
+<template name="header_temp_provider">
+	<head>
+  		<title>Doctors To You</title>
+ 		<link rel="icon" sizes="16x16 32x32" href="/images/favicon.ico">
+	</head>
+
+	{{>menu_temp_provider}}
+</template>
+
+<template name="menu_temp_provider">
+	<div class="ui small menu">
+	  <a class="item" href="/dashboard_provider">
+	  	<i class="home icon" ></i>
+	    Home
+	  </a>
+	  <a class="item" href="/schedule">
+	  	<i class="calendar icon" ></i>
+	    Schedule
+	  </a>
+
+	  <div class="labeled icon right menu">
+	  	<a class="item" href="/account_provider">
+		  	<i class="user icon"></i>
+		    Profile
+	  	</a>
+	    
+	    <div class="item">
+	    	<div class="ui logout primary button">Sign Out</div>
+	    </div>
+	  </div>
+	</div>
+</template>

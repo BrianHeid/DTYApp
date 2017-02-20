@@ -1,0 +1,148 @@
+<template name="dashboard_provider">
+	<style>
+	  .ui.move.reveal {
+	    width: 280px;
+	    /*white-space: normal;*/
+	  }
+
+	  .ui.card {
+	    height: 350px;
+	    width: 320px;
+	  }
+
+	  #nameText {
+	  	font-size:40px;
+	  	color: white;
+	  }
+
+	  #extraText {
+	  	font-size:20px;
+	  	color: white;
+	  }
+
+	  #extraNotes {
+	  	font-size: 15px;
+	  	color: white;
+	  }
+
+	  #visibleCard {
+	  	background-color: #2185D0;
+	  	color: white;
+	  }
+
+	  #hiddenButtons {
+	  	height: 160px;
+	  }
+	</style>
+
+	<center>
+		<div class="ui center aligned container">
+		  	<img class="ui centered circular small image" src="/images/drbrown.jpg">
+		  	<h1 class="ui header" id="greeting">
+		  		<!-- Hello, PROVIDER NAME -->
+		  	</h1>
+		</div>
+
+		<h2 class="ui header container">
+			<div class="content" id="status">
+				<!-- Your status: STATUS -->
+			</div>
+		</h2>
+		<div class="ui very padded container">
+			<div class="content" id="statusButtons">
+				<!-- Status buttons -->
+			</div>
+		</div>
+	</center>
+
+	<br>
+
+	<div class="ui container">
+		<div class="ui four stackable cards">
+			<div class="ui move reveal">
+
+			    <div class="visible content">
+			      <div class="ui card" id="visibleCard">
+			        <div class="content">
+			        	<br>
+		         		<div class="header" id="nameText">
+		          			<!-- PATIENT FULL NAME -->
+		          		</div>
+			          	<br>
+		          		<div class="description" id="extraText">
+				          	<!-- Age: PATIENT AGE -->
+				          	<!-- PATIENT PHONE NUMBER -->
+				          	<!-- PATIENT ADDRESS -->
+		          		</div>
+			        </div>
+			        <div class="extra content" id="extraNotes">
+			          	<!-- PROVIDER NOTES -->
+			        </div>
+			      </div>
+			    </div>
+
+				<div class="hidden content">
+			      	<div class="ui card">
+				    	<div class="content">
+				      		<div class="two ui buttons" id="hiddenButtons">
+				      			<button class="ui blue button"><center><i class="call square big icon"></i><h2>Call</h2></center></button>
+  								<button class="ui positive button"><center><i class="checkmark box big icon"></i><h2>Accept</h2></center></button>
+				      		</div>
+				      		<br>
+				      		<div class="two ui buttons" id="hiddenButtons">
+				      			<button class="ui negative button"><center><i class="remove circle big icon"></i><h2>Decline</h2></center></button>
+  								<button class="ui orange button"><center><i class="exchange big icon"></i><h2>Transfer</h2></center></button>
+				      		</div>
+		      			</div>
+	    			</div>
+	  			</div>
+
+			</div>
+		</div>
+	</div>
+
+	<br>
+
+	<script type="text/javascript">
+		var providerName = "Ernest";
+		var curStatus = "available";
+		var newPatients = 3;
+		var workingPatients = 2;
+		var followupPatients = 0;
+
+		var greeting = "Hello, " + providerName;
+		document.getElementById("greeting").innerHTML = greeting;
+
+
+		var availableStatusLabel = "<div class=\"ui green label huge\"><i class=\"check circle icon\"></i>AVAILABLE</div>";
+		var unavailableStatusLabel = "<div class=\"ui grey label huge\"><i class=\"remove circle icon\"></i>UNAVAILABLE</div>";
+		var status = curStatus == "available" ? availableStatusLabel : unavailableStatusLabel;
+
+		var statusText = "Your status: " + status;
+		document.getElementById("status").innerHTML = statusText;
+
+		var newBtn = "<button class=\"ui blue button\" style=\"padding-top:20px;\"><span style=\"font-size:35px;\">" + newPatients + "</span><br><br>NEW" + "</button>";
+		var workingBtn = "<button class=\"ui yellow button\"><span style=\"font-size:35px;\">" + workingPatients + "</span><br><br>WORKING" + "</button>";
+		var followupBtn = "<button class=\"ui purple button\"><span style=\"font-size:35px;\">" + followupPatients + "</span><br><br>FOLLOW-UP" + "</button>";
+
+		var statusButtons = "<div class=\"three ui medium buttons\">" + newBtn + workingBtn + followupBtn + "</div>";
+		document.getElementById("statusButtons").innerHTML = statusButtons;
+
+		var patientFullName = "John Doe";
+		var patientAge = 35;
+		var patientPhone = "(202) 123-1234";
+		var patientAddress = "1122 Penn. Ave. <br>Washington, DC 20001";
+		var extraNotes = "<i class=\"info circle large icon\"></i>" + " Patient has had the flu for five days.";
+
+		document.getElementById("nameText").innerHTML = patientFullName;
+
+		var extraText = "Age: " + patientAge + "<br><br>" + patientPhone + "<br><br>" + patientAddress;
+		document.getElementById("extraText").innerHTML = extraText;
+
+		document.getElementById("extraNotes").innerHTML = extraNotes;
+
+	  	$( document ).ready(function() {
+	   		$('.menu .item').tab();
+	  	});
+	</script>
+</template>
