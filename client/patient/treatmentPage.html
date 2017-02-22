@@ -1,5 +1,13 @@
 <template name="treatmentPage">
-	<link rel="stylesheet" type="text/css" href="treatmentPage.css">
+	<style>
+		textarea {
+			-webkit-box-sizing: border-box;
+			-moz-box-sizing: border-box;
+			box-sizing: border-box;
+
+			width: 100%;
+	  	}
+	</style>
 
 	<div class="ui raised very padded text container segment">
 		<!-- dashboard -->
@@ -40,7 +48,15 @@
 
 		<br>
 
-	  	<div class="inline"><label>Other: </label><textarea rows="1" style="width: 300px;"></textarea></div>
+	  	<div class="inline"><label>Other: </label><textarea rows="1"></textarea></div>
+	  
+
+		  <div class="ui negative message">
+		  	<div class="header">
+		  		<i class="warning sign icon"></i>
+		    	This will result in a cancellation fee.
+		  	</div>
+		  </div>
 	  </div>
 
 	  <div class="actions" id="cancelReq">
@@ -89,14 +105,17 @@
 
 
 		$(document).ready(function(){
-
 			$(".cancelBtn").click(function(){
-				$('#reasonModal').modal('show');	
+				$('#reasonModal').modal({
+					autofocus: false,
+				}).modal('show');
 			});
 
 			$("#cancelReq").click(function(){
 				$('#reasonModal').modal('hide');
-				$('.cancelled-redirect').modal('show');
+				$('.cancelled-redirect').modal({
+					autofocus: false,
+				}).modal('show');
 				
 			});
 

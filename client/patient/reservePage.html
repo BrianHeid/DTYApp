@@ -4,7 +4,7 @@
 	<h2 class="ui header container">
 	  <div class="content">
 	    Reserve a Physician
-	    <div class="sub header">Please fill out the billing information below to reserve your doctor. Your card will NOT be charged until you are all better!</div>
+	    <div class="sub header">Please fill out the billing information below to reserve your doctor. Your card will NOT be charged until you are all better!<br>Cancellation beyond this point will result in a cancellation fee.</div>
 	  </div>
 	</h2>
 
@@ -170,7 +170,7 @@
   	<div id="creditCardNag" class="ui large yellow message sticky fixed bottom inline nag">
   		<i id="closeIcon" class="close icon"></i>
 	  	<h4 class="header creditCardNag">
-	    	<i id="infoIcon" class="large info circle icon"></i>Your card will NOT be charged until after all care has been provided.
+	    	<i id="infoIcon" class="large info circle icon"></i>Your card will NOT be charged until after all care has been provided.<br>Cancellation beyond this point will result in a cancellation fee.
 	  	</h4>
 	</div>
 
@@ -181,11 +181,15 @@
 			});
 
 			$("#consent").click(function(){
-				$('#provide-care').modal('show');	
+				$('#provide-care').modal({
+					autofocus: false,
+				}).modal('show');	
 			});
 
 			$("#hipaa").click(function(){
-				$('#hipaa-modal').modal('show');	
+				$('#hipaa-modal').modal({
+					autofocus: false,
+				}).modal('show');	
 			});
 
 			$("#reserve").click(function(){
