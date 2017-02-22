@@ -175,7 +175,9 @@
 	  <div class="header">
 	  	Create a Request
 		<div class="content">
-    		
+    		<form class="ui form">
+				<h4 class="ui dividing header">Requester</h4>
+			</form>
 	    </div>
 	  </div>
 	</div>
@@ -328,6 +330,10 @@
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	  	$( document ).ready(function() {
+	  		$("#createRequest").click(function(){
+	  			$("#createRequestModal").modal("show");
+	  		});
+
 	   		$('.menu .item').tab();
 
 	   		$("#notesEditButton").click(function(){
