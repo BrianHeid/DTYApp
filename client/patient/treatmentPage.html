@@ -1,5 +1,9 @@
 <template name="treatmentPage">
 	<style>
+		.ui.pointing.menu {
+			cursor: pointer;
+		}
+		
 		textarea {
 			-webkit-box-sizing: border-box;
 			-moz-box-sizing: border-box;
@@ -49,14 +53,6 @@
 		<br>
 
 	  	<div class="inline"><label>Other: </label><textarea rows="1"></textarea></div>
-	  
-
-		  <div class="ui negative message">
-		  	<div class="header">
-		  		<i class="warning sign icon"></i>
-		    	This will result in a cancellation fee.
-		  	</div>
-		  </div>
 	  </div>
 
 	  <div class="actions" id="cancelReq">
@@ -105,6 +101,7 @@
 
 
 		$(document).ready(function(){
+
 			$(".cancelBtn").click(function(){
 				$('#reasonModal').modal({
 					autofocus: false,
@@ -113,9 +110,7 @@
 
 			$("#cancelReq").click(function(){
 				$('#reasonModal').modal('hide');
-				$('.cancelled-redirect').modal({
-					autofocus: false,
-				}).modal('show');
+				$('.cancelled-redirect').modal('show');
 				
 			});
 
