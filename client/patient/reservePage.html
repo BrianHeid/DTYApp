@@ -4,7 +4,7 @@
 	<h2 class="ui header container">
 	  <div class="content">
 	    Reserve a Physician
-	    <div class="sub header">Please fill out the billing information below to reserve your doctor. Your card will NOT be charged until you are all better!</div>
+	    <div class="sub header">Please fill out the billing information below to reserve your doctor. Your card will NOT be charged until you are all better!<br>Cancellation beyond this point will result in a cancellation fee.</div>
 	  </div>
 	</h2>
 
@@ -12,40 +12,48 @@
 
 	<div class="ui container">
 		<form class="ui form">
+			<h4 class="ui dividing header">Credit Card Information</h4>
+
 			<div class="field required">
 				<label>Name on card</label>
 				<input type="text" name="lastName" placeholder="First and last name">
 			</div>
 
-			<div class="field required">
-				<label>Credit card number</label>
-				<input type="text" name="cardNumber" placeholder="Credit card number">
+			<div class="fields">
+			    <div class="seven wide field">
+			      <label>Card Number</label>
+			      <input name="card[number]" maxlength="16" placeholder="Card #" type="text">
+			    </div>
+			    <div class="three wide field">
+			      <label>CVC</label>
+			      <input name="card[cvc]" maxlength="3" placeholder="CVC" type="text">
+			    </div>
+			    <div class="six wide field">
+			      <label>Expiration</label>
+			      <div class="two fields">
+			        <div class="field">
+			          <select class="ui fluid search dropdown" name="card[expire-month]">
+			            <option value="">Month</option>
+				            <option value="1">January</option>
+				            <option value="2">February</option>
+				            <option value="3">March</option>
+				            <option value="4">April</option>
+				            <option value="5">May</option>
+				            <option value="6">June</option>
+				            <option value="7">July</option>
+				            <option value="8">August</option>
+				            <option value="9">September</option>
+				            <option value="10">October</option>
+				            <option value="11">November</option>
+				            <option value="12">December</option>
+			          </select>
+			        </div>
+			        <div class="field">
+			          <input name="card[expire-year]" maxlength="4" placeholder="Year" type="text">
+			        </div>
+			      </div>
+			    </div>
 			</div>
-
-			<div class="column equal width fields">
-				<div class="field required">
-					<label>Expiration month</label>
-					<select name="expirationMonth">
-						<option value="1">January</option>
-						<option value="2">February</option>
-						<option value="3">March</option>
-						<option value="4">April</option>
-						<option value="5">May</option>
-						<option value="6">June</option>
-						<option value="7">July</option>
-						<option value="8">August</option>
-						<option value="9">September</option>
-						<option value="10">October</option>
-						<option value="11">November</option>
-						<option value="12">December</option>
-					</select>
-				</div>
-				<div class="field required" id="expirationYear">
-				<label>Expiration year</label>	
-					<input type="text" name="expirationYear" placeholder="Enter expiration year">
-				</div>
-			</div>
-
 			
 			<label>Billing address the same as current address?</label>
 			<label class="switch">
@@ -57,8 +65,7 @@
 			<br>	
 
 		    <div id="billing-input">
-			    <label>Billing Address</label>
-			    <br><br>
+			    <h4 class="ui dividing header">Billing Address</h4>
 			
 				<div class="column equal width fields">
 					<div class="required field">
@@ -172,7 +179,7 @@
   	<div id="creditCardNag" class="ui large yellow message sticky fixed bottom inline nag">
   		<i id="closeIcon" class="close icon"></i>
 	  	<h4 class="header creditCardNag">
-	    	<i id="infoIcon" class="large info circle icon"></i>Your card will NOT be charged until after all care has been provided.
+	    	<i id="infoIcon" class="large info circle icon"></i>Your card will NOT be charged until after all care has been provided.<br>Cancellation beyond this point will result in a cancellation fee.
 	  	</h4>
 	</div>
 
@@ -183,11 +190,15 @@
 			});
 
 			$("#consent").click(function(){
-				$('#provide-care').modal('show');	
+				$('#provide-care').modal({
+					autofocus: false,
+				}).modal('show');	
 			});
 
 			$("#hipaa").click(function(){
-				$('#hipaa-modal').modal('show');	
+				$('#hipaa-modal').modal({
+					autofocus: false,
+				}).modal('show');	
 			});
 
 			$("#reserve").click(function(){

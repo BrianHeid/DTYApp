@@ -1,4 +1,18 @@
 <template name="callPage">
+	<style>
+		.ui.pointing.menu {
+			cursor: pointer;
+		}
+		
+		textarea {
+			-webkit-box-sizing: border-box;
+			-moz-box-sizing: border-box;
+			box-sizing: border-box;
+
+			width: 100%;
+	  	}
+	</style>
+
 	<center>
 		<div class="ui raised very padded text container segment">
 			<h1 class="ui header container">
@@ -34,7 +48,7 @@
 
 		<br>
 
-	  	<div class="inline"><label>Other: </label><textarea rows="1" style="width: 300px;"></textarea></div>
+	  	<div class="inline"><label>Other: </label><textarea rows="1"></textarea></div>
 	  </div>
 
 	  <div class="actions" id="cancelReq">
@@ -74,12 +88,16 @@
 		$(document).ready(function(){
 
 			$(".cancelBtn").click(function(){
-				$('#reasonModal').modal('show');	
+				$('#reasonModal').modal({
+					autofocus: false,
+				}).modal('show');	
 			});
 
 			$("#cancelReq").click(function(){
 				$('#reasonModal').modal('hide');
-				$('.cancelled-redirect').modal('show');
+				$('.cancelled-redirect').modal({
+					autofocus: false,
+				}).modal('show');
 				
 			});
 

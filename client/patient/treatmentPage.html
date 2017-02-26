@@ -1,5 +1,17 @@
 <template name="treatmentPage">
-	<link rel="stylesheet" type="text/css" href="treatmentPage.css">
+	<style>
+		.ui.pointing.menu {
+			cursor: pointer;
+		}
+		
+		textarea {
+			-webkit-box-sizing: border-box;
+			-moz-box-sizing: border-box;
+			box-sizing: border-box;
+
+			width: 100%;
+	  	}
+	</style>
 
 	<div class="ui raised very padded text container segment">
 		<!-- dashboard -->
@@ -40,7 +52,7 @@
 
 		<br>
 
-	  	<div class="inline"><label>Other: </label><textarea rows="1" style="width: 300px;"></textarea></div>
+	  	<div class="inline"><label>Other: </label><textarea rows="1"></textarea></div>
 	  </div>
 
 	  <div class="actions" id="cancelReq">
@@ -91,7 +103,9 @@
 		$(document).ready(function(){
 
 			$(".cancelBtn").click(function(){
-				$('#reasonModal').modal('show');	
+				$('#reasonModal').modal({
+					autofocus: false,
+				}).modal('show');
 			});
 
 			$("#cancelReq").click(function(){

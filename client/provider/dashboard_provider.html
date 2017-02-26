@@ -1,5 +1,5 @@
 <template name="dashboard_provider">
-	<style>
+	<style >
 	  .ui.move.reveal {
 	    width: 290px;
 	    white-space: normal;
@@ -7,6 +7,17 @@
 
 	  .ui.card {
 	    height: 420px;
+	  }
+
+	  .ui.labeled.icon.menu .item{
+	    min-width: 33.3333%;
+	    max-width: 33.3333%;
+	    font-size: 0.8em;
+	    padding: 6px 2px;
+	  }
+
+	  .ui.pointing.menu {
+	    cursor: pointer;
 	  }
 
 	  .ui.tab {
@@ -19,7 +30,7 @@
 	  	color: white;
 	  }
 
-	  #extraText {
+	  #extraText, #requestText {
 	  	font-size:20px;
 	  	color: white;
 	  	word-wrap: break-word;
@@ -39,8 +50,8 @@
 	  	height: 160px;
 	  }
 
-	  .ui.pointing.menu {
-	    cursor: pointer;
+	  .dropdown {
+		display:none;
 	  }
 
 	  textarea {
@@ -64,7 +75,12 @@
 			<div class="content" id="status">
 				<!-- Your status: STATUS -->
 			</div>
+
+			<div class="content" id="createRequest">
+				<!-- CREATE REQUEST BUTTON -->
+			</div>
 		</h2>
+
 		<div class="ui very padded container">
 			<div class="content" id="statusButtons">
 				<!-- Status buttons -->
@@ -91,6 +107,11 @@
 				          	<!-- PATIENT PHONE NUMBER -->
 				          	<!-- PATIENT ADDRESS -->
 		          		</div>
+		          		<br>
+		          		<div class="description" id="requestText">
+		          			<!-- Requested: TIME ELAPSED Ago -->
+		          			<!-- Last requested on: LAST DATE -->
+		          		</div>
 			        </div>
 			        <div class="extra content" id="extraNotes">
 			          	<!-- PROVIDER NOTES -->
@@ -99,7 +120,7 @@
 			    </div>
 
 				<div class="hidden content">
-			      	<div class="ui card">
+			      	<div class="ui card" id="hiddenCard">
 				    	<div class="content">
 
 				    		<div class="ui pointing secondary menu">
@@ -109,13 +130,13 @@
 
 					        <div class="ui tab active" data-tab="actionButtons">
 					      		<div class="two ui buttons" id="hiddenButtonsTop">
-					      			<button class="ui blue button"><center><i class="call square big icon"></i><h2>Call</h2></center></button>
-	  								<button class="ui positive button"><center><i class="checkmark box big icon"></i><h2>Accept</h2></center></button>
+					      			<button id="callButton" class="ui blue button"><center><i class="call square big icon"></i><h2>Call</h2></center></button>
+	  								<button id="acceptButton" class="ui positive button"><center><i class="checkmark box big icon"></i><h2>Accept</h2></center></button>
 					      		</div>
 					      		<br>
 					      		<div class="two ui buttons" id="hiddenButtonsBottom">
-					      			<button class="ui negative button"><center><i class="remove circle big icon"></i><h2>Decline</h2></center></button>
-	  								<button class="ui orange button"><center><i class="exchange big icon"></i><h2>Transfer</h2></center></button>
+					      			<button id="declineButton" class="ui negative button"><center><i class="remove circle big icon"></i><h2>Decline</h2></center></button>
+	  								<button id="transferButton" class="ui orange button"><center><i class="exchange big icon"></i><h2>Transfer</h2></center></button>
 					      		</div>
 					      	</div>
 
@@ -144,68 +165,97 @@
 
 			</div>
 
-
-			<div class="ui move reveal">
-			    <div class="visible content">
-			      <div class="ui card">
-			        <img class="ui image" src="http://mrg.bz/TRRrQJ">
-			        <div class="content">
-			          <div class="header">Pizza Margherita</div>
-			          <div class="description">Invented in Naples in honor of the first queen of Italy, the Margherita pizza is the triumph of Italian cuisine in the world.</div>
-			        </div>
-			        <div  class="extra content" >
-			          <div class="ui labeled icon menu">
-			            <a class="item"><i class="wait icon"></i>2h 16min</a>
-			            <a class="item"><i class="food icon"></i>6 servings</a>
-			            <a class="item"><i class="signal icon"></i>Easy</a>
-			          </div>
-			        </div>
-			      </div>
-			    </div>
-			    <div class="hidden content">
-			      <div class="ui card">
-			      <div class="content">
-			        <div class="ui pointing secondary menu">
-			          <div class="item active" data-tab="ingredients">Ingredients</div>
-			          <div class="item" data-tab="directions">Directions</div>
-			        </div>
-			          <div class="ui tab active" data-tab="ingredients">
-			            <h3>For pasta</h3>
-			            <div class="ui list">
-			              <div class="item"><i class="check circle red icon"></i>2 lb Italian "00" flour or all-purpose flour</div>
-			              <div class="item"><i class="check circle red icon"></i>1 oz fresh yeast</div>
-			              <div class="item"><i class="check circle red icon"></i>2 cups water</div>
-			              <div class="item"><i class="check circle red icon"></i>⅜ oz salt</div>
-			            </div>
-			            <h3>For dressing</h3>
-			            <div class="ui small list">
-			              <div class="item"><i class="check circle red icon"></i>½ cup extra virgin olive oil</div>
-			              <div class="item"><i class="check circle red icon"></i>1 lb mozzarella cheese</div>
-			              <div class="item"><i class="check circle red icon"></i>basil leaves to taste</div>
-			              <div class="item"><i class="check circle red icon"></i>1 lb canned tomatoes</div>
-			              <div class="item"><i class="check circle red icon"></i>salt to taste</div>
-			            </div>
-			          </div>
-			          <div class="ui tab" data-tab="directions">
-			            <div class="ui small list">
-			              <div class="item"><span class="ui red circular label">1</span> On a wooden or marble work surface, shape the flour into a well. Place the yeast, salt and warm water in the center. Be careful not to let the salt come in contact with the yeast. </div>
-			              <div class="item"><span class="ui red circular label">2</span> Knead the dough vigorously with your hands for 15-20 minutes, or in a mixer, until the dough is soft and smooth.</div>
-			              <div class="item"><span class="ui red circular label">3</span> Once you have the right consistency, adding a bit of water or flour if necessary, shape the dough into a ball. Cover with a plastic bowl so that the dough is protected from the air. Let rise for 3 or 4 hours at room temperature for about an hour in a warm place. </div>
-			              <div class="item"><span class="ui red circular label">4</span> Once the dough will be doubled in volume, ricavatene 6 loaves, modellateli in spherical shapes, cover with a sheet of plastic wrap and let them rise at room temperature for a couple of hours or in a warm place for about 45 minutes.</div>
-			              <div class="item"><span class="ui red circular label">5</span> As soon as the loaves have doubled in volume, prepare the tomato sauce and place it in a bowl. Add a pinch of salt and 1/3 of the olive oil.</div>
-			              <div class="item"><span class="ui red circular label">6</span> Knead the dough, then flattening them using your fingers.</div>
-			              <div class="item"><span class="ui red circular label">7</span> Use a ladle or a spoon to spread a good amount of tomato sauce on the pizza. Then, cover with mozzarella, torn into pieces. Garnish with a couple leaves of basil and bake in a 480° F oven for 5 or 6 minutes.</div>
-			              <div class="item"><span class="ui red circular label">8</span> Once ready, remove the pizza from the oven. Garnish with more basil and a drizzle of oil. Serve immediately.</div>
-			            </div>
-			          </div>
-			        </div>
-			      </div>
-			    </div>
-			  </div>
 		</div>
 	</div>
 
 	<br>
+
+	<div class="ui small modal" id="createRequestModal">
+	  <i class="close icon"></i>
+	  <div class="header">
+	  	Create a Request
+		<div class="content">
+    		<form class="ui form">
+				<h4 class="ui dividing header">Requester</h4>
+			</form>
+	    </div>
+	  </div>
+	</div>
+
+
+	<!-- ///////////////////////////////////////// TRANSFER MODAL //////////////////////////////////////////////////// -->
+
+	<div class="ui small modal" id="transferModal">
+	  <i class="close icon"></i>
+	  <h2 class="ui header container">
+		<div class="content">
+    		Transfer Patient
+	    	<div class="sub header">To transfer this request, search for and select another provider</div>
+	    </div>
+	  </h2>
+
+	  <!-- Dynamic regions list from database -->
+
+	  <div class="content">
+	  	<div id="regionDropdown" class="ui fluid search selection dropdown">
+			<input name="region" type="hidden">
+			<i class="dropdown icon"></i>
+			<div class="default text">Select Region...</div>
+				<div class="menu">
+					<div class="item" data-value="dc">Washington, DC</div>
+					<div class="item" data-value="md">Maryland</div>
+					<div class="item" data-value="va">Virginia</div>
+				</div>
+		</div>
+
+		<br>
+
+		<!-- Dynamic provider list from database -->
+
+		<div id="providerDropdown" class="ui fluid search selection dropdown">
+			<input name="provider" type="hidden">
+			<i class="dropdown icon"></i>
+			<div class="default text">Select Provider...</div>
+				<div class="menu">
+					<div class="item" data-value="mEdwards"><img class="ui avatar image" src="/images/matt.png"><span>Matt Edwards</span></div>
+					<div class="item" data-value="hTroy"><img class="ui avatar image" src="/images/helen.jpg"><span>Helen Troy</span></div>
+				</div>
+		</div>
+
+		<br>
+
+	  	<div class="inline"><label>Reason for transfer: </label><textarea rows="1"></textarea></div>
+	  </div>
+
+	  <div class="actions" id="transferActionButtons">
+	  	<center>
+		    <button class="ui negative deny button" id="negButton">
+		    	Cancel
+		    </button>
+
+		    &nbsp;&nbsp;&nbsp;
+
+		    <button class="ui primary button" id="submitButton">
+		    	Submit
+		    </button>
+		</center>
+	  </div>
+	</div>
+
+	<div class="ui small modal" id="transferCompleteModal">
+		<i class="close icon"></i>
+		<div class="header">
+			<center>Transfer Complete!</center>
+	  	</div>
+	  	<div class="content">
+	    	<center><h3>You have successfully transferred <span id="transferPatientName" style="color:#00bde8;">John Doe<!-- PATIENT NAME --></span> to <span id="transferProviderName" style="color:#00bde8;">Matt Edwards<!-- PROVIDER NAME --></span></h3></center>
+		</div>
+		<div class="actions">
+			<button class="ui fluid ok primary button">
+	  			Okay
+			</button>
+		</div>
+	</div>
 
 	<script type="text/javascript">
 		var providerName = "Ernest";
@@ -228,6 +278,11 @@
 
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+		var createRequest = "<button class=\"ui blue right floated button\"><i class=\"add user icon\"></i>CREATE REQUEST</button>"
+		document.getElementById("createRequest").innerHTML = createRequest;
+
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 		var newBtn = "<button class=\"ui blue button\" style=\"padding-top:20px;\"><span style=\"font-size:35px;\">" + newPatients + "</span><br><br>NEW" + "</button>";
 		var workingBtn = "<button class=\"ui yellow button\"><span style=\"font-size:35px;\">" + workingPatients + "</span><br><br>WORKING" + "</button>";
 		var followupBtn = "<button class=\"ui purple button\"><span style=\"font-size:35px;\">" + followupPatients + "</span><br><br>FOLLOW-UP" + "</button>";
@@ -241,11 +296,17 @@
 		var patientAge = 35;
 		var patientPhone = "(202) 123-1234";
 		var patientAddress = "1200 Pennsylvannia Ave. SE, Washington, DC 20003";
+		var timeElapsed = "1 minute";
+		var lastRequestDate = "01/30/2017";
 		var extraNotes = "<i class=\"info circle large icon\"></i>" + " Patient has had the flu for five days.";
 
 		document.getElementById("nameText").innerHTML = patientFullName;
 
-		var extraText = "Age: " + patientAge + "<br><br>" + patientPhone + "<br><br>" + patientAddress;
+
+		var requestText = "<i class=\"wait icon\"></i> " + "Requested " + timeElapsed + " ago<br><br>" + "Last requested on: " + lastRequestDate;
+		document.getElementById("requestText").innerHTML = requestText;
+
+		var extraText = "Age: " + patientAge + "<br><br>" + "<i class=\"call icon\"></i> " + patientPhone + "<br><br>" + patientAddress;
 		document.getElementById("extraText").innerHTML = extraText;
 
 		document.getElementById("extraNotes").innerHTML = extraNotes;
@@ -263,18 +324,35 @@
 		var notesText = "John is allergic to penicillin";
 		var textBox = "<textarea rows=\"4\" id=\"textArea\">" + notesText + "</textarea>";
 		
-		document.getElementById("notesTextbox").innerHTML = "Notes: <br>" + textBox;
+		document.getElementById("notesTextbox").innerHTML = "<b>Notes: </b><br>" + textBox;
 		
 
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	  	$( document ).ready(function() {
+	  		$("#createRequest").click(function(){
+	  			$("#createRequestModal").modal("show");
+	  		});
+
 	   		$('.menu .item').tab();
 
 	   		$("#notesEditButton").click(function(){
 	   			notesText = $("#notesTextbox").val();
 	   			document.getElementById("notesTextbox").value = notesText;
 	   		});
+
+	   		$("#transferButton").click(function(){
+				$('#transferModal').modal({
+					autofocus: false,
+				}).modal('show');
+			});
+
+	   		$("#submitButton").click(function(){
+	   			$("#transferModal").modal("hide");
+	   			$("#transferCompleteModal").modal("show");
+	   		});
 	  	});
+
+	  	$('.ui.dropdown').dropdown();
 	</script>
 </template>
