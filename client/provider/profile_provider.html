@@ -1,0 +1,178 @@
+<!-- Page to edit provider profile -->
+
+<template name="profile_provider">
+
+	<div class="ui stackable two column centered container">
+		<br>
+
+		<h2 class="ui header">
+		  <i class="edit icon"></i>
+		  <div class="content">
+		    Profile
+		  </div>
+		</h2>
+
+		<br>
+
+		<h3 class="ui header">Account information</h3>
+		<div class="ui column stackable form success">
+
+			<div class="row equal width fields">
+				<div class="required field">
+					<label>Username</label>
+					<input type="text" placeholder="Username">
+				</div>
+				<div class="field required">
+					<label>Last Name</label>
+					<input type="text" placeholder="Password">
+				</div>
+				<div class="ui primary button">Reset password</div>
+			</div>
+		</div>	
+
+		<h3 class="ui header">Personal information</h3>
+
+		<div class ="ui column stackable form success">
+			<div class="column equal width fields required">
+				<div class="required field">
+					<label>First Name</label>
+					<input type="text" name="firstName" placeholder="First Name" autofocus>
+				</div>
+				<div class="required field">
+					<label>Last Name</label>
+					<input type="text" name="lastName" placeholder="Last Name">
+				</div>
+			</div>
+
+			<div class="column equal width fields">
+				<div class="required field">
+					<label>Email</label>
+					<input type="text" name="email" placeholder="Email address">
+				</div>
+				<div class="required field">
+					<label>Phone number</label>
+					<input type="text" name="number" placeholder="Phone #">
+				</div>
+			</div>
+
+			<div class="column equal width fields">
+				<div class="required field">
+					<label>Address</label>
+					<input type="text" name="address1" placeholder="Street address">
+				</div>
+				<div class="field">
+					<label>Address 2</label>
+					<input type="text" name="address2" placeholder="(Apt/Suite#, e.g.)">
+				</div>
+			</div>
+
+			<div class="column equal width fields">
+				<div class="required field">
+					<label>City</label>
+					<input type="text" name="city" placeholder="City">
+				</div>
+				<div class="required field">
+					<label>State</label>
+					<input type="text" name="state" placeholder="State">
+				</div>
+				<div class="required field">
+					<label>Zip</label>
+					<input type="text" name="zip" placeholder="Zip code" minlength="5">
+				</div>
+			</div>
+		</div>
+		
+		<h3 class="ui header">Medical information</h3>
+
+		<div class ="ui column stackable form success">
+			<div class="column equal width fields required">
+				<div class="required field">
+					<label>Medical License #</label>
+					<input type="text" name="licenseNum" placeholder="Medical License number">
+				</div>
+				<div class="required field">
+					<label>NPI Number</label>
+					<input type="text" name="npiNum" placeholder="NPI Number">
+				</div>
+			</div>
+
+			<div class="column equal width fields">
+				<div class="required field">
+					<label>Region</label>
+					<select name="region">
+						<option value="1">Maryland</option>
+						<option value="2">D.C.</option>
+						<option value="3">Virginia</option>
+					</select>
+				</div>
+				<div class="required field">
+					<label>Specialties</label>
+					<select name="specialty">
+						<option value="1">Addiction psychiatrist</option>
+						<option value="2">Adolescent medicine specialist</option>
+						<option value="3">Allergist (immunologist)</option>
+						<option value="4">Cardiologist</option>
+						<option value="5">Dermatologist</option>
+						<option value="6">Emergency medicine specialist</option>
+						<option value="7">Endocrinologist</option>
+						<option value="8">Family medicine physician</option>
+						<option value="9">Gastroenterologist</option>
+						<option value="10">Gynecologist</option>
+						<option value="11">Hospice and palliative medicine specialist</option>
+						<option value="12">Internist</option>
+						<option value="13">Neurologist</option>
+						<option value="14">Obstetrician</option>
+						<option value="15">Occupational medicine specialist</option>
+						<option value="16">Oncologist</option>
+						<option value="17">Ophthalmologist</option>
+						<option value="18">Orthopedic surgeon</option>
+						<option value="19">Otolaryngologist (ear, nose, and throat specialist)</option>
+						<option value="20">Pain management specialist</option>
+						<option value="21">Pediatrician</option>
+						<option value="22">Podiatrist</option>
+						<option value="23">Physician Assistant</option>
+						<option value="24">Plastic surgeon</option>
+						<option value="25">Psychiatrist</option>
+						<option value="26">Pulmonologist</option>
+						<option value="27">Rheumatologist</option>
+						<option value="28">Sleep disorders specialist</option>
+						<option value="29">Sports medicine specialist</option>
+						<option value="30">Surgeon</option>
+						<option value="31">Urologist</option>
+					</select>
+				</div>
+			</div>
+
+
+			<h3 id="emailPref" class="ui header">
+			  <i class="alarm outline icon"></i>
+			  <div class="content">
+			    Notification Preferences
+			  </div>
+			</h3>
+			
+			<div class="ui selection dropdown">
+				<input type="hidden" name="notifications">
+				  <i class="dropdown icon"></i>
+				  <div class="default text">Choose your notification preferences...</div>
+				  <div class="menu">
+				    <div class="item" data-value="both">Receive email and text notifications</div>
+				    <div class="item" data-value="emailOnly">Receive email only</div>
+				  </div>
+			</div>
+
+			<br><br>
+			<input class="fluid ui primary button" id="save" type="submit" name="submitBtn" value="Save">
+		</div>
+
+		<br>
+
+		<h2 class="ui header">Your Reviews</h2>
+		<!-- reviews here? -->
+		<br>
+		<br>
+
+		
+	</div>
+	
+</template>
