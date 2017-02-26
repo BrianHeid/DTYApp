@@ -1,7 +1,6 @@
 <!-- Page to edit provider profile -->
 
 <template name="profile_provider">
-
 	<div class="ui stackable two column centered container">
 		<br>
 
@@ -9,30 +8,45 @@
 		  <i class="edit icon"></i>
 		  <div class="content">
 		    Profile
+		    <div class="sub header">Manage your profile and preferences</div>
 		  </div>
 		</h2>
 
 		<br>
-
-		<h3 class="ui header">Account information</h3>
+		
 		<div class="ui column stackable form success">
+			<h4 class="ui dividing header">Account Information</h4>
 
-			<div class="row equal width fields">
-				<div class="required field">
+			<div class="field card">
+			    <div class="ui small blurring dimmable image" id="propic">
+			      <div class="ui dimmer">
+			        <div class="content">
+			          <div class="center">
+			            <div class="ui small inverted button"><i class="write icon"></i>Edit</div>
+			          </div>
+			        </div>
+			      </div>
+			      <img class="ui small image" src="/images/drbrown.jpg">
+			    </div>
+			</div>
+
+			<div class="fields">
+				<div class="required seven wide field">
 					<label>Username</label>
 					<input type="text" placeholder="Username">
 				</div>
-				<div class="field required">
-					<label>Last Name</label>
+				<div class="required seven wide field">
+					<label>Password</label>
 					<input type="text" placeholder="Password">
 				</div>
-				<div class="ui primary button">Reset password</div>
+				<div class="two wide field ui primary button" id="resetPw">Reset password</div>
 			</div>
 		</div>	
 
-		<h3 class="ui header">Personal information</h3>
-
 		<div class ="ui column stackable form success">
+
+			<h4 class="ui dividing header">Personal Information</h4>
+
 			<div class="column equal width fields required">
 				<div class="required field">
 					<label>First Name</label>
@@ -47,22 +61,21 @@
 			<div class="column equal width fields">
 				<div class="required field">
 					<label>Email</label>
-					<input type="text" name="email" placeholder="Email address">
+					<input type="text" name="email" placeholder="example@gmail.com">
 				</div>
 				<div class="required field">
 					<label>Phone number</label>
-					<input type="text" name="number" placeholder="Phone #">
+					<input type="text" name="number" placeholder="Phone Number">
 				</div>
 			</div>
 
+			<label>Address</label>
 			<div class="column equal width fields">
 				<div class="required field">
-					<label>Address</label>
-					<input type="text" name="address1" placeholder="Street address">
+					<input type="text" name="address" placeholder="Street address">
 				</div>
 				<div class="field">
-					<label>Address 2</label>
-					<input type="text" name="address2" placeholder="(Apt/Suite#, e.g.)">
+					<input type="text" placeholder="(Apt/Suite#, e.g.)">
 				</div>
 			</div>
 
@@ -73,16 +86,16 @@
 				</div>
 				<div class="required field">
 					<label>State</label>
-					<input type="text" name="state" placeholder="State">
+					{{>statesList}}
 				</div>
 				<div class="required field">
-					<label>Zip</label>
-					<input type="text" name="zip" placeholder="Zip code" minlength="5">
+					<label>Zipcode</label>
+					<input type="text" name="zipcode" placeholder="Zip code" minlength="5">
 				</div>
 			</div>
 		</div>
 		
-		<h3 class="ui header">Medical information</h3>
+		<h4 class="ui dividing header">Medical Information</h4>
 
 		<div class ="ui column stackable form success">
 			<div class="column equal width fields required">
@@ -99,15 +112,17 @@
 			<div class="column equal width fields">
 				<div class="required field">
 					<label>Region</label>
-					<select name="region">
+					<select id="multi-select" name="regionDropdown" multiple="" class="ui search selection dropdown required">
+						<option value="">Select Region...</option>
 						<option value="1">Maryland</option>
-						<option value="2">D.C.</option>
+						<option value="2">Washington, DC</option>
 						<option value="3">Virginia</option>
 					</select>
 				</div>
 				<div class="required field">
 					<label>Specialties</label>
-					<select name="specialty">
+					<select id="multi-select" name="specialtyDropdown" multiple="" class="ui search selection dropdown required">
+						<option value="">Select Specialty...</option>
 						<option value="1">Addiction psychiatrist</option>
 						<option value="2">Adolescent medicine specialist</option>
 						<option value="3">Allergist (immunologist)</option>
@@ -165,14 +180,67 @@
 			<input class="fluid ui primary button" id="save" type="submit" name="submitBtn" value="Save">
 		</div>
 
-		<br>
+		<!-- SUCCESS MESSAGE -->
+		<div class="ui success message hidden" id="success">
+		    <div class="header">Saved!</div>
+		    <p>Your settings have saved.</p>
+		</div>
 
 		<h2 class="ui header">Your Reviews</h2>
-		<!-- reviews here? -->
-		<br>
-		<br>
 
+		<div class="ui grid">
+
+			<div class="four wide column">
+				<h4>Punctual</h4>
+				<div class="ui huge star rating" data-rating="4"></div>
+				<h4>Professional</h4>
+				<div class="ui huge star rating" data-rating="5"></div>
+				<h4>Courteous</h4>
+				<div class="ui huge star rating" data-rating="4"></div>
+				<h4>Caring</h4>
+				<div class="ui huge star rating" data-rating="5"></div>
+				<h4>Follow-Up</h4>
+				<div class="ui huge star rating" data-rating="4"></div>
+			</div>
+
+			<div class="twelve wide column">
+				<h4>Additional Comments</h4>
+				<h5>"Wonderful care" - Jane D.</h5>
+				<h5>"I feel better than ever! Thank you!" - Ashley B.</h5>
+				<h5>"I'm telling all of my friends!" - Bob H.</h5>
+				<h5>"Did not come on time as expected..." - Alan T.</h5>
+				<h5>"Not very friendly" - Tina R.</h5>
+				<h5>"I have no words" - Oliver P.</h5>
+				<h5>"My daughter is feeling much better, thank you." - Robert T.</h5>
+				<h5>"This has been a wonderful service to my family." - Grace C.</h5>
+				<h5>"Could have been better..." - Finn L.</h5>
+			</div>
+		</div>
+
+
+		<br>
+		<br>
 		
 	</div>
+
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$("#save").click(function(){
+				$('#success').show(500);
+				event.preventDefault();	
+			});
+		});
+
+		$('.ui.dropdown').dropdown();
+
+		$('.rating').rating({
+			interactive: false,
+		    maxRating: 5
+		  });
+
+		$('#propic').dimmer({
+  			on: 'hover'
+		});
+	</script>
 	
 </template>
