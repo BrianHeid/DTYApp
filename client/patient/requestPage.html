@@ -1,3 +1,6 @@
+<!-- Request page. First step of process. Information can be pulled from account,
+	 therefore, it doesn't require as much. -->
+
 <template name="requestPage">
 	<link rel="stylesheet" type="text/css" href="requestPage.css">
 
@@ -9,39 +12,35 @@
 
 	<div class="ui container">
 		<form class="ui form">
-			<!-- <div class="inline field">
-			    <div class="ui toggle checkbox">
-			      <input type="checkbox" tabindex="0" class="hidden" name='for_someone_else'>
-			      <label>For someone else</label>
-			    </div>
-		    </div> -->
 
+			<!-- If checked, "Choose your relationship" dropdown will appear and is required -->
 		    <label>Is this request for someone else?</label>
 		    <div class="field">
-				<label class="switch">
+				<label class="checkbox switch">
 					<input class="switch-input" type="checkbox" id="myonoffswitch" name="for_someone_else"/>
 					<span class="switch-label" data-on="Yes" data-off="No"></span> 
 					<span class="switch-handle"></span> 
 				</label>
 			</div>
 
-
 			<div class="field">
-			      <select class="ui dropdown" name="relationship">
-			        <option value="">Choose your relationship</option>
-			        <option value="family">For my family member</option>
-			        <option value="friend">For my friend</option>
-			        <option value="other">Other</option>
-			      </select>
-			    </div>
+		      <select class="ui dropdown" name="relationship">
+		        <option value="">Choose your relationship</option>
+		        <option value="family">For my family member</option>
+		        <option value="friend">For my friend</option>
+		        <option value="other">Other</option>
+		      </select>
+		    </div>
 
 			<br>
 
+			<!-- Optional to include symptoms or images -->
 			<label>Symptoms</label>
 			<div class="field">
 	    		<textarea rows="3" name= 'symptoms'></textarea>
 			</div>
 
+			<!-- Need to implement upload functionality! Then can preview images as well. -->
 			<button class="ui labeled icon medium button">
 			  <i class="upload icon"></i>
 			  Upload images
@@ -53,8 +52,13 @@
 		</form>
 	</div>
 
+	<!-- JavaScript -->
 	<script type="text/javascript">
+
+		// Dropdown functionality
 		$('.ui.dropdown').dropdown();
+
+		// Toggle button functionality
 		$('.ui.checkbox').checkbox('attach events', '.toggle.button');
 	</script>
 

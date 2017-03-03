@@ -1,79 +1,111 @@
+<!-- Second Follow-Up page that shows when it is time to follow-up.
+	 The follow-up date was set by the provider. This will ask how
+	 the patient is feeling with three faces: all better, somewhat
+	 better, and no improvement.
+
+	 If "All Better" then will ask for reviews (Not yet changed)
+	 	that will proceed them to Review page to see documents and invoice,
+
+	 Otherwise "Somewhat better" or "No improvement" then will show
+	 	another text box informing them their provider was notified and
+	 	will call them soon -->
+
 <template name="followupPage2">
-		<div id="followupSent" class="ui raised text container segment" style="display: none;">
-			<center>
-			<h3 class="ui header container">
-			  <div class="content" id="followupNeededTitle">
-				<!-- PROVIDER FIRST NAME has received your feedback
-			    	 and will follow-up with you shortly, PATIENT FIRST NAME. -->
-			  </div>
-			</h3>
-			</center>
-		</div>
-		<div id="followupContent" class="ui raised text container segment">
-			<center>
-			<h3 class="ui header container">
-			  <div class="content" id="followupTitle">
-			    <!-- Please let FIRST NAME OF PROVIDER know how you are feeling
-			    	 by selecting your current status below -->
-			  </div>
-			</h3>
-			</center>
 
-			<br><br>
+	<!-- CSS -->
+	<style>
+		/* Shows pointer finger when hovered over the faces */
+		.ui.column.images {
+	    	cursor: pointer;
+	  	}
+	</style>
 
-			<!-- HEALTH STATUS SMILEY BUTTONS -->
-			<div class="ui column centered grid">
-				<center>
-				<div class="ui column images">
-					<img id="happy" class="ui circular image" height="100" width="100" src="/images/happy-face.png">
-					<img id="straight" class="ui circular image" height="100" width="100" src="/images/straight-face.png">
-					<img id="unhappy" class="ui circular image" height="100" width="100" src="/images/unhappy-face.png">
-				</div>
-				</center>
+	<!-- IF PATIENT IS SOMEWHAT BETTER OR FEELS NO IMPROVEMENT -->
+
+	<div id="followupSent" class="ui raised text container segment" style="display: none;">
+		<center>
+		<h3 class="ui header container">
+		  <div class="content" id="followupNeededTitle">
+			<!-- PROVIDER FIRST NAME has received your feedback
+		    	 and will follow-up with you shortly, PATIENT FIRST NAME. -->
+		  </div>
+		</h3>
+		</center>
+	</div>
+
+	<!-- END OF PATIENT IS SOMEWHAT BETTER OR FEELS NO IMPROVEMENT -->
+
+	<!-- PROMPTING PATIENT ABOUT STATUS -->
+
+	<div id="followupContent" class="ui raised text container segment">
+		<center>
+		<h3 class="ui header container">
+		  <div class="content" id="followupTitle">
+		    <!-- Please let FIRST NAME OF PROVIDER know how you are feeling
+		    	 by selecting your current status below -->
+		  </div>
+		</h3>
+		</center>
+
+		<br><br>
+
+		<!-- HEALTH STATUS SMILEY BUTTONS -->
+		<div class="ui column centered grid">
+			<center>
+			<div class="ui column images">
+				<img id="happy" class="ui circular image" height="100" width="100" src="/images/happy-face.png">
+				<img id="straight" class="ui circular image" height="100" width="100" src="/images/straight-face.png">
+				<img id="unhappy" class="ui circular image" height="100" width="100" src="/images/unhappy-face.png">
 			</div>
-
-			<h2 class="ui centered header" id="health-status">
-				<!-- Health status clicked on -->
-			</h2>
-
-			<center>
-				<div class="inline"><label>Comments: </label><textarea rows="1" style="width: 300px;"></textarea></div>
-			</center>
-
-			<br>
-
-			<button id="submit-btn" class="ui primary fluid button" style='visibility:hidden'> 
-				Submit Status
-			</button>
-
-			<div class="ui positive message hidden" id="success">
-			  <div class="header">
-			  	Feedback was sent successfully!
-			  </div>
-			</div>
-		</div>
-
-		<!-- IF PATIENT IS ALL BETTER -->
-
-		<div id="happyDiv" class="ui raised text container segment" style="display: none;">
-			<center>
-			<h2 class="ui header container" id="happyStatus">
-				<!-- We are so glad to hear you are all better now, PATIENT FIRST NAME!
-					 Please let PROVIDER FIRST NAME conclude your care and you will receive 
-					 your medical report and invoice ...HERE(button) -->
-			</h2>
-			
-			<br>
-
-			<button class="ui huge primary button">
-				HERE
-			</button>
-
 			</center>
 		</div>
 
-		<!-- END OF ALL BETTER -->
+		<h2 class="ui centered header" id="health-status">
+			<!-- Health status clicked on -->
+		</h2>
 
+		<center>
+			<div class="inline"><label>Comments: </label><textarea rows="1" style="width: 300px;"></textarea></div>
+		</center>
+
+		<br>
+
+		<button id="submit-btn" class="ui primary fluid button" style='visibility:hidden'> 
+			Submit Status
+		</button>
+
+		<div class="ui positive message hidden" id="success">
+		  <div class="header">
+		  	Feedback was sent successfully!
+		  </div>
+		</div>
+	</div>
+
+	<!-- END OF PROMPTING PATIENT ABOUT STATUS -->
+
+	<!-- IF PATIENT IS ALL BETTER -->
+
+	<div id="happyDiv" class="ui raised text container segment" style="display: none;">
+		<center>
+		<h2 class="ui header container" id="happyStatus">
+			<!-- We are so glad to hear you are all better now, PATIENT FIRST NAME!
+				 Please let PROVIDER FIRST NAME conclude your care and you will receive 
+				 your medical report and invoice ...HERE(button) -->
+		</h2>
+		
+		<br>
+
+		<button class="ui huge primary button">
+			HERE
+		</button>
+
+		</center>
+	</div>
+
+	<!-- END OF ALL BETTER -->
+
+
+	<!-- JavaSript -->
 	<script type="text/javascript">
 		var providerFirstName = "Ernest";
 		var patientFirstName = "Pauline"
@@ -93,40 +125,51 @@
 		var status;
 
 		$(document).ready(function(){
+
+			// Click on happy face
 			$("#happy").click(function(){
-				$("#happy").css("opacity", "1.0");
-				$("#straight").css("opacity", "0.5");
-				$("#unhappy").css("opacity", "0.5");
+				$("#happy").css("opacity", "1.0");	//Full opacity for happy
+				$("#straight").css("opacity", "0.5");	//Half opacity for straight
+				$("#unhappy").css("opacity", "0.5");	//Half opacity for unhappy
 				status = "happy";
 				document.getElementById("health-status").innerHTML = "I feel all better.";
 			});
 
+			// Click on straight face
 			$("#straight").click(function(){
-				$("#straight").css("opacity", "1.0");
-				$("#happy").css("opacity", "0.5");
-				$("#unhappy").css("opacity", "0.5");
+				$("#straight").css("opacity", "1.0");	//Full opacity for straight
+				$("#happy").css("opacity", "0.5");		//Half opacity for happy
+				$("#unhappy").css("opacity", "0.5");	//Half opacity for unhappy
 				status = "straight";
 				document.getElementById("health-status").innerHTML = "I feel somewhat better.";
 			});
 
+			// Click on unhappy face
 			$("#unhappy").click(function(){
-				$("#unhappy").css("opacity", "1.0");
-				$("#straight").css("opacity", "0.5");
-				$("#happy").css("opacity", "0.5");
+				$("#unhappy").css("opacity", "1.0");	//Full opacity for unhappy
+				$("#straight").css("opacity", "0.5");	//Half opacity for straight
+				$("#happy").css("opacity", "0.5");		//Half opacity for happy
 				status = "unhappy";
 				document.getElementById("health-status").innerHTML = "I feel no improvement.";
 			});
 
+			// Click on any of the faces will reveal the submit button
 			$("#happy, #straight, #unhappy").click(function(){
 				$("#submit-btn").css("visibility", "visible");
 			});
 
+			// Click on submit button will trigger respective message
 			$("#submit-btn").click(function(){
-				event.preventDefault();
+				event.preventDefault();	//Prevents page from refreshing
+
+				// Disable ability to touch any faces after submitting
 				$("#happy, #straight, #unhappy").off("click");
 				document.getElementById("submit-btn").disabled = true;
-				$('#success').show(500);
-				$("#success").delay(500).fadeOut(1000);
+				$('#success').show(500);	// Reveals success message for 500 milliseconds
+				$("#success").delay(500).fadeOut(1000);	// Hides success message after 500 milliseconds and then another 1000 milliseconds
+
+				// If "Somewhat better" or "No improvement" will show short message
+				// Otherwise "All better" will show ratings box (Not yet implemented)
 				if (status == "straight" || status == "unhappy") {
 					$("#followupSent").delay(2000).show(500);
 				} else {

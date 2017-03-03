@@ -1,4 +1,9 @@
+<!-- Provider dashboard. A provider's homepage. Will show patient cards that are dynamically
+	 pulled from the database. -->
+
 <template name="dashboard_provider">
+
+	<!-- CSS -->
 	<style >
 	  .ui.move.reveal {
 	    width: 290px;
@@ -14,10 +19,6 @@
 	    max-width: 33.3333%;
 	    font-size: 0.8em;
 	    padding: 6px 2px;
-	  }
-
-	  .ui.pointing.menu {
-	    cursor: pointer;
 	  }
 
 	  .ui.tab {
@@ -54,6 +55,7 @@
 		display:none;
 	  }
 
+	  /* Makes textarea fluid (Full width of container) */
 	  textarea {
 		-webkit-box-sizing: border-box;
 		-moz-box-sizing: border-box;
@@ -170,16 +172,134 @@
 
 	<br>
 
+	<!-- /////////////////////////////////////////// CREATE REQUEST MODAL ////////////////////////////////////////////////////// -->
+
 	<div class="ui small modal" id="createRequestModal">
-	  <i class="close icon"></i>
-	  <div class="header">
-	  	Create a Request
+	  	<i class="close icon"></i>
+	  	<div class="header">
+	  		Create a Request
+	  	</div>
 		<div class="content">
-    		<form class="ui form">
+			<form class="ui form">
+
 				<h4 class="ui dividing header">Requester</h4>
+				<div class="two fields">
+					<div class="field required">
+					    <label>Name</label>
+					    <div class="field">
+					    	<input type="text" name="requesterName" placeholder="Name">
+					    </div>
+				    </div>
+
+				    <div class="field required">
+					    <label>Phone Number</label>
+					    <div class="field">
+					    	<input type="text" name="requesterPhone" placeholder="Phone Number">
+					    </div>
+				    </div>
+				</div>
+
+				<h4 class="ui dividing header">Address</h4>
+				<div class="two fields">
+					<div class="field required">
+						<label>Street</label>
+					    <div class="field required">
+					    	<input type="text" name="street" placeholder="Street">
+					    </div>
+				    </div>
+				    <div class="field required">
+				    	<label>Apt # / Suite</label>
+					    <div class="field required">
+					    	<input type="text" name="aptNumSuite" placeholder="Apt # / Suite">
+					    </div>
+				    </div> 
+				</div>
+				<div class="three fields">
+					<div class="field required">
+					    <label>City</label>
+					    <div class="field required">
+					    	<input type="text" name="city" placeholder="City">
+					    </div>
+				    </div>
+					<div class="field required">
+					    <label>State</label>
+					    {{>statesList}}		<!-- Show hand for list of states from statesList.html -->
+				    </div>
+				    <div class="field required">
+					    <label>Zipcode</label>
+					    <div class="field required">
+					    	<input type="text" name="zipcode" placeholder="Zipcode" minlength="5">
+					    </div>
+				    </div>
+				</div>
+
+				<h4 class="ui dividing header">Patient Information</h4>
+				<div class="two fields">
+					<div class="field required">
+					    <label>First Name</label>
+					    <div class="field required">
+					    	<input type="text" name="firstName" placeholder="First Name">
+					    </div>
+				    </div>
+
+				    <div class="field required">
+					    <label>Last Name</label>
+					    <div class="field required">
+					    	<input type="text" name="lastName" placeholder="Last Name">
+					    </div>
+				    </div>
+				</div>
+				<div class="two fields">
+					<div class="field required">
+					    <label>Birthday</label>
+					    <div class="field required">
+					    	<input type="date" name="birthday" min="1887-01-01" max="1999-04-01">
+					    </div>
+				    </div>
+
+				    <div class="field required">
+					    <label>Gender</label>
+				        <div class="ui selection dropdown">
+				        	<input type="hidden" name="gender">
+				          	<i class="dropdown icon"></i>
+				          	<div class="default text">Gender</div>
+				          	<div class="menu">
+				            	<div class="item" data-value="male">Male</div>
+				              	<div class="item" data-value="female">Female</div>
+				          	</div>
+				      	</div>
+				    </div>
+				</div>
+				<div class="two fields">
+					<div class="field required">
+					    <label>Phone Number</label>
+					    <div class="field required">
+					    	<input type="text" name="firstName" placeholder="Phone Number">
+					    </div>
+				    </div>
+
+				    <div class="field required">
+					    <label>Email</label>
+					    <div class="field required">
+					    	<input type="text" name="email" placeholder="example@gmail.com">
+					    </div>
+				    </div>
+				</div>
+				
+				<div class="field">
+				    <label>Primary Doctor (Optional)</label>
+				    <div class="field">
+				    	<input type="text" name="primaryDoctor" placeholder="Primary Doctor (Optional)">
+				    </div>
+			    </div>
+				<div class="actions">
+					<div class="ui two buttons">
+					    <div class="ui primary approve button">Create Request</div>
+					    <div class="ui negative cancel button">Cancel</div>
+					</div>
+				</div>
 			</form>
 	    </div>
-	  </div>
 	</div>
 
 
@@ -194,7 +314,7 @@
 	    </div>
 	  </h2>
 
-	  <!-- Dynamic regions list from database -->
+	  <!-- Dynamic regions list from database (Not dynamic right now!) -->
 
 	  <div class="content">
 	  	<div id="regionDropdown" class="ui fluid search selection dropdown">
@@ -242,6 +362,8 @@
 	  </div>
 	</div>
 
+	<!-- /////////////////////////////////////////// TRANSFER COMPLETE MODAL //////////////////////////////////////////////////////// -->
+
 	<div class="ui small modal" id="transferCompleteModal">
 		<i class="close icon"></i>
 		<div class="header">
@@ -257,17 +379,18 @@
 		</div>
 	</div>
 
+	<!-- JavaScript -->
 	<script type="text/javascript">
 		var providerName = "Ernest";
 		var curStatus = "available";
-		var newPatients = 3;
+		var newPatients = 1;
 		var workingPatients = 2;
 		var followupPatients = 0;
 
 		var greeting = "Hello, " + providerName;
 		document.getElementById("greeting").innerHTML = greeting;
 
-		//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		///////////////////////////////////////////// AVAILABILITY LABEL ///////////////////////////////////////////////////////////
 
 		var availableStatusLabel = "<div class=\"ui green label huge\"><i class=\"check circle icon\"></i>AVAILABLE</div>";
 		var unavailableStatusLabel = "<div class=\"ui grey label huge\"><i class=\"remove circle icon\"></i>UNAVAILABLE</div>";
@@ -276,12 +399,12 @@
 		var statusText = "Your status: " + status;
 		document.getElementById("status").innerHTML = statusText;
 
-		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		//////////////////////////////////////////////////  CREATE REQUEST BUTTON  ////////////////////////////////////////////////
 
 		var createRequest = "<button class=\"ui blue right floated button\"><i class=\"add user icon\"></i>CREATE REQUEST</button>"
 		document.getElementById("createRequest").innerHTML = createRequest;
 
-		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		////////////////////////////////////////////////////  STATUS BUTTONS  ////////////////////////////////////////////////////
 
 		var newBtn = "<button class=\"ui blue button\" style=\"padding-top:20px;\"><span style=\"font-size:35px;\">" + newPatients + "</span><br><br>NEW" + "</button>";
 		var workingBtn = "<button class=\"ui yellow button\"><span style=\"font-size:35px;\">" + workingPatients + "</span><br><br>WORKING" + "</button>";
@@ -330,29 +453,43 @@
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	  	$( document ).ready(function() {
+
+	  		// Click to create request button to show modal
 	  		$("#createRequest").click(function(){
 	  			$("#createRequestModal").modal("show");
 	  		});
 
+	  		// Click to create request modal
+	   		$('#createRequestModal').modal({
+					autofocus: false,	// Prevents dropdown from dropping down
+				}).modal('setting', 'closable', false)	// Prevents clicking outside to close, need to choose an action button
+			;
+
+	  		// Patient card tabs
 	   		$('.menu .item').tab();
 
+	   		// Click to edit notes button (Inside patient card)
 	   		$("#notesEditButton").click(function(){
 	   			notesText = $("#notesTextbox").val();
 	   			document.getElementById("notesTextbox").value = notesText;
 	   		});
 
+	   		// Click to transfer button 
 	   		$("#transferButton").click(function(){
 				$('#transferModal').modal({
-					autofocus: false,
+					autofocus: false,	// Prevents dropdown from dropping automatically
 				}).modal('show');
 			});
 
+	   		// Click to submit button
 	   		$("#submitButton").click(function(){
 	   			$("#transferModal").modal("hide");
 	   			$("#transferCompleteModal").modal("show");
 	   		});
+
 	  	});
 
+		// Dropdown functionality
 	  	$('.ui.dropdown').dropdown();
 	</script>
 </template>

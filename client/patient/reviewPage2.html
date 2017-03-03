@@ -1,6 +1,14 @@
+<!-- Review page. The last step in the process. Here, the patient can download
+	 their medical report and invoice. If they gave a good rating, we will also
+	 suggest them to review us on Yelp and Facebook and show our social media
+	 handles. -->
+
 <template name="reviewPage2">
 	
+	<!-- CSS -->
 	<style>
+
+		/* Makes textarea fluid (full width of container) */
 		textarea {
 			-webkit-box-sizing: border-box;
 			-moz-box-sizing: border-box;
@@ -140,7 +148,11 @@
 		</div>
 	</div>
 
+
+	<!-- JavaScript -->
 	<script type="text/javascript">
+
+		// Rating functionality
 		$('.rating').rating();
 
 		var patientFirstName = "Pauline"
@@ -149,9 +161,11 @@
 		document.getElementById("thankYouText").innerHTML = thankYouText;
 
 		$(document).ready(function(){
+
+			// Click on submit button
 			$("#submitBtn").click(function(){
-				event.preventDefault();
-				$('#success').show(500);
+				event.preventDefault();	// Prevent page from refreshing
+				$('#success').show(500);	// Reveal in 500 milliseconds
 				$("#feedbackContent").delay(800).fadeOut(1000);
 				$("#feedbackSubmitted").delay(2000).show(500);
 			});

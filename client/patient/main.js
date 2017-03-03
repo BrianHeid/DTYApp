@@ -1,9 +1,10 @@
+// Login functionality and validating
+
 Accounts.onLogin(
     function(){
     	console.log(Accounts.user())
         FlowRouter.go('/new_account')
-    }
-    )
+    })
 
 
 // register a global helper to enable query search based on url state from any template

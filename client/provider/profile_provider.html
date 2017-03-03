@@ -47,7 +47,7 @@
 
 			<h4 class="ui dividing header">Personal Information</h4>
 
-			<div class="column equal width fields required">
+			<div class="column equal width fields">
 				<div class="required field">
 					<label>First Name</label>
 					<input type="text" name="firstName" placeholder="First Name" autofocus>
@@ -223,21 +223,27 @@
 		
 	</div>
 
+	<!-- JavaScript -->
 	<script type="text/javascript">
 		$(document).ready(function(){
+
+			// Click to save button
 			$("#save").click(function(){
-				$('#success').show(500);
-				event.preventDefault();	
+				$('#success').show(500);	// Reveals success message in 500 milliseconds
+				event.preventDefault();		// Prevents page from refreshing
 			});
 		});
 
+		// Dropdown functionality
 		$('.ui.dropdown').dropdown();
 
+		// Rating functionality
 		$('.rating').rating({
 			interactive: false,
 		    maxRating: 5
 		  });
 
+		// Dims the profile picture when hovered
 		$('#propic').dimmer({
   			on: 'hover'
 		});

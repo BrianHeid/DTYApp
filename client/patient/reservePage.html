@@ -1,3 +1,7 @@
+<!-- Reserve page comes after Call page and a call from a provider. Here a patient
+	 can reserve a provider by entering in their billing information but they will
+	 not be charged until after their care is concluded. -->
+
 <template name="reservePage">
 	<link rel="stylesheet" type="text/css" href="reservePage.css">
 
@@ -85,7 +89,7 @@
 					</div>
 					<div class="required field">
 						<label>Country</label>
-						{{>countriesList}}
+						{{>countriesList}}	<!-- Template shorthand, puts countriesList select search dropdown here -->
 					</div>
 				</div>
 				<div class="column equal width fields">
@@ -117,6 +121,7 @@
 		</div>
 	</div>
 
+	<!-- Consent for Medical Treatment pop-up modal -->
 	<div id="provide-care" class="ui long modal">
 		<i class="close icon"></i>
     	<div class="header">
@@ -140,6 +145,8 @@
 
 	</div>
 
+
+	<!-- HIPAA Information and Consent pop-up modal -->
 	<div id="hipaa-modal" class="ui long modal">
 		<i class="close icon"></i>
     	<div class="header">
@@ -176,6 +183,8 @@
 		</div>
   	</div>
 
+  	<!-- Nag message that sticks to the bottom of the page to remind patient they will not be charged until after care is concluded
+  		 and after this point they will be charged a cancellation fee if they choose to cancel. -->
   	<div id="creditCardNag" class="ui large yellow message sticky fixed bottom inline nag">
   		<i id="closeIcon" class="close icon"></i>
 	  	<h4 class="header creditCardNag">
@@ -183,31 +192,40 @@
 	  	</h4>
 	</div>
 
+	<!-- JavaScript -->
 	<script type="text/javascript">
 		$(document).ready(function(){
+
+			// Click billing address toggle
 			$("#myonoffswitch").click(function(){
 				$('#billing-input').toggle();
 			});
 
+			// Click consent modal
 			$("#consent").click(function(){
 				$('#provide-care').modal({
-					autofocus: false,
+					autofocus: false,	// Prevents the dropdown menu from dropping automatically
 				}).modal('show');	
 			});
 
+			// Click HIPAA modal
 			$("#hipaa").click(function(){
 				$('#hipaa-modal').modal({
-					autofocus: false,
+					autofocus: false,	// Prevents the dropdown menu from dropping automatically
 				}).modal('show');	
 			});
 
+			// Click to reserve button
 			$("#reserve").click(function(){
-				$('#success').show(500);
-				event.preventDefault();	
+				$('#success').show(500);	// Reveals in 500 milliseconds
+				event.preventDefault();		// Prevents from page refreshing on submit
 			});
 		});
 
+		// Toggle functionality
 		$('.ui.checkbox').checkbox('attach events', '.toggle.button');
+
+		// Nag functionality
 		$('.nag').nag('show');
 	</script>
 </template>

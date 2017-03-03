@@ -22,17 +22,17 @@ Template.requestPage.onRendered(
 			},
 			fields: 
 			{
-				symptoms:
-					{
-						identifier: 'symptoms',
-						rules:
-						[
-							{
-								type: 'empty',
-								prompt: 'Please let us know your symptoms.'
-							}
-						]
-					},
+				// symptoms:
+				// 	{
+				// 		identifier: 'symptoms',
+				// 		rules:
+				// 		[
+				// 			{
+				// 				type: 'empty',
+				// 				prompt: 'Please let us know your symptoms.'
+				// 			}
+				// 		]
+				// 	},
 				relationship:
 					{
 						identifier: 'relationship',

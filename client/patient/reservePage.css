@@ -216,3 +216,7 @@
 #closeIcon {
     color: #b58105;
 }
+
+#consent, #hipaa {
+    cursor: pointer;
+}

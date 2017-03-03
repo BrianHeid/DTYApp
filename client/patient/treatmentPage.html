@@ -1,9 +1,18 @@
+<!-- Treatment page. After a patient reserves a provider, a provider will know whether to give
+	 a phone consultation or a house call and they will give an estimate of when the patient
+	 will receive their treatment. -->
+
 <template name="treatmentPage">
+
+	<!-- CSS -->
 	<style>
+
+		/* Shows pointer finger when hovering over dashboard steps menu */
 		.ui.pointing.menu {
 			cursor: pointer;
 		}
 		
+		/* Makes textarea fluid (Full wdth of container) */
 		textarea {
 			-webkit-box-sizing: border-box;
 			-moz-box-sizing: border-box;
@@ -81,6 +90,7 @@
 
 	</div>
 
+	<!-- JavaScript -->
 	<script type="text/javascript">
 		var providerName = "Ernest";
 		var patientName = "Pauline";
@@ -103,25 +113,29 @@
 
 		$(document).ready(function(){
 
+			// Click cancel button
 			$(".cancelBtn").click(function(){
 				$('#reasonModal').modal({
-					autofocus: false,
+					autofocus: false,	// Prevents dropdown from dropping automatically
 				}).modal('show');
 			});
 
+			// Click cancel confirmation button
 			$("#cancelReq").click(function(){
 				$('#reasonModal').modal('hide');
 				$('.cancelled-redirect').modal('show');
 				
 			});
 
+			// Click to return to dashboard button
 			$("#returnDashboard").click(function(){
 				$('#returnDashboard').modal('hide');
-				FlowRouter.go('/dashboard');
+				FlowRouter.go('/dashboard');	// Redirects to dashboard
 			});
 
 		});
 
+		// Multi-select dropdown functionality
 		$('#multi-select')
 		  .dropdown()
 		;

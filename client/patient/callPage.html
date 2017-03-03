@@ -1,9 +1,16 @@
+<!-- Call page. Second menu on the patient dashboard. 
+	After a patient requests on the Request page, they will see this page -->
+
 <template name="callPage">
+
+	<!-- CSS -->
 	<style>
+		/* Shows pointer finger when hovered over dashboard menu */
 		.ui.pointing.menu {
 			cursor: pointer;
 		}
 		
+		/* Makes textarea fluid */
 		textarea {
 			-webkit-box-sizing: border-box;
 			-moz-box-sizing: border-box;
@@ -13,6 +20,7 @@
 	  	}
 	</style>
 
+	<!-- Informative box about how long call wait will be -->
 	<center>
 		<div class="ui raised very padded text container segment">
 			<h1 class="ui header container">
@@ -33,6 +41,7 @@
 		</div>
 	</center>
 
+	<!-- Cancel modal -->
 	<div class="ui small modal" id="reasonModal">
 	  <i class="close icon"></i>
 	  <div class="header">
@@ -58,6 +67,7 @@
 	  </div>
 	</div>
 
+	<!-- After cancelled request, will open this confirmation modal -->
 	<div class="ui cancelled-redirect small modal">
 		<i class="close icon"></i>
     	<div class="header">
@@ -68,6 +78,7 @@
   			<center><h3>We will now redirect you to your dashboard.</h3></center>
   		</div>
 
+  		<!-- Redirect button to dashboard -->
   		<div class="actions" id="returnDashboard">
 			<button class="ui fluid primary button">
 		    	Return to Dashboard
@@ -76,6 +87,7 @@
 
 	</div>
 
+	<!-- JavaScript -->
 	<script type="text/javascript">
 		var providerName = "Ernest";
 		var timeEstimate = 15;
@@ -87,27 +99,31 @@
 
 		$(document).ready(function(){
 
+			// Click to open cancel request button
 			$(".cancelBtn").click(function(){
 				$('#reasonModal').modal({
-					autofocus: false,
+					autofocus: false, //Prevents the dropdown from dropping automatically
 				}).modal('show');	
 			});
 
+			// Click to cancel request button
 			$("#cancelReq").click(function(){
 				$('#reasonModal').modal('hide');
 				$('.cancelled-redirect').modal({
-					autofocus: false,
+					autofocus: false, //Prevents the dropdown from dropping automatically
 				}).modal('show');
 				
 			});
 
+			// Click to return to dashboard button
 			$("#returnDashboard").click(function(){
 				$('#returnDashboard').modal('hide');
-				FlowRouter.go('/dashboard');
+				FlowRouter.go('/dashboard'); //Redirect to /dashboard URL
 			});
 
 		});
 
+		// Allows multiselect dropdown function to work
 		$('#multi-select')
 		  .dropdown()
 		;
@@ -116,6 +132,8 @@
 
 </template>
 
+<!-- Page we want to show if patient has cancelled. 
+	 Possibly just disable Call page if cancelled so this could be obsolete -->
 <template name="cancelledRequestCallPage">
 	<center>
 		<h1 class="ui header container">

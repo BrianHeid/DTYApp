@@ -1,3 +1,6 @@
+<!-- Dashboard for the patient. Has each step of the process:
+	 Request, Call, Reserve, Treatment, Follow-Up, and Review -->
+
 <template name= 'show_dashboard_page'>
 	<p>{{>dashboard}}</p>
   	<!-- <p>{{>dashboard_mobile}}</p> -->
@@ -34,7 +37,7 @@
 	  </div>
 	</h2>
 
-	<div class="ui six top attached steps">
+	<div class="ui six top attached unstackable steps">
 
 		{{#if isRequest 'request'}}
 	  <a class="active step">

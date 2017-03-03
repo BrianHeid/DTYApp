@@ -2,11 +2,7 @@
 
 <template name= 'show_profile_page'>
 	<p>{{>editProfileForm}}</p>
-  	<!-- <p>{{>editProfileForm_mobile}}</p> -->
 </template>
-
-
-<!-- Computer version -->
 
 <template name="editProfileForm">
 	<div class="ui stackable two column centered container">
@@ -31,10 +27,6 @@
 					<label>First Name</label>
 					<input type="text" name="firstName" placeholder="First Name" autofocus>
 				</div>
-			<!--<div class="field">
-					<label>Middle Name</label>
-					<input type="text" name="middleName" placeholder="Middle Name">
-				</div> -->
 				<div class="field required">
 					<label>Last Name</label>
 					<input type="text" name="lastName" placeholder="Last Name">
@@ -68,7 +60,7 @@
 			<div class="column equal width fields">
 				<div class="required field">
 					<label>State</label>
-					<input type="text" name="state" placeholder="State">
+					{{>statesList}}
 				</div>
 				<div class="required field">
 					<label>Country</label>
@@ -133,18 +125,20 @@
 		
 	</div>
 
+	<!-- JavaScript -->
 	<script type="text/javascript">
 		$(document).ready(function(){
+
+			//Click to save button 
 			$("#save").click(function(){
-				$('#success').show(500);
-				event.preventDefault();	
+				$('#success').show(500); //Reveals in 500 milliseconds
+				event.preventDefault();	 //Prevents refreshing page
 			});
 		});
 
+		// Allows dropdown function to work
 		$('.ui.dropdown')
 		  .dropdown()
 		;
 	</script>
 </template>
-
-<!-- Mobile version NEED TO WORK ON LATER -->

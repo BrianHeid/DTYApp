@@ -1,3 +1,5 @@
+// Helper functions to show what the current step is and will disable and enable according to position
+
 Template.dashboard.helpers({
 	'isRequest': function(){
 		return FlowRouter.current().queryParams['status'] == 'request'
