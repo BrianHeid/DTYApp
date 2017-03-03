@@ -44,42 +44,44 @@ The following are various applications/APIs that we use/will use in the web app 
 ## CURRENT FOLDER LAYOUT
 Look at code comments for more details.
 
-| File                             | Comments                                                                         |
-|----------------------------------|:---------------------------------------------------------------------------------|
-| client                           | Contains all client side files                                                   |
-| client/lib/semantic-ui/ui/...    | Semantic UI folders to modify theme                                              |
-| client/patient                   | All patient side elements/pages                                                  |
-| client/callPage.html             | Call page html layout                                                            |
-| client/countriesList.html        | List of countries in a dropdown menu                                             |
-| client/dashboard.html            | Dashboard html layout for patient. Has each step of the housecall/consultation.. |
-| client/dashboard.js              | Dashboard js to change steps                                                     |
-| client/editProfileForm.html      | Patient profile html layout                                                      |
-| client/editProfileForm.js        | Patient profile js to add to database                                            |
-| client/email.js                  | Used to send emails                                                              |
-| client/followupPage.html         | First shown follow-up page. After treatment, the patient will wait for follow-up |
-| client/followupPage2.html        | Second shown follow-up page. Once it is time for follow-up, smiley faces will show for patient to select their status and see if they need more follow-up |
-| client/footer.html               | Footer html layout. Dynamically changes the year                                 |
-| client/header.html               | Header html layout for patient. Includes Home, Profile, Languages, and LogOut button |
-| client/header.js                 | Header js for LogOut button                                                      |
-| client/main.html                 | Basic layout templates and Login page template                                   |
-| client/main.js                   | Login validation for patient                                                     |
-| client/requestPage.css           | Request page css, mainly for toggle button                                       |
-| client/requestPage.html          | Request page html layout                                                         |
-| client/requestPage.js            | Request page js                                                                  |
-| client/reservePage.css           | Reserve page css, mainly for toggle button                                       |
-| client/reservePage.html          | Reserve page html layout                                                         |
-| client/reviewPage.html           | First shown review page. Asks for ratings before can conclude care               |
-| client/reviewPage2.html          | Second shown review page. Can download medical report and invoice and will ask to review on Yelp and Facebook if it was a very good rating |
-| client/statesList.html           | List of states in a dropdown menu                                                |
-| client/treatmentPage.html        | Treatment page html layout                                                       |
-| provider                         | All provider side elements/pages                                                 |
-| provider/dashboard_provider.html | Provider dashboard html layout. Shows patient cards dynamically from database |
-| provider/header_provider.html    | Provider header html layout. Includes Home, Profile, Schedule, and LogOut        |
-| provider/profile_provider.html   | Provider profile html layout. Provider can see their ratings and comments        |
-| lib                              | Shared between client and server                                                 |
-| lib/methods.js                   | Various JS methods, such as validating form input for profiles                   |
-| lib/routes.js                    | Routing URLs are created here                                                    |
-| public/images                    | Shared images are put here                                                       |
-| server                           | Server side files                                                                |
-| server/main.js                   | Default file for startup. Created by Meteor                                      |
-| server/server_methods.js         | Server methods, such as email regex validation                                   |
+| File                             | Comments                                                                         		|
+|----------------------------------|:---------------------------------------------------------------------------------------|
+| client                           | Contains all client side files                                                   		|
+| client/lib/semantic-ui/ui/...    | Semantic UI folders to modify theme                                              		|
+| client/patient                   | All patient side elements/pages                                                  		|
+| client/callPage.html             | Call page html layout                                                            		|
+| client/countriesList.html        | List of countries in a dropdown menu                                             		|
+| client/dashboard.html            | Dashboard html layout for patient. Has each step of the housecall/consultation.. 		|
+| client/dashboard.js              | Dashboard js to change steps                                                     		|
+| client/editProfileForm.html      | Patient profile html layout                                                      		|
+| client/editProfileForm.js        | Patient profile js to add to database                                            		|
+| client/email.js                  | Used to send emails                                                              		|
+| client/followupPage.html         | First shown follow-up page. After treatment, the patient will wait for follow-up 		|
+| client/followupPage2.html        | Second shown follow-up page. Once it is time for follow-up, smiley faces will 
+									 show for patient to select their status and see if they need more follow-up 			|
+| client/footer.html               | Footer html layout. Dynamically changes the year                                 		|
+| client/header.html               | Header html layout for patient. Includes Home, Profile, Languages, and LogOut button 	|
+| client/header.js                 | Header js for LogOut button                                                     		|
+| client/main.html                 | Basic layout templates and Login page template                                   		|
+| client/main.js                   | Login validation for patient                                                     		|
+| client/requestPage.css           | Request page css, mainly for toggle button                                       		|
+| client/requestPage.html          | Request page html layout                                                         		|
+| client/requestPage.js            | Request page js                                                                  		|
+| client/reservePage.css           | Reserve page css, mainly for toggle button                                       		|
+| client/reservePage.html          | Reserve page html layout                                                         		|	
+| client/reviewPage.html           | First shown review page. Asks for ratings before can conclude care               		|
+| client/reviewPage2.html          | Second shown review page. Can download medical report and invoice and will 
+									 ask to review on Yelp and Facebook if it was a very good rating 						|
+| client/statesList.html           | List of states in a dropdown menu                                                		|
+| client/treatmentPage.html        | Treatment page html layout                                                       		|
+| provider                         | All provider side elements/pages                                                 		|
+| provider/dashboard_provider.html | Provider dashboard html layout. Shows patient cards dynamically from database	  		|
+| provider/header_provider.html    | Provider header html layout. Includes Home, Profile, Schedule, and LogOut       		|
+| provider/profile_provider.html   | Provider profile html layout. Provider can see their ratings and comments        		|
+| lib                              | Shared between client and server                                                 		|
+| lib/methods.js                   | Various JS methods, such as validating form input for profiles                   		|
+| lib/routes.js                    | Routing URLs are created here                                                    		|
+| public/images                    | Shared images are put here                                                       		|
+| server                           | Server side files                                                                		|
+| server/main.js                   | Default file for startup. Created by Meteor                                      		|
+| server/server_methods.js         | Server methods, such as email regex validation                                   		|
