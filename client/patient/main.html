@@ -24,27 +24,25 @@
 <template name='main_page'>
 	
 	<!-- CSS -->
-	<style>m 
+	<style>
 		/* Shows pointer finger when hovered over "Register here" and "login" */
 		a {
 			cursor: pointer;
 		}
+
+		/* Add padding to top so menu doesn't overlap */
+		#login-content {
+			padding-top: 50px;
+		}
+
 	</style>
 
-	<br>
-
   	<center>
-		<div class="content">
-			<img class="ui medium centered image" src="/images/logo.png">
-			<img class="ui huge centered image" src="/images/slogan.png">
-		</div>
-
-	<br>
-	<br>
-
-  <!-- <p>{{> loginButtons}}</p> -->
-	<div class="ui raised very padded text container">
+	<div id="login-content" class="ui raised very padded text container">
 	  <div class="column">
+	  	<img class="ui medium centered image" src="/images/logo.png">
+		<img class="ui huge centered image" src="/images/slogan.png">
+
 	    <h3 class="ui image header">
 	      <div class="content centered">
 	        Login to your account
@@ -81,75 +79,80 @@
 
 <template name='create_account'>
 
-<br>
+	<!-- CSS -->
+	<style>
+		/* Shows pointer finger when hovered over "Register here" and "login" */
+		a {
+			cursor: pointer;
+		}
+
+		/* Add padding to top so menu doesn't overlap */
+		#create-account-content {
+			padding-top: 50px;
+		}
+	</style>
+
   	<center>
-		<div class="content">
-			<img class="ui medium centered image" src="/images/logo.png">
+		<div id="create-account-content" class="ui raised very padded text container">
+		  <div class="column">
+		  	<img class="ui medium centered image" src="/images/logo.png">
 			<img class="ui huge centered image" src="/images/slogan.png">
+
+
+		    <h3 class="ui image header">
+		      <div class="content centered">
+		        Create your account
+		      </div>
+		    </h3>
+		    <form class="ui large form">
+		      <div class="ui stacked secondary segment">
+
+		      <div class='two fields'>
+		        <div class="field">
+		          <div class="ui left icon input">
+		            <i class="user icon"></i>
+		            <input type="text" name="firstnme" placeholder="First name">
+		          </div>
+		        </div>
+		        <div class="field">
+		          <div class="ui left icon input">
+		            <i class="user icon"></i>
+		            <input type="text" name="lastname" placeholder="Last name">
+		          </div>
+		        </div>
+		        </div>
+
+		        <div class="field">
+		          <div class="ui left icon input">
+		            <i class="user icon"></i>
+		            <input type="text" name="email" placeholder="E-mail address">
+		          </div>
+		        </div>
+		        <div class="field">
+		          <div class="ui left icon input">
+		            <i class="lock icon"></i>
+		            <input type="password" name="password" placeholder="Password">
+		          </div>
+		        </div>
+				<div class="field">
+		          <div class="ui left icon input">
+		            <i class="lock icon"></i>
+		            <input type="password" name="password" placeholder="Confirm password">
+		          </div>
+		        </div>
+
+
+		        <div class="ui fluid large submit button" style="color: white; background-color: #00bde8;">Create Account</div>
+		      </div>
+
+		      <div class="ui error message"></div>
+
+		    </form>
+
+		    <div class="register ui message">
+		      New to Doctors To You? <a id='login'>Login</a>
+		    </div>
+		  </div>
 		</div>
-
-	<br><br>
-	
-  <!-- <p>{{> loginButtons}}</p> -->
-	<div class="ui raised very padded text container">
-	  <div class="column">
-	    <h3 class="ui image header">
-	      <div class="content centered">
-	        Create your account
-	      </div>
-	    </h3>
-	    <form class="ui large form">
-	      <div class="ui stacked secondary segment">
-
-	      <div class='two fields'>
-	        <div class="field">
-	          <div class="ui left icon input">
-	            <i class="user icon"></i>
-	            <input type="text" name="firstnme" placeholder="First name">
-	          </div>
-	        </div>
-	        <div class="field">
-	          <div class="ui left icon input">
-	            <i class="user icon"></i>
-	            <input type="text" name="lastname" placeholder="Last name">
-	          </div>
-	        </div>
-	        </div>
-
-	        <div class="field">
-	          <div class="ui left icon input">
-	            <i class="user icon"></i>
-	            <input type="text" name="email" placeholder="E-mail address">
-	          </div>
-	        </div>
-	        <div class="field">
-	          <div class="ui left icon input">
-	            <i class="lock icon"></i>
-	            <input type="password" name="password" placeholder="Password">
-	          </div>
-	        </div>
-			<div class="field">
-	          <div class="ui left icon input">
-	            <i class="lock icon"></i>
-	            <input type="password" name="password" placeholder="Confirm password">
-	          </div>
-	        </div>
-
-
-	        <div class="ui fluid large submit button" style="color: white; background-color: #00bde8;">Create Account</div>
-	      </div>
-
-
-
-
-	      <div class="ui error message"></div>
-
-	    </form>
-
-	    <div class="register ui message">
-	      New to Doctors To You? <a id='login'>Login</a>
-	    </div>
-	  </div>
-	</div>
 	</center>
 </template>

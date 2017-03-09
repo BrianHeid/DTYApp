@@ -3,7 +3,7 @@
 	 the patient is feeling with three faces: all better, somewhat
 	 better, and no improvement.
 
-	 If "All Better" then will ask for reviews (Not yet changed)
+	 If "All Better" then will ask for reviews
 	 	that will proceed them to Review page to see documents and invoice,
 
 	 Otherwise "Somewhat better" or "No improvement" then will show
@@ -18,9 +18,18 @@
 		.ui.column.images {
 	    	cursor: pointer;
 	  	}
+
+	  	/* Makes textarea fluid (full width of container) */
+		textarea {
+			-webkit-box-sizing: border-box;
+			-moz-box-sizing: border-box;
+			box-sizing: border-box;
+
+			width: 100%;
+		}
 	</style>
 
-	<!-- IF PATIENT IS SOMEWHAT BETTER OR FEELS NO IMPROVEMENT -->
+	<!-- IF PATIENT IS "SOMEWHAT BETTER" OR FEELS "NO IMPROVEMENT" -->
 
 	<div id="followupSent" class="ui raised text container segment" style="display: none;">
 		<center>
@@ -33,18 +42,18 @@
 		</center>
 	</div>
 
-	<!-- END OF PATIENT IS SOMEWHAT BETTER OR FEELS NO IMPROVEMENT -->
+	<!-- END OF PATIENT IS "SOMEWHAT BETTER" OR FEELS "NO IMPROVEMENT" -->
 
 	<!-- PROMPTING PATIENT ABOUT STATUS -->
 
 	<div id="followupContent" class="ui raised text container segment">
 		<center>
-		<h3 class="ui header container">
-		  <div class="content" id="followupTitle">
-		    <!-- Please let FIRST NAME OF PROVIDER know how you are feeling
-		    	 by selecting your current status below -->
-		  </div>
-		</h3>
+			<h3 class="ui header container">
+			  <div class="content" id="followupTitle">
+			    <!-- Please let FIRST NAME OF PROVIDER know how you are feeling
+			    	 by selecting your current status below -->
+			  </div>
+			</h3>
 		</center>
 
 		<br><br>
@@ -52,11 +61,11 @@
 		<!-- HEALTH STATUS SMILEY BUTTONS -->
 		<div class="ui column centered grid">
 			<center>
-			<div class="ui column images">
-				<img id="happy" class="ui circular image" height="100" width="100" src="/images/happy-face.png">
-				<img id="straight" class="ui circular image" height="100" width="100" src="/images/straight-face.png">
-				<img id="unhappy" class="ui circular image" height="100" width="100" src="/images/unhappy-face.png">
-			</div>
+				<div class="ui column images">
+					<img id="happy" class="ui circular image" height="100" width="100" src="/images/happy-face.png">
+					<img id="straight" class="ui circular image" height="100" width="100" src="/images/straight-face.png">
+					<img id="unhappy" class="ui circular image" height="100" width="100" src="/images/unhappy-face.png">
+				</div>
 			</center>
 		</div>
 
@@ -83,26 +92,122 @@
 
 	<!-- END OF PROMPTING PATIENT ABOUT STATUS -->
 
-	<!-- IF PATIENT IS ALL BETTER -->
+	<!-- IF PATIENT IS "ALL BETTER" -->
 
 	<div id="happyDiv" class="ui raised text container segment" style="display: none;">
 		<center>
-		<h2 class="ui header container" id="happyStatus">
-			<!-- We are so glad to hear you are all better now, PATIENT FIRST NAME!
-				 Please let PROVIDER FIRST NAME conclude your care and you will receive 
-				 your medical report and invoice ...HERE(button) -->
-		</h2>
-		
-		<br>
+			<div id="share-content" style="display: none;">
 
-		<button class="ui huge primary button">
-			HERE
-		</button>
+				<h2 class="ui header">
+					<div class="content" id="thankYouText">
+						<!-- Thank you for your feedback, PATIENT NAME! -->
+					</div>
+				</h2>
 
+				<div id="feedbackSubmitted" class="ui text segment">
+					<center>
+						<div class="ui header segment">
+							<h3 class="ui header content" id="shareExperienceText">
+								Please share your experience on:
+						  	</h3>
+						  	<br>
+						  	<div class="ui inline">
+						  		<a href="https://www.yelp.com/biz/doctors-to-you-washington-2"><input type="image" src="/images/yelp.jpg" alt="Yelp"></a>
+						  		<a href="https://www.facebook.com/pg/DoctorsToYou/reviews/"><input type="image" src="/images/facebook.jpg" alt="Facebook"></a>
+						  	</div>
+						</div>
+
+						<div class="ui segment">
+							<h3 id="follow-us" class="header">Follow us:</h3>
+							<a href="https://www.instagram.com/doctorstoyou/"><i class="instagram square icon huge" style="color:#00bde8;"></i></a>
+						  	<a href="https://twitter.com/DoctorsToYou"><i class="twitter square icon huge" style="color:#00bde8;"></i></a>
+						  	<a href="https://www.facebook.com/pg/DoctorsToYou/"><i class="facebook square icon huge" style="color:#00bde8;"></i></a>
+						</div>
+					</center>
+				</div>
+
+				<h3 id="click-here-text" class="ui header">
+					To review your medical report and invoice:
+				</h3>
+
+				<button id="click-here-btn" class="ui big primary button">
+					Click Here!
+				</button>
+			</div>
+
+			<h3 class="ui header container" id="happyStatus">
+				<!-- We are so glad to hear you are all better now, PATIENT FIRST NAME!
+					 In order to conclude your care, please submit your feedback. We value your opinion and love to hear from our patients! -->
+			</h3>
+
+			<br>
+
+			<div id="feedbackContent">
+				<h2 class="header">Feedback</h2>
+
+				<table class="ui celled unstackable blue table attached segment">
+				  <thead>
+				    <tr>
+				    	<th class="nine wide"><h3 class="header">Category</h3></th>
+				    	<th class="seven wide"><h3 class="header">Rating</h3></th>
+				  	</tr>
+				  </thead>
+				  <tbody>
+				    <tr>
+				      <td>
+				      	<h4 class="header">Punctual</h4>
+				      	<div class="sub header">Was your provider on time? Were the time estimates accurate?</div>
+				      </td>
+				      <td><div class="ui massive star rating" data-rating="5" data-max-rating="5"></div></td>
+				    </tr>
+				    <tr>
+				      <td>
+				      	<h4 class="header">Professional</h4>
+				      	<div class="sub header">Was your provider professional?</div>
+				      </td>
+				      <td><div class="ui massive star rating" data-rating="5" data-max-rating="5"></div></td>
+				    </tr>
+				    <tr>
+				      <td>
+				      	<h4 class="header">Courteous</h4>
+				      	<div class="sub header">Was your provider polite throughout your care?</div>
+				      </td>
+				      <td><div class="ui massive star rating" data-rating="5" data-max-rating="5"></div></td>
+				    </tr>
+				    <tr>
+				      <td>
+				      	<h4 class="header">Caring</h4>
+				      	<div class="sub header">Was your provider gentle? Did they listen to your concerns?</div>
+				      </td>
+				      <td><div class="ui massive star rating" data-rating="5" data-max-rating="5"></div></td>
+				    </tr>
+				    <tr>
+				      <td>
+				      	<h4 class="header">Follow-Up</h4>
+				      	<div class="sub header">Did you receive quality follow-up care? Did you feel cared for?</div>
+				      </td>
+				      <td><div class="ui massive star rating" data-rating="5" data-max-rating="5"></div></td>
+				    </tr>
+				    <tr>
+				      <td>
+				      	<h4 class="header">Additional Comments:</h4>
+				      	<div class="sub header">Is there anything else you would like to share with us? How can we improve?</div>
+				      </td>
+				      <td><textarea rows="2" maxlength="1000" placeholder="Additional comments..."></textarea></td>
+				    </tr>
+				  </tbody>
+				</table>
+				<div id="submitBtn" class="ui bottom attached primary button" tabindex="0">Submit Feedback</div>
+				<div class="ui positive message hidden" id="success">
+				  <div class="header">
+				  	Feedback was sent successfully!
+				  </div>
+				</div>
+			</div>
 		</center>
 	</div>
 
-	<!-- END OF ALL BETTER -->
+	<!-- END OF "ALL BETTER" -->
 
 
 	<!-- JavaSript -->
@@ -118,9 +223,12 @@
 
 		document.getElementById("followupNeededTitle").innerHTML = followupNeededTitleText;
 
-		var happyText = "We are so glad to hear you are all better now, " + patientFirstName + "!<br>Please let " + providerFirstName + " conclude your care and you will receive your medical report and invoice";
+		var happyText = "We are so glad to hear you are all better now, " + patientFirstName + "!<br>In order to conclude your care, please submit your feedback. We value your opinion and love to hear from our patients!";
 
 		document.getElementById("happyStatus").innerHTML = happyText;
+
+		var thankYouText = "Thank you for your feedback, " + patientFirstName + "!";
+		document.getElementById("thankYouText").innerHTML = thankYouText;
 
 		var status;
 
@@ -177,6 +285,19 @@
 					$("#happyDiv").delay(3500).show(500);
 				}	
 			});
+
+			// Click on submit button
+			$("#submitBtn").click(function(){
+				event.preventDefault();	// Prevent page from refreshing
+				$('#success').show(500);	// Reveal in 500 milliseconds
+				$("#feedbackContent").delay(400).fadeOut(1000);
+				$("#feedbackSubmitted").delay(500).show(500);
+				$('#share-content').delay(500).show(100);
+				$('#happyStatus').hide();
+			});
 		});
+
+		// Rating functionality
+		$('.rating').rating();
 	</script>
 </template>

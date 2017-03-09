@@ -1,60 +1,17 @@
 <!-- Review page. The last step in the process. Here, the patient can download
-	 their medical report and invoice. If they gave a good rating, we will also
-	 suggest them to review us on Yelp and Facebook and show our social media
-	 handles. -->
+	 their medical report and invoice.-->
 
 <template name="reviewPage2">
-	
-	<!-- CSS -->
-	<style>
-
-		/* Makes textarea fluid (full width of container) */
-		textarea {
-			-webkit-box-sizing: border-box;
-			-moz-box-sizing: border-box;
-			box-sizing: border-box;
-
-			width: 100%;
-		}
-	</style>
 
 	<div id="reviewContent">
 		<h2 class="ui header container">
 		  <div class="content">
 		    Review your care
-		    <div class="sub header">Provided will be your medical report and invoice. In order to conclude your care, please submit your feedback. We value your opinion and love to hear from our patients!</div>
+		    <div class="sub header">Provided will be your medical report and invoice.</div>
 		  </div>
 		</h2>
 
 		<br>
-
-		<div id="feedbackSubmitted" class="ui orange padded text segment container" style="display: none;">
-			<center>
-				<h2 class="ui header">
-					<div class="content" id="thankYouText">
-						<!-- Thank you for your feedback, PATIENT NAME! -->
-					</div>
-				</h2>
-
-				<div class="ui header segment">
-					<h3 class="ui header content" id="shareExperienceText">
-						Please share your experience on:
-				  	</h3>
-				  	<br>
-				  	<div class="ui inline">
-				  		<a href="https://www.yelp.com/biz/doctors-to-you-washington-2"><input type="image" src="/images/yelp.jpg" alt="Yelp"></a>
-				  		<a href="https://www.facebook.com/pg/DoctorsToYou/reviews/"><input type="image" src="/images/facebook.jpg" alt="Facebook"></a>
-				  	</div>
-				</div>
-
-				<div class="ui segment">
-					<h3 id="follow-us" class="header">Follow us:</h3>
-					<a href="https://www.instagram.com/doctorstoyou/"><i class="instagram square icon huge" style="color:#00bde8;"></i></a>
-				  	<a href="https://twitter.com/DoctorsToYou"><i class="twitter square icon huge" style="color:#00bde8;"></i></a>
-				  	<a href="https://www.facebook.com/pg/DoctorsToYou/"><i class="facebook square icon huge" style="color:#00bde8;"></i></a>
-				</div>
-			</center>
-		</div>
 
 		<div class="ui container">
 
@@ -82,93 +39,15 @@
 				    </tr>
 				</tbody>
 			</table>
-
-			<div id="feedbackContent">
-				<h3 class="header">Feedback</h3>
-
-				<table class="ui celled unstackable blue table attached segment">
-				  <thead>
-				    <tr>
-				    	<th class="nine wide"><h3 class="header">Category</h3></th>
-				    	<th class="seven wide"><h3 class="header">Rating</h3></th>
-				  	</tr>
-				  </thead>
-				  <tbody>
-				    <tr>
-				      <td>
-				      	<h4 class="header">Punctual</h4>
-				      	<div class="sub header">Was your provider on time? Were the time estimates accurate?</div>
-				      </td>
-				      <td><div class="ui massive star rating" data-rating="5" data-max-rating="5"></div></td>
-				    </tr>
-				    <tr>
-				      <td>
-				      	<h4 class="header">Professional</h4>
-				      	<div class="sub header">Was your provider professional?</div>
-				      </td>
-				      <td><div class="ui massive star rating" data-rating="5" data-max-rating="5"></div></td>
-				    </tr>
-				    <tr>
-				      <td>
-				      	<h4 class="header">Courteous</h4>
-				      	<div class="sub header">Was your provider polite throughout your care?</div>
-				      </td>
-				      <td><div class="ui massive star rating" data-rating="5" data-max-rating="5"></div></td>
-				    </tr>
-				    <tr>
-				      <td>
-				      	<h4 class="header">Caring</h4>
-				      	<div class="sub header">Was your provider gentle? Did they listen to your concerns?</div>
-				      </td>
-				      <td><div class="ui massive star rating" data-rating="5" data-max-rating="5"></div></td>
-				    </tr>
-				    <tr>
-				      <td>
-				      	<h4 class="header">Follow-Up</h4>
-				      	<div class="sub header">Did you receive quality follow-up care? Did you feel cared for?</div>
-				      </td>
-				      <td><div class="ui massive star rating" data-rating="5" data-max-rating="5"></div></td>
-				    </tr>
-				    <tr>
-				      <td>
-				      	<h4 class="header">Additional Comments:</h4>
-				      	<div class="sub header">Is there anything else you would like to share with us? How can we improve?</div>
-				      </td>
-				      <td><textarea rows="2" maxlength="1000" placeholder="Additional comments..."></textarea></td>
-				    </tr>
-				  </tbody>
-				</table>
-				<div id="submitBtn" class="ui bottom attached primary button" tabindex="0">Submit Feedback</div>
-				<div class="ui positive message hidden" id="success">
-				  <div class="header">
-				  	Feedback was sent successfully!
-				  </div>
-				</div>
-			</div>
 		</div>
 	</div>
 
 
 	<!-- JavaScript -->
 	<script type="text/javascript">
-
-		// Rating functionality
-		$('.rating').rating();
-
-		var patientFirstName = "Pauline"
-
-		var thankYouText = "Thank you for your feedback, " + patientFirstName + "!";
-		document.getElementById("thankYouText").innerHTML = thankYouText;
-
 		$(document).ready(function(){
 
-			// Click on submit button
-			$("#submitBtn").click(function(){
-				event.preventDefault();	// Prevent page from refreshing
-				$('#success').show(500);	// Reveal in 500 milliseconds
-				$("#feedbackContent").delay(800).fadeOut(1000);
-				$("#feedbackSubmitted").delay(2000).show(500);
-			});
+			
 		});
 	</script>
 	
