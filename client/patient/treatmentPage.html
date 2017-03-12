@@ -49,20 +49,12 @@
 	<div class="ui small modal" id="reasonModal">
 	  <i class="close icon"></i>
 	  <div class="header">
-	    Reason for Cancellation
+	    <center>Reason for Cancellation</center>
 	  </div>
 
 	  <div class="content">
 	  	<div class="ui warning message"><i class="warning sign icon"></i> Cancellation will result in a cancellation fee.</div>
-	  	<select id="multi-select" name="reasonForCancellation" multiple="" class="ui fluid dropdown required">
-		  <option value="">Select all that apply:</option>
-			<option value="feelbetter">I feel better</option>
-			<option value="longWait">Long wait time</option>
-		</select>
-
-		<br>
-
-	  	<div class="inline"><label>Other: </label><textarea rows="1"></textarea></div>
+	  	<textarea id="reason" rows="3"></textarea>
 	  </div>
 
 	  <div class="actions" id="cancelReq">
@@ -75,11 +67,11 @@
 	<div class="ui cancelled-redirect small modal">
 		<i class="close icon"></i>
     	<div class="header">
-    		You have cancelled your reservation.
+    		<center>You have cancelled your reservation.</center>
   		</div>
 
   		<div class="content">
-  			<center><h3>We will now redirect you to your dashboard.</h3></center>
+  			<center><h4>We will now redirect you to your dashboard.</h4></center>
   		</div>
 
   		<div class="actions" id="returnDashboard">
