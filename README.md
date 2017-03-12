@@ -91,6 +91,7 @@ Look at code comments for more details.
 To select a certain theme for elements, check which themes are available for which elements but clicking the dropdown menu on the top of each Semantic UI element page. To understand the lib/semantic-ui/... files: [Click Here](https://github.com/Semantic-Org/Semantic-UI-Meteor) 
 
 Generally to set a theme for an element:
+
 1. Check what themes there are available for what element you want to change.
 2. Inside _custom.semantic.json_ set that theme to "true" and save. Themes should automatically add themselves to the project
 3. Inside _theme.config.import.less_ set the element to the theme name you want.
