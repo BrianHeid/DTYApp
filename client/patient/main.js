@@ -94,13 +94,6 @@ Template.main_page.onRendered(function(){
 			}
 		}},
 		)
-		this.$('#register').click(
-			function(){
-				        BlazeLayout.render("App_body", {header: "header_temp",
-                                        main: "create_account",
-                                        footer: "footer_temp"});
-			}
-			)
 	});
 
 
@@ -108,18 +101,7 @@ Template.main_page.events({
 	"submit .ui.form":function(event, template){
 		console.log(template)
 	    template.$(".ui.form").hide();
-		}
-});
-
-
-Template.create_account.onRendered(function(){
-	this.$('#login').click(
-		function(){
-	        BlazeLayout.render("App_body", {header: "header_temp",
-                                main: "main_page",
-                                footer: "footer_temp"});
-		})
-
+	}
 });
 
 

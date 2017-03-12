@@ -1,7 +1,14 @@
 <!-- Page to edit provider profile -->
 
 <template name="profile_provider">
-	<div class="ui stackable two column centered container">
+
+	<style>
+		#main-content {
+			padding-top: 50px;
+		}
+	</style>
+
+	<div id="main-content" class="ui stackable two column centered container">
 		<br>
 
 		<h2 class="ui header">
@@ -186,25 +193,25 @@
 		    <p>Your settings have saved.</p>
 		</div>
 
-		<h2 class="ui header">Your Reviews</h2>
+		<h3 class="ui header">Your Reviews</h3>
 
 		<div class="ui grid">
 
 			<div class="four wide column">
-				<h4>Punctual</h4>
-				<div class="ui huge star rating" data-rating="4"></div>
-				<h4>Professional</h4>
-				<div class="ui huge star rating" data-rating="5"></div>
-				<h4>Courteous</h4>
-				<div class="ui huge star rating" data-rating="4"></div>
-				<h4>Caring</h4>
-				<div class="ui huge star rating" data-rating="5"></div>
-				<h4>Follow-Up</h4>
-				<div class="ui huge star rating" data-rating="4"></div>
+				<h5>Punctual</h5>
+				<div class="ui large star rating" data-rating="4"></div>
+				<h5>Professional</h5>
+				<div class="ui large star rating" data-rating="5"></div>
+				<h5>Courteous</h5>
+				<div class="ui large star rating" data-rating="4"></div>
+				<h5>Caring</h5>
+				<div class="ui large star rating" data-rating="5"></div>
+				<h5>Follow-Up</h5>
+				<div class="ui large star rating" data-rating="4"></div>
 			</div>
 
 			<div class="twelve wide column">
-				<h4>Additional Comments</h4>
+				<h5 class="ui header">Additional Comments</h5>
 				<h5>"Wonderful care" - Jane D.</h5>
 				<h5>"I feel better than ever! Thank you!" - Ashley B.</h5>
 				<h5>"I'm telling all of my friends!" - Bob H.</h5>

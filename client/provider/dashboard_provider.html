@@ -79,7 +79,7 @@
 			</div>
 
 			<div class="content" id="createRequest">
-				<!-- CREATE REQUEST BUTTON -->
+				<button id="createRequest" class="ui blue right floated button"><i class="add user icon"></i>CREATE REQUEST</button>
 			</div>
 		</h2>
 
@@ -355,7 +355,7 @@
 
 		    &nbsp;&nbsp;&nbsp;
 
-		    <button class="ui primary button" id="submitButton">
+		    <button class="ui primary ok button" id="submitButton">
 		    	Submit
 		    </button>
 		</center>
@@ -398,11 +398,6 @@
 
 		var statusText = "Your status: " + status;
 		document.getElementById("status").innerHTML = statusText;
-
-		//////////////////////////////////////////////////  CREATE REQUEST BUTTON  ////////////////////////////////////////////////
-
-		var createRequest = "<button class=\"ui blue right floated button\"><i class=\"add user icon\"></i>CREATE REQUEST</button>"
-		document.getElementById("createRequest").innerHTML = createRequest;
 
 		////////////////////////////////////////////////////  STATUS BUTTONS  ////////////////////////////////////////////////////
 

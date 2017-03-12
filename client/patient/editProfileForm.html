@@ -5,7 +5,13 @@
 </template>
 
 <template name="editProfileForm">
-	<div class="ui stackable two column centered container">
+	<style>
+		#main-content {
+			padding-top: 30px;
+		}
+	</style>
+
+	<div id="main-content" class="ui stackable two column centered container">
 		<br>
 
 		<h2 class="ui header">
@@ -20,76 +26,76 @@
 
 		<div class="ui column stackable form success">
 
-			<h4 class="ui dividing header">Patient Information</h4>
+			<h4 class="ui dividing header">Basic Information</h4>
 
 			<div class="column equal width fields">
-				<div class="required field">
+				<div class="field">
 					<label>First Name</label>
-					<input type="text" name="firstName" placeholder="First Name" autofocus>
+					<input type="text" name="firstName" value="First Name" readonly>
 				</div>
-				<div class="field required">
+				<div class="field">
 					<label>Last Name</label>
-					<input type="text" name="lastName" placeholder="Last Name">
+					<input type="text" name="lastName" value="Last Name" readonly>
 				</div>
 			</div>
 
-			<div class="column equal width fields required">
-				<div class="required field">
+			<div class="column equal width fields">
+				<div class="field">
 					<label>Phone Number</label>
-					<input type="text" name="phoneNumber" placeholder="Phone Number">
+					<input type="text" name="phoneNumber" value="Phone Number" readonly>
 				</div>
-			    <div class="required field">
+			    <div class="field">
 					<label>Birthday</label>
-					<input type="date" name="birthday" min="1887-01-01" max="1999-04-01">
+					<input type="text" name="birthday" value="01/01/1991" readonly>
 				</div>
 			</div>
 
 			<h4 class="ui dividing header">Address</h4>
 
 			<div class="column equal width fields">
-				<div class="required field">
+				<div class="field">
 					<label>Street</label>
-					<input type="text" name="street" placeholder="Street">
+					<input type="text" name="street" value="Street" readonly>
 				</div>
-				<div class="required field">
+				<div class="field">
 					<label>City</label>
-					<input type="text" name="city" placeholder="City">
+					<input type="text" name="city" value="City" readonly>
 				</div>
 			</div>
 
 			<div class="column equal width fields">
-				<div class="required field">
+				<div class="field">
 					<label>State</label>
-					{{>statesList}}
+					<input type="text" name="street" value="Alabama" readonly>
 				</div>
-				<div class="required field">
+				<div class="field">
 					<label>Country</label>
-					{{>countriesList}}
+					<input type="text" name="country" value="United States of America" readonly>
 				</div>
 			</div>
 
 			<div class="column equal width fields">
-				<div class="required field">
+				<div class="field">
 					<label>Zipcode</label>
-					<input type="text" name="zipcode" placeholder="Zipcode" minlength="5">
+					<input type="text" name="zipcode" value="Zipcode" minlength="5" readonly>
 				</div>
 				<div class="field">
 					<label>Apt # / Suite</label>
-					<input type="text" name="aptNumSuite" placeholder="Apt # / Suite">
+					<input type="text" name="aptNumSuite" value="Apt # / Suite" readonly>
 				</div>
 			</div>
 
 			<h4 class="ui dividing header">Account Settings</h4>
 
-			<div class="field required">
+			<div class="field">
 				<label>Email</label>
-				<input type="email" name="email" placeholder="example@gmail.com">
+				<input type="email" name="email" value="example@gmail.com" readonly>
 			</div>
-			<div class="field required">
-				<label>Password</label>
+			<div class="field">
+				<label>Change Password</label>
 				<input type="password" name="password" placeholder="Password">
 			</div>
-			<div class="field required">
+			<div class="field">
 				<label>Confirm Password</label>
 				<input type="password" name="confirmPassword" placeholder="Confirm Password">
 			</div>
