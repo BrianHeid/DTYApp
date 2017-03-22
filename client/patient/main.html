@@ -52,7 +52,7 @@
 		        Login to your account
 		      </div>
 		    </h3>
-		    <form class="ui large form">
+		    <form class="ui large form" id="loginForm">
 		      <div class="ui stacked secondary segment">
 		        <div class="field">
 		          <div class="ui left icon input">
@@ -89,25 +89,25 @@
 	  	</div>
 
 	  	<div class="content">
-	  		<form class="ui large form">
+	  		<form id="registerForm" class="ui large form">
 
 	  			<h4 class="ui dividing header">Basic Information</h4>
 
 				<div class="column equal width fields">
 					<div class="required field">
 						<label>First Name</label>
-						<input type="text" name="firstName" placeholder="First Name" autofocus>
+						<input type="text" name="firstname" placeholder="First Name" autofocus>
 					</div>
 					<div class="field required">
 						<label>Last Name</label>
-						<input type="text" name="lastName" placeholder="Last Name">
+						<input type="text" name="lastname" placeholder="Last Name">
 					</div>
 				</div>
 
 				<div class="column equal width fields required">
 					<div class="required field">
 						<label>Phone Number</label>
-						<input type="text" name="phoneNumber" placeholder="Phone Number">
+						<input type="text" name="phonenumber" placeholder="Phone Number">
 					</div>
 				    <div class="required field">
 						<label>Birthday</label>
@@ -162,7 +162,7 @@
 				</div>
 				<div class="field required">
 					<label>Confirm Password</label>
-					<input type="password" name="confirmPassword" placeholder="Confirm Password">
+					<input type="password" name="password_confirm" placeholder="Confirm Password">
 				</div>
 
 		    </form>

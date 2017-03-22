@@ -1,4 +1,4 @@
-import '../lib/collections.js'
+import '../../lib/collections.js'
 
 Template.requestPage.onRendered(
 	function(){

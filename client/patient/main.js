@@ -1,8 +1,5 @@
 import { Accounts } from 'meteor/accounts-base'
 
-
-
-
 // Template for handling user login with semantic ui
 Template.main_page.onRendered(function(){
 		if (Meteor.user()){
@@ -11,7 +8,7 @@ Template.main_page.onRendered(function(){
 			FlowRouter.go('/dashboard')
 			
 		}
-		this.$('.ui.form').form({
+		this.$('#loginForm').form({
 			inline: true,
 			on: 'blur',
 			transition: 'slide down',
@@ -60,29 +57,14 @@ Template.main_page.onRendered(function(){
 			}
 		}},
 		)
-		this.$('#register').click(
-			function(){
-				        BlazeLayout.render("App_body", {header: "header_temp",
-                                        main: "create_account",
-                                        footer: "footer_temp"});
-			}
-			)
-	});
-
 
 // Handle for account creation.
 /*
 	On a successful account creation, users are added to the Meteor.users mongo collection.
 	Users are initialized with their name, email, and a status number that indicates where the account is in the requesting process.
 */ 
-Template.create_account.onRendered(function(){
-	this.$('#login').click(
-		function(){
-	        BlazeLayout.render("App_body", {header: "header_temp",
-                                main: "main_page",
-                                footer: "footer_temp"});
-		})
-	this.$('.ui.form').form({
+
+	this.$('#registerForm').form({
 			inline: true,
 			on: 'blur',
 			transition: 'slide down',
@@ -95,6 +77,8 @@ Template.create_account.onRendered(function(){
 						firstname: fields['firstname'],
 						lastname: fields['lastname'],
 						status: 1,
+						phonenumber: fields['phonenumber'],
+						
 					}
 				})
 				console.log('Account created.....')
@@ -124,6 +108,24 @@ Template.create_account.onRendered(function(){
 					{
 						type: 'regExp[/^[a-zA-Z]{4,20}$/]',
 						prompt: 'Please enter a valid name.'
+					}
+					]
+				},
+				phonenumber: {
+					identifier: 'phonenumber',
+					rules: [
+					{
+						type: 'empty',
+						prompt: 'Please enter your primary phone number.'
+					},
+					{
+						type: 'regExp[/^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]\d{3}[\s.-]\d{4}$/]',
+						prompt: 'Please enter a valid phone number that follows any of these patterns:\
+						123-456-7890\
+						(123) 456-7890\
+						123 456 7890\
+						123.456.7890\
+						+91 (123) 456-7890'
 					}
 					]
 				},
@@ -167,8 +169,6 @@ Template.create_account.onRendered(function(){
 					]
 				}
 		}
-	})
-
-});
+	})});
 
 
