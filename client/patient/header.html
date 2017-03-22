@@ -14,6 +14,7 @@
 	</style>
 
 	<div class="ui top fixed menu">
+		{{#if currentUser}}
 		<a class="item" href="/dashboard">
     		<img src="/images/logo.png" class="ui small image">
   		</a>
@@ -21,23 +22,32 @@
 		  	<i class="history icon" ></i>
 		    History
 		</a>
+		{{else}}
+		<a class="item" href="/">
+    		<img src="/images/logo.png" class="ui small image">
+  		</a>
+  		{{/if}}
 
 	  <div class="labeled icon right menu">
-	  	<a class="item" href="/account">
-		  	<i class="user icon"></i>
-		    Profile
-	  	</a>
-	    <div class="ui dropdown item">
-	      Language <i class="dropdown icon"></i>
-	      <div class="menu">
-	        <a class="item">English</a>
-	        <a class="item">Spanish</a>
-	      </div>
-	    </div>
-	    <div class="item">
-	    	<div class="ui logout primary button">Sign Out</div>
-	    </div>
-	  </div>
+			{{#if currentUser}}
+			<a class="item" href="/account">
+				<i class="user icon"></i>
+				Profile
+			</a>
+			{{/if}}
+			<div class="ui dropdown item">
+				Language <i class="dropdown icon"></i>
+				<div class="menu">
+					<a class="item">English</a>
+					<a class="item">Spanish</a>
+				</div>
+			</div>
+			{{#if currentUser}}
+			<div class="item">
+				<div class="ui logout primary button">Sign Out</div>
+			</div>
+			{{/if}}
+		</div>
 	</div>
 
 	<br>

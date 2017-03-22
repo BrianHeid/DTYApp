@@ -1,0 +1,146 @@
+
+<template name='clientListPage'>
+	{{> calendarEvents}}
+	<div class="ui three item fluid menu">
+			<div class="item" data-tab='New'>New Patients</div>
+			<div class="item active" data-tab='Current'>Patients</div>
+			<div class="item" data-tab='History'>History</div>
+		</div>
+
+		<div class="ui tab" data-tab='New'>
+			<h1>This tab indicates all the new requests</h1>
+			<div class="ui five column stackable grid">
+				{{#each newRequests}}
+				{{> newClient}}
+				{{/each}}
+			</div>
+		</div>
+
+		<div class="ui tab active" data-tab='Current'>
+			<h1>This tab indicates all the current requests</h1>
+			<div class="ui five column stackable grid">
+				{{#each getClients}}
+				{{> client}}
+				{{/each}}
+			</div>
+		</div>
+
+		<div class="ui tab" data-tab='History'>
+			<h1>This tab stores all the treated patients</h1>
+			<div class="ui five column stackable grid">
+				{{#each treatedPatients}}
+				{{> newClient}}
+				{{/each}}
+			</div>
+		</div>
+	
+
+</template>
+
+
+<template name='client'>
+	<div class='column'>
+		<div class="ui move reveal">
+			<div class="visible content">
+				<div class="ui card">
+					<div class="one column grid">	
+						<div class="column">
+							<div class="content">
+								<a class="ui red ribbon label"> Client info</a>
+								<br>
+								<div class='ui fluid label'>ID: 
+									<div class='detail'>{{_id}}</div>
+								</div>
+								<div class='ui fluid label'>First Name: 
+									<div class='detail'>{{profile.firstname}}</div>
+								</div>
+								<div class='ui fluid label'>Last Name: 
+									<div class='detail'>{{profile.lastname}}</div>
+								</div>
+								<div class='ui fluid label'>Email Address:
+									<div class='detail'>{{profile.email}}</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="hidden content">
+				<div class="ui card">
+					<a class="ui red ribbon label"> Actions</a>	
+					<div class="ui equal width center aligned padded grid">
+						<div class='ui two buttons row'>
+							<button class='ui red left  button' id="action_button" data={{_id}}> Contact </button>
+							<button class='ui blue right  button' id="action_button" data={{_id}}> Update </button>
+						</div>
+						<div class='ui two buttons row'>
+							<button class='ui green left button' id="action_button" data={{_id}}> Transfer </button>
+							<button class='ui black right button' id="action_button" data={{_id}}> Remove </button>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+
+		</div>
+	</div>
+</template>
+
+
+<template name='newClient'>
+	<div class='column'>
+		<div class="ui move reveal">
+			<div class="visible content">
+				<div class="ui card">
+					<div class="one column grid">	
+						<div class="column">
+							<div class="content">
+								<a class="ui red ribbon label"> Client info</a>
+								<br>
+								<div class='ui fluid label'>ID: 
+									<div class='detail'>{{_id}}</div>
+								</div>
+								<div class='ui fluid label'>Requested on: 
+									<div class='detail'>{{datetime}}</div>
+								</div>
+
+								<div class='ui fluid label'>First Name: 
+									<div class='detail'>{{info.firstName}}</div>
+								</div>
+								<div class='ui fluid label'>Last Name: 
+									<div class='detail'>{{info.lastName}}</div>
+								</div>
+								<div class='ui fluid label'>Email Address:
+									<div class='detail'>{{info.email}}</div>
+								</div>
+								<div class='ui fluid label'>Symptoms: 
+									<div class='detail'>{{info.symtoms}}</div>
+								</div>
+								<div class='ui fluid label'>Relationship: 
+									<div class='detail'>{{info.for_someone_else}}</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="hidden content">
+				<div class="ui card">
+					<a class="ui red ribbon label"> Actions</a>	
+					<div class="ui equal width center aligned padded grid">
+						<div class='ui two buttons row'>
+							<button class='ui red left  button' id="action_button" data={{_id}}> Contact </button>
+							<button class='ui blue right  button' id="action_button" data={{_id}}> Update </button>
+						</div>
+						<div class='ui two buttons row'>
+							<button class='ui green left button' id="action_button" data={{_id}}> Transfer </button>
+							<button class='ui black right button' id="action_button" data={{_id}}> Remove </button>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+
+		</div>
+	</div>
+</template>

@@ -1,43 +1,65 @@
-// Helper functions to show what the current step is and will disable and enable according to position
-
 Template.dashboard.helpers({
 	'isRequest': function(){
-		return FlowRouter.current().queryParams['status'] == 'request'
+		return parseInt(Meteor.user().profile['status']) >= 1
 	},
 	'isCall': function(){
-		return FlowRouter.current().queryParams['status'] == 'call'
+		return parseInt(Meteor.user().profile['status']) >= 2
 	},
 	'isReserve': function(){
-		return FlowRouter.current().queryParams['status'] == 'reserve'
+		return parseInt(Meteor.user().profile['status']) >= 3
 	},
 	'isTreatment': function(){
-		return FlowRouter.current().queryParams['status'] == 'treatment'
+		return parseInt(Meteor.user().profile['status']) >= 4
 	},
 	'isFollowUp': function(){
-		return FlowRouter.current().queryParams['status'] == 'followup'
+		return parseInt(Meteor.user().profile['status']) >= 5
 	},
 	'isReview': function(){
-		return FlowRouter.current().queryParams['status'] == 'review'
+		return parseInt(Meteor.user().profile['status']) >= 6
 	},
 	})
 
 Template.show_dashboard_page.helpers({
 	'isRequest': function(){
-		return FlowRouter.current().queryParams['status'] == 'request'
+		return Meteor.user().profile['viewing'] == 'Request'
 	},
 	'isCall': function(){
-		return FlowRouter.current().queryParams['status'] == 'call'
+		return Meteor.user().profile['viewing'] == 'Call'
 	},
 	'isReserve': function(){
-		return FlowRouter.current().queryParams['status'] == 'reserve'
+		return Meteor.user().profile['vieing'] == 'Reserve'
 	},
 	'isTreatment': function(){
-		return FlowRouter.current().queryParams['status'] == 'treatment'
+		return Meteor.user().profile['viewing'] == 'Treatment'
 	},
 	'isFollowUp': function(){
-		return FlowRouter.current().queryParams['status'] == 'followup'
+		return Meteor.user().profile['viewing'] == 'Followup'
 	},
 	'isReview': function(){
-		return FlowRouter.current().queryParams['status'] == 'review'
+		return Meteor.user().profile['viewing'] == 'Review'
 	},
 	})
+
+
+
+Template.dashboard.onRendered(
+	
+	function(){
+		this.$('.step').click(
+			function(events, template){
+				var selected = $(event.currentTarget).find('.title').text()
+				console.log(selected)
+				Meteor.call('updateView', Meteor.userId(), selected)
+			}
+			)
+
+})
+
+//vartest = setInterval(counter, 1000)
+
+/*
+Template.show_dashboard_page.onRendered({
+	$(document).click( function(event){
+		console.log(event.target)
+	})
+})*/

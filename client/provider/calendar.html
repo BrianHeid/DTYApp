@@ -1,0 +1,56 @@
+
+
+
+
+
+<template name="calendarEvents">
+	{{> addEditEventModal }}
+	<div id="events-calendar"></div>
+</template>
+
+
+
+<template name="addEditEventModal">
+	<div class="ui modal fade" id="add-edit-event-modal" role='dialog'>
+		<div class="header">
+			Add/Edit Event
+		</div>
+
+		<div class="content">
+			<div class="ui column stackable form">
+				<div class="field">
+					<select class="ui search dropdown" name="eventType" placeholder="Event type">
+					<option selected="{{selected event.type 'New Request'}}">New Request</option>
+					<option selected="{{selected event.type 'Follow Up'}}">Follow Up</option>
+					<option selected="{{selected event.type 'Consultation'}}">Consultation</option>
+					</select>
+				</div>
+				<div class="field">
+					<label></label>
+					<input type=text name="eventTitle" value="{{#if event.title}}{{event.title}}{{else}}'Event'{{/if}}">
+				</div>
+				<div class="field">
+					<label></label>
+					<input disabled type=text name="startDate" value="{{event.start}}">
+				</div>
+				<div class="field">
+					<label></label>
+					<input type=text name="endDate" value="{{#if event.end}}{{event.end}}{{else}}{{event.start}}{{/if}}">
+				</div>
+				<div class="field">
+					<label></label>
+					<input type=text name="numGuest" value="{{event.guests}}">
+				</div>
+			</div>
+		</div>
+	
+
+		<div class="actions">
+			{{#if modalType 'edit'}}
+			<div class="ui red button" name="cancel" value="Cancel"></div>
+			{{/if}}
+			<input class="ui primary button" type=submit name="editEvent" value="Add/Edit">
+			
+		</div>
+	</div>
+</template>

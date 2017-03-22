@@ -1,9 +1,10 @@
+import '../lib/collections.js'
 
 Template.requestPage.onRendered(
 	function(){
 		this.$('.ui.dropdown').hide()
 		
-		this.$('.checkbox').checkbox({
+		this.$('.ui.checkbox').checkbox({
 			onChecked: function(){
 				$('.ui.dropdown').show()
 				
@@ -17,22 +18,23 @@ Template.requestPage.onRendered(
 			inline: true,
 			onSuccess: function(event,fields){
 				event.preventDefault()
-				console.log(fields)
+				Meteor.call('updateStatus', Meteor.userId())
+				Meteor.call('pushRequest', Meteor.userId(), fields)
 				FlowRouter.go('/dashboard')
 			},
 			fields: 
 			{
-				// symptoms:
-				// 	{
-				// 		identifier: 'symptoms',
-				// 		rules:
-				// 		[
-				// 			{
-				// 				type: 'empty',
-				// 				prompt: 'Please let us know your symptoms.'
-				// 			}
-				// 		]
-				// 	},
+				symptoms:
+					{
+						identifier: 'symptoms',
+						rules:
+						[
+							{
+								type: 'empty',
+								prompt: 'Please let us know your symptoms.'
+							}
+						]
+					},
 				relationship:
 					{
 						identifier: 'relationship',
