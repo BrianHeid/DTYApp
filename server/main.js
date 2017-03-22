@@ -1,5 +1,5 @@
 import { Meteor } from 'meteor/meteor';
-import { Mongo } from 'meteor/mongo';
+import '../lib/collections.js'
 // /imports/startup/server/mail-url.js
 
 Meteor.startup(() => {
