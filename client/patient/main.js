@@ -11,6 +11,13 @@ Template.main_page.onRendered(function(){
 			FlowRouter.go('/dashboard')
 			
 		}
+
+		this.$("#register").click(function(){
+				$("#createAccountModal").modal('setting', 'closable', false).modal('show');
+			});
+
+		this.$('.ui.dropdown').dropdown();
+
 		this.$('.ui.form').form({
 			inline: true,
 			on: 'blur',
