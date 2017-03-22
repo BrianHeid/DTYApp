@@ -58,11 +58,11 @@ Template.main_page.onRendered(function(){
 		}},
 		)
 
-// Handle for account creation.
-/*
-	On a successful account creation, users are added to the Meteor.users mongo collection.
-	Users are initialized with their name, email, and a status number that indicates where the account is in the requesting process.
-*/ 
+	// Handle for account creation.
+	/*
+		On a successful account creation, users are added to the Meteor.users mongo collection.
+		Users are initialized with their name, email, and a status number that indicates where the account is in the requesting process.
+	*/ 
 
 	this.$('#registerForm').form({
 			inline: true,
@@ -169,6 +169,5 @@ Template.main_page.onRendered(function(){
 					]
 				}
 		}
-	})});
-
-
+	})
+});

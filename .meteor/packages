@@ -29,3 +29,10 @@ juliancwirko:postcss
 semantic:ui
 email
 semantic:ui-nag
+
+
+fullcalendar:fullcalendar
+momentjs:moment
+aldeed:simple-schema
+aldeed:collection2
+session

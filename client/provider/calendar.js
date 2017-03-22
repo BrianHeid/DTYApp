@@ -1,5 +1,5 @@
 import { Tracker } from 'meteor/tracker'
-import '../lib/collections.js'
+import '../../lib/collections.js'
 
 
 
