@@ -4,28 +4,28 @@
 The following are various applications/APIs that we use/will use in the web app that you should be familiar with:
 
 * [Meteor.JS framework](https://www.meteor.com/)
- * A full-stack framework built on JavaScript
- * Includes MongoDB - database system
- * Running the app on your localhost
-   * meteor
+	* A full-stack framework built on JavaScript
+	* Includes MongoDB - database system
+ 	* Running the app on your localhost
+   		* meteor
 
 * [Semantic UI](http://semantic-ui.com/usage/theming.html)
- * UI elements are created using Semantic UI
- * It is built for themes, therefore you can change the themes of elements under: _DTYApp/client/lib/semantic-ui/ui/theme.config.import.less_
- * Then you will have to refresh the folders and it will import the appropriate themes
+	* UI elements are created using Semantic UI
+	* It is built for themes, therefore you can change the themes of elements under: _DTYApp/client/lib/semantic-ui/ui/theme.config.import.less_
+	* Then you will have to refresh the folders and it will import the appropriate themes
 
 * [BrainTree](https://www.braintreepayments.com/)
- * Used for credit card transactions
- * Created by PayPal
- * Not yet implemented but will be used in: _DTYApp/client/patient/reservePage.html_
+	* Used for credit card transactions
+	* Created by PayPal
+	* Not yet implemented but will be used in: _DTYApp/client/patient/reservePage.html_
 
 * [MailGun](https://www.mailgun.com/)
- * Used to send emails
- * Not yet implemented until we have a server to run the app on
+	* Used to send emails
+	* Not yet implemented until we have a server to run the app on
 
 * [Twilio](https://www.twilio.com/)
- * Used to send text messages
- * Not yet implemented yet
+	* Used to send text messages
+	* Not yet implemented yet
 
 ## GETTING TO KNOW THE SOURCE CODE
 
@@ -57,8 +57,7 @@ Look at code comments for more details.
 | client/editProfileForm.js        | Patient profile js to add to database                                            		|
 | client/email.js                  | Used to send emails                                                              		|
 | client/followupPage.html         | First shown follow-up page. After treatment, the patient will wait for follow-up 		|
-| client/followupPage2.html        | Second shown follow-up page. Once it is time for follow-up, smiley faces will 
-									 show for patient to select their status and see if they need more follow-up 			|
+| client/followupPage2.html        | Second shown follow-up page. Once it is time for follow-up, smiley faces will show for patient to select their status and see if they need more follow-up 			|
 | client/footer.html               | Footer html layout. Dynamically changes the year                                 		|
 | client/header.html               | Header html layout for patient. Includes Home, Profile, Languages, and LogOut button 	|
 | client/header.js                 | Header js for LogOut button                                                     		|
@@ -70,8 +69,7 @@ Look at code comments for more details.
 | client/reservePage.css           | Reserve page css, mainly for toggle button                                       		|
 | client/reservePage.html          | Reserve page html layout                                                         		|	
 | client/reviewPage.html           | First shown review page. Asks for ratings before can conclude care               		|
-| client/reviewPage2.html          | Second shown review page. Can download medical report and invoice and will 
-									 ask to review on Yelp and Facebook if it was a very good rating 						|
+| client/reviewPage2.html          | Second shown review page. Can download medical report and invoice and will ask to review on Yelp and Facebook if it was a very good rating 						|
 | client/statesList.html           | List of states in a dropdown menu                                                		|
 | client/treatmentPage.html        | Treatment page html layout                                                       		|
 | provider                         | All provider side elements/pages                                                 		|
