@@ -1,6 +1,6 @@
 <template name= 'show_dashboard_page'>
 	<p>{{>dashboard}}</p>
-	<!-- <p>{{>dashboard_mobile}}</p> -->
+
 	{{#if isRequest}}
 	<p>{{>requestPage}}</p>
 	{{/if}}
@@ -8,13 +8,21 @@
 	{{#if isCall}}
 	<p>{{>callPage}}</p>
 	{{/if}}
+
+	{{#if isReserve}}
+	<p>{{>reservePage}}</p>
+	{{/if}}
+
+	{{#if isTreatment}}
+	<p>{{>treatmentPage}}</p>
+	{{/if}}
+
+	{{#if isFollowUp}}
+	<p>{{>followupPage}}</p>
+	{{/if}}
 </template>
 
 <template name="dashboard">
-	<style>
-		
-	</style>
-
 	<h2 class="ui header container">
 		<i class="dashboard icon"></i>
 		<div class="content">
@@ -132,9 +140,6 @@
 			</div>
 		</a>
 		{{/if}}
-	</div>
-	<div class="ui attached segment">
-		<p></p>
 	</div>
 </template>
 

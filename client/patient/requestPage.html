@@ -16,7 +16,7 @@
 			<!-- If checked, "Choose your relationship" dropdown will appear and is required -->
 		    <label>Is this request for someone else?</label>
 		    <div class="field">
-				<label class="checkbox switch">
+				<label class="ui checkbox switch">
 					<input class="switch-input" type="checkbox" id="myonoffswitch" name="for_someone_else"/>
 					<span class="switch-label" data-on="Yes" data-off="No"></span> 
 					<span class="switch-handle"></span> 
@@ -37,7 +37,7 @@
 			<!-- Optional to include symptoms or images -->
 			<label>Symptoms</label>
 			<div class="field">
-	    		<textarea rows="3" name= 'symptoms'></textarea>
+	    		<textarea rows="3" maxlength="200" name= 'symptoms'></textarea>
 			</div>
 
 			<!-- Need to implement upload functionality! Then can preview images as well. -->
@@ -57,9 +57,6 @@
 
 		// Dropdown functionality
 		$('.ui.dropdown').dropdown();
-
-		// Toggle button functionality
-		$('.ui.checkbox').checkbox('attach events', '.toggle.button');
 	</script>
 
 </template>

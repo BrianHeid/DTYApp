@@ -17,7 +17,6 @@ Template.main_page.onRendered(function(){
 		
 				Meteor.loginWithPassword(fields['email'],fields['password'],(error,result)=>{
 					if(error){
-						//$('#error_message').html('<div class="ui negative">')
 						$('#error_message').show()
 						$('#error_message').html("<div class='header'>" + 'Please try again' + '</div>' + '<p>' + error['reason'] + "</p>")
 					}
@@ -55,7 +54,7 @@ Template.main_page.onRendered(function(){
 						}
 					]
 			}
-		}},
+		}}
 		)
 
 	// Handle for account creation.
@@ -119,16 +118,72 @@ Template.main_page.onRendered(function(){
 						prompt: 'Please enter your primary phone number.'
 					},
 					{
-						type: 'regExp[/^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]\d{3}[\s.-]\d{4}$/]',
-						prompt: 'Please enter a valid phone number that follows any of these patterns:\
-						123-456-7890\
-						(123) 456-7890\
-						123 456 7890\
-						123.456.7890\
-						+91 (123) 456-7890'
+						type: 'regExp[/^(\\+\\d{1,2}\\s)?\\(?\\d{3}\\)?[\\s.-]\\d{3}[\\s.-]\\d{4}$/]',
+						prompt: 'Please enter a valid phone number.'
 					}
 					]
 				},
+				birthday: {
+					identifier: 'birthday',
+					rules: [
+					{
+						type: 'empty',
+						prompt: 'Please enter your birthday.'
+					}
+					]
+				},
+				street:{
+	                identifier: 'street',
+	                rules:[
+	                {
+	                    type: 'regExp[/^\\d [A-Za-z ]* (?:Rd\\.)|(?:Dr\\.)|(?:St\\.)|(?:Ct\\.)$/]',
+	                    prompt: 'Please enter a valid street address.'
+	                },
+	                {
+	                    type: 'empty',
+	                    prompt: 'Please enter a street address.'
+	                }
+	                ]
+	            },
+	            city:{
+	                identifier: 'city',
+	                rules:[
+	                {
+	                    type: 'regExp[/^[A-Za-z]{0,144}$/]',
+	                    prompt: 'Please enter a valid city.'
+	                },
+	                {
+	                    type: 'empty',
+	                    prompt: 'Please enter a city.'
+	                }
+	                ]
+	            },
+	            state:{
+	                identifier: 'state',
+	                rules:[
+	                {
+	                    type: 'regExp[/^[A-Za-z]{2}$/]',
+	                    prompt: 'Please enter a valid state.'
+	                },
+	                {
+	                    type: 'empty',
+	                    prompt: 'Please enter a state.'
+	                }
+	                ]
+	            },
+	            zipcode:{
+	                identifier: 'zipcode',
+	                rules: [
+	                {
+	                    type: 'regExp[/^[0-9 ]{5}$/]',
+	                    prompt: 'Please enter a valid zip code.'
+	                },
+	                {
+	                    type: 'empty',
+	                    prompt: 'Please enter a zip code.'
+	                }
+	                ]
+	            },
 				email: {
 					identifier : 'email',
 					rules: [

@@ -5,146 +5,118 @@
 </template>
 
 <template name="editProfileForm">
-	<style>
-		#main-content {
-			padding-top: 30px;
-		}
-	</style>
-
-	<div id="main-content" class="ui stackable two column centered container">
+	<div class="ui stackable two column centered container">
 		<br>
 
 		<h2 class="ui header">
-		  <i class="edit icon"></i>
-		  <div class="content">
-		    Profile Settings
-		    <div class="sub header">Manage your profile and preferences</div>
-		  </div>
+			<i class="edit icon"></i>
+			<div class="content">
+				Profile Settings
+				<div class="sub header">Manage your profile and preferences</div>
+			</div>
 		</h2>
 
 		<br>
 
-		<div class="ui column stackable form success">
-
-			<h4 class="ui dividing header">Basic Information</h4>
+		<div class="ui column stackable form">
 
 			<div class="column equal width fields">
-				<div class="field">
+				<div class="required field">
 					<label>First Name</label>
-					<input type="text" name="firstName" value="First Name" readonly>
+					<input type="text" name="firstName" placeholder={{firstName}} autofocus>
 				</div>
-				<div class="field">
+				<div class="field required">
 					<label>Last Name</label>
-					<input type="text" name="lastName" value="Last Name" readonly>
+					<input type="text" name="lastName" placeholder={{lastName}}>
 				</div>
 			</div>
 
-			<div class="column equal width fields">
-				<div class="field">
+			<div class="column equal width fields required">
+				<div class="required field">
 					<label>Phone Number</label>
-					<input type="text" name="phoneNumber" value="Phone Number" readonly>
+					<input type="text" name="phoneNumber" placeholder="Phone Number">
 				</div>
-			    <div class="field">
+				<div class="required field">
 					<label>Birthday</label>
-					<input type="text" name="birthday" value="01/01/1991" readonly>
+					<input type="date" name="birthday" min="1887-01-01" max="1999-04-01">
 				</div>
 			</div>
 
-			<h4 class="ui dividing header">Address</h4>
-
-			<div class="column equal width fields">
-				<div class="field">
+			<div class="column fields">
+				<div class="six wide required field">
 					<label>Street</label>
-					<input type="text" name="street" value="Street" readonly>
+					<input type="text" name="street" placeholder="Street">
 				</div>
-				<div class="field">
+				<div class="four wide required field">
 					<label>City</label>
-					<input type="text" name="city" value="City" readonly>
+					<input type="text" name="city" placeholder="City">
 				</div>
-			</div>
-
-			<div class="column equal width fields">
-				<div class="field">
+				<div class="three wide required field">
 					<label>State</label>
-					<input type="text" name="street" value="Alabama" readonly>
+					<input type="text" name="state" placeholder="State">
 				</div>
-				<div class="field">
+				<div class="three wide required field">
 					<label>Country</label>
-					<input type="text" name="country" value="United States of America" readonly>
+					{{>countriesList}}
 				</div>
 			</div>
-
 			<div class="column equal width fields">
-				<div class="field">
+				<div class="required field">
 					<label>Zipcode</label>
-					<input type="text" name="zipcode" value="Zipcode" minlength="5" readonly>
+					<input type="text" name="zipcode" placeholder="Zipcode" minlength="5">
 				</div>
 				<div class="field">
 					<label>Apt # / Suite</label>
-					<input type="text" name="aptNumSuite" value="Apt # / Suite" readonly>
+					<input type="text" name="aptNumSuite" placeholder="Apt # / Suite">
 				</div>
 			</div>
-
-			<h4 class="ui dividing header">Account Settings</h4>
-
-			<div class="field">
+			<div class="field required">
 				<label>Email</label>
-				<input type="email" name="email" value="example@gmail.com" readonly>
+				<input type="email" name="email" placeholder="example@gmail.com">
 			</div>
-			<div class="field">
-				<label>Change Password</label>
+			<div class="field required">
+				<label>Password</label>
 				<input type="password" name="password" placeholder="Password">
 			</div>
-			<div class="field">
+			<div class="field required">
 				<label>Confirm Password</label>
 				<input type="password" name="confirmPassword" placeholder="Confirm Password">
 			</div>
 
 
-			<h3 id="emailPref" class="ui header">
-			  <i class="alarm outline icon"></i>
-			  <div class="content">
-			    Notification Preferences
-			  </div>
+			<h3 class="ui header">
+				<i class="alarm outline icon"></i>
+				<div class="content">
+					Notification Preferences
+				</div>
 			</h3>
 			
 			<div class="ui selection dropdown">
 				<input type="hidden" name="notifications">
-				  <i class="dropdown icon"></i>
-				  <div class="default text">Choose your notification preferences...</div>
-				  <div class="menu">
-				    <div class="item" data-value="both">Receive email and text notifications</div>
-				    <div class="item" data-value="emailOnly">Receive email only</div>
-				  </div>
+				<i class="dropdown icon"></i>
+				<div class="default text">Choose your notification preferences...</div>
+				<div class="menu">
+					<div class="item" data-value="both">Receive email and text notifications</div>
+					<div class="item" data-value="emailOnly">Receive email only</div>
+				</div>
 			</div>
 
 			<br><br>
 
-			<input class="fluid ui primary button" id="save" type="submit" name="submitBtn" value="Save">
+			<input class="fluid ui primary button" type="submit" name="submitBtn" value="Save">
 		</div>
 
 		<!-- SUCCESS MESSAGE -->
-		<div class="ui success message hidden" id="success">
-		    <div class="header">Saved!</div>
-		    <p>Your settings have saved.</p>
+		<div class="ui success message">
+			<div class="header">Saved!</div>
+			<p>You're settings have saved.</p>
 		</div>
 		
 	</div>
 
-	<!-- JavaScript -->
 	<script type="text/javascript">
-		$(document).ready(function(){
-
-			//Click to save button 
-			$("#save").click(function(){
-				$('#success').show(500); //Reveals in 500 milliseconds
-				event.preventDefault();	 //Prevents refreshing page
-			});
-		});
-
-		// Allows dropdown function to work
 		$('.ui.dropdown')
-		  .dropdown()
+		.dropdown()
 		;
 	</script>
 </template>

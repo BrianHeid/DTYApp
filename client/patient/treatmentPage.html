@@ -32,18 +32,18 @@
 		  	<h3 id="providerName" class="ui header"><!-- Provider name --></h3>
 		  </div>
 		</div>
-	  <center>
-	    <h3 id="reserveProviderText" class="ui header"></h3>
-	    
-	    <h3 id="timeApproxText" class="ui header"></h3>
-
-	    <br>
 	  
-		<div class="cancelBtn ui negative button">
-			Cancel Reservation
-		</div>
+	  	<center>
+		    <h3 id="reserveProviderText" class="ui header"></h3>
+		    
+		    <h3 id="timeApproxText" class="ui header"></h3>
 
-	</center>
+		    <br>
+		  
+			<div class="cancelBtn ui negative button">
+				Cancel Reservation
+			</div>
+		</center>
 	</div>
 
 	<div class="ui small modal" id="reasonModal">
@@ -54,7 +54,7 @@
 
 	  <div class="content">
 	  	<div class="ui warning message"><i class="warning sign icon"></i> Cancellation will result in a cancellation fee.</div>
-	  	<textarea id="reason" rows="3" required></textarea>
+	  	<textarea id="reason" rows="3" maxlength="500" required></textarea>
 	  </div>
 
 	  <div class="actions" id="cancelReq">
@@ -104,26 +104,6 @@
 
 
 		$(document).ready(function(){
-
-			// Makes Cancellation Reason text area mandatory
-			$('.ui.form').form({
-	          fields: {
-	            email: {
-	              identifier  : 'email',
-	              rules: [
-	                {
-	                  type   : 'empty',
-	                  prompt : 'Please enter your e-mail'
-	                },
-	                {
-	                  type   : 'email',
-	                  prompt : 'Please enter a valid e-mail'
-	                }
-	              ]
-	            }
-	          }
-		     });
-
 			// Click cancel button
 			$(".cancelBtn").click(function(){
 				$('#reasonModal').modal({
