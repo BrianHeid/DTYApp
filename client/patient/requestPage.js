@@ -2,18 +2,26 @@ import '../../lib/collections.js'
 
 Template.requestPage.onRendered(
 	function(){
-		this.$('.ui.dropdown').hide()
-		
-		this.$('.ui.checkbox').checkbox({
-			onChecked: function(){
-				$('.ui.dropdown').show()
-				
-			
-			},
-			onUnchecked: function(){
-				$('.ui.dropdown').hide()
-			}
-			})
+		$("#relationship-form").toggle().hide();
+
+		$("#myonoffswitch").click(function(){
+			$('#relationship-form').toggle();
+		});
+
+		// Click billing address toggle
+		$("#myonoffswitch-address").click(function(){
+			$('#address-form').toggle();
+		});
+
+		// Click billing address toggle
+		$("#myonoffswitch-time").click(function(){
+			$('#time-form').toggle();
+		});
+
+		// Dropdown functionality
+		$('.ui.dropdown').dropdown();
+
+
 		this.$('.ui.form').form({
 			inline: true,
 			onSuccess: function(event,fields){

@@ -1,8 +1,6 @@
 import { Tracker } from 'meteor/tracker'
 import '../../lib/collections.js'
 
-
-
 let isPast = ( date ) => {
 	let today = moment().format();
 	return moment( today ).isAfter( date );
