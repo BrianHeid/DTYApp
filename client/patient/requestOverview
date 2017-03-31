@@ -1,0 +1,24 @@
+
+<template name="requestOverview">
+
+	<!-- Informative box about how long call wait will be -->
+	<center>
+		<div class="ui raised very padded text container segment">
+			<h1 class="ui header container">
+			  <div class="content">
+			    Request submitted
+			  </div>
+			</h1>
+
+			<h2 class="ui header container">
+			  <div class="content">
+			  	House call for: <!-- time and date -->
+			  </div>
+			</h2>
+
+			<br>
+
+			<button class="cancelBtn negative ui button">Cancel Request</button>
+		</div>
+	</center>
+</template>
