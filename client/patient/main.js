@@ -12,7 +12,7 @@ Template.main_page.onRendered(function(){
 		inline: true,
 		on: 'blur',
 		transition: 'slide down',
-		onSuccess: function(event,fields ){
+		onSuccess: function(event, fields){
 			event.preventDefault()
 	
 			Meteor.loginWithPassword(fields['email'],fields['password'],(error,result)=>{
@@ -226,5 +226,5 @@ Template.main_page.onRendered(function(){
 					]
 				}
 		}
-	})
+	});
 });
