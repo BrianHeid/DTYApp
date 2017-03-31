@@ -60,12 +60,14 @@
 		            <input type="text" name="email" placeholder="E-mail address">
 		          </div>
 		        </div>
-		        <div class="field">
+		        <div class="field" style="margin-bottom:0px;">
 		          <div class="ui left icon input">
 		            <i class="lock icon"></i>
 		            <input type="password" name="password" placeholder="Password">
 		          </div>
 		        </div>
+		        <div align="left" style="margin-bottom:0px; margin-left:4px;"><a id="reset"><small>Forgot password?</small></a></div>
+		        <br>
 		        <div class="ui fluid large submit button" style="color: white; background-color: #00bde8;">Login</div>
 		      </div>
 
@@ -194,6 +196,9 @@
 
 			$("#register").click(function(){
 				$("#createAccountModal").modal('setting', 'closable', false).modal('show');
+			});
+			$("#reset").click(function(){
+				Accounts.sendResetPasswordEmail;
 			});
 
 		});
