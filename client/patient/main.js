@@ -67,10 +67,10 @@ Template.main_page.onRendered(function(){
 
 	this.$('#registerForm').form({
 			inline: true,
-			on: 'blur',
+			on: 'submit',
 			transition: 'slide down',
 			onSuccess: function(event,fields){
-				event.preventDefault()
+				event.preventDefault();
 				Accounts.createUser({
 					email: fields['email'],
 					password: fields['password'],
