@@ -2,23 +2,18 @@
 <template name="requestOverview">
 
 	<!-- Informative box about how long call wait will be -->
-	<center>
-		<div class="ui raised very padded text container segment">
-			<h1 class="ui header container">
-			  <div class="content">
-			    Request submitted
-			  </div>
-			</h1>
+	<div class="ui raised very padded text container segment">
+		<!-- dashboard -->
+		<center>
+	    	<h3 id="submitTime" class="ui header">Request submitted at<!-- time --> on <!-- date --></h3>
+	    		<br>
+	   			<p> Date of requested consultation: <!-- date --></p>
+	    		<p> Time of requested consultation: <!-- time --></p>
+	   		<hr>
+	    	<p> Symptoms: <!-- list --></p>
+	    	<p> Uploaded images: <!-- pictures --></p>
+			<button class="fluid ui primary button" type="submit" name="proceedRequestBtn" value="Proceed"></button>
+		</center>
+	</div>
 
-			<h2 class="ui header container">
-			  <div class="content">
-			  	House call for: <!-- time and date -->
-			  </div>
-			</h2>
-
-			<br>
-
-			<button class="cancelBtn negative ui button">Cancel Request</button>
-		</div>
-	</center>
 </template>
