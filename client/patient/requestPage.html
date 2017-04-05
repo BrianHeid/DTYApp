@@ -8,6 +8,8 @@
 	  <div class="content">
 	    Request a Consultation
 	  </div>
+	  <div class="sub header">Need a doctor? We're on our way! Start a request below:
+	  </div>
 	</h2>
 
 	<div class="ui container">
@@ -23,8 +25,8 @@
 				</label>
 			</div>
 
-			<div class="field">
-		      <select class="ui dropdown" name="relationship">
+			<div id="relationship-form" class="field">
+		      <select class="ui dropdown" id="relationship" name="relationship">
 		        <option value="">Choose your relationship</option>
 		        <option value="family">For my family member</option>
 		        <option value="friend">For my friend</option>
@@ -32,11 +34,79 @@
 		      </select>
 		    </div>
 
+		    <!-- If checked, address will hide -->
+		    <label>Same address?</label>
+			<label class="switchAddress">
+				<input class="switch-input-address" type="checkbox" id="myonoffswitch-address" name="same_address"/>
+				<span class="switch-label-address" data-on="Yes" data-off="No"></span> 
+				<span class="switch-handle-address"></span> 
+			</label>
+
+			<div id="address_form" name="address_form">
+			    <h4 class="ui dividing header">Address</h4>
+			
+				<div class="column equal width fields">
+					<div class="required field">
+						<label>Street</label>
+						<input type="text" name="street" placeholder="Street">
+					</div>
+					<div class="required field">
+						<label>City</label>
+						<input type="text" name="city" placeholder="City">
+					</div>
+				</div>
+
+				<div class="column equal width fields">
+					<div class="required field">
+						<label>State</label>
+						<input type="text" name="state" placeholder="State">
+					</div>
+					<div class="required field">
+						<label>Country</label>
+						{{>countriesList}}	<!-- Template shorthand, puts countriesList select search dropdown here -->
+					</div>
+				</div>
+				<div class="column equal width fields">
+					<div class="required field">
+						<label>Zipcode</label>
+						<input type="text" name="zipcode" placeholder="Zipcode" minlength="5">
+					</div>
+					<div class="field">
+						<label>Apt # / Suite</label>
+						<input type="text" name="aptNumSuite" placeholder="Apt # / Suite">
+					</div>
+				</div>
+			</div>
+
 			<br>
 
-			<!-- Optional to include symptoms or images -->
+			<!-- If checked, date and time will hide -->
+		    <label>As soon as possible</label>
+			<label class="switchTime">
+				<input class="switch-input-time" type="checkbox" id="myonoffswitch-time" name="as_soon_as_possible"/>
+				<span class="switch-label-time" data-on="Yes" data-off="No"></span> 
+				<span class="switch-handle-time"></span> 
+			</label>
+
+			<div id="time-form">
+			    <h4 class="ui dividing header">Date and Time</h4>
+
+				<div class="two fields">
+					<div class="field">
+						<label>Date</label>
+						<input type="date" name="date">
+					</div>
+
+					<div class="field">
+				      <label>Time</label>
+				      <input type="time" name="time">
+					</div>
+				</div>
+			</div>
+
+			<!-- Symptoms or images -->
 			<label>Symptoms</label>
-			<div class="field">
+			<div class="required field">
 	    		<textarea rows="3" name= 'symptoms'></textarea>
 			</div>
 
@@ -51,15 +121,4 @@
 			<input class="fluid ui primary button" type="submit" name="submitRequestBtn" value="Submit Request">
 		</form>
 	</div>
-
-	<!-- JavaScript -->
-	<script type="text/javascript">
-
-		// Dropdown functionality
-		$('.ui.dropdown').dropdown();
-
-		// Toggle button functionality
-		$('.ui.checkbox').checkbox('attach events', '.toggle.button');
-	</script>
-
 </template>

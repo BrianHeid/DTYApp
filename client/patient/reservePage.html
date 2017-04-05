@@ -104,6 +104,8 @@
 				</div>
 			</div>
 
+			<!-- ADD DATE AND TIME -->
+
 			<label>Do you agree to <a id="consent">Consent to Provide Care</a> and the <a id="hipaa">HIPAA Privacy Notice</a>?</label>
 			<label class="switchAgree">
 				<input class="switch-input-agree" type="checkbox" id="myonoffswitch"/>
@@ -224,9 +226,6 @@
 
 		// Allows dropdown function to work
 		$('.ui.dropdown').dropdown();
-
-		// Toggle functionality
-		$('.ui.checkbox').checkbox('attach events', '.toggle.button');
 
 		// Nag functionality
 		$('.nag').nag('show');

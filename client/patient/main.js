@@ -14,6 +14,7 @@ Template.main_page.onRendered(function(){
 
 		this.$('#loginForm').form({
 
+
 			inline: true,
 			on: 'blur',
 			transition: 'slide down',
@@ -32,11 +33,13 @@ Template.main_page.onRendered(function(){
 					}
 				})
 
-			},
-			fields: {
-				email: {
-					identifier : 'email',
-					rules: [
+
+		},
+		fields: {
+			email: {
+				identifier : 'email',
+				rules: 
+				[
 					{
 						type: 'empty',
 						prompt: 'Please enter your e-mail'
@@ -45,23 +48,24 @@ Template.main_page.onRendered(function(){
 						type: 'email',
 						prompt: 'Please enter a valid e-mail'
 					}
-					]
-				},
-				password: {
-					identifier : 'password',
-					rules: [
-						{
-							type: 'empty',
-							prompt: 'Please enter your password'
-						},
-						{
-							type: 'length[6]',
-							prompt: 'Your password must be at least 6 characters'
-						}
-					]
+				]
+			},
+			password: {
+				identifier : 'password',
+				rules: 
+				[
+					{
+						type: 'empty',
+						prompt: 'Please enter your password'
+					},
+					{
+						type: 'length[6]',
+						prompt: 'Your password must be at least 6 characters'
+					}
+				]
 			}
-		}},
-		)
+		}
+	});
 
 	// Handle for account creation.
 	/*
@@ -71,10 +75,10 @@ Template.main_page.onRendered(function(){
 
 	this.$('#registerForm').form({
 			inline: true,
-			on: 'blur',
+			on: 'submit',
 			transition: 'slide down',
 			onSuccess: function(event,fields){
-				event.preventDefault()
+				event.preventDefault();
 				Accounts.createUser({
 					email: fields['email'],
 					password: fields['password'],
@@ -126,6 +130,7 @@ Template.main_page.onRendered(function(){
 						prompt: 'Please enter your primary phone number.'
 					},
 					{
+<<<<<<< HEAD
 						type: 'regExp[/^[\\+]?([0-9]{1,2})?[ .-]?[\\(]?[0-9]{3}[\\)]?[ .-]?[0-9]{3}[ .-]?[0-9]{4}$/]',
 						prompt: 'Please enter a valid phone number that follows any of these patterns:\
 						123-456-7890\
@@ -133,9 +138,74 @@ Template.main_page.onRendered(function(){
 						123 456 7890\
 						123.456.7890\
 						+91 (123) 456-7890'
+=======
+						type: 'regExp[/^(\\+\\d{1,2}\\s)?\\(?\\d{3}\\)?[\\s.-]\\d{3}[\\s.-]\\d{4}$/]',
+						prompt: 'Please enter a valid phone number.'
 					}
 					]
 				},
+				birthday: {
+					identifier: 'birthday',
+					rules: [
+					{
+						type: 'empty',
+						prompt: 'Please enter your birthday.'
+>>>>>>> 374804075cc4d384f2a8b280a34e3b3837c2df0f
+					}
+					]
+				},
+				street:{
+	                identifier: 'street',
+	                rules:[
+	                {
+	                    type: 'regExp[/^\\d [A-Za-z ]* (?:Rd\\.)|(?:Dr\\.)|(?:St\\.)|(?:Ct\\.)$/]',
+	                    prompt: 'Please enter a valid street address.'
+	                },
+	                {
+	                    type: 'empty',
+	                    prompt: 'Please enter a street address.'
+	                }
+	                ]
+	            },
+	            city:{
+	                identifier: 'city',
+	                rules:[
+	                {
+	                    type: 'regExp[/^[A-Za-z]{0,144}$/]',
+	                    prompt: 'Please enter a valid city.'
+	                },
+	                {
+	                    type: 'empty',
+	                    prompt: 'Please enter a city.'
+	                }
+	                ]
+	            },
+	            state:{
+	                identifier: 'state',
+	                rules:[
+	                {
+	                    type: 'regExp[/^[A-Za-z]{2}$/]',
+	                    prompt: 'Please enter a valid state.'
+	                },
+	                {
+	                    type: 'empty',
+	                    prompt: 'Please enter a state.'
+	                }
+	                ]
+	            },
+	            zipcode:{
+	                identifier: 'zipcode',
+	                rules: [
+	                {
+	                    type: 'regExp[/^[0-9 ]{5}$/]',
+	                    prompt: 'Please enter a valid zip code.'
+	                },
+	                {
+	                    type: 'empty',
+	                    prompt: 'Please enter a zip code.'
+	                }
+	                ]
+	            },
 				email: {
 					identifier : 'email',
 					rules: [
@@ -239,5 +309,5 @@ Template.main_page.onRendered(function(){
 					]
 				}
 		}
-	})
+	});
 });

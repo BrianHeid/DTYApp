@@ -27,7 +27,7 @@ Template.show_dashboard_page.helpers({
 		return Meteor.user().profile['viewing'] == 'Call'
 	},
 	'isReserve': function(){
-		return Meteor.user().profile['vieing'] == 'Reserve'
+		return Meteor.user().profile['viewing'] == 'Reserve'
 	},
 	'isTreatment': function(){
 		return Meteor.user().profile['viewing'] == 'Treatment'

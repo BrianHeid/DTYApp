@@ -2,6 +2,7 @@
   Event for when the createProfileForm is submitted. 
   Will call the setName, setPhone, setBirthday, and setAddress functions
   to add to the Meteor.users database. 
+
   */
 /*
 Template.editProfileForm.events({
