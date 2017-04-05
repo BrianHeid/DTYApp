@@ -18,7 +18,6 @@ Template.requestPage.onRendered(
 			inline: true,
 			onSuccess: function(event,fields){
 				event.preventDefault()
-				Meteor.call('updateStatus', Meteor.userId())
 				Meteor.call('pushRequest', Meteor.userId(), fields)
 				FlowRouter.go('/dashboard')
 			},

@@ -1,6 +1,38 @@
 
+
+
+
 <template name='clientListPage'>
-	{{> calendarEvents}}
+	{{> requestModal}}
+	{{> scheduleModal}}
+	<br><br><br>
+	<center>
+		<div class="ui center aligned container">
+		  	<img class="ui centered circular small image" src="/images/drbrown.jpg">
+		  	<h1 class="ui header" id="greeting">
+		  		<!-- Hello, PROVIDER NAME -->
+		  		Hello, {{currentUser}} <!-- using spacebar and meteor helper to display name -->
+
+		  	</h1>
+		</div>
+
+		<h2 class="ui header container">
+			<div class="content" id="status">
+				<!-- Your status: STATUS -->
+			</div>
+
+			<div class="content" id="createRequest">
+				<button id="createRequest" class="ui blue right floated button"><i class="add user icon"></i>CREATE REQUEST</button>
+			</div>
+		</h2>
+
+		<div class="ui very padded container">
+			<div class="content" id="statusButtons">
+				<!-- Status buttons -->
+			</div>
+		</div>
+	</center>
+
 	<div class="ui three item fluid menu">
 			<div class="item" data-tab='New'>New Patients</div>
 			<div class="item active" data-tab='Current'>Patients</div>
@@ -9,7 +41,7 @@
 
 		<div class="ui tab" data-tab='New'>
 			<h1>This tab indicates all the new requests</h1>
-			<div class="ui five column stackable grid">
+			<div class="ui four column stackable grid">
 				{{#each newRequests}}
 				{{> newClient}}
 				{{/each}}
@@ -18,8 +50,8 @@
 
 		<div class="ui tab active" data-tab='Current'>
 			<h1>This tab indicates all the current requests</h1>
-			<div class="ui five column stackable grid">
-				{{#each getClients}}
+			<div class="ui four column stackable grid">
+				{{#each clients}}
 				{{> client}}
 				{{/each}}
 			</div>
@@ -27,9 +59,9 @@
 
 		<div class="ui tab" data-tab='History'>
 			<h1>This tab stores all the treated patients</h1>
-			<div class="ui five column stackable grid">
+			<div class="ui four column stackable grid">
 				{{#each treatedPatients}}
-				{{> newClient}}
+				{{> Client}}
 				{{/each}}
 			</div>
 		</div>
@@ -39,10 +71,12 @@
 
 
 <template name='client'>
+
+
 	<div class='column'>
 		<div class="ui move reveal">
 			<div class="visible content">
-				<div class="ui card">
+				<div class="ui card" id="visibleCard">
 					<div class="one column grid">	
 						<div class="column">
 							<div class="content">
@@ -51,33 +85,68 @@
 								<div class='ui fluid label'>ID: 
 									<div class='detail'>{{_id}}</div>
 								</div>
-								<div class='ui fluid label'>First Name: 
-									<div class='detail'>{{profile.firstname}}</div>
-								</div>
-								<div class='ui fluid label'>Last Name: 
-									<div class='detail'>{{profile.lastname}}</div>
-								</div>
-								<div class='ui fluid label'>Email Address:
-									<div class='detail'>{{profile.email}}</div>
-								</div>
+								
+								<div class='header' id="nameText">{{info.firstName}} {{info.lastName}}</div>
+								 
+								<div class='description' id="extraText">Relationship:{{#if info.for_someone_else}} {{info.for_someone_else}} {{else}} Self {{/if}}</div>
+								<div class='description' id="extraText">Status: {{profile.status}}</div><br><br>
+								<div class='description' id="extraText" >Requested time: {{info.requestTime}}</div>
+
+
+
+								
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 			<div class="hidden content">
-				<div class="ui card">
-					<a class="ui red ribbon label"> Actions</a>	
-					<div class="ui equal width center aligned padded grid">
-						<div class='ui two buttons row'>
-							<button class='ui red left  button' id="action_button" data={{_id}}> Contact </button>
-							<button class='ui blue right  button' id="action_button" data={{_id}}> Update </button>
-						</div>
-						<div class='ui two buttons row'>
-							<button class='ui green left button' id="action_button" data={{_id}}> Transfer </button>
-							<button class='ui black right button' id="action_button" data={{_id}}> Remove </button>
-						</div>
-					</div>
+				<div class="ui card" id="hiddenCard">
+
+			    		<div class="ui pointing secondary menu">
+				          <div class="item active" data-tab="actionButtons">Actions</div>
+				          <div class="item" data-tab="overview">Overview</div>
+				        </div>
+
+				        <div class="ui tab active" data-tab="actionButtons">
+				      		<div class="two ui buttons" id="hiddenButtonsTop">
+				      			<button id="editButton" class="ui blue button" data={{_id}}><center><i class="call square big icon"></i><h2>Call</h2></center></button>
+  								<button id="editButton" class="ui positive button" data={{_id}}><center><i class="checkmark box big icon"></i><h2>Schedule</h2></center></button>
+				      		</div>
+				      		<br>
+				      		<div class="two ui buttons" id="hiddenButtonsBottom">
+				      			<button id="editButton" class="ui negative button" data={{_id}}><center><i class="remove circle big icon"></i><h2>Decline</h2></center></button>
+  								<button id="editButton" class="ui orange button" data={{_id}}><center><i class="exchange big icon"></i><h2>Transfer</h2></center></button>
+				      		</div>
+				      	</div>
+
+				      	<div class="ui tab" data-tab="overview">
+			      			<div class="content" id="overviewText">
+					      		<!-- Name: PATIENT NAME -->
+					      		<!-- Birthday: PATIENT BIRTHDAY -->
+					      		<!-- Region: PATIENT REGION -->
+					      		<!-- Address: PATIENT ADDRESS -->
+					      		<div class='description' id="overText">Email: {{info.email}}</div>
+								<div class='description' id="overText" >DOB: {{profile.birthday}}</div>
+								<div class='description' id="overText" ><i class="call icon"></i>{{profile.phonenumber}}</div>
+								<br><br>
+								<div class='description' id="overText" >Address: {{profile.address}}</div>
+
+								
+					      	</div>
+					      	<div id="addressButton">
+					      		<!-- Map (Goes to Google Maps) -->
+					      		<button class="ui fluid button"><i class="location arrow medium icon"></i>Map</button>
+					      	</div>
+					      	<br>
+					      	<div id="notesTextbox">
+				      			<!-- Notes: ADD/EDIT NOTES TEXTBOX -->
+				      		</div>
+				      		
+				      		<button id="notesEditButton" class="ui fluid button"><i class="write icon"></i>Edit Notes</button>
+				      		
+				      	</div>
+
 				</div>
 			</div>
 			
@@ -91,34 +160,27 @@
 	<div class='column'>
 		<div class="ui move reveal">
 			<div class="visible content">
-				<div class="ui card">
+				<div class="ui card" id='visibleCard'>
 					<div class="one column grid">	
 						<div class="column">
 							<div class="content">
-								<a class="ui red ribbon label"> Client info</a>
+								<a class="ui red ribbon label">   Client info</a>
 								<br>
-								<div class='ui fluid label'>ID: 
-									<div class='detail'>{{_id}}</div>
-								</div>
-								<div class='ui fluid label'>Requested on: 
-									<div class='detail'>{{datetime}}</div>
-								</div>
 
-								<div class='ui fluid label'>First Name: 
-									<div class='detail'>{{info.firstName}}</div>
-								</div>
-								<div class='ui fluid label'>Last Name: 
-									<div class='detail'>{{info.lastName}}</div>
-								</div>
-								<div class='ui fluid label'>Email Address:
-									<div class='detail'>{{info.email}}</div>
-								</div>
-								<div class='ui fluid label'>Symptoms: 
-									<div class='detail'>{{info.symtoms}}</div>
-								</div>
-								<div class='ui fluid label'>Relationship: 
-									<div class='detail'>{{info.for_someone_else}}</div>
-								</div>
+
+								<div class='header' id="nameText">{{info.firstName}} {{info.lastName}}</div>
+								<div class='description' id="extraText">Relationship:{{#if info.for_someone_else}} {{info.for_someone_else}} {{else}} Self {{/if}}</div>
+								<div class='description' id="extraText" >Email: {{info.email}}</div>
+								<div class='description' id="extraText" >DOB: {{profile.birthday}}</div>
+								<div class='description' id="extraText" ><i class="call icon"></i>{{profile.phonenumber}}</div>
+								<div class='description' id="extraText" >Address: {{profile.address}}</div>
+								<div class='description' id="extraText" >Requested on: {{datetime}}</div>
+								<div class='description' id="extraText" >Symptoms: {{info.symptoms}}</div>
+								<!--placholder for requested time.-->
+								<div class='description' id="extraText" >Requested time: {{info.requestTime}}</div>
+
+									
+								
 							</div>
 						</div>
 					</div>
@@ -128,19 +190,188 @@
 				<div class="ui card">
 					<a class="ui red ribbon label"> Actions</a>	
 					<div class="ui equal width center aligned padded grid">
-						<div class='ui two buttons row'>
-							<button class='ui red left  button' id="action_button" data={{_id}}> Contact </button>
-							<button class='ui blue right  button' id="action_button" data={{_id}}> Update </button>
+						<div class='ui row'>
+							<button class='ui green left  button' id="accept_button" data={{_id}}>Accept</button>
 						</div>
-						<div class='ui two buttons row'>
-							<button class='ui green left button' id="action_button" data={{_id}}> Transfer </button>
-							<button class='ui black right button' id="action_button" data={{_id}}> Remove </button>
+						<div class='ui row'>
+							<button class='ui red left button' id="decline_button" data={{_id}}>Decline</button>
 						</div>
 					</div>
 				</div>
 			</div>
 			
 
+		</div>
+	</div>
+</template>
+
+
+
+	<!-- /////////////////////////////////////////// CREATE REQUEST MODAL ////////////////////////////////////////////////////// -->
+<template name="requestModal">
+	<div class="ui small modal" id="createRequestModal">
+	  	<i class="close icon"></i>
+	  	<div class="header">
+	  		Create a Request
+	  	</div>
+		<div class="content">
+			<form class="ui form">
+
+				<h4 class="ui dividing header">Requester</h4>
+				<div class="two fields">
+					<div class="field required">
+					    <label>Name</label>
+					    <div class="field">
+					    	<input type="text" name="requesterName" placeholder="Name">
+					    </div>
+				    </div>
+
+				    <div class="field required">
+					    <label>Phone Number</label>
+					    <div class="field">
+					    	<input type="text" name="requesterPhone" placeholder="Phone Number">
+					    </div>
+				    </div>
+				</div>
+
+				<h4 class="ui dividing header">Address</h4>
+				<div class="two fields">
+					<div class="field required">
+						<label>Street</label>
+					    <div class="field required">
+					    	<input type="text" name="street" placeholder="Street">
+					    </div>
+				    </div>
+				    <div class="field required">
+				    	<label>Apt # / Suite</label>
+					    <div class="field required">
+					    	<input type="text" name="aptNumSuite" placeholder="Apt # / Suite">
+					    </div>
+				    </div> 
+				</div>
+				<div class="three fields">
+					<div class="field required">
+					    <label>City</label>
+					    <div class="field required">
+					    	<input type="text" name="city" placeholder="City">
+					    </div>
+				    </div>
+					<div class="field required">
+					    <label>State</label>
+					    {{>statesList}}		<!-- Show hand for list of states from statesList.html -->
+				    </div>
+				    <div class="field required">
+					    <label>Zipcode</label>
+					    <div class="field required">
+					    	<input type="text" name="zipcode" placeholder="Zipcode" minlength="5">
+					    </div>
+				    </div>
+				</div>
+
+				<h4 class="ui dividing header">Patient Information</h4>
+				<div class="two fields">
+					<div class="field required">
+					    <label>First Name</label>
+					    <div class="field required">
+					    	<input type="text" name="firstName" placeholder="First Name">
+					    </div>
+				    </div>
+
+				    <div class="field required">
+					    <label>Last Name</label>
+					    <div class="field required">
+					    	<input type="text" name="lastName" placeholder="Last Name">
+					    </div>
+				    </div>
+				</div>
+				<div class="two fields">
+					<div class="field required">
+					    <label>Birthday</label>
+					    <div class="field required">
+					    	<input type="date" name="birthday" min="1887-01-01" max="1999-04-01">
+					    </div>
+				    </div>
+
+				    <div class="field required">
+					    <label>Gender</label>
+				        <div class="ui selection dropdown">
+				        	<input type="hidden" name="gender">
+				          	<i class="dropdown icon"></i>
+				          	<div class="default text">Gender</div>
+				          	<div class="menu">
+				            	<div class="item" data-value="male">Male</div>
+				              	<div class="item" data-value="female">Female</div>
+				          	</div>
+				      	</div>
+				    </div>
+				</div>
+				<div class="two fields">
+					<div class="field required">
+					    <label>Phone Number</label>
+					    <div class="field required">
+					    	<input type="text" name="firstName" placeholder="Phone Number">
+					    </div>
+				    </div>
+
+				    <div class="field required">
+					    <label>Email</label>
+					    <div class="field required">
+					    	<input type="text" name="email" placeholder="example@gmail.com">
+					    </div>
+				    </div>
+				</div>
+				
+				<div class="field">
+				    <label>Primary Doctor (Optional)</label>
+				    <div class="field">
+				    	<input type="text" name="primaryDoctor" placeholder="Primary Doctor (Optional)">
+				    </div>
+			    </div>
+				<div class="actions">
+					<div class="ui two buttons">
+					    <button class="ui primary approve button" type='submit'>Create Request</button>
+					    <button class="ui negative cancel button">Cancel</button>
+					</div>
+				</div>
+			</form>
+	    </div>
+	</div>
+</template>
+
+
+	<!-- /////////////////////////////////////////// SCHEDULE REQUEST MODAL ////////////////////////////////////////////////////// -->
+<template name="scheduleModal">
+	<div class="ui small modal" id="scheduleRequest">
+		<div class="header">
+			Schedule a date/time
+		</div>
+		<div class="content">
+			<form class="ui form" id="scheduleForm">
+				<label id="schedulePrompt">Requested time</label>
+				<div id='requestedTime'>00:00</div>
+				<label> Use patient's requested time?</label>
+				<div class="field">
+					<label class="ui checkbox switch">
+						<input class="switch-input" type="checkbox" id="scheduleSwitch" name="sameTime"/>
+						<span class="switch-label" data-on="Yes" data-off="No"></span> 
+						<span class="switch-handle"></span> 
+					</label>
+				</div>
+				<div class="field ">
+					<label>Time</label>
+					<input type="time" name='time' id="time">
+				</div>
+				<div class="field ">
+					<label>Date</label>
+					<input type="date" name='date' id="date">
+				</div>
+				<div class="actions">
+					<div class="ui two buttons">
+					    <button class="ui primary approve button" type='submit'>Schedule</button>
+					    <button class="ui negative cancel button">Cancel</button>
+					</div>
+				</div>
+			</form>
 		</div>
 	</div>
 </template>
