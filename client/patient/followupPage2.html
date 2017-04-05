@@ -61,7 +61,7 @@
 		<!-- HEALTH STATUS SMILEY BUTTONS -->
 		<div class="ui column centered grid">
 			<center>
-				<div class="ui column images">
+				<div class="ui images">
 					<img id="happy" class="ui circular image" height="100" width="100" src="/images/happy-face.png">
 					<img id="straight" class="ui circular image" height="100" width="100" src="/images/straight-face.png">
 					<img id="unhappy" class="ui circular image" height="100" width="100" src="/images/unhappy-face.png">
@@ -73,9 +73,16 @@
 			<!-- Health status clicked on -->
 		</h2>
 
-		<center>
-			<div class="inline"><label>Comments: </label><textarea rows="1" style="width: 300px;"></textarea></div>
-		</center>
+		<br>
+
+		<form class="ui form">
+			<center>
+			<div class="field inline">
+				<label>Comments: </label>
+				<textarea rows="2" name="comments" style="width: 300px;"></textarea>
+			</div>
+			</center>
+		</form>
 
 		<br>
 
@@ -294,6 +301,11 @@
 				$("#feedbackSubmitted").delay(500).show(500);
 				$('#share-content').delay(500).show(100);
 				$('#happyStatus').hide();
+				Meteor.call('updateStatus', Meteor.userId());
+			});
+
+			$("#click-here-btn").click(function(){
+				Meteor.call('updateView', Meteor.userId(), 'review');
 			});
 		});
 

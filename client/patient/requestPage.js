@@ -34,7 +34,7 @@ Template.requestPage.onRendered(
 				Meteor.call('pushRequest', Meteor.userId(), fields)
 				//////////////////////////////////////////////////////////
 
-				FlowRouter.go('/dashboard') // Redirects to dashboard
+				alert("sent!");
 			},
 
 			/////////////////////// FORM VALIDATION //////////////////////

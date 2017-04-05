@@ -127,7 +127,7 @@
 					$('#reasonModal').modal('hide');
 					$('.cancelled-redirect').modal('show');
 
-					// Click to return to dashboard button
+					// Click to return to dashboard button. Reset request
 					$("#returnDashboard").click(function(){
 						$('#returnDashboard').modal('hide');
 						Meteor.call('resetStatus', Meteor.userId());
@@ -163,20 +163,4 @@
 
 	</script>
 
-</template>
-
-<!-- Page we want to show if patient has cancelled. 
-	 Possibly just disable Call page if cancelled so this could be obsolete -->
-<template name="cancelledRequestCallPage">
-	<center>
-		<h1 class="ui header container">
-		  <div class="content">
-		    You have canceled your request
-		  </div>
-		</h1>
-
-		<button class="ui large primary button">
-	    	Return to Dashboard
-	    </button>
-	</center>
 </template>
