@@ -182,25 +182,18 @@
 
 	  	<div class="actions" id="actionBtns">
 	    	<div class="ui two buttons">
-			    <div id="createAccountBtn" class="ui primary approve button">Create Account</div>
+			    <input id="createAccountBtn" class="ui primary approve button" type='submit' value='Create Account'>
 			    <div id="cancelBtn" class="ui negative cancel button">Cancel</div>
 			</div>
 	  	</div>
 	</div>
 
-	<!-- JavaScript -->
-	<script type="text/javascript">
-		$(document).ready(function(){
-
-			$("#register").click(function(){
+<script type="text/javascript">
+	$(document).ready(function(){
+		$("#register").click(function(){
 				$("#createAccountModal").modal('setting', 'closable', false).modal('show');
 			});
-
-		});
-
-		// Allows dropdown function to work
-		$('.ui.dropdown')
-		  .dropdown()
-		;
-	</script>
+	});
+		$('.ui.dropdown').dropdown();
+</script>
 </template>

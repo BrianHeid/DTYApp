@@ -27,6 +27,7 @@ Template.requestPage.onRendered(
 			on: 'blur',
 			transition: 'slide down',
 			onSuccess: function(event,fields){
+
 				event.preventDefault();
 
 				////////////////// ADDS TO DATABASE ///////////////////////

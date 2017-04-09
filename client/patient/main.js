@@ -8,23 +8,31 @@ Template.main_page.onRendered(function(){
 			FlowRouter.go('/dashboard')
 			
 		}
+
+
+
+
 		this.$('#loginForm').form({
-		inline: true,
-		on: 'blur',
-		transition: 'slide down',
-		onSuccess: function(event, fields){
-			event.preventDefault()
-	
-			Meteor.loginWithPassword(fields['email'],fields['password'],(error,result)=>{
-				if(error){
-					$('#error_message').show()
-					$('#error_message').html("<div class='header'>" + 'Please try again' + '</div>' + '<p>' + error['reason'] + "</p>")
-				}
-				else{
-					console.log('Login was successful',result);
-					FlowRouter.go('/dashboard')
-				}
-			})
+
+
+			inline: true,
+			on: 'blur',
+			transition: 'slide down',
+			onSuccess: function(event,fields ){
+				event.preventDefault()
+		
+				Meteor.loginWithPassword(fields['email'],fields['password'],(error,result)=>{
+					if(error){
+						//$('#error_message').html('<div class="ui negative">')
+						$('#error_message').show()
+						$('#error_message').html("<div class='header'>" + 'Please try again' + '</div>' + '<p>' + error['reason'] + "</p>")
+					}
+					else{
+						console.log('Login was successful',result);
+						FlowRouter.go('/dashboard')
+					}
+				})
+
 
 		},
 		fields: {
@@ -78,8 +86,10 @@ Template.main_page.onRendered(function(){
 						firstname: fields['firstname'],
 						lastname: fields['lastname'],
 						status: 1,
+						viewing: "Request",
 						phonenumber: fields['phonenumber'],
-						
+						address: fields['street'] + ' ' + fields['city'] + ' ' + fields['state'] + ' ' + fields['zipcode'],
+						birthday: fields['birthday']
 					}
 				})
 				console.log('Account created.....')
@@ -94,7 +104,7 @@ Template.main_page.onRendered(function(){
 						prompt: 'Please enter a first name.'
 					},
 					{
-						type: 'regExp[/^[a-zA-Z]{4,20}$/]',
+						type: 'regExp[/^[a-zA-Z]{3,20}$/]',
 						prompt: 'Please enter a valid name.'
 					}
 					]
@@ -107,7 +117,7 @@ Template.main_page.onRendered(function(){
 						prompt: 'Please enter a last name.'
 					},
 					{
-						type: 'regExp[/^[a-zA-Z]{4,20}$/]',
+						type: 'regExp[/^[a-zA-Z]{2,20}$/]',
 						prompt: 'Please enter a valid name.'
 					}
 					]
@@ -120,6 +130,15 @@ Template.main_page.onRendered(function(){
 						prompt: 'Please enter your primary phone number.'
 					},
 					{
+<<<<<<< HEAD
+						type: 'regExp[/^[\\+]?([0-9]{1,2})?[ .-]?[\\(]?[0-9]{3}[\\)]?[ .-]?[0-9]{3}[ .-]?[0-9]{4}$/]',
+						prompt: 'Please enter a valid phone number that follows any of these patterns:\
+						123-456-7890\
+						(123) 456-7890\
+						123 456 7890\
+						123.456.7890\
+						+91 (123) 456-7890'
+=======
 						type: 'regExp[/^(\\+\\d{1,2}\\s)?\\(?\\d{3}\\)?[\\s.-]\\d{3}[\\s.-]\\d{4}$/]',
 						prompt: 'Please enter a valid phone number.'
 					}
@@ -131,6 +150,7 @@ Template.main_page.onRendered(function(){
 					{
 						type: 'empty',
 						prompt: 'Please enter your birthday.'
+>>>>>>> 374804075cc4d384f2a8b280a34e3b3837c2df0f
 					}
 					]
 				},
@@ -220,8 +240,71 @@ Template.main_page.onRendered(function(){
 							prompt: 'Please enter in your password again.'
 						},
 						{
-							type: 'match[password]',
+							type: 'length[6]',//'match[password]',
 							prompt: 'Password does not match'
+						}
+					]
+				},
+
+				street: {
+					identifier: 'street',
+					rules: [
+						{
+							type: 'empty',
+							prompt: 'Please enter in your street address.'
+						},
+						{	// Need to implement a better address validator, searc google geolocator or, another api
+							type: 'regExp[/^[0-9]{1,5} [A-Za-z ]*(?:Rd\\.)|(?:Dr\\.)|(?:St\\.)|(?:Ct\\.)|(?:rd\\.)|(?:dr\\.)|(?:st\\.)|(?:ct\\.)|(?:ln\\.)$/]',
+							prompt: 'Please enter a valid street address.'
+						}
+					]
+				},
+				city: {
+					identifier: 'city',
+					rules: [
+						{
+							type: 'empty',
+							prompt: 'Please enter in your city.'
+						},
+						{
+							type: 'regExp[/^[A-Za-z]*$/]',
+							prompt: 'Please enter a valid city.'
+						}
+					]
+				},
+				state: {
+					identifier: 'state',
+					rules: [
+						{
+							type: 'empty',
+							prompt: 'Please enter a state.'
+						},
+						{
+							type: 'regExp[/^[A-Z]{2}$/]',
+							prompt: 'Please enter in your state initials e.g. MD, VA, or DC'
+						}
+					]
+
+				},
+				zipcode: {
+					identifier: 'zipcode',
+					rules: [
+						{
+							type: 'empty',
+							prompt: 'Please enter in your zipcode.'
+						},
+						{
+							type: 'regExp[/^[0-9]{5}([ -.]?[0-9]{4})?$/]'
+						}
+					]
+				},
+
+				birthday: {
+					identifier: 'birthday',
+					rules: [
+						{
+							type: 'empty',
+							prompt: "Please enter your date of birth."
 						}
 					]
 				}
