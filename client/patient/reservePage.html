@@ -104,7 +104,33 @@
 				</div>
 			</div>
 
-			<!-- ADD DATE AND TIME -->
+			<br>
+
+			<!-- If checked, date and time will hide. Should pull same information given from request page -->
+		    <label>As soon as possible</label>
+			<label class="switchTime">
+				<input class="switch-input-time" type="checkbox" id="myonoffswitch-time" name="as_soon_as_possible"/>
+				<span class="switch-label-time" data-on="Yes" data-off="No"></span> 
+				<span class="switch-handle-time"></span> 
+			</label>
+
+			<div id="time-form">
+			    <h4 class="ui dividing header">Date and Time</h4>
+
+				<div class="two fields">
+					<div class="field">
+						<label>Date</label>
+						<input type="date" name="date">
+					</div>
+
+					<div class="field">
+				      <label>Time</label>
+				      <input type="time" name="time">
+					</div>
+				</div>
+			</div>
+
+			<br>
 
 			<label>Do you agree to <a id="consent">Consent to Provide Care</a> and the <a id="hipaa">HIPAA Privacy Notice</a>?</label>
 			<label class="switchAgree">

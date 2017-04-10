@@ -1,18 +1,15 @@
-<!-- Treatment page. After a patient reserves a provider, a provider will know whether to give
-	 a phone consultation or a house call and they will give an estimate of when the patient
-	 will receive their treatment. -->
+<!-- Processing request -->
 
-<template name="treatmentPage">
+<template name="processingRequestPage">
 
 	<!-- CSS -->
 	<style>
-
-		/* Shows pointer finger when hovering over dashboard steps menu */
+		/* Shows pointer finger when hovered over dashboard menu */
 		.ui.pointing.menu {
 			cursor: pointer;
 		}
 		
-		/* Makes textarea fluid (Full wdth of container) */
+		/* Makes textarea fluid */
 		textarea {
 			-webkit-box-sizing: border-box;
 			-moz-box-sizing: border-box;
@@ -22,29 +19,25 @@
 	  	}
 	</style>
 
-	<div class="ui raised very padded text container segment">
-		<!-- dashboard -->
-		<div class="ui centered card">
-		  <div id="imageProvider" class="image">
-		  	<!-- image of provider -->
-		  </div>
-		  <div class="content">
-		  	<center><h3 id="providerName" class="ui header"><!-- Provider name --></h3></center>
-		  </div>
-		</div>
-	  
-	  	<center>
-		    <h3 id="reserveProviderText" class="ui header"></h3>
-		    
-		    <h3 id="timeApproxText" class="ui header"></h3>
+	<!-- Informative box about how long call wait will be -->
+	<center>
+		<div class="ui raised very padded text container segment">
+			<h2 class="ui header">We are processing your request and will take care of you soon, PATIENT NAME!<br><br>
+			Thank you for choosing Doctors To You!</h2>
 
-		    <br>
-		  
-			<div class="cancelBtn ui negative button">
-				Cancel Reservation
-			</div>
-		</center>
-	</div>
+			<br>
+
+			<button class="cancelBtn negative ui button">Cancel Request</button>
+
+			<br>
+
+			<h3 class="ui header">Doctors To You Blog</h3>
+
+		   	<hr>
+
+		   	<!-- blog posts -->
+		</div>
+	</center>
 
 	<!-- Cancel modal -->
 	<div class="ui small modal" id="reasonModal">
@@ -54,9 +47,7 @@
 	  	<center>Cancel Request</center>
 	  </div>
 
-	  <div class="ui warning message">
-	  	<i id="infoIcon" class="large info circle icon"></i><b>Cancellation will result in a cancellation fee!</b>
-	  </div>
+	  <br>
 
 	  <form class="ui form" id="reasonForm">
 		  
@@ -79,17 +70,21 @@
 		  </div>
 	  </form>
 	</div>
+	
 
+
+	<!-- After cancelled request, will open this confirmation modal -->
 	<div class="ui cancelled-redirect small modal">
 		<i class="close icon"></i>
     	<div class="header">
-    		<center>You have canceled your reservation.</center>
+    		<center>You have cancelled your request.</center>
   		</div>
 
   		<div class="content">
   			<center><h4>We will now redirect you to your dashboard.</h4></center>
   		</div>
 
+  		<!-- Redirect button to dashboard -->
   		<div class="actions" id="returnDashboard">
 			<button class="ui fluid primary button">
 		    	Return to Dashboard
@@ -100,27 +95,9 @@
 
 	<!-- JavaScript -->
 	<script type="text/javascript">
-		var providerName = "Dr. Ernest Brown";
-		var patientName = "Pauline";
-		var timeApproxHr = "3";
-		var timeApproxMin = "00";
-		var timeApproxPeriod = "PM";
-
-		document.getElementById("providerName").innerHTML = providerName;
-
-		var reservedProviderText = "You have reserved " + providerName + ".";
-		document.getElementById("reserveProviderText").innerHTML = reservedProviderText;
-
-		var imageSrc = "/images/drbrown.jpg";
-		var imageHTML = "<img src=\"" + imageSrc + "\">";
-		document.getElementById("imageProvider").innerHTML = imageHTML;
-
-		var timeApproxText = "You will receive care at approximately " + timeApproxHr + ":" + timeApproxMin + timeApproxPeriod + "<br>Please rest up now, " + patientName;
-		document.getElementById("timeApproxText").innerHTML = timeApproxText;
-
 
 		$(document).ready(function(){
-			
+
 			// Click to open cancel request button
 			$(".cancelBtn").click(function(){
 				$('#reasonModal').modal('show');	
@@ -170,9 +147,6 @@
 
 		});
 
-		// Multi-select dropdown functionality
-		$('#multi-select')
-		  .dropdown()
-		;
 	</script>
+
 </template>

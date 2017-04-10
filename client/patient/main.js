@@ -130,15 +130,6 @@ Template.main_page.onRendered(function(){
 						prompt: 'Please enter your primary phone number.'
 					},
 					{
-<<<<<<< HEAD
-						type: 'regExp[/^[\\+]?([0-9]{1,2})?[ .-]?[\\(]?[0-9]{3}[\\)]?[ .-]?[0-9]{3}[ .-]?[0-9]{4}$/]',
-						prompt: 'Please enter a valid phone number that follows any of these patterns:\
-						123-456-7890\
-						(123) 456-7890\
-						123 456 7890\
-						123.456.7890\
-						+91 (123) 456-7890'
-=======
 						type: 'regExp[/^(\\+\\d{1,2}\\s)?\\(?\\d{3}\\)?[\\s.-]\\d{3}[\\s.-]\\d{4}$/]',
 						prompt: 'Please enter a valid phone number.'
 					}
@@ -150,7 +141,6 @@ Template.main_page.onRendered(function(){
 					{
 						type: 'empty',
 						prompt: 'Please enter your birthday.'
->>>>>>> 374804075cc4d384f2a8b280a34e3b3837c2df0f
 					}
 					]
 				},
