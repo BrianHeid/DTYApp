@@ -23,8 +23,8 @@ Template.requestPage.onRendered(
 
 
 		this.$('.ui.form').form({
-			inline: true,
-			on: 'blur',
+			inline: false,
+			on: 'submit',
 			transition: 'slide down',
 			onSuccess: function(event,fields){
 
@@ -47,6 +47,26 @@ Template.requestPage.onRendered(
 					{
 						type: 'empty',
 						prompt: "Pleaase specify your relationship."
+					}
+					]
+				},
+				tempPatientFirstName: {
+					identifier: 'tempPatientFirstName',
+					depends: 'for_someone_else',
+					rules:[
+					{
+						type: 'empty',
+						prompt: "Please specify a first name."
+					}
+					]
+				},
+				tempPatientLastName: {
+					identifier: 'tempPatientLastName',
+					depends: 'for_someone_else',
+					rules:[
+					{
+						type: 'empty',
+						prompt: "Please specify a last name."
 					}
 					]
 				},

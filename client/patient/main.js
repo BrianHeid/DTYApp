@@ -79,6 +79,7 @@ Template.main_page.onRendered(function(){
 			transition: 'slide down',
 			onSuccess: function(event,fields){
 				event.preventDefault();
+				geocodeAddress();
 				Accounts.createUser({
 					email: fields['email'],
 					password: fields['password'],
@@ -308,16 +309,20 @@ Template.main_page.onRendered(function(){
 		var cityAdd = "Washington"; // $("#city").val();
 		var stateAdd = "DC"; // $("#state").val();
 		var zipAdd = "20037"; // $("#zipcode").val();
-		var countryAdd = "United States of America"; //$("#Country")
+		var countryAdd = "United States of America"; // $("#country").val();
 
+		// Merges the address into one string to query the Geocoder
 		googleAddress += streetAdd + ", " + cityAdd + ", " + stateAdd + ", " + zipAdd + ", " + countryAdd;
+
+		// Creates new Geocoder from Google
+		geocoder = new google.maps.Geocoder();
 
         // var address = document.getElementById('address').value;
         geocoder.geocode({'googleAddress': googleAddress}, function(results, status) {
           if (status === 'OK') {
             alert('Valid address!');
           } else {
-            alert('Geocode was not successful for the following reason: ' + status);
+            alert('Invalid address! Please enter a valid address.');
           }
     	});
   	}
