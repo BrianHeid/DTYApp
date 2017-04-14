@@ -29,24 +29,32 @@
   		{{/if}}
 
 	  <div class="labeled icon right menu">
+	  	
 			{{#if currentUser}}
 			<a class="item" href="/account">
 				<i class="user icon"></i>
 				Profile
 			</a>
 			{{/if}}
-			<div class="ui dropdown item">
+
+			<!--/////////// Language bar feature can be a later project! ///////////////////-->
+
+			<!-- <div class="ui dropdown item">
 				Language <i class="dropdown icon"></i>
 				<div class="menu">
 					<a class="item">English</a>
 					<a class="item">Spanish</a>
 				</div>
-			</div>
+			</div> -->
+
+			<!-- ///////////////////////////////////////////////////////////////////////// -->
+
 			{{#if currentUser}}
 			<div class="item">
 				<div class="ui logout primary button">Sign Out</div>
 			</div>
 			{{/if}}
+
 		</div>
 	</div>
 

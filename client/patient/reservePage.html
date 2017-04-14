@@ -134,7 +134,7 @@
 
 			<label>Do you agree to <a id="consent">Consent to Provide Care</a> and the <a id="hipaa">HIPAA Privacy Notice</a>?</label>
 			<label class="switchAgree">
-				<input class="switch-input-agree" type="checkbox" id="myonoffswitch"/>
+				<input class="switch-input-agree" type="checkbox" id="myonoffswitch" onchange="document.getElementById('reserve').disabled = !this.checked;"/>
 				<span class="switch-label-agree" data-on="I Agree" data-off=""></span> 
 				<span class="switch-handle-agree"></span> 
 			</label>
@@ -229,6 +229,11 @@
 				$('#billing-input').toggle();
 			});
 
+			// Click date and time toggle
+			$("#myonoffswitch-time").click(function(){
+				$('#time-form').toggle();
+			});
+
 			// Click consent modal
 			$("#consent").click(function(){
 				$('#provide-care').modal({
@@ -249,16 +254,8 @@
 				event.preventDefault();		// Prevents from page refreshing on submit
 			});
 
-			// Working on disabling submit button based on agreeing to consent //////////////////////////////////
-			////////////////////////////////////////////////////////////////////////////////////////////////////
-			///////////////////////////////////////////////////////////////////////////////////////////////////
-			if($("#myonoffswitch").prop('checked')==true)
-			    document.getElementById("reserve").disabled = false;
-			else
-			    document.getElementById("reserve").disabled = true;
-
-			////////////////////////////////////////////////////////////////////////////////////////////////////
-			///////////////////////////////////////////////////////////////////////////////////////////////////
+			// Makes submit button disabled, needs to check the I Agree toggle first
+			document.getElementById("reserve").disabled = true;
 		});
 
 		// Allows dropdown function to work
