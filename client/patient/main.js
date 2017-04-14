@@ -9,12 +9,7 @@ Template.main_page.onRendered(function(){
 			
 		}
 
-
-
-
 		this.$('#loginForm').form({
-
-
 			inline: true,
 			on: 'blur',
 			transition: 'slide down',
@@ -72,6 +67,12 @@ Template.main_page.onRendered(function(){
 		On a successful account creation, users are added to the Meteor.users mongo collection.
 		Users are initialized with their name, email, and a status number that indicates where the account is in the requesting process.
 	*/ 
+	this.$('#createAccountModal').modal({
+		onApprove : function() {
+			event.preventDefault();
+	    	CheckValidAddress();
+	    }
+	});
 
 	this.$('#registerForm').form({
 			inline: true,
@@ -79,22 +80,21 @@ Template.main_page.onRendered(function(){
 			transition: 'slide down',
 			onSuccess: function(event,fields){
 				event.preventDefault();
-				geocodeAddress();
-				Accounts.createUser({
-					email: fields['email'],
-					password: fields['password'],
-					profile: {
-						firstname: fields['firstname'],
-						lastname: fields['lastname'],
-						status: 1,
-						viewing: "Request",
-						phonenumber: fields['phonenumber'],
-						address: fields['street'] + ' ' + fields['city'] + ' ' + fields['state'] + ' ' + fields['zipcode'],
-						birthday: fields['birthday']
-					}
-				})
-				console.log('Account created.....')
-				FlowRouter.go('/account')
+				// Accounts.createUser({
+				// 	email: fields['email'],
+				// 	password: fields['password'],
+				// 	profile: {
+				// 		firstname: fields['firstname'],
+				// 		lastname: fields['lastname'],
+				// 		status: 1,
+				// 		viewing: "Request",
+				// 		phonenumber: fields['phonenumber'],
+				// 		address: fields['street'] + ' ' + fields['city'] + ' ' + fields['state'] + ' ' + fields['zipcode'],
+				// 		birthday: fields['birthday']
+				// 	}
+				// })
+				// console.log('Account created.....')
+				// FlowRouter.go('/account')
 			},
 			fields: {
 				firstname: {
@@ -148,10 +148,10 @@ Template.main_page.onRendered(function(){
 				street:{
 	                identifier: 'street',
 	                rules:[
-	                {
-	                    type: 'regExp[/^\\d [A-Za-z ]* (?:Rd\\.)|(?:Dr\\.)|(?:St\\.)|(?:Ct\\.)$/]',
-	                    prompt: 'Please enter a valid street address.'
-	                },
+	                // {
+	                //     type: 'regExp[/^\\d [A-Za-z ]* (?:Rd\\.)|(?:Dr\\.)|(?:St\\.)|(?:Ct\\.)$/]',
+	                //     prompt: 'Please enter a valid street address.'
+	                // },
 	                {
 	                    type: 'empty',
 	                    prompt: 'Please enter a street address.'
@@ -188,7 +188,7 @@ Template.main_page.onRendered(function(){
 	                identifier: 'zipcode',
 	                rules: [
 	                {
-	                    type: 'regExp[/^[0-9 ]{5}$/]',
+	                    type: 'regExp[/^[0-9]{5}$/]',
 	                    prompt: 'Please enter a valid zip code.'
 	                },
 	                {
@@ -302,9 +302,12 @@ Template.main_page.onRendered(function(){
 		}
 	});
 
-	function geocodeAddress() {
-		// House Number Street Name Street Suffix, City, State, Zip, Country
-		var googleAddress = "";
+  	function CheckValidAddress() {
+        // var address = $("#txtStreet").val() + ' ' +
+        //              $('#txtCity').val() + ', ' +
+        //              $('#txtState').val() + ' ' +
+        //              $('#txtZipCode').val();
+
 		var streetAdd = "1111 25th st. NW"; // $("#street").val();
 		var cityAdd = "Washington"; // $("#city").val();
 		var stateAdd = "DC"; // $("#state").val();
@@ -312,83 +315,34 @@ Template.main_page.onRendered(function(){
 		var countryAdd = "United States of America"; // $("#country").val();
 
 		// Merges the address into one string to query the Geocoder
-		googleAddress += streetAdd + ", " + cityAdd + ", " + stateAdd + ", " + zipAdd + ", " + countryAdd;
+		var address = streetAdd + " " + cityAdd + " " + stateAdd + " " + zipAdd + " " + countryAdd;
 
-		// Creates new Geocoder from Google
-		geocoder = new google.maps.Geocoder();
-
-        // var address = document.getElementById('address').value;
-        geocoder.geocode({'googleAddress': googleAddress}, function(results, status) {
-          if (status === 'OK') {
-            alert('Valid address!');
-          } else {
-            alert('Invalid address! Please enter a valid address.');
-          }
-    	});
-  	}
-
-  	function CheckValidStateOnChange(isSubmit) {
-        var address = $("#txtStreet").val() + ' ' +
-                     $('#txtCity').val() + ', ' +
-                     $('#txtState').val() + ' ' +
-                     $('#txtZipCode').val();
         geocoder = new google.maps.Geocoder();
         geocoder.geocode({ 'address': address }, function (results, status) {
             switch (status) {
                 case google.maps.GeocoderStatus.OK:
-                    var isValid = CheckValidRegion(results[0]);
-                    if (isValid) {
-                        if (isSubmit) {
-                            $('#DetailPatientForm').submit();
-                        } else {
-                            BootstrapDialog.show({
-                                message: 'Address is verified.',
-                                type: BootstrapDialog.TYPE_PRIMARY,
-                                buttons: [{
-                                    label: 'Ok',
-                                    action: function (dialog) {
-                                        dialog.close();
-                                        if (isSubmit) {
-
-                                        }
-                                    }
-                                }]
-                            });
-                        }
-                    } else
-                        return false;
-                    break;
+                    window.alert("Address: " + address + " is valid!");
+         			break;
                 case google.maps.GeocoderStatus.ZERO_RESULTS:
-                    BootstrapDialog.alert({
-                        message: 'Please enter valid address.',
-                        type: BootstrapDialog.TYPE_PRIMARY,
-                    });
-                    $("#txtStreet").val('')
-                    $('#txtCity').val('')
-                    $('#txtState').val('')
-                    $('#txtZipCode').val('');
+                    window.alert("Invalid!");
+                    // $("#txtStreet").val('')
+                    // $('#txtCity').val('')
+                    // $('#txtState').val('')
+                    // $('#txtZipCode').val('');
                     break;
                 case google.maps.GeocoderStatus.ERROR:
-                    BootstrapDialog.alert({
-                        message: 'Please enter valid address.',
-                        type: BootstrapDialog.TYPE_PRIMARY,
-
-                    });
-                    $("#txtStreet").val('')
-                    $('#txtCity').val('')
-                    $('#txtState').val('')
-                    $('#txtZipCode').val('');
+                    window.alert("Error!");
+                    // $("#txtStreet").val('')
+                    // $('#txtCity').val('')
+                    // $('#txtState').val('')
+                    // $('#txtZipCode').val('');
                     break;
                 case google.maps.GeocoderStatus.UNKNOWN_ERROR:
-                    BootstrapDialog.alert({
-                        message: 'Please enter valid address.',
-                        type: BootstrapDialog.TYPE_PRIMARY,
-
-                    });
-                    $("#txtStreet").val('')
-                    $('#txtCity').val('')
-                    $('#txtState').val('')
-                    $('#txtZipCode').val('');
+                    window.alert("Unknown error!");
+                    // $("#txtStreet").val('')
+                    // $('#txtCity').val('')
+                    // $('#txtState').val('')
+                    // $('#txtZipCode').val('');
                     break;
             }
         });
