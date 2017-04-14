@@ -300,4 +300,93 @@ Template.main_page.onRendered(function(){
 				}
 		}
 	});
+
+	function geocodeAddress() {
+		// House Number Street Name Street Suffix, City, State, Zip, Country
+		var googleAddress = "";
+		var streetAdd = "1111 25th st. NW"; // $("#street").val();
+		var cityAdd = "Washington"; // $("#city").val();
+		var stateAdd = "DC"; // $("#state").val();
+		var zipAdd = "20037"; // $("#zipcode").val();
+		var countryAdd = "United States of America"; //$("#Country")
+
+		googleAddress += streetAdd + ", " + cityAdd + ", " + stateAdd + ", " + zipAdd + ", " + countryAdd;
+
+        // var address = document.getElementById('address').value;
+        geocoder.geocode({'googleAddress': googleAddress}, function(results, status) {
+          if (status === 'OK') {
+            alert('Valid address!');
+          } else {
+            alert('Geocode was not successful for the following reason: ' + status);
+          }
+    	});
+  	}
+
+  	function CheckValidStateOnChange(isSubmit) {
+        var address = $("#txtStreet").val() + ' ' +
+                     $('#txtCity').val() + ', ' +
+                     $('#txtState').val() + ' ' +
+                     $('#txtZipCode').val();
+        geocoder = new google.maps.Geocoder();
+        geocoder.geocode({ 'address': address }, function (results, status) {
+            switch (status) {
+                case google.maps.GeocoderStatus.OK:
+                    var isValid = CheckValidRegion(results[0]);
+                    if (isValid) {
+                        if (isSubmit) {
+                            $('#DetailPatientForm').submit();
+                        } else {
+                            BootstrapDialog.show({
+                                message: 'Address is verified.',
+                                type: BootstrapDialog.TYPE_PRIMARY,
+                                buttons: [{
+                                    label: 'Ok',
+                                    action: function (dialog) {
+                                        dialog.close();
+                                        if (isSubmit) {
+
+                                        }
+                                    }
+                                }]
+                            });
+                        }
+                    } else
+                        return false;
+                    break;
+                case google.maps.GeocoderStatus.ZERO_RESULTS:
+                    BootstrapDialog.alert({
+                        message: 'Please enter valid address.',
+                        type: BootstrapDialog.TYPE_PRIMARY,
+                    });
+                    $("#txtStreet").val('')
+                    $('#txtCity').val('')
+                    $('#txtState').val('')
+                    $('#txtZipCode').val('');
+                    break;
+                case google.maps.GeocoderStatus.ERROR:
+                    BootstrapDialog.alert({
+                        message: 'Please enter valid address.',
+                        type: BootstrapDialog.TYPE_PRIMARY,
+
+                    });
+                    $("#txtStreet").val('')
+                    $('#txtCity').val('')
+                    $('#txtState').val('')
+                    $('#txtZipCode').val('');
+                    break;
+                case google.maps.GeocoderStatus.UNKNOWN_ERROR:
+                    BootstrapDialog.alert({
+                        message: 'Please enter valid address.',
+                        type: BootstrapDialog.TYPE_PRIMARY,
+
+                    });
+                    $("#txtStreet").val('')
+                    $('#txtCity').val('')
+                    $('#txtState').val('')
+                    $('#txtZipCode').val('');
+                    break;
+            }
+        });
+	}
+
 });
