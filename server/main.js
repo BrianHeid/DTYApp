@@ -20,7 +20,6 @@ Accounts.onCreateUser(
 
     });
 
-
 /*
 	Current collections:
 	set to top level in mongo for search queries

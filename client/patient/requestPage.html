@@ -2,7 +2,7 @@
 	 therefore, it doesn't require as much. -->
 
 <template name="requestPage">
-	<link rel="stylesheet" type="text/css" href="requestPage.css">
+	<link rel="stylesheet" type="text/css" href="../lib/requestPage.css">
 
 	<h2 class="ui header container">
 	  <div class="content">
@@ -25,15 +25,15 @@
 				</label>
 			</div>
 
-			<div id="relationship-form" class="field">
-		      <select class="ui dropdown" id="relationship" name="relationship">
-		        <option value="">Choose your relationship</option>
-		        <option value="family">For my family member</option>
-		        <option value="friend">For my friend</option>
-		        <option value="other">Other</option>
-		      </select>
-
-		      <br><br>
+			<div id="relationship-form">
+			  <div class="field">
+			      <select class="ui dropdown" id="relationship" name="relationship">
+			        <option value="">Choose your relationship</option>
+			        <option value="family">For my family member</option>
+			        <option value="friend">For my friend</option>
+			        <option value="other">Other</option>
+			      </select>
+			   </div>
 
 		      <div class="equal width fields">
 		      	<div class="required field">

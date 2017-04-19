@@ -23,7 +23,7 @@ Template.requestPage.onRendered(
 
 
 		this.$('.ui.form').form({
-			inline: false,
+			inline: true,
 			on: 'submit',
 			transition: 'slide down',
 			onSuccess: function(event,fields){

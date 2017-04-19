@@ -36,7 +36,7 @@
 
 	<div class="ui six top attached steps">
 
-		{{#if isRequest 'request'}}
+		{{#if isRequest}}
 		<a class="active step">
 			<i class="hand paper icon"></i>
 			<div class="content">
@@ -54,7 +54,7 @@
 		</a>
 		{{/if}}
 
-		{{#if isCall 'call'}}
+		{{#if isCall}}
 		<a class="active step">
 			<i class="call icon"></i>
 			<div class="content">
@@ -72,7 +72,7 @@
 		</a>
 		{{/if}}
 
-		{{#if isReserve 'reserve'}}
+		{{#if isReserve}}
 		<a class="active step">
 			<i class="payment icon"></i>
 			<div class="content">
@@ -90,7 +90,7 @@
 		</a>
 		{{/if}}
 
-		{{#if isTreatment 'treatment'}}
+		{{#if isTreatment}}
 		<a class="active step">
 			<i class="treatment icon"></i>
 			<div class="content">
@@ -108,7 +108,7 @@
 		</a>
 		{{/if}}
 
-		{{#if isFollowUp 'followup'}}
+		{{#if isFollowUp}}
 		<a class="active step">
 			<i class="comments outline icon"></i>
 			<div class="content">
@@ -126,7 +126,7 @@
 		</a>
 		{{/if}}
 
-		{{#if isReview 'review'}}
+		{{#if isReview}}
 		<a class="active step">
 			<i class="file text icon"></i>
 			<div class="content">
@@ -145,6 +145,18 @@
 		</a>
 		{{/if}}
 	</div>
+
+	<!-- JavaScript -->
+	<script type="text/javascript">
+		$(document).ready(function(){
+
+			// Allows Dashboard steps to be clickable and change templates
+			$(document).on('click', '.step', function(){
+				var selected = $(this).find('.title').text();
+				Meteor.call('updateView', Meteor.userId(), selected);
+			});
+		});
+	</script>
 </template>
 
 
