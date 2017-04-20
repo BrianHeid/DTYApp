@@ -62,11 +62,11 @@
 				<div class="column equal width fields">
 					<div class="required field">
 						<label>Street</label>
-						<input type="text" name="street" placeholder="Street">
+						<input type="text" name="street" id="street" placeholder="Street">
 					</div>
 					<div class="required field">
 						<label>City</label>
-						<input type="text" name="city" placeholder="City">
+						<input type="text" name="city" id="city" placeholder="City">
 					</div>
 				</div>
 
@@ -77,7 +77,7 @@
 					</div>
 					<div class="required field">
 						<label>Zipcode</label>
-						<input type="text" name="zipcode" placeholder="Zipcode">
+						<input type="text" name="zipcode" id="zipcode" placeholder="Zipcode">
 					</div>
 					<div class="field">
 						<label>Apt # / Suite</label>
@@ -127,6 +127,16 @@
 			<!-- <br><br> -->
 
 			<input class="fluid ui primary button" type="submit">
+
+			<div id="errorMsg" class="ui error message" style="display: none;">
+				<i class="close icon"></i>
+			  	<div class="header">
+			   		There were some errors with your submission
+			  	</div>
+			  	<ul class="list" id="errorList">
+			    	<!-- Listed errors -->
+			  	</ul>
+			</div>
 		</form>
 	</div>
 </template>

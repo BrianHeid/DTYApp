@@ -1,4 +1,15 @@
 <template name= 'show_dashboard_page'>
+	<br>
+
+	<div class="ui header">
+		<div class="ui yellow message">
+			<center>
+				<i class="warning circle icon"></i>
+	  			IF THIS IS AN EMERGENCY PLEASE CALL 9-1-1
+	  		</center>
+		</div>
+	</div>
+
 	<p>{{> dashboard}}</p>
 
 	{{#if isRequest}}
@@ -27,13 +38,6 @@
 </template>
 
 <template name="dashboard">
-	<h2 class="ui header container">
-		<i class="dashboard icon"></i>
-		<div class="content">
-			Dashboard
-		</div>
-	</h2>
-
 	<div class="ui six top attached steps">
 
 		{{#if isRequest}}

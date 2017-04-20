@@ -24,18 +24,18 @@
 			</div>
 
 			<div class="fields">
-			    <div class="seven wide field">
+			    <div class="seven wide required field">
 			      <label>Card Number</label>
 			      <input name="card[number]" maxlength="16" placeholder="Card #" type="text">
 			    </div>
-			    <div class="three wide field">
+			    <div class="three wide required field">
 			      <label>CVC</label>
 			      <input name="card[cvc]" maxlength="3" placeholder="CVC" type="text">
 			    </div>
 			    <div class="six wide field">
 			      <label>Expiration</label>
 			      <div class="two fields">
-			        <div class="field">
+			        <div class="required field">
 			          <select class="ui fluid search dropdown" name="card[expire-month]">
 			            <option value="">Month</option>
 				            <option value="1">January</option>
@@ -52,21 +52,21 @@
 				            <option value="12">December</option>
 			          </select>
 			        </div>
-			        <div class="field">
+			        <div class="required field">
 			          <input name="card[expire-year]" maxlength="4" placeholder="Year" type="text">
 			        </div>
 			      </div>
 			    </div>
 			</div>
 			
-			<label>Billing address the same as current address?</label>
+			<label>Billing address different from current address?</label>
 			<label class="switch">
 				<input class="switch-input" type="checkbox" id="myonoffswitch"/>
 				<span class="switch-label" data-on="Yes" data-off="No"></span> 
 				<span class="switch-handle"></span> 
 			</label>
 
-		    <div id="billing-input">
+		    <div id="billing-form">
 			    <h4 class="ui dividing header">Billing Address</h4>
 			
 				<div class="column equal width fields">
@@ -105,10 +105,10 @@
 			<br>
 
 			<!-- If checked, date and time will hide. Should pull same information given from request page -->
-		    <label>As soon as possible</label>
+		    <label>As soon as possible?</label>
 			<label class="switchTime">
-				<input class="switch-input-time" type="checkbox" id="myonoffswitch-time" name="as_soon_as_possible"/>
-				<span class="switch-label-time" data-on="Yes" data-off="No"></span> 
+				<input class="switch-input-time" type="checkbox" id="myonoffswitch-time" name="laterTime"/>
+				<span class="switch-label-time" data-on="Later" data-off="ASAP"></span> 
 				<span class="switch-handle-time"></span> 
 			</label>
 
@@ -221,10 +221,12 @@
 	<!-- JavaScript -->
 	<script type="text/javascript">
 		$(document).ready(function(){
+			$("#billing-form").hide();
+			$("#time-form").hide();
 
 			// Click billing address toggle
 			$("#myonoffswitch").click(function(){
-				$('#billing-input').toggle();
+				$('#billing-form').toggle();
 			});
 
 			// Click date and time toggle
