@@ -19,6 +19,21 @@ Template.requestPage.onRendered(function(){
 		$('#time-form').toggle();
 	});
 
+	// Sets the date minimum to today's date
+	var today = new Date();
+	var dd = today.getDate();
+	var mm = today.getMonth()+1;
+	var yyyy = today.getFullYear();
+	 if(dd<10){
+	        dd='0'+dd
+	    } 
+	    if(mm<10){
+	        mm='0'+mm
+	    } 
+
+	today = yyyy+'-'+mm+'-'+dd;
+	document.getElementById("date").setAttribute("min", today);
+
 	$('.ui.form').form({
 		inline: true,
 		on: 'blur',
@@ -30,18 +45,19 @@ Template.requestPage.onRendered(function(){
 			console.log(fields);
 
 			// Checks if address is valid before adding to database and moving forward with request
-			if (CheckValidAddress(fields['street'], fields['city'], fields['state'], fields['zipcode']) == true){
-				////////////////// ADDS TO DATABASE ///////////////////////
-					Meteor.call('updateStatus', Meteor.userId())
-					Meteor.call('pushRequest', Meteor.userId(), fields)
-				//////////////////////////////////////////////////////////
-			} else {
-				var node=document.createElement("LI");
-				var textnode=document.createTextNode("Address is invalid!");
-				node.appendChild(textnode);
-				$("#errorList").append(node);
-				$("#errorMsg").show();
+			// Checks that an address was inputted 
+			if (fields.different_address) {
+				if (!(CheckValidAddress(fields.street, fields.city, fields.state, fields.zipcode))) {
+					document.getElementById("errorList").innerHTML = "<li>Address is invalid!</li>";
+					$("#errorMsg").show();
+				}
 			}
+
+
+			////////////////// ADDS TO DATABASE ///////////////////////
+				Meteor.call('updateStatus', Meteor.userId())
+				Meteor.call('pushRequest', Meteor.userId(), fields)
+			//////////////////////////////////////////////////////////
 		},
 
 		////////////////////////////// FORM VALIDATION /////////////////////////////////

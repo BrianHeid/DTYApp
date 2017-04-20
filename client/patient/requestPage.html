@@ -74,6 +74,9 @@
 					<div class="required field">
 						<label>State</label>
 						{{>statesList}} <!-- Template shorthand, puts statesList select search dropdown here -->
+
+						<!-- SHOULD WE ONLY HAVE STATES THAT WE DO SERVE SO AS NOT TO WASTE TIME WITH ERRORS? -->
+
 					</div>
 					<div class="required field">
 						<label>Zipcode</label>
@@ -100,7 +103,7 @@
 				<div class="two fields">
 					<div class="required field">
 						<label>Date</label>
-						<input type="date" name="date">
+						<input type="date" name="date" id="date">
 					</div>
 
 					<div class="required field">
