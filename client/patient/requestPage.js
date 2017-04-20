@@ -3,6 +3,8 @@ import '../../lib/collections.js'
 Template.requestPage.onRendered(
 	function(){
 		$("#relationship-form").hide();
+		$("#address_form").hide();
+		$("#time-form").hide();
 
 		$("#myonoffswitch").click(function(){
 			$('#relationship-form').toggle();
@@ -18,24 +20,20 @@ Template.requestPage.onRendered(
 			$('#time-form').toggle();
 		});
 
-		// Dropdown functionality
-		$('.ui.dropdown').dropdown();
-
-
-		this.$('.ui.form').form({
+		$('.ui.form').form({
 			inline: true,
-			on: 'submit',
+			on: 'blur',
 			transition: 'slide down',
-			onSuccess: function(event,fields){
+			keyboardShortcuts: true,
 
+			onSuccess: function(event,fields){
 				event.preventDefault();
+				console.log(fields);
 
 				////////////////// ADDS TO DATABASE ///////////////////////
 				Meteor.call('updateStatus', Meteor.userId())
 				Meteor.call('pushRequest', Meteor.userId(), fields)
 				//////////////////////////////////////////////////////////
-
-				alert("sent!");
 			},
 
 			/////////////////////// FORM VALIDATION //////////////////////
@@ -72,15 +70,7 @@ Template.requestPage.onRendered(
 				},
 				street:{
 	                identifier: 'street',
-	                required: {
-						depends: function(element) {
-							if ($('#myonoffswitch-address').is(':checked')){
-								return false;
-						}else{
-								return true;
-						}
-						}
-					},
+	                depends: 'different_address',
 	                rules:[
 	                {
 	                    type: 'empty',
@@ -90,15 +80,7 @@ Template.requestPage.onRendered(
 	            },
 	            city:{
 	                identifier: 'city',
-	                required: {
-						depends: function(element) {
-							if ($('#myonoffswitch-address').is(':checked')){
-								return false;
-						}else{
-								return true;
-						}
-						}
-					},
+	                depends: 'different_address',
 	                rules:[
 	                {
 	                    type: 'regExp[/^[A-Za-z]{0,144}$/]',
@@ -111,57 +93,27 @@ Template.requestPage.onRendered(
 	                ]
 	            },
 	            state:{
-	                identifier: 'state',
-	                required: {
-						depends: function(element) {
-							if ($('#myonoffswitch-address').is(':checked')){
-								return false;
-						}else{
-								return true;
-						}
-						}
-					},
+	                identifier: 'states',
+	                depends: 'different_address',
 	                rules:[
 	                {
 	                    type: 'empty',
-	                    prompt: 'Please enter a state.'
-	                }
-	                ]
-	            },
-	            country:{
-	                identifier: 'country',
-	                required: {
-						depends: function(element) {
-							if ($('#myonoffswitch-address').is(':checked')){
-								return false;
-						}else{
-								return true;
-						}
-						}
-					},
-	                rules:[
-	                {
-	                    type: 'empty',
-	                    prompt: 'Please choose a country.'
+	                    prompt: 'Please choose a state.'
 	                }
 	                ]
 	            },
 	            zipcode:{
 	                identifier: 'zipcode',
-	                required: {
-						depends: function(element) {
-							if ($('#myonoffswitch-address').is(':checked')){
-								return false;
-						}else{
-								return true;
-						}
-						}
-					},
+	                depends: 'different_address',
 	                rules: [
 	                {
 	                    type: 'empty',
 	                    prompt: 'Please enter a zip code.'
-	                }
+	                },
+	                {
+						type: 'regExp[/^[0-9]{5}$/]',
+						prompt: "Please enter a valid zip code."
+					}
 	                ]
 	            },
 	            aptNumSuite:{
@@ -176,15 +128,7 @@ Template.requestPage.onRendered(
 	            },
 	            date:{
 	                identifier: 'date',
-	                required: {
-						depends: function(element) {
-							if ($('#myonoffswitch-time').is(':checked')){
-								return false;
-						}else{
-								return true;
-						}
-						}
-					},
+	                depends: 'laterTime',
 	                rules:[
 	                {
 	                    type: 'empty',
@@ -194,15 +138,7 @@ Template.requestPage.onRendered(
 	            },
 	            time:{
 	                identifier: 'time',
-	                required: {
-						depends: function(element) {
-							if ($('#myonoffswitch-time').is(':checked')){
-								return false;
-						}else{
-								return true;
-						}
-						}
-					},
+	                depends: 'laterTime',
 	                rules: [
 	                {
 	                    type: 'empty',
@@ -216,6 +152,10 @@ Template.requestPage.onRendered(
 					{
 						type: 'empty',
 						prompt: 'Please let us know your symptoms.'
+					},
+					{
+						type: "minLength[10]",
+						prompt: "Please enter at least 10 characters."
 					}
 					]
 				}

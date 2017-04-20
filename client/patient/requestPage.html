@@ -48,10 +48,10 @@
 
 		    </div>
 
-		    <!-- If checked, address will hide -->
-		    <label>Same address?</label>
+		    <!-- If checked, address will show -->
+		    <label>Different address?</label>
 			<label class="switchAddress">
-				<input class="switch-input-address" type="checkbox" id="myonoffswitch-address" name="same_address"/>
+				<input class="switch-input-address" type="checkbox" id="myonoffswitch-address" name="different_address"/>
 				<span class="switch-label-address" data-on="Yes" data-off="No"></span> 
 				<span class="switch-handle-address"></span> 
 			</label>
@@ -73,17 +73,11 @@
 				<div class="column equal width fields">
 					<div class="required field">
 						<label>State</label>
-						<input type="text" name="state" placeholder="State">
+						{{>statesList}} <!-- Template shorthand, puts statesList select search dropdown here -->
 					</div>
-					<div class="required field">
-						<label>Country</label>
-						{{>countriesList}}	<!-- Template shorthand, puts countriesList select search dropdown here -->
-					</div>
-				</div>
-				<div class="column equal width fields">
 					<div class="required field">
 						<label>Zipcode</label>
-						<input type="text" name="zipcode" placeholder="Zipcode" minlength="5">
+						<input type="text" name="zipcode" placeholder="Zipcode">
 					</div>
 					<div class="field">
 						<label>Apt # / Suite</label>
@@ -92,13 +86,11 @@
 				</div>
 			</div>
 
-			<br>
-
 			<!-- If checked, date and time will hide -->
-		    <label>As soon as possible</label>
+		    <label>As soon as possible?</label>
 			<label class="switchTime">
-				<input class="switch-input-time" type="checkbox" id="myonoffswitch-time" name="as_soon_as_possible"/>
-				<span class="switch-label-time" data-on="Yes" data-off="No"></span> 
+				<input class="switch-input-time" type="checkbox" id="myonoffswitch-time" name="laterTime"/>
+				<span class="switch-label-time" data-on="Later" data-off="ASAP"></span> 
 				<span class="switch-handle-time"></span> 
 			</label>
 
@@ -106,12 +98,12 @@
 			    <h4 class="ui dividing header">Date and Time</h4>
 
 				<div class="two fields">
-					<div class="field">
+					<div class="required field">
 						<label>Date</label>
 						<input type="date" name="date">
 					</div>
 
-					<div class="field">
+					<div class="required field">
 				      <label>Time</label>
 				      <input type="time" name="time">
 					</div>
@@ -134,7 +126,7 @@
 
 			<!-- <br><br> -->
 
-			<input class="fluid ui primary button" type="submit" name="submitRequestBtn" value="Submit Request">
+			<input class="fluid ui primary button" type="submit">
 		</form>
 	</div>
 </template>
