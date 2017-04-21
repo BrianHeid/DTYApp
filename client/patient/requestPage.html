@@ -115,9 +115,8 @@
 
 			<br>
 
-			<!-- Symptoms or images -->
-			<label>Symptoms</label>
 			<div class="required field">
+				<label>Symptoms</label>
 	    		<textarea rows="3" name= 'symptoms'></textarea>
 			</div>
 
@@ -129,9 +128,9 @@
 
 			<!-- <br><br> -->
 
-			<input class="fluid ui primary button" type="submit">
+			<input class="fluid ui primary button" type="submit" value="Submit Request">
 
-			<div id="errorMsg" class="ui error message" style="display: none;">
+			<div id="errorMsg" class="ui error hidden message">
 				<i class="close icon"></i>
 			  	<div class="header">
 			   		There were some errors with your submission
@@ -139,6 +138,11 @@
 			  	<ul class="list" id="errorList">
 			    	<!-- Listed errors -->
 			  	</ul>
+			</div>
+
+			<div class="ui success message hidden" id="successMsg">
+				<i class="send icon"></i>
+				<b>Success!</b> Your request was sent.
 			</div>
 		</form>
 	</div>

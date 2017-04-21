@@ -1,6 +1,8 @@
 import '../../lib/collections.js'
 
 Template.requestPage.onRendered(function(){
+	var valid = false;
+
 	$("#relationship-form").hide();
 	$("#address_form").hide();
 	$("#time-form").hide();
@@ -44,20 +46,25 @@ Template.requestPage.onRendered(function(){
 			event.preventDefault();
 			console.log(fields);
 
-			// Checks if address is valid before adding to database and moving forward with request
 			// Checks that an address was inputted 
 			if (fields.different_address) {
-				if (!(CheckValidAddress(fields.street, fields.city, fields.state, fields.zipcode))) {
-					document.getElementById("errorList").innerHTML = "<li>Address is invalid!</li>";
-					$("#errorMsg").show();
-				}
+				// Checks if address is valid before adding to database and moving forward with request
+				CheckValidAddress(fields.street, fields.city, fields.state, fields.zipcode);
+			} else {
+				$("#errorMsg").hide();
+				valid = true;
 			}
 
+			setTimeout(function(){
+				if (valid) {
+					////////////////// ADDS TO DATABASE ///////////////////////
+						// Meteor.call('updateStatus', Meteor.userId())
+						// Meteor.call('pushRequest', Meteor.userId(), fields)
+					//////////////////////////////////////////////////////////
 
-			////////////////// ADDS TO DATABASE ///////////////////////
-				Meteor.call('updateStatus', Meteor.userId())
-				Meteor.call('pushRequest', Meteor.userId(), fields)
-			//////////////////////////////////////////////////////////
+					$("#successMsg").show(500);
+				}
+			},500);
 		},
 
 		////////////////////////////// FORM VALIDATION /////////////////////////////////
@@ -199,29 +206,40 @@ Template.requestPage.onRendered(function(){
         geocoder.geocode({ 'address': address }, function (results, status) {
             switch (status) {
                 case google.maps.GeocoderStatus.OK:
-                    return true;
-         			break;
+					$("#errorMsg").hide();
+                    valid = true;
+                    break;
                 case google.maps.GeocoderStatus.ZERO_RESULTS:
-                   	return false;
                     $("#street").val('')
                     $('#city').val('')
                     $('#state').val('')
                     $('#zipcode').val('');
+
+                    document.getElementById("errorList").innerHTML = "<li>Address is invalid!</li>";
+					$("#errorMsg").show();
+                    valid = false;
                     break;
                 case google.maps.GeocoderStatus.ERROR:
-                    return false;
                     $("#street").val('')
                     $('#city').val('')
                     $('#state').val('')
                     $('#zipcode').val('');
+
+                    document.getElementById("errorList").innerHTML = "<li>Address is invalid!</li>";
+					$("#errorMsg").show();
+                    valid = false;
                     break;
                 case google.maps.GeocoderStatus.UNKNOWN_ERROR:
-                    return false;
                     $("#street").val('')
                     $('#city').val('')
                     $('#state').val('')
                     $('#zipcode').val('');
+
+					document.getElementById("errorList").innerHTML = "<li>Address is invalid!</li>";
+					$("#errorMsg").show();
+                    valid = false;
                     break;
-       	}});
+       		}
+       	});
 	}
 });
