@@ -80,21 +80,21 @@ Template.main_page.onRendered(function(){
 			transition: 'slide down',
 			onSuccess: function(event,fields){
 				event.preventDefault();
-				// Accounts.createUser({
-				// 	email: fields['email'],
-				// 	password: fields['password'],
-				// 	profile: {
-				// 		firstname: fields['firstname'],
-				// 		lastname: fields['lastname'],
-				// 		status: 1,
-				// 		viewing: "Request",
-				// 		phonenumber: fields['phonenumber'],
-				// 		address: fields['street'] + ' ' + fields['city'] + ' ' + fields['state'] + ' ' + fields['zipcode'],
-				// 		birthday: fields['birthday']
-				// 	}
-				// })
-				// console.log('Account created.....')
-				// FlowRouter.go('/account')
+				Accounts.createUser({
+					email: fields['email'],
+					password: fields['password'],
+					profile: {
+						firstname: fields['firstname'],
+						lastname: fields['lastname'],
+						status: 1,
+						viewing: "Request",
+						phonenumber: fields['phonenumber'],
+						address: fields['street'] + ' ' + fields['city'] + ' ' + fields['state'] + ' ' + fields['zipcode'],
+						birthday: fields['birthday']
+					}
+				})
+				console.log('Account created.....')
+				FlowRouter.go('/account')
 			},
 			fields: {
 				firstname: {

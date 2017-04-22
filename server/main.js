@@ -13,30 +13,176 @@ Meteor.startup(() => {
 
 Accounts.onCreateUser(
     function(options, user){
+		user.profile = options.profile ? options.profile : {};
+	    return user
+	}
+);
 
-	user.profile = options.profile ? options.profile : {};
-    
-    return user
+let EventsSchema = new SimpleSchema({
+	'title': {
+		type: String,
+		label: 'The title of this event.'
+	},
+	'start': {
+		type: String,
+		label: 'When this event will start.'
+	},
+	'end': {
+		type: String,
+		label: 'When this event will end.'
+	},
+	'type': {
+		type: String,
+		label: 'What type of event is this?',
+		allowedValues: [ 'New Requests', 'Consultation', 'Follow Up', 'Miscellaneous' ]
+	},
+	'guests': {
+		type: Number,
+		label: 'The number of guests expected at this event.'
+	}
+});
 
-    });
+Events.attachSchema( EventsSchema );
 
-/*
-	Current collections:
-	set to top level in mongo for search queries
-		User profiles
-				: isDoc
-				: isAdmin
-				: Basic profile
-				: Settings
-				; 
-		Documents
-				: 
-		Reviews
-				:
-		Messages
-				: From doc
-				: From patient
-				: Invoices
+let ProfilesSchema = new SimpleSchema({
+	'email': {
+		type: String,
+		label: 'Need valid email.'
+	},
+	'firstname': {
+		type: String,
+		label: 'Need valid first name.'
+	},
+	'lastname': {
+		type: String,
+		label: 'Need valid last name.'
+	},
+	'phone': {
+		type: Number,
+		label: 'Need valid phone number.'
+	},
+	'address': {
+		type: Object,
+		label: 'Need valid address.',
+		blackbox: true
+	},
+	'birthday': {
+		type: String,
+		label: 'Need valid age.'
+	},
+	'preferences': {
+		type: Boolean,
+		label: 'Need valid preference.'
+	}
+});
 
-*/
+Profiles.attachSchema( ProfilesSchema );
 
+let PatientsSchema = new SimpleSchema ({
+	'userID': {
+		type: Number,
+		label: 'Need valid user ID.'
+	},
+	'status': {
+		type: Number,
+		label: 'Need valid status.'
+	},
+	'viewing': {
+		type: String,
+		label: 'Need valid viewing.'
+	}
+	'billing': {
+		type: Object,
+		label: 'Need valid billing address.',
+		blackbox: true
+	},
+	'history': {
+		type: Object,
+		label: 'Need valid history',
+		blackbox: true
+	}
+});
+
+Patients.attachSchema( PatientsSchema );
+
+let ProvidersSchema = new SimpleSchema ({
+	'userID': {
+		type: Number,
+		label: 'Need valid user ID.'
+	},
+	'propic': {
+		type: Object,
+		label: 'Need valid propic',
+		blackbox: true
+	},
+	'licenseNum': {
+		type: String,
+		label: 'Need valid license number.',
+		blackbox: true
+	},
+	'npiNum': {
+		type: Number,
+		label: 'Need valid NPI number.'
+	},
+	'region': {
+		type: [String],
+		label: 'Need valid region.'
+	},
+	'specialities': {
+		type: [String],
+		label: 'Need valid specialities.'
+	},
+});
+
+Providers.attachSchema( ProvidersSchema );
+
+let RequestsSchema = new SimpleSchema ({
+	'patientId': {
+		type: Number,
+		label: 'Need valid patient ID.'
+	},
+	'step': {
+		type: String,
+		label: 'Need valid step of request.'
+	},
+	'requestFor': {
+		type: String,
+		label: 'Need valid request for someone.'
+	},
+	'requesterName': {
+		type: String,
+		label: 'Need valid requester name.'
+	},
+	'firstname': {
+		type: String,
+		label: 'Need valid first name of patient.'
+	},
+	'lastname': {
+		type: String,
+		label: 'Need valid last name of patient.'
+	},
+	'address': {
+		type: Object,
+		label: 'Need valid address of request.'
+	},
+	'times': {
+		type: Object,
+		label: 'Need valid time object.',
+		blackbox: true
+	},
+	'symptoms': {
+		type: String,
+		label: 'Need valid symptoms.'
+	},
+	'treatment': {
+		type: Object,
+		label: 'Need valid treatment object.',
+		blackbox: true
+	},
+	'cardEnd': {
+		type: Number,
+		label: 'Need valid four digit card ending of credit card'
+	}
+});
+
+Requests.attachSchema( RequestsSchema );
