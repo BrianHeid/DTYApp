@@ -15,7 +15,7 @@
 	<!-- CSS -->
 	<style>
 		/* Shows pointer finger when hovered over the faces */
-		.ui.column.images {
+		.ui.images {
 	    	cursor: pointer;
 	  	}
 
@@ -294,7 +294,7 @@
 			});
 
 			$("#click-here-btn").click(function(){
-				Meteor.call('updateView', Meteor.userId(), 'review');
+				Meteor.call('updateView', Meteor.userId(), 'Review');
 			});
 		});
 
