@@ -147,9 +147,68 @@ Template.main_page.onRendered(function(){
 					type: 'empty',
 					prompt: 'Please enter your primary phone number.'
 				},
-				phonenumber: {
-					identifier: 'phonenumber',
-					rules: [
+				{
+					type: 'regExp[/^(\\+\\d{1,2}\\s)?\\(?\\d{3}\\)?[\\s.-]\\d{3}[\\s.-]\\d{4}$/]',
+					prompt: 'Please enter a valid phone number.'
+				}
+				]
+			},
+			birthday: {
+				identifier: 'birthday',
+				rules: [
+				{
+					type: 'empty',
+					prompt: 'Please enter your birthday.'
+				}
+				]
+			},
+			street:{
+                identifier: 'street',
+                rules:[
+                {
+                    type: 'empty',
+                    prompt: 'Please enter a street address.'
+                }
+                ]
+            },
+            city:{
+                identifier: 'city',
+                rules:[
+                {
+                    type: 'empty',
+                    prompt: 'Please enter a city.'
+                }
+                ]
+            },
+            state:{
+                identifier: 'state',
+                rules:[
+                {
+                    type: 'empty',
+                    prompt: 'Please enter a state.'
+                }
+                ]
+            },
+            zipcode:{
+                identifier: 'zipcode',
+                rules: [
+                {
+                    type: 'regExp[/^[0-9]{5}$/]',
+                    prompt: 'Please enter a valid zip code.'
+                },
+                {
+                    type: 'empty',
+                    prompt: 'Please enter a zip code.'
+                }
+                ]
+            },
+			email: {
+				identifier : 'email',
+				rules: [
+				{
+					type: 'empty',
+					prompt: 'Please enter your e-mail'
+				},
 				{
 					type: 'email',
 					prompt: 'Please enter a valid e-mail'
@@ -184,5 +243,4 @@ Template.main_page.onRendered(function(){
 			}
 		}
 	});
-
 });
