@@ -31,6 +31,7 @@ Template.main_page.onRendered(function(){
 			})
 		},
 
+		////////////////////////////// FORM VALIDATION /////////////////////////////////
 		fields: {
 			email: {
 				identifier : 'email',
@@ -53,10 +54,6 @@ Template.main_page.onRendered(function(){
 					{
 						type: 'empty',
 						prompt: 'Please enter your password'
-					},
-					{
-						type: 'length[6]',
-						prompt: 'Your password must be at least 6 characters'
 					}
 				]
 			}
@@ -71,6 +68,7 @@ Template.main_page.onRendered(function(){
 
 	$('.ui.dropdown').dropdown();
 
+	// Prevents clicking outside the modal to close
 	$("#register").click(function(){
 		$("#createAccountModal").modal({
 		    closable  : false,
@@ -78,11 +76,13 @@ Template.main_page.onRendered(function(){
 		  }).modal('show');
 	});
 
+	// Canceling the modal will clear the form and hide the modal
 	$("#cancelBtn").click(function(){
 		$("#registerForm").form('clear');
 		$("#createAccountModal").modal('hide');
 	});
 
+	// Input mask for phone number for the format (XXX) XXX-XXXX
 	$("#phonenumber").inputmask({"mask": "(999) 999-9999"});
 
 	$('#registerForm').form({
@@ -94,19 +94,33 @@ Template.main_page.onRendered(function(){
 		onSuccess: function(event,fields){
 			event.preventDefault();
 
-			Accounts.createUser({
-				email: fields['email'],
-				password: fields['password'],
-				profile: {
-					firstname: fields['firstname'],
-					lastname: fields['lastname'],
-					status: 1,
-					viewing: "Request",
-					phonenumber: fields['phonenumber'],
-					address: fields['street'] + ' ' + fields['city'] + ' ' + fields['state'] + ' ' + fields['zipcode'],
-					birthday: fields['birthday']
+			Meteor.call('CheckValidAddress', fields.street, fields.city, fields.state, fields.zipcode);
+
+
+			setTimeout(function(){
+				if (valid) {
+					////////////////// ADDS TO DATABASE ///////////////////////
+						// Meteor.call('updateStatus', Meteor.userId())
+						// Meteor.call('pushRequest', Meteor.userId(), fields)
+					//////////////////////////////////////////////////////////
+
+					alert("Valid!");
 				}
-			});
+			},500);
+
+			// Accounts.createUser({
+			// 	email: fields['email'],
+			// 	password: fields['password'],
+			// 	profile: {
+			// 		firstname: fields['firstname'],
+			// 		lastname: fields['lastname'],
+			// 		status: 1,
+			// 		viewing: "Request",
+			// 		phonenumber: fields['phonenumber'],
+			// 		address: fields['street'] + ' ' + fields['city'] + ' ' + fields['state'] + ' ' + fields['zipcode'],
+			// 		birthday: fields['birthday']
+			// 	}
+			// });
 
 			console.log('Account created.....');
 			FlowRouter.go('/dashboard');
@@ -193,10 +207,6 @@ Template.main_page.onRendered(function(){
                 identifier: 'zipcode',
                 rules: [
                 {
-                    type: 'regExp[/^[0-9]{5}$/]',
-                    prompt: 'Please enter a valid zip code.'
-                },
-                {
                     type: 'empty',
                     prompt: 'Please enter a zip code.'
                 }
@@ -215,15 +225,11 @@ Template.main_page.onRendered(function(){
 				}
 				]
 			},
-			password: {
-				identifier : 'password',
+			new_password: {
+				identifier : 'new_password',
 				rules: [
 					{
-						type: 'empty',
-						prompt: 'Please enter your password'
-					},
-					{
-						type: 'length[6]',
+						type: 'minLength[6]',
 						prompt: 'Your password must be at least 6 characters'
 					}
 				]
@@ -232,12 +238,17 @@ Template.main_page.onRendered(function(){
 				identifier: 'password_confirm',
 				rules: [
 					{
-						type: 'empty',
-						prompt: 'Please enter in your password again.'
-					},
-					{
-						type: 'match[password]',
+						type: 'match[new_password]',
 						prompt: 'Password does not match.'
+					}
+				]
+			},
+			acquisition: {
+				identifier: 'acquisition',
+				rules: [
+					{
+						type: 'empty',
+						prompt: 'Please select one.'
 					}
 				]
 			}
