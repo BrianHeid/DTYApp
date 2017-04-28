@@ -90,7 +90,7 @@ let PatientsSchema = new SimpleSchema ({
 	'viewing': {
 		type: String,
 		label: 'Need valid viewing.'
-	}
+	},
 	'billing': {
 		type: Object,
 		label: 'Need valid billing address.',

@@ -106,7 +106,7 @@
 				<div class="column equal width fields required">
 					<div class="required field">
 						<label>Phone Number</label>
-						<input type="text" name="phonenumber" placeholder="Phone Number">
+						<input id="phonenumber" type="tel" name="phonenumber" placeholder="Phone Number">
 					</div>
 				    <div class="required field">
 						<label>Birthday</label>
@@ -165,7 +165,7 @@
 				</div>
 				<div class="field required">
 					<label>Where did you hear about us?</label>
-					<select class="ui selection dropdown" name="acquisition" required>
+					<select class="ui selection dropdown" name="acquisition">
 						<option value="">I heard from...</option>
 						<option value="print">Print advertisement</option>
 						<option value="facebook">Facebook</option>
@@ -176,253 +176,12 @@
 					</select>
 				</div>
 
+				<div class="ui two buttons">
+				    <button id="createAccountBtn" class="ui primary approve button" type='submit'>Create Account</button>
+				    <button id="cancelBtn" class="ui negative cancel button" type='button'>Cancel</button>
+				</div>
+
 		    </form>
 	  	</div>
-
-	  	<div class="actions" id="actionBtns">
-	    	<div class="ui two buttons">
-			    <input id="createAccountBtn" class="ui primary approve button" type='submit' value='Create Account' onclick="">
-			    <div id="cancelBtn" class="ui negative cancel button">Cancel</div>
-			</div>
-	  	</div>
 	</div>
-
-<script type="text/javascript">
-	$(document).ready(function(){
-		$("#register").click(function(){
-				$("#createAccountModal").modal('setting', 'closable', false).modal('show');
-			});
-	});
-		$('.ui.dropdown').dropdown();
-
-	function validateRegistration(){
-		this.$('#registerForm').form({
-			inline: true,
-			on: 'submit',
-			transition: 'slide down',
-			onSuccess: function(event,fields){
-				event.preventDefault();
-				// Accounts.createUser({
-				// 	email: fields['email'],
-				// 	password: fields['password'],
-				// 	profile: {
-				// 		firstname: fields['firstname'],
-				// 		lastname: fields['lastname'],
-				// 		status: 1,
-				// 		viewing: "Request",
-				// 		phonenumber: fields['phonenumber'],
-				// 		address: fields['street'] + ' ' + fields['city'] + ' ' + fields['state'] + ' ' + fields['zipcode'],
-				// 		birthday: fields['birthday']
-				// 	}
-				// })
-				// console.log('Account created.....')
-				// FlowRouter.go('/account')
-			},
-			fields: {
-				firstname: {
-					identifier : 'firstname',
-					rules: [
-					{
-						type: 'empty',
-						prompt: 'Please enter a first name.'
-					},
-					{
-						type: 'regExp[/^[a-zA-Z]{3,20}$/]',
-						prompt: 'Please enter a valid name.'
-					}
-					]
-				},
-				lastname: {
-					identifier: 'lastname',
-					rules: [
-					{
-						type: 'empty',
-						prompt: 'Please enter a last name.'
-					},
-					{
-						type: 'regExp[/^[a-zA-Z]{2,20}$/]',
-						prompt: 'Please enter a valid name.'
-					}
-					]
-				},
-				phonenumber: {
-					identifier: 'phonenumber',
-					rules: [
-					{
-						type: 'empty',
-						prompt: 'Please enter your primary phone number.'
-					},
-					{
-						type: 'regExp[/^(\\+\\d{1,2}\\s)?\\(?\\d{3}\\)?[\\s.-]\\d{3}[\\s.-]\\d{4}$/]',
-						prompt: 'Please enter a valid phone number.'
-					}
-					]
-				},
-				birthday: {
-					identifier: 'birthday',
-					rules: [
-					{
-						type: 'empty',
-						prompt: 'Please enter your birthday.'
-					}
-					]
-				},
-				street:{
-	                identifier: 'street',
-	                rules:[
-	                // {
-	                //     type: 'regExp[/^\\d [A-Za-z ]* (?:Rd\\.)|(?:Dr\\.)|(?:St\\.)|(?:Ct\\.)$/]',
-	                //     prompt: 'Please enter a valid street address.'
-	                // },
-	                {
-	                    type: 'empty',
-	                    prompt: 'Please enter a street address.'
-	                }
-	                ]
-	            },
-	            city:{
-	                identifier: 'city',
-	                rules:[
-	                {
-	                    type: 'regExp[/^[A-Za-z]{0,144}$/]',
-	                    prompt: 'Please enter a valid city.'
-	                },
-	                {
-	                    type: 'empty',
-	                    prompt: 'Please enter a city.'
-	                }
-	                ]
-	            },
-	            state:{
-	                identifier: 'state',
-	                rules:[
-	                {
-	                    type: 'regExp[/^[A-Za-z]{2}$/]',
-	                    prompt: 'Please enter a valid state.'
-	                },
-	                {
-	                    type: 'empty',
-	                    prompt: 'Please enter a state.'
-	                }
-	                ]
-	            },
-	            zipcode:{
-	                identifier: 'zipcode',
-	                rules: [
-	                {
-	                    type: 'regExp[/^[0-9]{5}$/]',
-	                    prompt: 'Please enter a valid zip code.'
-	                },
-	                {
-	                    type: 'empty',
-	                    prompt: 'Please enter a zip code.'
-	                }
-	                ]
-	            },
-				email: {
-					identifier : 'email',
-					rules: [
-					{
-						type: 'empty',
-						prompt: 'Please enter your e-mail'
-					},
-					{
-						type: 'email',
-						prompt: 'Please enter a valid e-mail'
-					}
-					]
-				},
-				password: {
-					identifier : 'password',
-					rules: [
-						{
-							type: 'empty',
-							prompt: 'Please enter your password'
-						},
-						{
-							type: 'length[6]',
-							prompt: 'Your password must be at least 6 characters'
-						}
-					]
-				},
-				password_confirm: {
-					identifier: 'password_confirm',
-					rules: [
-						{
-							type: 'empty',
-							prompt: 'Please enter in your password again.'
-						},
-						{
-							type: 'length[6]',//'match[password]',
-							prompt: 'Password does not match'
-						}
-					]
-				},
-
-				street: {
-					identifier: 'street',
-					rules: [
-						{
-							type: 'empty',
-							prompt: 'Please enter in your street address.'
-						},
-						{	// Need to implement a better address validator, searc google geolocator or, another api
-							type: 'regExp[/^[0-9]{1,5} [A-Za-z ]*(?:Rd\\.)|(?:Dr\\.)|(?:St\\.)|(?:Ct\\.)|(?:rd\\.)|(?:dr\\.)|(?:st\\.)|(?:ct\\.)|(?:ln\\.)$/]',
-							prompt: 'Please enter a valid street address.'
-						}
-					]
-				},
-				city: {
-					identifier: 'city',
-					rules: [
-						{
-							type: 'empty',
-							prompt: 'Please enter in your city.'
-						},
-						{
-							type: 'regExp[/^[A-Za-z]*$/]',
-							prompt: 'Please enter a valid city.'
-						}
-					]
-				},
-				state: {
-					identifier: 'state',
-					rules: [
-						{
-							type: 'empty',
-							prompt: 'Please enter a state.'
-						},
-						{
-							type: 'regExp[/^[A-Z]{2}$/]',
-							prompt: 'Please enter in your state initials e.g. MD, VA, or DC'
-						}
-					]
-
-				},
-				zipcode: {
-					identifier: 'zipcode',
-					rules: [
-						{
-							type: 'empty',
-							prompt: 'Please enter in your zipcode.'
-						},
-						{
-							type: 'regExp[/^[0-9]{5}([ -.]?[0-9]{4})?$/]'
-						}
-					]
-				},
-
-				birthday: {
-					identifier: 'birthday',
-					rules: [
-						{
-							type: 'empty',
-							prompt: "Please enter your date of birth."
-						}
-					]
-				}
-		}
-		});
-	}
-</script>
 </template>
