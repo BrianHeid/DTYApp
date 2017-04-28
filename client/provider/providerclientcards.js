@@ -2,13 +2,49 @@
 
 Template.clientListPage.onRendered(
 	function(){
+		// Sets the date minimum to today's date
+		var today = new Date();
+		var dd = today.getDate();
+		var mm = today.getMonth()+1;
+		var yyyy = today.getFullYear();
+		 if(dd<10){
+		        dd='0'+dd
+		    } 
+		    if(mm<10){
+		        mm='0'+mm
+		    } 
+
+		today = yyyy+'-'+mm+'-'+dd;
+		document.getElementById("birthday").setAttribute("max", today);
+		document.getElementById("date").setAttribute("min", today);
+
+		$("#time-form").hide();
+
+		this.$('#myonoffswitch-time').click(function(){
+			$("#time-form").toggle();
+		});
+
 		this.$('.menu .item').tab();
-		this.$('#createRequest').click(
-			()=>{
-				this.$('#createRequestModal').modal('show')
-				
-			}
-			)
+		
+		// Click to create request button to show modal
+  		$("#createRequest").click(function(){
+  			$("#createRequestModal").modal("show");
+  		});
+
+  		// Click to create request modal
+   		$('#createRequestModal').modal({
+				autofocus: false,	// Prevents dropdown from dropping down
+			}).modal('setting', 'closable', false)	// Prevents clicking outside to close, need to choose an action button
+		;
+
+		///////////////////////////////////////////// AVAILABILITY LABEL ///////////////////////////////////////////////////////////
+		var curStatus = "unavailable";
+		var availableStatusLabel = "<div class=\"ui green label large\"><i class=\"check circle icon\"></i>AVAILABLE</div>";
+		var unavailableStatusLabel = "<div class=\"ui grey label large\"><i class=\"remove circle icon\"></i>UNAVAILABLE</div>";
+		var status = curStatus == "available" ? availableStatusLabel : unavailableStatusLabel;
+
+		var statusText = "Your status: " + status;
+		document.getElementById("status").innerHTML = statusText;
 	})
 
 Template.client.onRendered(
@@ -55,16 +91,10 @@ Template.newClient.onRendered(
 
 Template.scheduleModal.onRendered(
 	()=>{
-		this.$('.ui.checkbox').checkbox({
-			onChecked: function(){
-				$('#time,#date').hide()
-				
-			
-			},
-			onUnchecked: function(){
-				$('#time,#date').show()
-			}
-		})
+		$("#scheduleSwitch").click(function(){
+			$('#datetime-form').toggle();
+		});
+
 		this.$('#scheduleForm').form({
 			inline: true,
 			on: 'blur',

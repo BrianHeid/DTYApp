@@ -244,13 +244,6 @@
 					      		<!-- Map (Goes to Google Maps) -->
 					      		<button class="ui fluid button"><i class="location arrow medium icon"></i>Map</button>
 					      	</div>
-					      	<br>
-					      	<div id="notesTextbox">
-				      			<!-- Notes: ADD/EDIT NOTES TEXTBOX -->
-				      		</div>
-				      		
-				      		<button id="notesEditButton" class="ui fluid button"><i class="write icon"></i>Edit Notes</button>
-				      		
 				      	</div>
 
 				</div>
@@ -348,9 +341,9 @@
 					    	<input type="text" name="street" placeholder="Street">
 					    </div>
 				    </div>
-				    <div class="field required">
+				    <div class="field">
 				    	<label>Apt # / Suite</label>
-					    <div class="field required">
+					    <div class="field">
 					    	<input type="text" name="aptNumSuite" placeholder="Apt # / Suite">
 					    </div>
 				    </div> 
@@ -394,23 +387,20 @@
 					<div class="field required">
 					    <label>Birthday</label>
 					    <div class="field required">
-					    	<input type="date" name="birthday" min="1887-01-01" max="1999-04-01">
+					    	<input type="date" id="birthday" name="birthday" min="1887-01-01">
 					    </div>
 				    </div>
 
 				    <div class="field required">
-					    <label>Gender</label>
-				        <div class="ui selection dropdown">
-				        	<input type="hidden" name="gender">
-				          	<i class="dropdown icon"></i>
-				          	<div class="default text">Gender</div>
-				          	<div class="menu">
-				            	<div class="item" data-value="male">Male</div>
-				              	<div class="item" data-value="female">Female</div>
-				          	</div>
-				      	</div>
-				    </div>
+				    	<label>Gender</label>
+					    <select class="ui selection dropdown" name="gender" id="gender">
+							<option value="">Select a gender...</option>
+							<option data-value="male">Male</option>
+				            <option data-value="female">Female</option>
+						</select>
+					</div>
 				</div>
+				 
 				<div class="two fields">
 					<div class="field required">
 					    <label>Phone Number</label>
@@ -433,6 +423,33 @@
 				    	<input type="text" name="primaryDoctor" placeholder="Primary Doctor (Optional)">
 				    </div>
 			    </div>
+
+			    <!-- If checked, date and time will hide -->
+			    <label>As soon as possible?</label>
+				<label class="switchTime">
+					<input class="switch-input-time" type="checkbox" id="myonoffswitch-time" name="laterTime"/>
+					<span class="switch-label-time" data-on="Later" data-off="ASAP"></span> 
+					<span class="switch-handle-time"></span> 
+				</label>
+
+				<div id="time-form">
+				    <h4 class="ui dividing header">Date and Time</h4>
+
+					<div class="two fields">
+						<div class="required field">
+							<label>Date</label>
+							<input type="date" name="date" id="date">
+						</div>
+
+						<div class="required field">
+					      <label>Time</label>
+					      <input type="time" name="time">
+						</div>
+					</div>
+				</div>
+
+				<br>
+
 				<div class="actions">
 					<div class="ui two buttons">
 					    <button class="ui primary approve button" type='submit'>Create Request</button>
@@ -463,13 +480,15 @@
 						<span class="switch-handle"></span> 
 					</label>
 				</div>
-				<div class="field ">
-					<label>Time</label>
-					<input type="time" name='time' id="time">
-				</div>
-				<div class="field ">
-					<label>Date</label>
-					<input type="date" name='date' id="date">
+				<div id="datetime-form">
+					<div class="field ">
+						<label>Time</label>
+						<input type="time" name='time' id="time">
+					</div>
+					<div class="field ">
+						<label>Date</label>
+						<input type="date" name='date' id="date">
+					</div>
 				</div>
 				<div class="actions">
 					<div class="ui two buttons">
