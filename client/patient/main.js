@@ -13,19 +13,20 @@ Template.main_page.onRendered(function(){
 
 	this.$('#loginForm').form({
 		inline: true,
-		on: 'blur',
+		on: 'submit',
 		transition: 'slide down',
-		onSuccess: function(event,fields ){
+		keyboardShortcuts: true,
+
+		onSuccess: function(event,fields){
 			event.preventDefault()
 	
 			Meteor.loginWithPassword(fields['email'],fields['password'],(error,result)=>{
 				if(error){
-					//$('#error_message').html('<div class="ui negative">')
-					$('#error_message').show()
-					$('#error_message').html("<div class='header'>" + 'Please try again' + '</div>' + '<p>' + error['reason'] + "</p>")
+					document.getElementById("innerLoginErrorMsg").innerHTML = "<i class=\"warning circle icon\"></i>Oh no! Email or password is incorrect.";
+					$('#loginErrorMsg').show();
 				}
 				else{
-					console.log('Login was successful',result);
+					console.log('Login was successful');
 					FlowRouter.go('/dashboard')
 				}
 			})
@@ -73,7 +74,7 @@ Template.main_page.onRendered(function(){
 		$("#createAccountModal").modal({
 		    closable  : false,
 		    transition: 'fade'
-		  }).modal('show');
+		}).modal('show');
 	});
 
 	// Canceling the modal will clear the form and hide the modal
@@ -94,31 +95,62 @@ Template.main_page.onRendered(function(){
 		onSuccess: function(event,fields){
 			event.preventDefault();
 
-			CheckValidAddress(fields.street, fields.city, fields.state, fields.zipcode, fields.country);
+			var streetTrim = fields.street.trim();
+			var aptNumSuiteTrim = fields.aptNumSuite.trim();
+			var cityTrim = fields.city.trim();
+			var stateTrim = fields.state.trim();
+			var zipTrim = fields.zipcode.trim();
+
+			CheckValidAddress(streetTrim, cityTrim, stateTrim, zipTrim, fields.country);
 
 			setTimeout(function(){
 				if (valid) {
 					$("#successMsg").show(500);
 					$("#successMsg").delay(1000).fadeOut(500);
 
-					Accounts.createUser({
-						email: fields.new_email,
-						password: fields.new_password
-					});
+					var emailTrim = fields.new_email.trim();
 
-					var fullAddress = fields.street + ' ' + fields.aptNumSuite + ' ' + fields.city + ' ' + 
-									  fields.state + ' ' + fields.zipcode + ' ' + fields.country;
+					var ret = PatientEmails.findOne({'email':emailTrim});
 
-					Meteor.call('addProfile', Meteor.userId(), fields.new_email, fields.firstname, 
-											fields.lastname, fields.phonenumber, fullAddress, fields.birthday);
+					console.log(ret);
 
-					Meteor.call('addPatient', Meteor.userId());
+					if (ret == undefined) {
+						Accounts.createUser({
+							email: emailTrim,
+							password: fields.new_password,
+							createdAt: new Date().toLocaleString(),
+							profile: {
+								status: 1,
+								viewing: 'Request'
+							}
+						});
 
-					console.log('Account created.....');
+						Meteor.call('addPatientEmail', emailTrim);
 
-					$("#createAccountModal").modal('hide');
-					FlowRouter.go('/dashboard');
+						var fullAddress = streetTrim + ' ' + aptNumSuiteTrim + ' ' + cityTrim + ' ' + 
+										  stateTrim + ' ' + zipTrim + ' ' + fields.country;
+
+						var firstTrim = fields.firstname.trim();
+						var lastTrim = fields.lastname.trim();
+
+						var phoneStrip = fields.phonenumber.replace('(', "").replace(')', "").replace(' ', '').replace('-', '');
+						var phoneNum = parseInt(phoneStrip);
+
+						console.log(phoneNum);
+
+						Meteor.call('addProfile', emailTrim, firstTrim, lastTrim, phoneNum, fullAddress, fields.birthday);
+
+						Meteor.call('addPatient', emailTrim);
+						
+						console.log('Account created.....');
+						console.log(fields);
+
+						$("#createAccountModal").modal('hide');
+
+						FlowRouter.go('/dashboard');
+					}
 				}
+
 			},500);
 
 			
