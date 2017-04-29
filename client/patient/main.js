@@ -6,7 +6,7 @@ Template.main_page.onRendered(function(){
 
 	if (Meteor.user()){
 		console.log('user is logged in')
-		Meteor.users.update( {_id: Meteor.userId()}, {$set: {'profile.status':1,'profile.viewing': 'request'}})
+		// Meteor.users.update( {_id: Meteor.userId()}, {$set: {'profile.status':1,'profile.viewing': 'request'}})
 		FlowRouter.go('/dashboard')
 		
 	}
@@ -94,36 +94,34 @@ Template.main_page.onRendered(function(){
 		onSuccess: function(event,fields){
 			event.preventDefault();
 
-			Meteor.call('CheckValidAddress', fields.street, fields.city, fields.state, fields.zipcode);
-
+			CheckValidAddress(fields.street, fields.city, fields.state, fields.zipcode, fields.country);
 
 			setTimeout(function(){
 				if (valid) {
-					////////////////// ADDS TO DATABASE ///////////////////////
-						// Meteor.call('updateStatus', Meteor.userId())
-						// Meteor.call('pushRequest', Meteor.userId(), fields)
-					//////////////////////////////////////////////////////////
+					$("#successMsg").show(500);
+					$("#successMsg").delay(1000).fadeOut(500);
 
-					alert("Valid!");
+					Accounts.createUser({
+						email: fields.new_email,
+						password: fields.new_password
+					});
+
+					var fullAddress = fields.street + ' ' + fields.aptNumSuite + ' ' + fields.city + ' ' + 
+									  fields.state + ' ' + fields.zipcode + ' ' + fields.country;
+
+					Meteor.call('addProfile', Meteor.userId(), fields.new_email, fields.firstname, 
+											fields.lastname, fields.phonenumber, fullAddress, fields.birthday);
+
+					Meteor.call('addPatient', Meteor.userId());
+
+					console.log('Account created.....');
+
+					$("#createAccountModal").modal('hide');
+					FlowRouter.go('/dashboard');
 				}
 			},500);
 
-			// Accounts.createUser({
-			// 	email: fields['email'],
-			// 	password: fields['password'],
-			// 	profile: {
-			// 		firstname: fields['firstname'],
-			// 		lastname: fields['lastname'],
-			// 		status: 1,
-			// 		viewing: "Request",
-			// 		phonenumber: fields['phonenumber'],
-			// 		address: fields['street'] + ' ' + fields['city'] + ' ' + fields['state'] + ' ' + fields['zipcode'],
-			// 		birthday: fields['birthday']
-			// 	}
-			// });
-
-			console.log('Account created.....');
-			FlowRouter.go('/dashboard');
+			
 		},
 
 		////////////////////////////// FORM VALIDATION /////////////////////////////////
@@ -203,6 +201,15 @@ Template.main_page.onRendered(function(){
                 }
                 ]
             },
+            country:{
+            	identifier: 'country',
+            	rules:[
+            	{
+            		type: 'empty',
+            		prompt: 'Please select a country.'
+            	}
+            	]
+            },
             zipcode:{
                 identifier: 'zipcode',
                 rules: [
@@ -212,8 +219,8 @@ Template.main_page.onRendered(function(){
                 }
                 ]
             },
-			email: {
-				identifier : 'email',
+			new_email: {
+				identifier : 'new_email',
 				rules: [
 				{
 					type: 'empty',
@@ -254,4 +261,58 @@ Template.main_page.onRendered(function(){
 			}
 		}
 	});
+
+	function CheckValidAddress(street,city,state,zip,country) {
+		var streetAdd = street.trim();
+		var cityAdd = city.trim();
+		var stateAdd = state;
+		var zipAdd = zip;
+		var countryAdd = country;
+
+ 		// Merges the address into one string to query the Geocoder
+		var address = streetAdd + " " + cityAdd + " " + stateAdd + " " + zipAdd + " " + countryAdd;
+
+        geocoder = new google.maps.Geocoder();
+        geocoder.geocode({ 'address': address }, function (results, status) {
+            switch (status) {
+                case google.maps.GeocoderStatus.OK:
+					$("#errorMsg").hide();
+                    valid = true;
+                    break;
+                case google.maps.GeocoderStatus.ZERO_RESULTS:
+                    $("#street").val('')
+                    $('#city').val('')
+                    $('#state').val('')
+                    $('#zipcode').val('');
+                    $("#aptNumSuite").val('');
+
+                    document.getElementById("errorList").innerHTML = "<li>Address is invalid!</li>";
+					$("#errorMsg").show();
+                    valid = false;
+                    break;
+                case google.maps.GeocoderStatus.ERROR:
+                    $("#street").val('')
+                    $('#city').val('')
+                    $('#state').val('')
+                    $('#zipcode').val('');
+                    $("#aptNumSuite").val('');
+
+                    document.getElementById("errorList").innerHTML = "<li>Address is invalid!</li>";
+					$("#errorMsg").show();
+                    valid = false;
+                    break;
+                case google.maps.GeocoderStatus.UNKNOWN_ERROR:
+                    $("#street").val('')
+                    $('#city').val('')
+                    $('#state').val('')
+                    $('#zipcode').val('');
+                    $("#aptNumSuite").val('');
+
+					document.getElementById("errorList").innerHTML = "<li>Address is invalid!</li>";
+					$("#errorMsg").show();
+                    valid = false;
+                    break;
+       		}
+       	});
+	}
 });
