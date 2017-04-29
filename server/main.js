@@ -58,6 +58,10 @@ let ProfilesSchema = new SimpleSchema({
 		type: String,
 		label: 'Need valid email.'
 	},
+	'createdAt': {
+		type: String,
+		label: 'Need valid created time'
+	},
 	'firstname': {
 		type: String,
 		label: 'Need valid first name.'
