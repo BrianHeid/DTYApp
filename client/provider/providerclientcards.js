@@ -95,14 +95,17 @@ Template.scheduleModal.onRendered(
 			$('#datetime-form').toggle();
 		});
 
-		this.$('#scheduleForm').form({
+		$('#scheduleForm').form({
 			inline: true,
 			on: 'blur',
 			transition: 'slide down',
+			keyboardShortcuts: true,
+
 			onSuccess: (event, fields)=>{
 				event.preventDefault()
 				console.log(fields)
 			},
+
 			fields: {
 				time:{
 					identifier: 'time',
