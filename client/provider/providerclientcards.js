@@ -132,7 +132,6 @@ Template.scheduleModal.onRendered(
 
 Template.clientListPage.helpers({
 	'getClients': function(){
-
 		return Session.get('client')
 	},
 	'clients': function(){
