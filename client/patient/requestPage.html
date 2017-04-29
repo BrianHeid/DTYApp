@@ -64,28 +64,28 @@
 						<label>Street</label>
 						<input type="text" name="street" id="street" placeholder="Street">
 					</div>
-					<div class="required field">
-						<label>City</label>
-						<input type="text" name="city" id="city" placeholder="City">
+					<div class="field">
+						<label>Apt # / Suite</label>
+						<input type="text" name="aptNumSuite" placeholder="Apt # / Suite">
 					</div>
 				</div>
 
 				<div class="column equal width fields">
 					<div class="required field">
+						<label>City</label>
+						<input type="text" name="city" id="city" placeholder="City">
+					</div>
+					<div class="required field">
 						<label>State</label>
 						{{>statesList}} <!-- Template shorthand, puts statesList select search dropdown here -->
 
 						<!-- SHOULD WE ONLY HAVE STATES THAT WE DO SERVE SO AS NOT TO WASTE TIME WITH ERRORS? -->
-
 					</div>
 					<div class="required field">
 						<label>Zipcode</label>
 						<input type="text" name="zipcode" id="zipcode" placeholder="Zipcode">
 					</div>
-					<div class="field">
-						<label>Apt # / Suite</label>
-						<input type="text" name="aptNumSuite" placeholder="Apt # / Suite">
-					</div>
+					
 				</div>
 			</div>
 
