@@ -121,39 +121,40 @@
 						<label>Street</label>
 						<input type="text" name="street" id="street" placeholder="Street">
 					</div>
-					<div class="required field">
-						<label>City</label>
-						<input type="text" name="city" id="city" placeholder="City">
-					</div>
-				</div>
-
-				<div class="column equal width fields">
-					<div class="required field">
-						<label>State</label>
-						<input type="text" name="state" id="state" placeholder="State">
-					</div>
-					<div class="required field">
-						<label>Country</label>
-						{{>countriesList}}
-					</div>
-				</div>
-
-				<div class="column equal width fields">
-					<div class="required field">
-						<label>Zipcode</label>
-						<input type="text" name="zipcode" id="zipcode" placeholder="Zipcode" minlength="5">
-					</div>
 					<div class="field">
 						<label>Apt # / Suite</label>
 						<input type="text" name="aptNumSuite" id="aptNumSuite" placeholder="Apt # / Suite">
 					</div>
 				</div>
 
+				<div class="column equal width fields">
+					<div class="required field">
+						<label>City</label>
+						<input type="text" name="city" id="city" placeholder="City">
+					</div>
+					<div class="required field">
+						<label>State</label>
+						<input type="text" name="state" id="state" placeholder="State">
+					</div>
+				</div>
+
+				<div class="column equal width fields">
+					<div class="required field">
+						<label>Country</label>
+						{{>countriesList}}
+					</div>
+					<div class="required field">
+						<label>Zipcode</label>
+						<input type="text" name="zipcode" id="zipcode" placeholder="Zipcode" minlength="5">
+					</div>
+					
+				</div>
+
 				<h4 class="ui dividing header">Account Settings</h4>
 
 				<div class="field required">
 					<label>Email</label>
-					<input type="email" name="email" placeholder="example@gmail.com">
+					<input type="email" name="new_email" placeholder="example@gmail.com">
 				</div>
 				<div class="field required">
 					<label>Password</label>
