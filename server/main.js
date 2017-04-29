@@ -44,10 +44,19 @@ let EventsSchema = new SimpleSchema({
 
 Events.attachSchema( EventsSchema );
 
-let ProfilesSchema = new SimpleSchema({
-	'_id': {
+let PatientEmailsSchema = new SimpleSchema({
+	'email': {
 		type: String,
-		label: 'Need valid user ID.'
+		label: 'Need valid email.'
+	}
+});
+
+PatientEmails.attachSchema( PatientEmailsSchema );
+
+let ProfilesSchema = new SimpleSchema({
+	'email': {
+		type: String,
+		label: 'Need valid email.'
 	},
 	'firstname': {
 		type: String,
@@ -78,9 +87,9 @@ let ProfilesSchema = new SimpleSchema({
 Profiles.attachSchema( ProfilesSchema );
 
 let PatientsSchema = new SimpleSchema ({
-	'_id': {
+	'email': {
 		type: String,
-		label: 'Need valid user ID.'
+		label: 'Need valid email.'
 	},
 	'status': {
 		type: Number,
