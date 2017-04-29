@@ -45,9 +45,9 @@ let EventsSchema = new SimpleSchema({
 Events.attachSchema( EventsSchema );
 
 let ProfilesSchema = new SimpleSchema({
-	'email': {
+	'_id': {
 		type: String,
-		label: 'Need valid email.'
+		label: 'Need valid user ID.'
 	},
 	'firstname': {
 		type: String,
@@ -62,9 +62,8 @@ let ProfilesSchema = new SimpleSchema({
 		label: 'Need valid phone number.'
 	},
 	'address': {
-		type: Object,
-		label: 'Need valid address.',
-		blackbox: true
+		type: String,
+		label: 'Need valid address.'
 	},
 	'birthday': {
 		type: String,
@@ -79,8 +78,8 @@ let ProfilesSchema = new SimpleSchema({
 Profiles.attachSchema( ProfilesSchema );
 
 let PatientsSchema = new SimpleSchema ({
-	'userID': {
-		type: Number,
+	'_id': {
+		type: String,
 		label: 'Need valid user ID.'
 	},
 	'status': {
@@ -92,9 +91,8 @@ let PatientsSchema = new SimpleSchema ({
 		label: 'Need valid viewing.'
 	},
 	'billing': {
-		type: Object,
-		label: 'Need valid billing address.',
-		blackbox: true
+		type: String,
+		label: 'Need valid billing address.'
 	},
 	'history': {
 		type: Object,
@@ -106,8 +104,8 @@ let PatientsSchema = new SimpleSchema ({
 Patients.attachSchema( PatientsSchema );
 
 let ProvidersSchema = new SimpleSchema ({
-	'userID': {
-		type: Number,
+	'_id': {
+		type: String,
 		label: 'Need valid user ID.'
 	},
 	'propic': {
@@ -136,9 +134,18 @@ let ProvidersSchema = new SimpleSchema ({
 
 Providers.attachSchema( ProvidersSchema );
 
+let AdminsSchema = new SimpleSchema ({
+	'_id': {
+		type: String,
+		label: 'Need valid user ID.'
+	}
+});
+
+Admins.attachSchema( AdminsSchema );
+
 let RequestsSchema = new SimpleSchema ({
 	'patientId': {
-		type: Number,
+		type: String,
 		label: 'Need valid patient ID.'
 	},
 	'step': {
@@ -162,7 +169,7 @@ let RequestsSchema = new SimpleSchema ({
 		label: 'Need valid last name of patient.'
 	},
 	'address': {
-		type: Object,
+		type: String,
 		label: 'Need valid address of request.'
 	},
 	'times': {
@@ -182,6 +189,28 @@ let RequestsSchema = new SimpleSchema ({
 	'cardEnd': {
 		type: Number,
 		label: 'Need valid four digit card ending of credit card'
+	},
+	'followups': {
+		type: Object,
+		label: 'Need valid followups',
+		blackbox: true
+	},
+	'files': {
+		type: Object,
+		label: 'Need valid files',
+		blackbox: true
+	},
+	'cancelReason': {
+		type: String,
+		label: 'Need valid cancellation reason'
+	},
+	'cancelAfterReserve': {
+		type: Boolean,
+		label: 'Need to know if canceled after reserving'
+	},
+	'requestComplete': {
+		type: Boolean,
+		label: 'Need to know if request is complete.'
 	}
 });
 
