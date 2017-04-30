@@ -121,6 +121,7 @@ Template.main_page.onRendered(function(){
 							password: fields.new_password,
 							createdAt: new Date().toLocaleString(),
 							profile: {
+								curStep: 'Request',
 								status: 1,
 								viewing: 'Request'
 							}
