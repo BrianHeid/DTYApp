@@ -82,6 +82,10 @@ let ProfilesSchema = new SimpleSchema({
 		type: String,
 		label: 'Need valid age.'
 	},
+	'gender': {
+		type: String,
+		label: 'Need valid gender.'
+	},
 	'preferences': {
 		type: Boolean,
 		label: 'Need valid preference.'
@@ -120,6 +124,10 @@ let ProvidersSchema = new SimpleSchema ({
 	'_id': {
 		type: String,
 		label: 'Need valid user ID.'
+	},
+	'isDoctor': {
+		type: Boolean,
+		label: 'Is the provider a doctor?'
 	},
 	'propic': {
 		type: Object,
