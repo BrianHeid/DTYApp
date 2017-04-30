@@ -58,11 +58,13 @@ Template.requestPage.onRendered(function(){
 			setTimeout(function(){
 				if (valid) {
 					////////////////// ADDS TO DATABASE ///////////////////////
-						// Meteor.call('updateStatus', Meteor.userId())
+						
 						// Meteor.call('pushRequest', Meteor.userId(), fields)
 					//////////////////////////////////////////////////////////
 
 					$("#successMsg").show(500);
+					Meteor.call('updateStatus', Meteor.userId());
+					Meteor.call('updateView', Meteor.userId(), 'Call');
 				}
 			},500);
 		},
