@@ -3,6 +3,8 @@ import '../../lib/collections.js'
 Template.requestPage.onRendered(function(){
 	var valid = false;
 
+	$('.ui.dropdown').dropdown();
+
 	$("#relationship-form").hide();
 	$("#address_form").hide();
 	$("#time-form").hide();
