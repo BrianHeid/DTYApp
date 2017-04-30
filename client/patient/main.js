@@ -23,11 +23,12 @@ Template.main_page.onRendered(function(){
 			Meteor.loginWithPassword(fields['email'],fields['password'],(error,result)=>{
 				if(error){
 					document.getElementById("innerLoginErrorMsg").innerHTML = "<i class=\"warning circle icon\"></i>Oh no! Email or password is incorrect.";
-					$('#loginErrorMsg').show();
+					$('#loginErrorMsg').show().transition('bounce');
 				}
 				else{
+					$("#loginErrorMsg").hide();
 					console.log('Login was successful');
-					FlowRouter.go('/dashboard')
+					FlowRouter.go('/dashboard');
 				}
 			})
 		},
