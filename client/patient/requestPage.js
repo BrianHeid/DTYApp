@@ -65,8 +65,9 @@ Template.requestPage.onRendered(function(){
 					//////////////////////////////////////////////////////////
 
 					$("#successMsg").show(500);
+					Meteor.call('updateCurStep', Meteor.userId(), 'Processing');
 					Meteor.call('updateStatus', Meteor.userId());
-					Meteor.call('updateView', Meteor.userId(), 'Call');
+					Meteor.call('updateView', Meteor.userId(), 'Processing');
 				}
 			},500);
 		},

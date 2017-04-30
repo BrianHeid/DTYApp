@@ -30,6 +30,10 @@ Template.show_dashboard_page.helpers({
 		if (Meteor.user())
 			return Meteor.user().profile['viewing'] == 'Request'
 	},
+	'isProcessing': function(){
+		if (Meteor.user())
+			return Meteor.user().profile['viewing'] == 'Processing'
+	},
 	'isCall': function(){
 		if (Meteor.user())
 			return Meteor.user().profile['viewing'] == 'Call'
