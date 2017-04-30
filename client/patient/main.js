@@ -133,13 +133,15 @@ Template.main_page.onRendered(function(){
 
 						var firstTrim = fields.firstname.trim();
 						var lastTrim = fields.lastname.trim();
-
 						var phoneStrip = fields.phonenumber.replace('(', "").replace(')', "").replace(' ', '').replace('-', '');
 						var phoneNum = parseInt(phoneStrip);
 
-						console.log(phoneNum);
+						Session.set('firstname', firstTrim);
+						Session.set('lastname', lastTrim);
+						Session.set('fullAddress', fullAddress);
+						Session.set('phonenumber', fields.phonenumber);
 
-						Meteor.call('addProfile', emailTrim, firstTrim, lastTrim, phoneNum, fullAddress, fields.birthday);
+						Meteor.call('addProfile', emailTrim, firstTrim, lastTrim, phoneNum, fullAddress, fields.birthday, fields.gender);
 
 						Meteor.call('addPatient', emailTrim);
 						
@@ -204,6 +206,15 @@ Template.main_page.onRendered(function(){
 				{
 					type: 'empty',
 					prompt: 'Please enter your birthday.'
+				}
+				]
+			},
+			gender: {
+				identifier: 'gender',
+				rules: [
+				{
+					type: 'empty',
+					prompt: 'Please specify your gender.'
 				}
 				]
 			},
