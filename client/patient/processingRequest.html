@@ -22,9 +22,8 @@
 	<!-- Informative box about how long call wait will be -->
 	
 	<center>
-		{{#each getUser}}
 		<div class="ui raised very padded text container segment">
-			<h2 class="ui header">We are processing your request and will take care of you soon, {{firstname}}<br><br>
+			<h2 class="ui header">We are processing your request and will take care of you soon, {{getFirstName}}<br><br>
 			Thank you for choosing Doctors To You!</h2>
 
 			<br>
@@ -39,7 +38,6 @@
 
 		   	<!-- blog posts -->
 		</div>
-		{{/each}}
 	</center>
 	
 
@@ -64,10 +62,10 @@
 
 		  <div class="actions" id="cancelReqButtons">
 		  	<div class="two ui buttons">
-			    <button  class="ui red button" id="confirmCancelBtn">
+			    <button  class="ui red button" type="submit" id="confirmCancelBtn">
 			      Confirm Cancellation
 			    </button>
-			    <button class="ui cancel button" id="nevermindBtn">
+			    <button class="ui cancel button" type="button" id="nevermindBtn">
 			      Nevermind
 			    </button>
 			</div>
@@ -102,6 +100,8 @@
 	<!-- JavaScript -->
 	<script type="text/javascript">
 
+		var firstname = Session.get('firstname');
+
 		$(document).ready(function(){
 
 			// Click to open cancel request button
@@ -112,7 +112,7 @@
 			// Validate cancel form
 			$("#reasonForm").form({
 				inline: true,
-				on: "change",
+				on: "submit",
 				transition: "slide down",
 
 				// Submit cancel form - add cancel reason to database
@@ -154,13 +154,8 @@
 
 		Template.processingRequestPage.helpers({
 
-			getUser: function(){
-				Meteor.call('getEmail', Meteor.userId(), function(err, data) {
-					Session.set('userEmail', data);
-				});
-			
-				var userEmail = Session.get('userEmail');
-				return Profiles.find({email:userEmail}).fetch();
+			getFirstName: function(){
+				return Session.get('firstname');
 			}
 
 		});
