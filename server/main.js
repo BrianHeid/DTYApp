@@ -99,6 +99,10 @@ let PatientsSchema = new SimpleSchema ({
 		type: String,
 		label: 'Need valid email.'
 	},
+	'curStep': {
+		type: String,
+		label: 'Need valid current step.'
+	},
 	'status': {
 		type: Number,
 		label: 'Need valid status.'
