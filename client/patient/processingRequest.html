@@ -20,9 +20,11 @@
 	</style>
 
 	<!-- Informative box about how long call wait will be -->
+	
 	<center>
+		{{#each getUser}}
 		<div class="ui raised very padded text container segment">
-			<h2 class="ui header">We are processing your request and will take care of you soon, PATIENT NAME!<br><br>
+			<h2 class="ui header">We are processing your request and will take care of you soon, {{firstname}}<br><br>
 			Thank you for choosing Doctors To You!</h2>
 
 			<br>
@@ -37,7 +39,9 @@
 
 		   	<!-- blog posts -->
 		</div>
+		{{/each}}
 	</center>
+	
 
 	<!-- Cancel modal -->
 	<div class="ui small modal" id="reasonModal">
@@ -93,6 +97,8 @@
 
 	</div>
 
+	<!-- {{/each}} -->
+
 	<!-- JavaScript -->
 	<script type="text/javascript">
 
@@ -144,6 +150,18 @@
 					}
 				}
 			});
+		});
+
+		Template.processingRequestPage.helpers({
+
+			getUser: function(){
+				Meteor.call('getEmail', Meteor.userId(), function(err, data) {
+					Session.set('userEmail', data);
+				});
+			
+				var userEmail = Session.get('userEmail');
+				return Profiles.find({email:userEmail}).fetch();
+			}
 
 		});
 
