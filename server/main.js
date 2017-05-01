@@ -18,6 +18,15 @@ Accounts.onCreateUser(
 	}
 );
 
+//////////////////////////////////////////////////////////////////////////////////////////
+//////////////////														/////////////////
+/////////////////                    COLLECTION SCHEMAS                /////////////////
+////////////////													  /////////////////
+//////////////////////////////////////////////////////////////////////////////////////
+
+////////////////////// EVENTS
+/////////////////////////////
+
 let EventsSchema = new SimpleSchema({
 	'title': {
 		type: String,
@@ -44,6 +53,11 @@ let EventsSchema = new SimpleSchema({
 
 Events.attachSchema( EventsSchema );
 
+
+////////////////////// PATIENT EMAILS
+///////////////////////////////////////
+
+
 let PatientEmailsSchema = new SimpleSchema({
 	'email': {
 		type: String,
@@ -52,6 +66,11 @@ let PatientEmailsSchema = new SimpleSchema({
 });
 
 PatientEmails.attachSchema( PatientEmailsSchema );
+
+
+////////////////////// PROFILES
+///////////////////////////////
+
 
 let ProfilesSchema = new SimpleSchema({
 	'email': {
@@ -94,6 +113,11 @@ let ProfilesSchema = new SimpleSchema({
 
 Profiles.attachSchema( ProfilesSchema );
 
+
+////////////////////// PATIENTS
+///////////////////////////////
+
+
 let PatientsSchema = new SimpleSchema ({
 	'email': {
 		type: String,
@@ -124,6 +148,11 @@ let PatientsSchema = new SimpleSchema ({
 
 Patients.attachSchema( PatientsSchema );
 
+
+////////////////////// PROVIDERS
+////////////////////////////////
+
+
 let ProvidersSchema = new SimpleSchema ({
 	'_id': {
 		type: String,
@@ -147,7 +176,7 @@ let ProvidersSchema = new SimpleSchema ({
 		type: Number,
 		label: 'Need valid NPI number.'
 	},
-	'region': {
+	'regions': {
 		type: [String],
 		label: 'Need valid region.'
 	},
@@ -159,6 +188,11 @@ let ProvidersSchema = new SimpleSchema ({
 
 Providers.attachSchema( ProvidersSchema );
 
+
+////////////////////// ADMINS
+/////////////////////////////
+
+
 let AdminsSchema = new SimpleSchema ({
 	'_id': {
 		type: String,
@@ -168,14 +202,15 @@ let AdminsSchema = new SimpleSchema ({
 
 Admins.attachSchema( AdminsSchema );
 
+
+////////////////////// REQUESTS
+///////////////////////////////
+
+
 let RequestsSchema = new SimpleSchema ({
 	'patientId': {
 		type: String,
 		label: 'Need valid patient ID.'
-	},
-	'step': {
-		type: String,
-		label: 'Need valid step of request.'
 	},
 	'requestFor': {
 		type: String,
@@ -240,3 +275,226 @@ let RequestsSchema = new SimpleSchema ({
 });
 
 Requests.attachSchema( RequestsSchema );
+
+
+////////////////////// SHIFTS
+/////////////////////////////
+
+
+let ShiftsSchema = new SimpleSchema({
+	'providerName': {
+		type: String,
+		label: 'Need a valid provider name.'
+	},
+	'date': {
+		type: String,
+		label: 'Need a valid date.'
+	},
+	'startTime': {
+		type: String,
+		label: 'Need a valid start time.'
+	},
+	'endTime': {
+		type: String,
+		label: 'Need a valid end time.'
+	},
+	'regions': {
+		type: [String],
+		label: 'Need valid regions.'
+	},
+	'approved': {
+		type: Boolean,
+		label: 'Is this shift approved?'
+	},
+	'completed': {
+		type: Boolean,
+		label: 'Is this shift completed?'
+	} 
+});
+
+Shifts.attachSchema( ShiftsSchema );
+
+
+////////////////////// TREATMENTS
+/////////////////////////////////
+
+
+let TreatmentsSchema = new SimpleSchema({
+	'requestId': {
+		type: String,
+		label: 'Need a valid request ID.'
+	},
+	'isHousecall': {
+		type: Boolean,
+		label: 'Is this treatment a housecall?'
+	},
+	'providerName': {
+		type: String,
+		label: 'Need a valid provider name.'
+	},
+	'datetime': {
+		type: String,
+		label: 'Need a valid datetime.'
+	},
+	'duration': {
+		type: Number,
+		label: 'Need valid time duration of treatment.'
+	},
+	'ETA': {
+		type: String,
+		label: 'Need valid ETA.'
+	},
+	'address': {
+		type: String,
+		label: 'Need valid address.'
+	} 
+});
+
+Treatments.attachSchema( TreatmentsSchema );
+
+
+////////////////////// FILES
+////////////////////////////
+
+
+let FilesSchema = new SimpleSchema({
+	'patientId': {
+		type: String,
+		label: 'Need valid patient ID.'
+	},
+	'requestId': {
+		type: String,
+		label: 'Need valid request ID.'
+	},
+	'medicalReport': {
+		type: Object,
+		label: 'Need valid medical report file.',
+		blackbox: true
+	},
+	'invoice': {
+		type: Object,
+		label: 'Need valid invoice file.',
+		blackbox: true
+	}
+});
+
+Files.attachSchema( FilesSchema );
+
+
+////////////////////// FOLLOWUPS
+////////////////////////////////
+
+
+let Followups = new SimpleSchema({
+	'requestId': {
+		type: String,
+		label: 'Need valid request ID.'
+	},
+	'number': {
+		type: Number,
+		label: 'Need valid follow-up number.'
+	},
+	'datetimeSent': {
+		type: String,
+		label: 'Need valid datetime of follow-up sent.'
+	},
+	'feeling': {
+		type: String,
+		label: 'Need valid patient feeling.'
+	},
+	'comments': {
+		type: String,
+		label: 'Need valid patient comments.'
+	},
+	'isBetter': {
+		type: Boolean,
+		label: 'Is the patient better?'
+	},
+	'messages': {
+		type: Object,
+		label: 'Need valid messages.',
+		blackbox: true
+	},
+	'treatmentDatetime': {
+		type: String,
+		label: 'Need valid treatment datetime.'
+	},
+	'treatmentDuration': {
+		type: Number,
+		label: 'Need valid treatment duration.'
+	}
+});
+
+Treatments.attachSchema( TreatmentsSchema );
+
+
+////////////////////// MESSAGES
+///////////////////////////////
+
+
+let MessagesSchmema = new SimpleSchema({
+	'datetime': {
+		type: String,
+		label: 'Need valid datetime of message sent.'
+	},
+	'to': {
+		type: String,
+		label: 'Need valid message recipient name.'
+	},
+	'from': {
+		type: String,
+		label: 'Need valid sender name.'
+	},
+	'text': {
+		type: String,
+		label: 'Need valid text of message.'
+	}
+});
+
+Messages.attachSchema( MessagesSchmema );
+
+
+////////////////////// REVIEWS
+//////////////////////////////
+
+
+let ReviewsSchema = new SimpleSchema({
+	'requestId': {
+		type: String,
+		label: 'Need valid request ID.'
+	},
+	'datetime': {
+		type: String,
+		label: 'Need valid datetime of review.'
+	},
+	'providerName': {
+		type: String,
+		label: 'Need valid provider name.'
+	},
+	'punctual': {
+		type: Number,
+		label: 'Need valid punctual rating.'
+	},
+	'professional': {
+		type: Number,
+		label: 'Need valid professional rating.'
+	},
+	'courteous': {
+		type: Number,
+		label: 'Need valid courteous rating.'
+	},
+	'caring': {
+		type: Number,
+		label: 'Need valid courteous rating.'
+	},
+	'followup': {
+		type: Number,
+		label: 'Need valid follow-up rating.'
+	},
+	'comments': {
+		type: String,
+		label: 'Need valid comments.'
+	}
+});
+
+Reviews.attachSchema( ReviewsSchema );
