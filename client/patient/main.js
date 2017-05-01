@@ -140,6 +140,14 @@ Template.main_page.onRendered(function(){
 						Session.set('firstname', firstTrim);
 						Session.set('lastname', lastTrim);
 						Session.set('fullAddress', fullAddress);
+						Session.set('street', streetTrim);
+						Session.set('aptNumSuiteTrim', aptNumSuiteTrim);
+						Session.set('city', cityTrim);
+						Session.set('state', stateTrim);
+						Session.set('zipcode', zipTrim);
+						Session.set('country', fields.country);
+						Session.set('birthday', fields.birthday);
+						Session.set('gender', fields.gender);
 						Session.set('phonenumber', fields.phonenumber);
 
 						Meteor.call('addProfile', emailTrim, firstTrim, lastTrim, phoneNum, fullAddress, fields.birthday, fields.gender);
