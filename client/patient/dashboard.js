@@ -3,26 +3,54 @@ Template.dashboard.helpers({
 		if (Meteor.user())
 			return parseInt(Meteor.user().profile['status']) >= 1
 	},
-	'isCall': function(){
+	'isRequestOverview': function(){
 		if (Meteor.user())
 			return parseInt(Meteor.user().profile['status']) >= 2
 	},
-	'isReserve': function(){
+	'isProcessingRequest': function(){
 		if (Meteor.user())
 			return parseInt(Meteor.user().profile['status']) >= 3
 	},
-	'isTreatment': function(){
+	'isCall': function(){
 		if (Meteor.user())
 			return parseInt(Meteor.user().profile['status']) >= 4
 	},
-	'isFollowUp': function(){
+	'isCallOverview': function(){
 		if (Meteor.user())
 			return parseInt(Meteor.user().profile['status']) >= 5
 	},
-	'isReview': function(){
+	'isReserve': function(){
 		if (Meteor.user())
 			return parseInt(Meteor.user().profile['status']) >= 6
 	},
+	'isReserveOverview': function(){
+		if (Meteor.user())
+			return parseInt(Meteor.user().profile['status']) >= 7
+	},
+	'isTreatment': function(){
+		if (Meteor.user())
+			return parseInt(Meteor.user().profile['status']) >= 8
+	},
+	'isTreatmentOverview': function(){
+		if (Meteor.user())
+			return parseInt(Meteor.user().profile['status']) >= 9
+	},
+	'isFollowUp': function(){
+		if (Meteor.user())
+			return parseInt(Meteor.user().profile['status']) >= 10
+	},
+	'isFollowUp2': function(){
+		if (Meteor.user())
+			return parseInt(Meteor.user().profile['status']) >= 11
+	},
+	'isReview': function(){
+		if (Meteor.user())
+			return parseInt(Meteor.user().profile['status']) >= 12
+	},
+	'isReview2': function(){
+		if (Meteor.user())
+			return parseInt(Meteor.user().profile['status']) >= 13
+	}
 	})
 
 Template.show_dashboard_page.helpers({
@@ -30,28 +58,52 @@ Template.show_dashboard_page.helpers({
 		if (Meteor.user())
 			return Meteor.user().profile['viewing'] == 'Request'
 	},
-	'isProcessing': function(){
+	'isRequestOverview': function(){
 		if (Meteor.user())
-			return Meteor.user().profile['viewing'] == 'Processing'
+			return Meteor.user().profile['viewing'] == 'RequestOverview'
+	},
+	'isProcessingRequest': function(){
+		if (Meteor.user())
+			return Meteor.user().profile['viewing'] == 'ProcessingRequest'
 	},
 	'isCall': function(){
 		if (Meteor.user())
 			return Meteor.user().profile['viewing'] == 'Call'
 	},
+	'isCallOverview': function(){
+		if (Meteor.user())
+			return Meteor.user().profile['viewing'] == 'CallOverview'
+	},
 	'isReserve': function(){
 		if (Meteor.user())
 			return Meteor.user().profile['viewing'] == 'Reserve'
+	},
+	'isReserveOverview': function(){
+		if (Meteor.user())
+			return Meteor.user().profile['viewing'] == 'ReserveOverview'
 	},
 	'isTreatment': function(){
 		if (Meteor.user())
 			return Meteor.user().profile['viewing'] == 'Treatment'
 	},
+	'isTreatmentOverview': function(){
+		if (Meteor.user())
+			return Meteor.user().profile['viewing'] == 'TreatmentOverview'
+	},
 	'isFollowUp': function(){
 		if (Meteor.user())
 			return Meteor.user().profile['viewing'] == 'Follow-up'
+	},
+	'isFollowUp2': function(){
+		if (Meteor.user())
+			return Meteor.user().profile['viewing'] == 'Follow-up2'
 	},
 	'isReview': function(){
 		if (Meteor.user())
 			return Meteor.user().profile['viewing'] == 'Review'
 	},
+	'isReview2': function(){
+		if (Meteor.user())
+			return Meteor.user().profile['viewing'] == 'Review2'
+	}
 	})

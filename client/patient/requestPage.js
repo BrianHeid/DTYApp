@@ -50,8 +50,17 @@ Template.requestPage.onRendered(function(){
 
 			// Checks that an address was inputted 
 			if (fields.different_address) {
+				var streetTrim = fields.street.trim();
+				var aptNumSuiteTrim = fields.aptNumSuite.trim();
+				var cityTrim = fields.city.trim();
+				var zipTrim = fields.zipcode.trim();
+
+				var fullAddress = streetTrim + ' ' + aptNumSuiteTrim + ' ' + cityTrim + ' ' + 
+										  fields.activeStates + ' ' + zipTrim
+
 				// Checks if address is valid before adding to database and moving forward with request
-				CheckValidAddress(fields.street, fields.city, fields.state, fields.zipcode);
+				CheckValidAddress(streetTrim, cityTrim, fields.activeStates, zipTrim);
+				Session.set('curAddress', fullAddress);
 			} else {
 				$("#errorMsg").hide();
 				valid = true;
@@ -59,15 +68,25 @@ Template.requestPage.onRendered(function(){
 
 			setTimeout(function(){
 				if (valid) {
+
 					////////////////// ADDS TO DATABASE ///////////////////////
 						
 						// Meteor.call('pushRequest', Meteor.userId(), fields)
 					//////////////////////////////////////////////////////////
+					Session.set('for_someone_else', fields.for_someone_else);
+					Session.set('relationship', fields.relationship);
+					Session.set('tempPatientFirstName', fields.tempPatientFirstName);
+					Session.set('tempPatientLastName', fields.tempPatientLastName);
+					Session.set('laterTime', fields.laterTime);
+					Session.set('date', fields.date);
+					Session.set('time', fields.time);
+					Session.set('symptoms', fields.symptoms);
 
 					$("#successMsg").show(500);
-					Meteor.call('updateCurStep', Meteor.userId(), 'Processing');
-					Meteor.call('updateStatus', Meteor.userId());
-					Meteor.call('updateView', Meteor.userId(), 'Processing');
+					Meteor.call('updateCurStep', Meteor.userId(), 'ProcessingRequest');
+					Meteor.call('updateStatus', Meteor.userId(), 3);
+					Meteor.call('updateView', Meteor.userId(), 'ProcessingRequest');
+					FlowRouter.go('/dashboard');
 				}
 			},500);
 		},

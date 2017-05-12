@@ -3,14 +3,12 @@
 
 	<br>
 	<div class="ui raised very padded text container segment">
-		<!-- dashboard -->
-	    <h3 id="submitTime" class="ui header">Request submitted at<!-- time --> on <!-- date --></h3>
+	    <h3 id="submitTime" class="ui header">Request submitted at {{timeSubmitted}} on {{dateSubmitted}} </h3>
 	    	<br>
-	   		<p> Date of requested consultation: <!-- date --></p>
-	    	<p> Time of requested consultation: <!-- time --></p>
+	   		<p> Date of requested consultation: {{requestDate}}} </p>
+	    	<p> Time of requested consultation: {{requestTime}} </p>
 	   	<hr>
-	    <p> Symptoms: <!-- list --></p>
-	    <p> Uploaded images: <!-- pictures --></p>
+	    <p> Symptoms: {{symptoms}} </p>
 		<button class="fluid ui primary button" type="submit" name="proceedRequestBtn">Proceed</button>
 	</div>
 

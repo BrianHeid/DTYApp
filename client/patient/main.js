@@ -82,6 +82,7 @@ Template.main_page.onRendered(function(){
 	$("#cancelBtn").click(function(){
 		$("#registerForm").form('clear');
 		$("#createAccountModal").modal('hide');
+		$("#errorMsg").hide();
 	});
 
 	// Input mask for phone number for the format (XXX) XXX-XXXX
@@ -106,9 +107,6 @@ Template.main_page.onRendered(function(){
 
 			setTimeout(function(){
 				if (valid) {
-					$("#successMsg").show(500);
-					$("#successMsg").delay(1000).fadeOut(500);
-
 					var emailTrim = fields.new_email.trim();
 
 					var ret = PatientEmails.findOne({'email':emailTrim});
@@ -157,13 +155,18 @@ Template.main_page.onRendered(function(){
 						console.log('Account created.....');
 						console.log(fields);
 
-						$("#createAccountModal").modal('hide');
+						$("#successMsg").show(500);
+						$("#successMsg").delay(1000).fadeOut(500);
+						setTimeout(function(){$("#createAccountModal").modal('hide');}, 500); 
 
-						FlowRouter.go('/dashboard');
+						setTimeout(function(){FlowRouter.go('/dashboard');}, 2000);
+					} else {
+						document.getElementById("errorList").innerHTML = "<li>Email already exists!</li>";
+						$("#errorMsg").show();
 					}
 				}
 
-			},500);
+			}, 500);
 
 			
 		},
