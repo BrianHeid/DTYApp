@@ -28,6 +28,22 @@ Template.requestPage.onRendered(function(){
 	var dd = today.getDate();
 	var mm = today.getMonth()+1;
 	var yyyy = today.getFullYear();
+	var hh = today.getHours();
+	var mins = today.getMinutes();
+	var ampm = hh >= 12 ? "PM" : "AM";
+
+	hh = hh %= 12; 
+
+	if (hh < 10) {
+		hh = "0" + hh;
+	}
+
+	if (mins < 10) {
+		mins = "0" + mins;
+	}
+
+	var time = hh + ":" + mins + " " + ampm;
+
 	 if(dd<10){
 	        dd='0'+dd
 	    } 
@@ -60,26 +76,37 @@ Template.requestPage.onRendered(function(){
 
 				// Checks if address is valid before adding to database and moving forward with request
 				CheckValidAddress(streetTrim, cityTrim, fields.activeStates, zipTrim);
-				Session.set('curAddress', fullAddress);
 			} else {
+				var fullAddress = Session.get('fullAddress');
 				$("#errorMsg").hide();
 				valid = true;
+			}
+
+			/// ADDRESS HAS TO BE VALID IN REGIONS!!! /////////////////////////////////////////////////////////////////////////
+			//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+			Session.set('curAddress', fullAddress);
+
+			if (!fields.laterTime) {
+				Session.set('date', today);
+				Session.set('time', time);
+			} else {
+				Session.set('date', fields.date);
+				Session.set('time', fields.time);
 			}
 
 			setTimeout(function(){
 				if (valid) {
 
 					////////////////// ADDS TO DATABASE ///////////////////////
-						
-						// Meteor.call('pushRequest', Meteor.userId(), fields)
+					var requesterName = Session.get('firstname') + " " + Session.get('lastname');
+					Meteor.call('pushRequest', Meteor.userId(), fields, requesterName);
 					//////////////////////////////////////////////////////////
+					Session.set('timeRequested', new Date().toLocaleString());
 					Session.set('for_someone_else', fields.for_someone_else);
 					Session.set('relationship', fields.relationship);
 					Session.set('tempPatientFirstName', fields.tempPatientFirstName);
 					Session.set('tempPatientLastName', fields.tempPatientLastName);
 					Session.set('laterTime', fields.laterTime);
-					Session.set('date', fields.date);
-					Session.set('time', fields.time);
 					Session.set('symptoms', fields.symptoms);
 
 					$("#successMsg").show(500);
