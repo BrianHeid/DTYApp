@@ -62,8 +62,8 @@ Template.client.onRendered(
 				console.log('Executing:', op, ' on ', target._id)
 				if (op == 'Schedule')
 				{
-					$('#schedulePrompt').text('Requested time by ' + target.info.firstName)
-					$('#requestedTime').text(target.info.requestTime)
+					$('#schedulePrompt').text('Requested time by ' + target.firstname)
+					$('#requestedTime').text(target.times.requestTime)
 					$('#scheduleRequest').modal('show')
 				}
 
@@ -141,7 +141,7 @@ Template.clientListPage.helpers({
 		return Requests.find({'accepted':false}).fetch()
 	},
 	'treatedPatients': function(){
-		return Requests.find({'treated':true}).fetch()
+		return Requests.find({'requestComplete':true}).fetch()
 	}
 })
 
