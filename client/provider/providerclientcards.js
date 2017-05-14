@@ -131,17 +131,21 @@ Template.scheduleModal.onRendered(
 	)
 
 Template.clientListPage.helpers({
+	'providerName': function(){
+		var emailAddress = Meteor.users.findOne({_id: Meteor.userId()}).emails[0].address;
+		return Profiles.findOne({email: emailAddress}).firstname;
+	},
 	'getClients': function(){
-		return Session.get('client')
+		return Session.get('client');
 	},
 	'clients': function(){
-		return Requests.find({'accepted':true}).fetch()
+		return Requests.find({'accepted':true, 'providerId': Meteor.userId()}).fetch();
 	},
 	'newRequests': function(){
-		return Requests.find({'accepted':false}).fetch()
+		return Requests.find({'accepted':false}).fetch();
 	},
 	'treatedPatients': function(){
-		return Requests.find({'requestComplete':true}).fetch()
+		return Requests.find({'requestComplete':true}).fetch();
 	}
 })
 
