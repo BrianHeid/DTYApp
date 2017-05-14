@@ -4,12 +4,12 @@ Meteor.methods({
 
     var ACCOUNT_SID = 'AC36df726375aa8ed532b11a8ddd75bc4a';
     var AUTH_TOKEN = 'e3e8776a0e3a27d1f1c0d0ee9acf5c0e';
-    var twilioPhoneNumber = '+16178588481'
+    var TWILIO_PHONE_NUMBER = '+16178588481'
 
-    twilio = Twilio(ACCOUNT_SID, AUTH_TOKEN);
+    var twilio = Twilio(ACCOUNT_SID, AUTH_TOKEN);
     twilio.sendSms({
       to: smsFields.to, // Any number Twilio can deliver to
-      from: twilioPhoneNumber, // A number you bought from Twilio and can use for outbound communication
+      from: TWILIO_PHONE_NUMBER, // A number you bought from Twilio and can use for outbound communication
       body: smsFields.text // body of the SMS message
     },
 
