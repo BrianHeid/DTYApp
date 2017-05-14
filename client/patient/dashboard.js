@@ -43,13 +43,17 @@ Template.dashboard.helpers({
 		if (Meteor.user())
 			return parseInt(Meteor.user().profile['status']) >= 11
 	},
-	'isReview': function(){
+	'isFollowUpOverview': function(){
 		if (Meteor.user())
 			return parseInt(Meteor.user().profile['status']) >= 12
 	},
-	'isReview2': function(){
+	'isReview': function(){
 		if (Meteor.user())
 			return parseInt(Meteor.user().profile['status']) >= 13
+	},
+	'isReview2': function(){
+		if (Meteor.user())
+			return parseInt(Meteor.user().profile['status']) >= 14
 	}
 	})
 
@@ -97,6 +101,10 @@ Template.show_dashboard_page.helpers({
 	'isFollowUp2': function(){
 		if (Meteor.user())
 			return Meteor.user().profile['viewing'] == 'Follow-up2'
+	},
+	'isFollowUpOverview': function(){
+		if (Meteor.user())
+			return Meteor.user().profile['viewing'] == 'Follow-upOverview'
 	},
 	'isReview': function(){
 		if (Meteor.user())

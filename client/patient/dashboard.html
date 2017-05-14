@@ -59,6 +59,10 @@
 	<p>{{> followupPage2}}</p>
 	{{/if}}
 
+	{{#if isFollowUpOverview}}
+	<p>{{> followupOverview}}</p>
+	{{/if}}
+
 	{{#if isReview}}
 	<p>{{> reviewPage}}</p>
 	{{/if}}
@@ -192,6 +196,14 @@
 			</div>
 		</a>
 		{{else}}{{#if isFollowUp2}}
+		<a class="active step">
+			<i class="comments outline icon"></i>
+			<div class="content">
+				<div class="title">Follow-up</div>
+				<div class="description">Your doctor will follow-up with you</div>
+			</div>
+		</a>
+		{{/if}}{{#if isFollowUpOverview}}
 		<a class="active step">
 			<i class="comments outline icon"></i>
 			<div class="content">
