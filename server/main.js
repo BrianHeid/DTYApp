@@ -216,6 +216,10 @@ let RequestsSchema = new SimpleSchema ({
 		type: String,
 		label: 'Need valid request for someone.'
 	},
+	'relationship': {
+		type: String,
+		label: 'Need valid relationship.'
+	},
 	'requesterName': {
 		type: String,
 		label: 'Need valid requester name.'
@@ -275,6 +279,10 @@ let RequestsSchema = new SimpleSchema ({
 	'accepted': {
 		type: Boolean,
 		label: 'Need to know if request was accepted.'
+	},
+	'providerId': {
+		type: String,
+		label: 'Need valid provider ID.'
 	}
 });
 
