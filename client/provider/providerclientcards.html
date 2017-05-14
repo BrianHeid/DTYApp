@@ -178,13 +178,8 @@
 					<div class="one column grid">	
 						<div class="column">
 							<div class="content">
-								<a class="ui red ribbon label"> Client info</a>
-								<br>
-								<div class='ui fluid label'>ID: 
-									<div class='detail'>{{_id}}</div>
-								</div>
-								
-								<div class='header' id="nameText">{{info.firstName}} {{info.lastName}}</div>
+								<a class="ui red ribbon label"> Client info</a>					
+								<div class='header' id="nameText">{{firstname}} {{lastname}}</div>
 								 
 								<div class='description' id="extraText">Relationship:{{#if info.for_someone_else}} {{info.for_someone_else}} {{else}} Self {{/if}}</div>
 								<div class='description' id="extraText">Status: {{profile.status}}</div><br><br>
