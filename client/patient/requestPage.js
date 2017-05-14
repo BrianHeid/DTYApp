@@ -86,17 +86,6 @@ Template.requestPage.onRendered(function(){
 					Meteor.call('updateCurStep', Meteor.userId(), 'ProcessingRequest');
 					Meteor.call('updateStatus', Meteor.userId(), 3);
 					Meteor.call('updateView', Meteor.userId(), 'ProcessingRequest');
-
-          // send test email
-          Meteor.call('sendEmail',{
-            to: 'doctorstoyou.api@gmail.com',
-            from: 'no-reply@where-ever.com',
-            subject: 'I really like sending emails with Mailgun!',
-            text: 'Mailgun is totally awesome for sending emails!',
-            html: 'With meteor it&apos;s easy to set up <strong>HTML</strong> <span style="color:red">emails</span> too.'
-          });
-
-
 					FlowRouter.go('/dashboard');
 				}
 			},500);
