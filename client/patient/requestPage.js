@@ -86,19 +86,24 @@ Template.requestPage.onRendered(function(){
 			//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 			Session.set('curAddress', fullAddress);
 
-			if (!fields.laterTime) {
-				Session.set('date', today);
-				Session.set('time', time);
-			} else {
-				Session.set('date', fields.date);
-				Session.set('time', fields.time);
-			}
+			// if (!fields.laterTime) {
+			// 	Session.set('date', today);
+			// 	Session.set('time', time);
+			// } else {
+			// 	Session.set('date', fields.date);
+			// 	Session.set('time', fields.time);
+			// }
 
 			setTimeout(function(){
 				if (valid) {
 
 					////////////////// ADDS TO DATABASE ///////////////////////
 					var requesterName = Session.get('firstname') + " " + Session.get('lastname');
+
+					if (!fields.laterTime) {
+						fields.date = today;
+						fields.time = time;
+					}
 					Meteor.call('pushRequest', Meteor.userId(), fields, requesterName);
 					//////////////////////////////////////////////////////////
 					Session.set('timeRequested', new Date().toLocaleString());

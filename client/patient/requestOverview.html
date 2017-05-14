@@ -14,23 +14,18 @@
 	<!-- JavaScript -->
 	<script type="text/javascript">
 		Template.requestOverview.helpers({
-
 			datetimeSubmitted: function(){
-				return Session.get('timeRequested');
+				return Requests.findOne({patientId:Meteor.userId()}).times.requestTime;
 			},
-
 			requestDate: function(){
-				return Session.get('date');
+				return Requests.findOne({patientId:Meteor.userId()}).times.preferredDate;
 			},
-
 			requestTime: function(){
-				return Session.get('time');
+				return Requests.findOne({patientId:Meteor.userId()}).times.preferredTime;
 			},
-
 			symptoms: function(){
-				return Session.get('symptoms');
+				return Requests.findOne({patientId:Meteor.userId()}).symptoms;
 			}
-
 		});
 	</script>
 </template>
