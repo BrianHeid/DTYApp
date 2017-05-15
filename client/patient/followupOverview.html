@@ -1,0 +1,50 @@
+
+<template name="followupOverview">
+	
+	<div class="ui raised very padded text container segment">
+		
+		<h3 class="ui header">Last Follow-Up at: <!-- datetime --></h3>
+		<br>
+
+		<center>
+			<div id="share-content">
+				<h2 class="ui header">
+					<div class="content" id="thankYouText">
+						<!-- Thank you for your feedback, PATIENT NAME! -->
+					</div>
+				</h2>
+
+				<div id="feedbackSubmitted" class="ui text segment">
+					<center>
+						<div class="ui segment">
+							<h3 id="follow-us" class="header">Follow us:</h3>
+							<a href="https://www.instagram.com/doctorstoyou/"><i class="instagram square icon huge" style="color:#00bde8;"></i></a>
+						  	<a href="https://twitter.com/DoctorsToYou"><i class="twitter square icon huge" style="color:#00bde8;"></i></a>
+						  	<a href="https://www.facebook.com/pg/DoctorsToYou/"><i class="facebook square icon huge" style="color:#00bde8;"></i></a>
+						</div>
+					</center>
+				</div>
+
+				<h3 id="click-here-text" class="ui header">
+					To review your medical report and invoice:
+				</h3>
+
+				<button id="click-here-btn" class="ui big primary button">
+					Click Here!
+				</button>
+			</div>
+		</center>
+
+	</div>
+
+	<script type="text/javascript">
+		var patientFirstName = "Pauline"
+		var thankYouText = "Thank you for your feedback, " + patientFirstName + "!";
+		document.getElementById("thankYouText").innerHTML = thankYouText;
+
+		$("#click-here-btn").click(function(){
+			Meteor.call('updateView', Meteor.userId(), 'Review');
+		});
+	</script>
+
+</template>

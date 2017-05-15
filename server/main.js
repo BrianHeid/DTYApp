@@ -212,9 +212,13 @@ let RequestsSchema = new SimpleSchema ({
 		type: String,
 		label: 'Need valid patient ID.'
 	},
-	'requestFor': {
+	'requestForSomeoneElse': {
 		type: String,
 		label: 'Need valid request for someone.'
+	},
+	'relationship': {
+		type: String,
+		label: 'Need valid relationship.'
 	},
 	'requesterName': {
 		type: String,
@@ -251,7 +255,7 @@ let RequestsSchema = new SimpleSchema ({
 		label: 'Need valid four digit card ending of credit card'
 	},
 	'followups': {
-		type: Object,
+		type: [Object],
 		label: 'Need valid followups',
 		blackbox: true
 	},
@@ -271,6 +275,14 @@ let RequestsSchema = new SimpleSchema ({
 	'requestComplete': {
 		type: Boolean,
 		label: 'Need to know if request is complete.'
+	},
+	'accepted': {
+		type: Boolean,
+		label: 'Need to know if request was accepted.'
+	},
+	'providerId': {
+		type: String,
+		label: 'Need valid provider ID.'
 	}
 });
 
