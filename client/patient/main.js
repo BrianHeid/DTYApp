@@ -135,6 +135,42 @@ Template.main_page.onRendered(function(){
 						var phoneStrip = fields.phonenumber.replace('(', "").replace(')', "").replace(' ', '').replace('-', '');
 						var phoneNum = parseInt(phoneStrip);
 
+						// this.firstname = new ReactiveVar();
+    		// 			this.firstname.set(firstTrim);
+
+    		// 			this.lastname = new ReactiveVar();
+    		// 			this.lastname.set(lastTrim);
+
+    		// 			this.fullAddress = new ReactiveVar();
+    		// 			this.fullAddress.set(fullAddress);
+
+    		// 			this.street = new ReactiveVar();
+    		// 			this.street.set(streetTrim);
+
+    		// 			this.aptNumSuite = new ReactiveVar();
+    		// 			this.aptNumSuite.set(aptNumSuiteTrim);
+
+    		// 			this.city = new ReactiveVar();
+    		// 			this.city.set(cityTrim);
+
+    		// 			this.state = new ReactiveVar();
+    		// 			this.state.set(stateTrim);
+
+    		// 			this.zipcode = new ReactiveVar();
+    		// 			this.zipcode.set(zipTrim);
+
+    		// 			this.country = new ReactiveVar();
+    		// 			this.country.set(fields.country);
+
+    		// 			this.birthday = new ReactiveVar();
+    		// 			this.birthday.set(fields.birthday);
+
+    		// 			this.gender = new ReactiveVar();
+    		// 			this.gender.set(fields.gender);
+
+    		// 			this.phonenumber = new ReactiveVar();
+    		// 			this.phonenumber.set(fields.phonenumber);
+
 						Session.set('firstname', firstTrim);
 						Session.set('lastname', lastTrim);
 						Session.set('fullAddress', fullAddress);

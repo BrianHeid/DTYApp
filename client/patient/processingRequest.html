@@ -154,8 +154,13 @@
 
 		Template.processingRequestPage.helpers({
 
+			// getFirstName: function(){
+			// 	return Session.get('firstname');
+			// }
+
 			getFirstName: function(){
-				return Session.get('firstname');
+				var emailAddress = Meteor.users.findOne({_id: Meteor.userId()}).emails[0].address;
+				return Profiles.findOne({email: emailAddress}).firstname;
 			}
 
 		});

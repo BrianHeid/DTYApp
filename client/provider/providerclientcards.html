@@ -1,7 +1,3 @@
-
-
-
-
 <template name='clientListPage'>
 	
 	<!-- CSS -->
@@ -17,8 +13,6 @@
 			padding-right: 20px;	
 
 		}
-
-
 
 		.ui.pointing.menu {
 			cursor: pointer;
@@ -48,8 +42,6 @@
 		    width: 290px;
 		    white-space: normal;
 		  }
-
-
 
 		  .ui.labeled.icon.menu .item{
 		    min-width: 33.3333%;
@@ -107,16 +99,16 @@
 		}
 	</style>
 
-
 	{{> requestModal}}
 	{{> scheduleModal}}
 	<br><br><br>
+
 	<center>
 		<div class="ui center aligned container">
 		  	<img class="ui centered circular small image" src="/images/drbrown.jpg">
 		  	<h1 class="ui header" id="greeting">
 		  		<!-- Hello, PROVIDER NAME -->
-		  		Hello, {{currentUser}} <!-- using spacebar and meteor helper to display name -->
+		  		Hello, {{providerName}} <!-- using spacebar and meteor helper to display name -->
 
 		  	</h1>
 		</div>
@@ -186,13 +178,8 @@
 					<div class="one column grid">	
 						<div class="column">
 							<div class="content">
-								<a class="ui red ribbon label"> Client info</a>
-								<br>
-								<div class='ui fluid label'>ID: 
-									<div class='detail'>{{_id}}</div>
-								</div>
-								
-								<div class='header' id="nameText">{{info.firstName}} {{info.lastName}}</div>
+								<a class="ui red ribbon label"> Client info</a>					
+								<div class='header' id="nameText">{{firstname}} {{lastname}}</div>
 								 
 								<div class='description' id="extraText">Relationship:{{#if info.for_someone_else}} {{info.for_someone_else}} {{else}} Self {{/if}}</div>
 								<div class='description' id="extraText">Status: {{profile.status}}</div><br><br>
