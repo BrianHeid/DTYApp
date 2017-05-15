@@ -37,4 +37,6 @@ momentjs:moment
 aldeed:simple-schema
 aldeed:collection2
 session
+accolver:twilio-meteor
 cunneen:mailgun
+
