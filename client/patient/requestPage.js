@@ -46,10 +46,10 @@ Template.requestPage.onRendered(function(){
 
 	 if(dd<10){
 	        dd='0'+dd
-	    } 
+	    }
 	    if(mm<10){
 	        mm='0'+mm
-	    } 
+	    }
 
 	today = yyyy+'-'+mm+'-'+dd;
 	document.getElementById("date").setAttribute("min", today);
@@ -64,14 +64,14 @@ Template.requestPage.onRendered(function(){
 			event.preventDefault();
 			console.log(fields);
 
-			// Checks that an address was inputted 
+			// Checks that an address was inputted
 			if (fields.different_address) {
 				var streetTrim = fields.street.trim();
 				var aptNumSuiteTrim = fields.aptNumSuite.trim();
 				var cityTrim = fields.city.trim();
 				var zipTrim = fields.zipcode.trim();
 
-				var fullAddress = streetTrim + ' ' + aptNumSuiteTrim + ' ' + cityTrim + ' ' + 
+				var fullAddress = streetTrim + ' ' + aptNumSuiteTrim + ' ' + cityTrim + ' ' +
 										  fields.activeStates + ' ' + zipTrim
 
 				// Checks if address is valid before adding to database and moving forward with request
@@ -98,14 +98,16 @@ Template.requestPage.onRendered(function(){
 				if (valid) {
 
 					////////////////// ADDS TO DATABASE ///////////////////////
+						// Meteor.call('pushRequest', Meteor.userId(), fields)
 					var requesterName = Session.get('firstname') + " " + Session.get('lastname');
-
+          
 					if (!fields.laterTime) {
 						fields.date = today;
 						fields.time = time;
 					}
 					Meteor.call('pushRequest', Meteor.userId(), fields, requesterName);
 					//////////////////////////////////////////////////////////
+          
 					Session.set('timeRequested', new Date().toLocaleString());
 					Session.set('for_someone_else', fields.for_someone_else);
 					Session.set('relationship', fields.relationship);
@@ -124,7 +126,7 @@ Template.requestPage.onRendered(function(){
 		},
 
 		////////////////////////////// FORM VALIDATION /////////////////////////////////
-		fields: {	
+		fields: {
 			relationship: {
 				identifier: 'relationship',
 				depends: 'for_someone_else',
