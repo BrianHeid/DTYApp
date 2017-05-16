@@ -15,3 +15,11 @@ Meteor.publish("reviews",function(){return Reviews.find();});
 Meteor.publish("events",function(){return Events.find();});
 
 
+Meteor.publish("currRequest", function(id){
+	return Requests.findOne({patientId:id});
+});
+
+Meteor.publish("currProfile", function(email){
+	return Profiles.findOne({email:email});
+});
+
