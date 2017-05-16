@@ -13,6 +13,8 @@
 
 	<!-- JavaScript -->
 	<script type="text/javascript">
+		Meteor.subscribe('currRequests', Meteor.userId());
+
 		Template.requestOverview.helpers({
 			datetimeSubmitted: function(){
 				return Requests.findOne({patientId:Meteor.userId()}).times.requestTime;
