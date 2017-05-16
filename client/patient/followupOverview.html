@@ -3,14 +3,14 @@
 	
 	<div class="ui raised very padded text container segment">
 		
-		<h3 class="ui header">Last Follow-Up at: <!-- datetime --></h3>
+		<h3 class="ui header">Last Follow-Up at: {{lastFollowupDatetime}}</h3>
 		<br>
 
 		<center>
 			<div id="share-content">
 				<h2 class="ui header">
 					<div class="content" id="thankYouText">
-						<!-- Thank you for your feedback, PATIENT NAME! -->
+						Thank you for your feedback, {{patientName}}!
 					</div>
 				</h2>
 
@@ -36,15 +36,5 @@
 		</center>
 
 	</div>
-
-	<script type="text/javascript">
-		var patientFirstName = "Pauline"
-		var thankYouText = "Thank you for your feedback, " + patientFirstName + "!";
-		document.getElementById("thankYouText").innerHTML = thankYouText;
-
-		$("#click-here-btn").click(function(){
-			Meteor.call('updateView', Meteor.userId(), 'Review');
-		});
-	</script>
 
 </template>
