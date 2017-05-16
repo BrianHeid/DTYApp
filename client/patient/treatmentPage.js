@@ -1,5 +1,6 @@
 Template.treatmentPage.onRendered(function(){
     
+    ////// NEED TO PULL PROVIDER PROFILE PICTURE FROM DB
     var imageSrc = "/images/drbrown.jpg";
     var imageHTML = "<img src=\"" + imageSrc + "\">";
     document.getElementById("imageProvider").innerHTML = imageHTML;
@@ -69,4 +70,29 @@ Template.treatmentPage.onRendered(function(){
     $('#multi-select')
       .dropdown()
     ; 
+});
+
+Template.treatmentPage.helpers({
+   providerName: function(){
+        var providerFullName = "";
+		var isDoctor = Providers.findOne().isDoctor;
+		
+		if (isDoctor) {
+            providerFullName += "Dr. ";
+        }
+		var providerId = Requests.findOne().providerId;
+		var firstName = Profiles.findOne({_id:providerId}).firstname;
+		var lastName = Profiles.findOne({_id:providerId}).lastname;
+		
+		providerFullName += firstName + " " + lastName;
+		
+		return providerFullName;
+   },
+   ETA: function(){
+        return Requests.findOne().treatment.ETA;
+   },
+   patientName: function(){
+		return Profiles.findOne().firstname;
+   }
+   
 });

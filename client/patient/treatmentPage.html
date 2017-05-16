@@ -29,18 +29,24 @@
 		  	<!-- image of provider -->
 		  </div>
 		  <div class="content">
-		  	<center><h3 id="providerName" class="ui header">
-				You have reserved {{providerName}}
-			</h3></center>
+		  	<center>
+				<h3 id="providerName" class="ui header">
+					{{providerName}}
+				</h3>
+			</center>
 		  </div>
 		</div>
 	  
 	  	<center>
-		    <h3 id="reserveProviderText" class="ui header"></h3>
+		    <h3 id="reserveProviderText" class="ui header">
+				You have reserved {{providerName}}
+			</h3>
 		    
-		    <h3 id="timeApproxText" class="ui header"></h3>
+		    <h3 id="timeApproxText" class="ui header">
 				You will receive care at approximately {{ETA}} <br>
 				Please rest up now, {{patientName}}
+			</h3>
+			
 		    <br>
 		  
 			<div class="cancelBtn ui negative button">
