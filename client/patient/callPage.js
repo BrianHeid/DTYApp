@@ -79,6 +79,6 @@ Template.callPage.helpers({
 	},
 	
 	timeEstimate: function(){
-		return Requests.findOne().times.callTime;
+		return Requests.findOne().times.callStartTime;
 	}
 });
