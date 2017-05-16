@@ -29,7 +29,9 @@
 		  	<!-- image of provider -->
 		  </div>
 		  <div class="content">
-		  	<center><h3 id="providerName" class="ui header"><!-- Provider name --></h3></center>
+		  	<center><h3 id="providerName" class="ui header">
+				You have reserved {{providerName}}
+			</h3></center>
 		  </div>
 		</div>
 	  
@@ -37,7 +39,8 @@
 		    <h3 id="reserveProviderText" class="ui header"></h3>
 		    
 		    <h3 id="timeApproxText" class="ui header"></h3>
-
+				You will receive care at approximately {{ETA}} <br>
+				Please rest up now, {{patientName}}
 		    <br>
 		  
 			<div class="cancelBtn ui negative button">
@@ -100,79 +103,6 @@
 
 	<!-- JavaScript -->
 	<script type="text/javascript">
-		var providerName = "Dr. Ernest Brown";
-		var patientName = "Pauline";
-		var timeApproxHr = "3";
-		var timeApproxMin = "00";
-		var timeApproxPeriod = "PM";
-
-		document.getElementById("providerName").innerHTML = providerName;
-
-		var reservedProviderText = "You have reserved " + providerName + ".";
-		document.getElementById("reserveProviderText").innerHTML = reservedProviderText;
-
-		var imageSrc = "/images/drbrown.jpg";
-		var imageHTML = "<img src=\"" + imageSrc + "\">";
-		document.getElementById("imageProvider").innerHTML = imageHTML;
-
-		var timeApproxText = "You will receive care at approximately " + timeApproxHr + ":" + timeApproxMin + timeApproxPeriod + "<br>Please rest up now, " + patientName;
-		document.getElementById("timeApproxText").innerHTML = timeApproxText;
-
-
-		$(document).ready(function(){
-			
-			// Click to open cancel request button
-			$(".cancelBtn").click(function(){
-				$('#reasonModal').modal('show');	
-			});
-
-			// Validate cancel form
-			$("#reasonForm").form({
-				inline: true,
-				on: "submit",
-				transition: "slide down",
-
-				// Submit cancel form - add cancel reason to database
-				onSuccess: function(event, fields) {
-					event.preventDefault();
-					// Add cancel reason to database
-
-					// Click to cancel request button
-					$('#reasonModal').modal('hide');
-					$('.cancelled-redirect').modal('show');
-
-					// Click to return to dashboard button. Reset request
-					$("#returnDashboard").click(function(){
-						$('#returnDashboard').modal('hide');
-						Meteor.call('resetStatus', Meteor.userId());
-					});
-
-					
-				},
-				fields: {
-					reason: {
-						identifier: "reason",
-						rules: [
-							{
-								type: "empty",
-								prompt: "Please write a reason for canceling."
-							},{
-								type: "maxLength[350]",
-								prompt: "Please enter at most 350 characters."
-							},{
-								type: "minLength[10]",
-								prompt: "Please enter at least 10 characters."
-							}
-						]
-					}
-				}
-			});
-
-		});
-
-		// Multi-select dropdown functionality
-		$('#multi-select')
-		  .dropdown()
-		;
+		
 	</script>
 </template>

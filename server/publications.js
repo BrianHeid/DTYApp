@@ -19,9 +19,13 @@ Meteor.publish("currRequest", function(id){
 	return Requests.findOne({patientId:id, requestComplete:false});
 });
 
-Meteor.publish("currProfile", function(email){
-	return Profiles.findOne({email:email});
+Meteor.publish("currProfile", function(emailAddress){
+	return Profiles.findOne({email:emailAddress});
 });
+
+Meteor.publish("currPatient", function(id){
+	return Patients.findOne({_id:id});
+})
 
 Meteor.publish("currProvider", function(id){
 	return Providers.findOne({_id:id});
