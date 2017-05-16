@@ -14,12 +14,16 @@ Meteor.publish("reviews",function(){return Reviews.find();});
 
 Meteor.publish("events",function(){return Events.find();});
 
-
+// Gets all requests that correspond to id and are incomplete
 Meteor.publish("currRequest", function(id){
-	return Requests.findOne({patientId:id});
+	return Requests.findOne({patientId:id, requestComplete:false});
 });
 
 Meteor.publish("currProfile", function(email){
 	return Profiles.findOne({email:email});
+});
+
+Meteor.publish("currProvider", function(id){
+	return Providers.findOne({_id:id});
 });
 
