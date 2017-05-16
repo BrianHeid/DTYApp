@@ -120,10 +120,10 @@ Template.requestPage.onRendered(function(){
 					Meteor.call('updateCurStep', Meteor.userId(), 'ProcessingRequest');
 					Meteor.call('updateStatus', Meteor.userId(), 3);
 					Meteor.call('updateView', Meteor.userId(), 'ProcessingRequest');
-					Meteor.call('sendSMS',{
-						to: '+16176509969',
-						text: 'This is a test message from DTY'
-					});
+					// Meteor.call('sendSMS',{
+					// 	to: '+16176509969',
+					// 	text: 'This is a test message from DTY'
+					// });
 					FlowRouter.go('/dashboard');
 				}
 			},500);
