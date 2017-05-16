@@ -119,21 +119,9 @@ Profiles.attachSchema( ProfilesSchema );
 
 
 let PatientsSchema = new SimpleSchema ({
-	'email': {
+	'_id': {
 		type: String,
-		label: 'Need valid email.'
-	},
-	'curStep': {
-		type: String,
-		label: 'Need valid current step.'
-	},
-	'status': {
-		type: Number,
-		label: 'Need valid status.'
-	},
-	'viewing': {
-		type: String,
-		label: 'Need valid viewing.'
+		label: 'Need valid patient ID.'
 	},
 	'billing': {
 		type: String,
