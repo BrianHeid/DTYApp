@@ -4,17 +4,20 @@
     <div class="ui inverted padding-wrapper footer segment">
     	<center>
 	    	<div class="ui container" id="footerCopyright">
+	    		<!-- COPYRIGHT &copy; 2017 <a href="https://www.doctorstoyou.com"> DOCTORS TO YOU</a>, LLC. ALL RIGHTS RESERVED. -->
 	    		<!-- footerCopyright goes here -->
 	    	</div>
     	</center>
     </div>
 
-    <!-- Changes year dynamically -->
-    <script type="text/javascript">
+    <!-- Changes year dynamically NOT SURE IF THIS IS HOW COPYRIGHT WORKS!-->
+     <script type="text/javascript">
 		var date = new Date();
 		var year = date.getFullYear();
 
-		var footerCopyright = "COPYRIGHT &copy;" + " " + year + "<a href=\"doctorstoyou.com\"> DOCTORS TO YOU</a>, LLC. ALL RIGHTS RESERVED.";
+		// var footerCopyright = "COPYRIGHT &copy;" + " " + year + "<a href=\"doctorstoyou.com\"> DOCTORS TO YOU</a>, LLC. ALL RIGHTS RESERVED.";
+
+		var footerCopyright = "COPYRIGHT &copy;" + " " + 2017 + "<a href=\"doctorstoyou.com\"> DOCTORS TO YOU</a>, LLC. ALL RIGHTS RESERVED.";
 
 		document.getElementById("footerCopyright").innerHTML = footerCopyright;
 	</script>

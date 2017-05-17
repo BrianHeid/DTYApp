@@ -2,7 +2,7 @@
 	 therefore, it doesn't require as much. -->
 
 <template name="requestPage">
-	<link rel="stylesheet" type="text/css" href="requestPage.css">
+	<link rel="stylesheet" type="text/css" href="../lib/requestPage.css">
 
 	<h2 class="ui header container">
 	  <div class="content">
@@ -25,19 +25,33 @@
 				</label>
 			</div>
 
-			<div id="relationship-form" class="field">
-		      <select class="ui dropdown" id="relationship" name="relationship">
-		        <option value="">Choose your relationship</option>
-		        <option value="family">For my family member</option>
-		        <option value="friend">For my friend</option>
-		        <option value="other">Other</option>
-		      </select>
+			<div id="relationship-form">
+			  <div class="field">
+			      <select class="ui dropdown" id="relationship" name="relationship">
+			        <option value="">Choose your relationship</option>
+			        <option value="family">For my family member</option>
+			        <option value="friend">For my friend</option>
+			        <option value="other">Other</option>
+			      </select>
+			   </div>
+
+		      <div class="equal width fields">
+		      	<div class="required field">
+		      		<label>First name</label>
+		      		<input type="text" name="tempPatientFirstName" placeholder="First name">
+		      	</div>
+		      	<div class="required field">
+		      		<label>Last name</label>
+		      		<input type="text" name="tempPatientLastName" placeholder="Last name">
+		      	</div>
+		      </div>
+
 		    </div>
 
-		    <!-- If checked, address will hide -->
-		    <label>Same address?</label>
+		    <!-- If checked, address will show -->
+		    <label>Different address?</label>
 			<label class="switchAddress">
-				<input class="switch-input-address" type="checkbox" id="myonoffswitch-address" name="same_address"/>
+				<input class="switch-input-address" type="checkbox" id="myonoffswitch-address" name="different_address"/>
 				<span class="switch-label-address" data-on="Yes" data-off="No"></span> 
 				<span class="switch-handle-address"></span> 
 			</label>
@@ -48,43 +62,36 @@
 				<div class="column equal width fields">
 					<div class="required field">
 						<label>Street</label>
-						<input type="text" name="street" placeholder="Street">
-					</div>
-					<div class="required field">
-						<label>City</label>
-						<input type="text" name="city" placeholder="City">
-					</div>
-				</div>
-
-				<div class="column equal width fields">
-					<div class="required field">
-						<label>State</label>
-						<input type="text" name="state" placeholder="State">
-					</div>
-					<div class="required field">
-						<label>Country</label>
-						{{>countriesList}}	<!-- Template shorthand, puts countriesList select search dropdown here -->
-					</div>
-				</div>
-				<div class="column equal width fields">
-					<div class="required field">
-						<label>Zipcode</label>
-						<input type="text" name="zipcode" placeholder="Zipcode" minlength="5">
+						<input type="text" name="street" id="street" placeholder="Street">
 					</div>
 					<div class="field">
 						<label>Apt # / Suite</label>
 						<input type="text" name="aptNumSuite" placeholder="Apt # / Suite">
 					</div>
 				</div>
+
+				<div class="column equal width fields">
+					<div class="required field">
+						<label>City</label>
+						<input type="text" name="city" id="city" placeholder="City">
+					</div>
+					<div class="required field">
+						<label>State</label>
+						{{>validStatesList}} <!-- Template shorthand, puts validStatesList select search dropdown here -->
+					</div>
+					<div class="required field">
+						<label>Zipcode</label>
+						<input type="text" name="zipcode" id="zipcode" placeholder="Zipcode">
+					</div>
+					
+				</div>
 			</div>
 
-			<br>
-
 			<!-- If checked, date and time will hide -->
-		    <label>As soon as possible</label>
+		    <label>As soon as possible?</label>
 			<label class="switchTime">
-				<input class="switch-input-time" type="checkbox" id="myonoffswitch-time" name="as_soon_as_possible"/>
-				<span class="switch-label-time" data-on="Yes" data-off="No"></span> 
+				<input class="switch-input-time" type="checkbox" id="myonoffswitch-time" name="laterTime"/>
+				<span class="switch-label-time" data-on="Later" data-off="ASAP"></span> 
 				<span class="switch-handle-time"></span> 
 			</label>
 
@@ -92,33 +99,49 @@
 			    <h4 class="ui dividing header">Date and Time</h4>
 
 				<div class="two fields">
-					<div class="field">
+					<div class="required field">
 						<label>Date</label>
-						<input type="date" name="date">
+						<input type="date" name="date" id="date">
 					</div>
 
-					<div class="field">
+					<div class="required field">
 				      <label>Time</label>
 				      <input type="time" name="time">
 					</div>
 				</div>
 			</div>
 
-			<!-- Symptoms or images -->
-			<label>Symptoms</label>
+			<br>
+
 			<div class="required field">
-	    		<textarea rows="3" maxlength="200" name= 'symptoms'></textarea>
+				<label>Symptoms</label>
+	    		<textarea rows="3" name= 'symptoms'></textarea>
 			</div>
 
 			<!-- Need to implement upload functionality! Then can preview images as well. -->
-			<button class="ui labeled icon medium button">
+			<!-- <button class="ui labeled icon medium button">
 			  <i class="upload icon"></i>
 			  Upload images
-			</button>
+			</button> -->
 
-			<br><br>
+			<!-- <br><br> -->
 
-			<input class="fluid ui primary button" type="submit" name="submitRequestBtn" value="Submit Request">
+			<input class="fluid ui primary button" type="submit" value="Submit Request">
+
+			<div id="errorMsg" class="ui error hidden message">
+				<i class="close icon"></i>
+			  	<div class="header">
+			   		There were some errors with your submission
+			  	</div>
+			  	<ul class="list" id="errorList">
+			    	<!-- Listed errors -->
+			  	</ul>
+			</div>
+
+			<div class="ui success message hidden" id="successMsg">
+				<i class="send icon"></i>
+				<b>Success!</b> Your request was sent.
+			</div>
 		</form>
 	</div>
 </template>

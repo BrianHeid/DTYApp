@@ -1,65 +1,117 @@
 Template.dashboard.helpers({
 	'isRequest': function(){
-		return parseInt(Meteor.user().profile['status']) >= 1
+		if (Meteor.user())
+			return parseInt(Meteor.user().profile['status']) >= 1
+	},
+	'isRequestOverview': function(){
+		if (Meteor.user())
+			return parseInt(Meteor.user().profile['status']) >= 2
+	},
+	'isProcessingRequest': function(){
+		if (Meteor.user())
+			return parseInt(Meteor.user().profile['status']) >= 3
 	},
 	'isCall': function(){
-		return parseInt(Meteor.user().profile['status']) >= 2
+		if (Meteor.user())
+			return parseInt(Meteor.user().profile['status']) >= 4
+	},
+	'isCallOverview': function(){
+		if (Meteor.user())
+			return parseInt(Meteor.user().profile['status']) >= 5
 	},
 	'isReserve': function(){
-		return parseInt(Meteor.user().profile['status']) >= 3
+		if (Meteor.user())
+			return parseInt(Meteor.user().profile['status']) >= 6
+	},
+	'isReserveOverview': function(){
+		if (Meteor.user())
+			return parseInt(Meteor.user().profile['status']) >= 7
 	},
 	'isTreatment': function(){
-		return parseInt(Meteor.user().profile['status']) >= 4
+		if (Meteor.user())
+			return parseInt(Meteor.user().profile['status']) >= 8
+	},
+	'isTreatmentOverview': function(){
+		if (Meteor.user())
+			return parseInt(Meteor.user().profile['status']) >= 9
 	},
 	'isFollowUp': function(){
-		return parseInt(Meteor.user().profile['status']) >= 5
+		if (Meteor.user())
+			return parseInt(Meteor.user().profile['status']) >= 10
+	},
+	'isFollowUp2': function(){
+		if (Meteor.user())
+			return parseInt(Meteor.user().profile['status']) >= 11
+	},
+	'isFollowUpOverview': function(){
+		if (Meteor.user())
+			return parseInt(Meteor.user().profile['status']) >= 12
 	},
 	'isReview': function(){
-		return parseInt(Meteor.user().profile['status']) >= 6
+		if (Meteor.user())
+			return parseInt(Meteor.user().profile['status']) >= 13
 	},
+	'isReview2': function(){
+		if (Meteor.user())
+			return parseInt(Meteor.user().profile['status']) >= 14
+	}
 	})
 
 Template.show_dashboard_page.helpers({
 	'isRequest': function(){
-		return Meteor.user().profile['viewing'] == 'Request'
+		if (Meteor.user())
+			return Meteor.user().profile['viewing'] == 'Request'
+	},
+	'isRequestOverview': function(){
+		if (Meteor.user())
+			return Meteor.user().profile['viewing'] == 'RequestOverview'
+	},
+	'isProcessingRequest': function(){
+		if (Meteor.user())
+			return Meteor.user().profile['viewing'] == 'ProcessingRequest'
 	},
 	'isCall': function(){
-		return Meteor.user().profile['viewing'] == 'Call'
+		if (Meteor.user())
+			return Meteor.user().profile['viewing'] == 'Call'
+	},
+	'isCallOverview': function(){
+		if (Meteor.user())
+			return Meteor.user().profile['viewing'] == 'CallOverview'
 	},
 	'isReserve': function(){
-		return Meteor.user().profile['viewing'] == 'Reserve'
+		if (Meteor.user())
+			return Meteor.user().profile['viewing'] == 'Reserve'
+	},
+	'isReserveOverview': function(){
+		if (Meteor.user())
+			return Meteor.user().profile['viewing'] == 'ReserveOverview'
 	},
 	'isTreatment': function(){
-		return Meteor.user().profile['viewing'] == 'Treatment'
+		if (Meteor.user())
+			return Meteor.user().profile['viewing'] == 'Treatment'
+	},
+	'isTreatmentOverview': function(){
+		if (Meteor.user())
+			return Meteor.user().profile['viewing'] == 'TreatmentOverview'
 	},
 	'isFollowUp': function(){
-		return Meteor.user().profile['viewing'] == 'Followup'
+		if (Meteor.user())
+			return Meteor.user().profile['viewing'] == 'Follow-up'
+	},
+	'isFollowUp2': function(){
+		if (Meteor.user())
+			return Meteor.user().profile['viewing'] == 'Follow-up2'
+	},
+	'isFollowUpOverview': function(){
+		if (Meteor.user())
+			return Meteor.user().profile['viewing'] == 'Follow-upOverview'
 	},
 	'isReview': function(){
-		return Meteor.user().profile['viewing'] == 'Review'
+		if (Meteor.user())
+			return Meteor.user().profile['viewing'] == 'Review'
 	},
+	'isReview2': function(){
+		if (Meteor.user())
+			return Meteor.user().profile['viewing'] == 'Review2'
+	}
 	})
-
-
-
-Template.dashboard.onRendered(
-	
-	function(){
-		this.$('.step').click(
-			function(events, template){
-				var selected = $(event.currentTarget).find('.title').text()
-				console.log(selected)
-				Meteor.call('updateView', Meteor.userId(), selected)
-			}
-			)
-
-})
-
-//vartest = setInterval(counter, 1000)
-
-/*
-Template.show_dashboard_page.onRendered({
-	$(document).click( function(event){
-		console.log(event.target)
-	})
-})*/

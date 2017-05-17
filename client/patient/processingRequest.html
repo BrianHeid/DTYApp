@@ -1,7 +1,6 @@
-<!-- Call page. Second menu on the patient dashboard. 
-	After a patient requests on the Request page, they will see this page -->
+<!-- Processing request -->
 
-<template name="callPage">
+<template name="processingRequestPage">
 
 	<!-- CSS -->
 	<style>
@@ -21,17 +20,17 @@
 	</style>
 
 	<!-- Informative box about how long call wait will be -->
+	
 	<center>
 		<div class="ui raised very padded text container segment">
-			<h1 class="ui header container">Please standby for your call...</h1>
-
-			<h2 class="ui header container" id="callText">
-				{{providerName}} will call you in approximately {{timeEstimate}}minutes. <br> Thank you for choosing Doctors To You!
-			</h2>
+			<h2 class="ui header">We are processing your request and will take care of you soon, {{getFirstName}}<br><br>
+			Thank you for choosing Doctors To You!</h2>
 
 			<br>
 
-			<button id="cancelButton" class="cancelBtn negative ui button">Cancel Request</button>
+			<button class="cancelBtn negative ui button">Cancel Request</button>
+
+			<br>
 
 			<h3 class="ui header">Doctors To You Blog</h3>
 
@@ -40,6 +39,7 @@
 		   	<!-- blog posts -->
 		</div>
 	</center>
+	
 
 	<!-- Cancel modal -->
 	<div class="ui small modal" id="reasonModal">
@@ -62,10 +62,10 @@
 
 		  <div class="actions" id="cancelReqButtons">
 		  	<div class="two ui buttons">
-			    <button  class="ui red button" id="confirmCancelBtn" data={{_id}}>
+			    <button  class="ui red button" type="submit" id="confirmCancelBtn">
 			      Confirm Cancellation
 			    </button>
-			    <button class="ui cancel button" id="nevermindBtn">
+			    <button class="ui cancel button" type="button" id="nevermindBtn">
 			      Nevermind
 			    </button>
 			</div>
@@ -94,5 +94,5 @@
 		</div>
 
 	</div>
-	
+
 </template>

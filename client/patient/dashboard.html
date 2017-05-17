@@ -1,38 +1,78 @@
 <template name= 'show_dashboard_page'>
+	<br>
+
+	<div class="ui header">
+		<div class="ui yellow message">
+			<center>
+				<i class="warning circle icon"></i>
+	  			IF THIS IS AN EMERGENCY PLEASE CALL 9-1-1
+	  		</center>
+		</div>
+	</div>
+
 	<p>{{> dashboard}}</p>
 
 	{{#if isRequest}}
 	<p>{{> requestPage}}</p>
 	{{/if}}
 
+	{{#if isRequestOverview}}
+	<p>{{> requestOverview}}</p>
+	{{/if}}
+
+	{{#if isProcessingRequest}}
+	<p>{{> processingRequestPage}}</p>
+	{{/if}}
+
 	{{#if isCall}}
 	<p>{{> callPage}}</p>
+	{{/if}}
+
+	{{#if isCallOverview}}
+	<p>{{> callOverview}}</p>
 	{{/if}}
 
 	{{#if isReserve}}
 	<p>{{> reservePage}}</p>
 	{{/if}}
 
+	{{#if isReserveOverview}}
+	<p>{{> reserveOverview}}</p>
+	{{/if}}
+
 	{{#if isTreatment}}
 	<p>{{> treatmentPage}}</p>
+	{{/if}}
+
+	{{#if isTreatmentOverview}}
+	<p>{{> treatmentOverview}}</p>  
 	{{/if}}
 
 	{{#if isFollowUp}}
 	<p>{{> followupPage}}</p>
 	{{/if}}
+
+	{{#if isFollowUp2}}
+	<p>{{> followupPage2}}</p>
+	{{/if}}
+
+	{{#if isFollowUpOverview}}
+	<p>{{> followupOverview}}</p>
+	{{/if}}
+
+	{{#if isReview}}
+	<p>{{> reviewPage}}</p>
+	{{/if}}
+
+	{{#if isReview2}}
+	<p>{{> reviewPage2}}</p>
+	{{/if}}
 </template>
 
 <template name="dashboard">
-	<h2 class="ui header container">
-		<i class="dashboard icon"></i>
-		<div class="content">
-			Dashboard
-		</div>
-	</h2>
-
 	<div class="ui six top attached steps">
 
-		{{#if isRequest 'request'}}
+		{{#if isRequest}}
 		<a class="active step">
 			<i class="hand paper icon"></i>
 			<div class="content">
@@ -40,7 +80,15 @@
 				<div class="description">Request a consultation</div>
 			</div>
 		</a>
-		{{else}}
+		{{else}}{{#if isRequestOverview}}
+		<a class="active step">
+			<i class="hand paper icon"></i>
+			<div class="content">
+				<div class="title">Request</div>
+				<div class="description">Request a consultation</div>
+			</div>
+		</a>
+		{{/if}}
 		<a class="disabled step">
 			<i class="hand paper icon"></i>
 			<div class="content">
@@ -50,7 +98,7 @@
 		</a>
 		{{/if}}
 
-		{{#if isCall 'call'}}
+		{{#if isProcessingRequest}}
 		<a class="active step">
 			<i class="call icon"></i>
 			<div class="content">
@@ -58,7 +106,23 @@
 				<div class="description">Your doctor will call you</div>
 			</div>
 		</a>
-		{{else}}
+		{{else}}{{#if isCall}}
+		<a class="active step">
+			<i class="call icon"></i>
+			<div class="content">
+				<div class="title">Call</div>
+				<div class="description">Your doctor will call you</div>
+			</div>
+		</a>
+		{{/if}}{{#if isCallOverview}}
+		<a class="active step">
+			<i class="call icon"></i>
+			<div class="content">
+				<div class="title">Call</div>
+				<div class="description">Your doctor will call you</div>
+			</div>
+		</a>
+		{{/if}}
 		<a class="disabled step">
 			<i class="call icon"></i>
 			<div class="content">
@@ -68,7 +132,7 @@
 		</a>
 		{{/if}}
 
-		{{#if isReserve 'reserve'}}
+		{{#if isReserve}}
 		<a class="active step">
 			<i class="payment icon"></i>
 			<div class="content">
@@ -76,7 +140,15 @@
 				<div class="description">Enter billing information to reserve a doctor</div>
 			</div>
 		</a>
-		{{else}}
+		{{else}}{{#if isReserveOverview}}
+		<a class="active step">
+			<i class="payment icon"></i>
+			<div class="content">
+				<div class="title">Reserve</div>
+				<div class="description">Enter billing information to reserve a doctor</div>
+			</div>
+		</a>
+		{{/if}}
 		<a class="disabled step">
 			<i class="payment icon"></i>
 			<div class="content">
@@ -86,7 +158,7 @@
 		</a>
 		{{/if}}
 
-		{{#if isTreatment 'treatment'}}
+		{{#if isTreatment}}
 		<a class="active step">
 			<i class="treatment icon"></i>
 			<div class="content">
@@ -94,7 +166,15 @@
 				<div class="description">Your doctor will treat you</div>
 			</div>
 		</a>
-		{{else}}
+		{{else}}{{#if isTreatmentOverview}}
+		<a class="active step">
+			<i class="treatment icon"></i>
+			<div class="content">
+				<div class="title">Treatment</div>
+				<div class="description">Your doctor will treat you</div>
+			</div>
+		</a>
+		{{/if}}
 		<a class="disabled step">
 			<i class="treatment icon"></i>
 			<div class="content">
@@ -104,7 +184,7 @@
 		</a>
 		{{/if}}
 
-		{{#if isFollowUp 'followup'}}
+		{{#if isFollowUp}}
 		<a class="active step">
 			<i class="comments outline icon"></i>
 			<div class="content">
@@ -112,7 +192,23 @@
 				<div class="description">Your doctor will follow-up with you</div>
 			</div>
 		</a>
-		{{else}}
+		{{else}}{{#if isFollowUp2}}
+		<a class="active step">
+			<i class="comments outline icon"></i>
+			<div class="content">
+				<div class="title">Follow-up</div>
+				<div class="description">Your doctor will follow-up with you</div>
+			</div>
+		</a>
+		{{/if}}{{#if isFollowUpOverview}}
+		<a class="active step">
+			<i class="comments outline icon"></i>
+			<div class="content">
+				<div class="title">Follow-up</div>
+				<div class="description">Your doctor will follow-up with you</div>
+			</div>
+		</a>
+		{{/if}}
 		<a class="disabled step">
 			<i class="comments outline icon"></i>
 			<div class="content">
@@ -122,7 +218,7 @@
 		</a>
 		{{/if}}
 
-		{{#if isReview 'review'}}
+		{{#if isReview}}
 		<a class="active step">
 			<i class="file text icon"></i>
 			<div class="content">
@@ -130,8 +226,15 @@
 				<div class="description">Review your care</div>
 			</div>
 		</a>
-		{{else}}
-
+		{{else}}{{#if isReview2}}
+		<a class="active step">
+			<i class="file text icon"></i>
+			<div class="content">
+				<div class="title">Review</div>
+				<div class="description">Review your care</div>
+			</div>
+		</a>
+		{{/if}}
 		<a class="disabled step">
 			<i class="file text icon"></i>
 			<div class="content">
@@ -141,6 +244,18 @@
 		</a>
 		{{/if}}
 	</div>
+
+	<!-- JavaScript -->
+	<script type="text/javascript">
+		$(document).ready(function(){
+
+			// Allows Dashboard steps to be clickable and change templates
+			$(document).on('click', '.step', function(){
+				var selected = $(this).find('.title').text();
+				Meteor.call('updateView', Meteor.userId(), selected);
+			});
+		});
+	</script>
 </template>
 
 

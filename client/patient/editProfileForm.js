@@ -2,12 +2,15 @@
   Event for when the createProfileForm is submitted. 
   Will call the setName, setPhone, setBirthday, and setAddress functions
   to add to the Meteor.users database. 
-*/
+
+  */
 
 Template.editProfileForm.onRendered(function(){
 
-    this.$('#firstName').val('Fix')
+    $('.ui.dropdown').dropdown();
 
+    // Input mask for phone number for the format (XXX) XXX-XXXX
+    $("#phoneNumber").inputmask({"mask": "(999) 999-9999"});
 
     this.$('.ui.form').form({
         inline: true,
@@ -110,10 +113,37 @@ Template.editProfileForm.onRendered(function(){
 
 
 Template.editProfileForm.helpers({
-    'firstName':function(){
-        return Meteor.user().profile['firstname']
+    getFirstName: function(){
+        return {
+          name: "firstName",
+          type: 'text',
+          value: Session.get('firstname')
+        }
     },
-    'lastName':function(){
-        return Meteor.user().profile['lastname']
+
+    getLastName: function(){
+        return {
+          name: "lastName",
+          type: 'text',
+          value: Session.get('lastname')
+        }
+    },
+
+    getPhoneNumber: function(){
+        return {
+          name: "phoneNumber",
+          type: 'text',
+          value: Session.get('phonenumber')
+        }
+    },
+
+    getBirthday: function(){
+        return {
+          name: "birthday",
+          min: "1887-01-01",
+          max: "1999-04-01",
+          type: 'date',
+          value: Session.get('birthday')
+        }
     }
-})
+});

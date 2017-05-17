@@ -3,15 +3,16 @@
 	<head>
   		<title>Doctors To You</title>
  		<link rel="icon" sizes="16x16 32x32" href="/images/favicon.ico">
+
+ 		<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBcZFbV2A2SR-IeiChwe_ZYItbQJAUm0nQ"
+	      type="text/javascript">
+	    </script>
 	</head>
 
 	{{>menu_temp}}
 </template>
 
 <template name="menu_temp">
-	<style>
-		
-	</style>
 
 	<div class="ui top fixed menu">
 		{{#if currentUser}}
@@ -29,24 +30,32 @@
   		{{/if}}
 
 	  <div class="labeled icon right menu">
+	  	
 			{{#if currentUser}}
 			<a class="item" href="/account">
 				<i class="user icon"></i>
 				Profile
 			</a>
 			{{/if}}
-			<div class="ui dropdown item">
+
+			<!--/////////// Language bar feature can be a later project! ///////////////////-->
+
+			<!-- <div class="ui dropdown item">
 				Language <i class="dropdown icon"></i>
 				<div class="menu">
 					<a class="item">English</a>
 					<a class="item">Spanish</a>
 				</div>
-			</div>
+			</div> -->
+
+			<!-- ///////////////////////////////////////////////////////////////////////// -->
+
 			{{#if currentUser}}
 			<div class="item">
 				<div class="ui logout primary button">Sign Out</div>
 			</div>
 			{{/if}}
+
 		</div>
 	</div>
 

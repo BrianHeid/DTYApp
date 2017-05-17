@@ -6,7 +6,7 @@
 
 <template name="editProfileForm">
 	<div class="ui stackable two column centered container">
-		<br>
+		<br><br>
 
 		<h2 class="ui header">
 			<i class="edit icon"></i>
@@ -23,51 +23,57 @@
 			<div class="column equal width fields">
 				<div class="required field">
 					<label>First Name</label>
-					<input type="text" name="firstName" placeholder={{firstName}} autofocus>
+					<input {{getFirstName}}/>
 				</div>
 				<div class="field required">
 					<label>Last Name</label>
-					<input type="text" name="lastName" placeholder={{lastName}}>
+					<input {{getLastName}}/>
 				</div>
 			</div>
 
 			<div class="column equal width fields required">
 				<div class="required field">
 					<label>Phone Number</label>
-					<input type="text" name="phoneNumber" placeholder="Phone Number">
+					<input {{getPhoneNumber}}/>
 				</div>
 				<div class="required field">
 					<label>Birthday</label>
-					<input type="date" name="birthday" min="1887-01-01" max="1999-04-01">
+					<input {{getBirthday}}/>
+				</div>
+				<div class="required field">
+					<label>Gender</label>
+					{{>gendersList}}
 				</div>
 			</div>
 
-			<div class="column fields">
-				<div class="six wide required field">
-					<label>Street</label>
-					<input type="text" name="street" placeholder="Street">
-				</div>
-				<div class="four wide required field">
-					<label>City</label>
-					<input type="text" name="city" placeholder="City">
-				</div>
-				<div class="three wide required field">
-					<label>State</label>
-					<input type="text" name="state" placeholder="State">
-				</div>
-				<div class="three wide required field">
-					<label>Country</label>
-					{{>countriesList}}
-				</div>
-			</div>
 			<div class="column equal width fields">
 				<div class="required field">
-					<label>Zipcode</label>
-					<input type="text" name="zipcode" placeholder="Zipcode" minlength="5">
+					<label>Street</label>
+					<input type="text" name="street" placeholder="Street">
 				</div>
 				<div class="field">
 					<label>Apt # / Suite</label>
 					<input type="text" name="aptNumSuite" placeholder="Apt # / Suite">
+				</div>
+			</div>
+			<div class="column equal width fields">
+				<div class="required field">
+					<label>City</label>
+					<input type="text" name="city" placeholder="City">
+				</div>
+				<div class="required field">
+					<label>State</label>
+					<input type="text" name="state" placeholder="State">
+				</div>
+			</div>
+			<div class="column equal width fields">
+				<div class="required field">
+					<label>Country</label>
+					{{>countriesList}}
+				</div>
+				<div class="required field">
+					<label>Zipcode</label>
+					<input type="text" name="zipcode" placeholder="Zipcode" minlength="5">
 				</div>
 			</div>
 			<div class="field required">
@@ -109,14 +115,12 @@
 		<!-- SUCCESS MESSAGE -->
 		<div class="ui success message">
 			<div class="header">Saved!</div>
-			<p>You're settings have saved.</p>
+			<p>Your settings have saved.</p>
 		</div>
 		
 	</div>
 
 	<script type="text/javascript">
-		$('.ui.dropdown')
-		.dropdown()
-		;
+		$('.ui.dropdown').dropdown();
 	</script>
 </template>

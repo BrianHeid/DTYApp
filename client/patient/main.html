@@ -22,7 +22,6 @@
 
 
 <template name='main_page'>
-	
 	<!-- CSS -->
 	<style>
 		/* Shows pointer finger when hovered over "Register here" and "login" */
@@ -44,14 +43,19 @@
   	<center>
 		<div id="login-content" class="ui raised very padded text container">
 		  <div class="column">
-		  	<img class="ui medium centered image" src="/images/logo.png">
-			<img class="ui huge centered image" src="/images/slogan.png">
+		  	<img class="ui large centered image" src="/images/logo.png">
+			<img class="ui large centered image" src="/images/slogan.png">
 
-		    <h3 class="ui image header">
-		      <div class="content centered">
-		        Login to your account
-		      </div>
-		    </h3>
+			<br>
+
+			<center>
+			    <h3 class="ui header">
+			    	Login to your account
+			    </h3>
+			</center>
+
+			<br>
+
 		    <form class="ui large form" id="loginForm">
 		      <div class="ui stacked secondary segment">
 		        <div class="field">
@@ -66,17 +70,21 @@
 		            <input type="password" name="password" placeholder="Password">
 		          </div>
 		        </div>
+
 		        <div align="left" style="margin-bottom:0px; margin-left:4px;"><a id="reset"><small>Forgot password?</small></a></div>
 		        <br>
 		        <div class="ui fluid large submit button" style="color: white; background-color: #00bde8;">Login</div>
+		        <div class="ui fluid large submit button" type="submit" style="color: white; background-color: #00bde8;">Login</div>
 		      </div>
 
-		      <div class="ui error message"></div>
+		      	<div id="loginErrorMsg" class="ui error hidden message">
+				  	<h4 class="ui header" id="innerLoginErrorMsg"><!-- Error message --></h4>
+				</div>
 
 		    </form>
 
 		    <div class="register ui message">
-		      New to Doctors To You? <a id='register'>Register here</a>
+		      <b>New to Doctors To You? <a id='register'>Register here</a></b>
 		    </div>
 		  </div>
 		</div>
@@ -109,12 +117,16 @@
 				<div class="column equal width fields required">
 					<div class="required field">
 						<label>Phone Number</label>
-						<input type="text" name="phonenumber" placeholder="Phone Number">
+						<input id="phonenumber" type="tel" name="phonenumber" placeholder="Phone Number">
 					</div>
 				    <div class="required field">
 						<label>Birthday</label>
 						<input type="date" name="birthday" min="1887-01-01" max="1999-04-01">
 					</div>
+					<div class="required field">
+						<label>Gender</label>
+						{{>gendersList}}
+					</div>	
 				</div>
 
 				<h4 class="ui dividing header">Address</h4>
@@ -122,45 +134,46 @@
 				<div class="column equal width fields">
 					<div class="required field">
 						<label>Street</label>
-						<input type="text" name="street" placeholder="Street">
+						<input type="text" name="street" id="street" placeholder="Street">
 					</div>
-					<div class="required field">
-						<label>City</label>
-						<input type="text" name="city" placeholder="City">
+					<div class="field">
+						<label>Apt # / Suite</label>
+						<input type="text" name="aptNumSuite" id="aptNumSuite" placeholder="Apt # / Suite">
 					</div>
 				</div>
 
 				<div class="column equal width fields">
 					<div class="required field">
-						<label>State</label>
-						<input type="text" name="state" placeholder="State">
+						<label>City</label>
+						<input type="text" name="city" id="city" placeholder="City">
 					</div>
+					<div class="required field">
+						<label>State</label>
+						<input type="text" name="state" id="state" placeholder="State">
+					</div>
+				</div>
+
+				<div class="column equal width fields">
 					<div class="required field">
 						<label>Country</label>
 						{{>countriesList}}
 					</div>
-				</div>
-
-				<div class="column equal width fields">
 					<div class="required field">
 						<label>Zipcode</label>
-						<input type="text" name="zipcode" placeholder="Zipcode" minlength="5">
+						<input type="text" name="zipcode" id="zipcode" placeholder="Zipcode" minlength="5">
 					</div>
-					<div class="field">
-						<label>Apt # / Suite</label>
-						<input type="text" name="aptNumSuite" placeholder="Apt # / Suite">
-					</div>
+					
 				</div>
 
 				<h4 class="ui dividing header">Account Settings</h4>
 
 				<div class="field required">
 					<label>Email</label>
-					<input type="email" name="email" placeholder="example@gmail.com">
+					<input type="email" name="new_email" placeholder="example@gmail.com">
 				</div>
 				<div class="field required">
 					<label>Password</label>
-					<input type="password" name="password" placeholder="Password">
+					<input type="password" name="new_password" placeholder="Password">
 				</div>
 				<div class="field required">
 					<label>Confirm Password</label>
@@ -168,7 +181,7 @@
 				</div>
 				<div class="field required">
 					<label>Where did you hear about us?</label>
-					<select class="ui selection dropdown" name="acquisition" required>
+					<select class="ui selection dropdown" name="acquisition">
 						<option value="">I heard from...</option>
 						<option value="print">Print advertisement</option>
 						<option value="facebook">Facebook</option>
@@ -179,16 +192,28 @@
 					</select>
 				</div>
 
+				<div class="ui two buttons">
+				    <button id="createAccountBtn" class="ui primary approve button" type='submit'>Create Account</button>
+				    <button id="cancelBtn" class="ui negative cancel button" type='button'>Cancel</button>
+				</div>
+
+				<div id="errorMsg" class="ui error hidden message">
+				  	<div class="header">
+				   		There were some errors with your account creation.
+				  	</div>
+				  	<ul class="list" id="errorList">
+				    	<!-- Listed errors -->
+				  	</ul>
+				</div>
+
+				<div class="ui success message hidden" id="successMsg">
+					<i class="send icon"></i>
+					<b>Success!</b> Your account has been created!
+				</div>
 		    </form>
 	  	</div>
-
-	  	<div class="actions" id="actionBtns">
-	    	<div class="ui two buttons">
-			    <div id="createAccountBtn" class="ui primary approve button">Create Account</div>
-			    <div id="cancelBtn" class="ui negative cancel button">Cancel</div>
-			</div>
-	  	</div>
 	</div>
+<<<<<<< HEAD
 
 	<!-- JavaScript -->
 	<script type="text/javascript">
@@ -209,3 +234,6 @@
 		;
 	</script>
 </template>
+=======
+</template>
+>>>>>>> 01a29cf41ae5d887a515a828a36667733d80a3da
