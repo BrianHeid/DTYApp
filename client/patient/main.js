@@ -11,6 +11,11 @@ Template.main_page.onRendered(function(){
 		
 	}
 
+	$("#reset").click(function(){
+			Accounts.forgotPassword({email: document.getElementById('email').value})
+			console.log('reset email')
+		});
+
 	this.$('#loginForm').form({
 		inline: true,
 		on: 'submit',
