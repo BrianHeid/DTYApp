@@ -1,6 +1,10 @@
 import '../../lib/collections.js'
 
 Template.requestPage.onRendered(function(){
+	var emailAddress = Meteor.users.findOne({_id:Meteor.userId()}).emails[0].address;
+	Meteor.subscribe("currProfile", emailAddress);
+	Meteor.subscribe("currRequest", Meteor.userId());
+	
 	var valid = false;
 
 	$('.ui.dropdown').dropdown();
@@ -77,29 +81,20 @@ Template.requestPage.onRendered(function(){
 				// Checks if address is valid before adding to database and moving forward with request
 				CheckValidAddress(streetTrim, cityTrim, fields.activeStates, zipTrim);
 			} else {
-				var fullAddress = Session.get('fullAddress');
 				$("#errorMsg").hide();
 				valid = true;
 			}
 
 			/// ADDRESS HAS TO BE VALID IN REGIONS!!! /////////////////////////////////////////////////////////////////////////
 			//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-			Session.set('curAddress', fullAddress);
-
-			// if (!fields.laterTime) {
-			// 	Session.set('date', today);
-			// 	Session.set('time', time);
-			// } else {
-			// 	Session.set('date', fields.date);
-			// 	Session.set('time', fields.time);
-			// }
 
 			setTimeout(function(){
 				if (valid) {
 
 					////////////////// ADDS TO DATABASE ///////////////////////
-						// Meteor.call('pushRequest', Meteor.userId(), fields)
-					var requesterName = Session.get('firstname') + " " + Session.get('lastname');
+					var firstName = Profiles.findOne({email: emailAddress}).firstname;
+					var lastName = Profiles.findOne({email: emailAddress}).lastname;
+					var requesterName =  firstName + " " + lastName;
           
 					if (!fields.laterTime) {
 						fields.date = today;
@@ -107,23 +102,15 @@ Template.requestPage.onRendered(function(){
 					}
 					Meteor.call('pushRequest', Meteor.userId(), fields, requesterName);
 					//////////////////////////////////////////////////////////
-          
-					Session.set('timeRequested', new Date().toLocaleString());
-					Session.set('for_someone_else', fields.for_someone_else);
-					Session.set('relationship', fields.relationship);
-					Session.set('tempPatientFirstName', fields.tempPatientFirstName);
-					Session.set('tempPatientLastName', fields.tempPatientLastName);
-					Session.set('laterTime', fields.laterTime);
-					Session.set('symptoms', fields.symptoms);
-
+					
 					$("#successMsg").show(500);
 					Meteor.call('updateCurStep', Meteor.userId(), 'ProcessingRequest');
 					Meteor.call('updateStatus', Meteor.userId(), 3);
 					Meteor.call('updateView', Meteor.userId(), 'ProcessingRequest');
-					Meteor.call('sendSMS',{
-						to: '+16176509969',
-						text: 'This is a test message from DTY'
-					});
+					// Meteor.call('sendSMS',{
+					// 	to: '+16176509969',
+					// 	text: 'This is a test message from DTY'
+					// });
 					FlowRouter.go('/dashboard');
 				}
 			},500);

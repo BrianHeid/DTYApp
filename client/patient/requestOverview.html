@@ -1,6 +1,5 @@
 
 <template name="requestOverview">
-
 	<br>
 	<div class="ui raised very padded text container segment">
 	    <h3 id="submitTime" class="ui header">Request submitted at: {{datetimeSubmitted}} </h3>
@@ -10,22 +9,4 @@
 	   	<hr>
 	    <p> Symptoms: {{symptoms}} </p>
 	</div>
-
-	<!-- JavaScript -->
-	<script type="text/javascript">
-		Template.requestOverview.helpers({
-			datetimeSubmitted: function(){
-				return Requests.findOne({patientId:Meteor.userId()}).times.requestTime;
-			},
-			requestDate: function(){
-				return Requests.findOne({patientId:Meteor.userId()}).times.preferredDate;
-			},
-			requestTime: function(){
-				return Requests.findOne({patientId:Meteor.userId()}).times.preferredTime;
-			},
-			symptoms: function(){
-				return Requests.findOne({patientId:Meteor.userId()}).symptoms;
-			}
-		});
-	</script>
 </template>

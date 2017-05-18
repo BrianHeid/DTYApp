@@ -7,7 +7,7 @@
 		<div class="ui raised very padded text container segment">
 			<h1 class="ui header container">
 			  <div id="providerConcludeCareText" class="content">
-			   <!-- Provider concluding care text -->
+			   {{providerName}} is concluding your care and will let you know when your medical report and invoice are ready.
 			  </div>
 			</h1>
 
@@ -19,19 +19,5 @@
 		</div>
 	</center>
 
-	<script type="text/javascript">
-		var providerName = "Ernest";
-
-		var providerConcludeCareText = providerName + " is concluding your care and will let you know when your medical report and invoice are ready.";
-
-		document.getElementById("providerConcludeCareText").innerHTML = providerConcludeCareText;
-
-		$(document).ready(function(){
-			$("#emailPrefBtn").click(function(){
-				// Slug not working!
-				FlowRouter.go('/account#emailPref');	
-			});
-		});
-	</script>
 </template>
 
