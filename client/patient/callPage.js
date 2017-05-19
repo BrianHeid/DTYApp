@@ -1,7 +1,7 @@
 Template.callPage.onRendered(function(){
 	// Click to open cancel request button
 	$(".cancelBtn").click(function(){
-		$('#reasonModal').modal('show');	
+		$('#reasonModal').modal('show');
 	});
 
 	// Validate cancel form
@@ -22,10 +22,29 @@ Template.callPage.onRendered(function(){
 			// Click to return to dashboard button. Reset request
 			$("#returnDashboard").click(function(){
 				$('#returnDashboard').modal('hide');
+
+				var emailAddress = Meteor.users.findOne({_id:Meteor.userId()}).emails[0].address;
+				var willSendSMS = Profiles.findOne({email: emailAddress}).preferences;
+
+				if (willSendSMS) {
+					Meteor.call('sendSMS',{
+						to: '+1' + Profiles.findOne({email: emailAddress}).phone,
+						text: 'Doctors To You Update: Request Cancelled.'
+					});
+				}
+
+				Meteor.call('sendEmail',{
+					to: Meteor.users.findOne({_id:Meteor.userId()}).emails[0].address,
+					from: 'no-reply@doctorstoyouapp.com',
+					subject: 'Doctors To You: Request canceled',
+					text: '',
+					html:"Your request has been canceled. Please visit <a href='care.doctorstoyou.com'>care.doctorstoyou.com</a> to make a new request.\n\nSincerely,\n the Doctors To You care team"
+				});
+
 				Meteor.call('resetStatus', Meteor.userId());
 			});
 
-			
+
 		},
 		fields: {
 			reason: {
@@ -45,15 +64,15 @@ Template.callPage.onRendered(function(){
 			}
 		}
 	});
-	
+
 	var emailAddress = Meteor.users.findOne({_id:Meteor.userId()}).emails[0].address;
 	Meteor.subscribe("currProfile", emailAddress);
 	Meteor.subscribe("currRequest", Meteor.userId());
-	
+
 	var providerId = Requests.findOne().providerId;
 	Meteor.subscribe("currProvider", providerId);
-	
-	
+
+
 	$("#confirmCancelBtn").click(function(event){
 		var id = Requests.findOne()._id;
 		var reason = $("#reason").innerHTML;
@@ -65,19 +84,19 @@ Template.callPage.helpers({
 	providerName: function(){
 		var providerFullName = "";
 		var isDoctor = Providers.findOne().isDoctor;
-		
+
 		if (isDoctor) {
             providerFullName += "Dr. ";
         }
 		var providerId = Requests.findOne().providerId;
 		var firstName = Profiles.findOne({_id:providerId}).firstname;
 		var lastName = Profiles.findOne({_id:providerId}).lastname;
-		
+
 		providerFullName += firstName + " " + lastName;
-		
+
 		return providerFullName;
 	},
-	
+
 	timeEstimate: function(){
 		return Requests.findOne().times.callStartTime;
 	}

@@ -58,17 +58,17 @@
 			      </div>
 			    </div>
 			</div>
-			
+
 			<label>Billing address different from current address?</label>
 			<label class="switch">
 				<input class="switch-input" type="checkbox" id="myonoffswitch"/>
-				<span class="switch-label" data-on="Yes" data-off="No"></span> 
-				<span class="switch-handle"></span> 
+				<span class="switch-label" data-on="Yes" data-off="No"></span>
+				<span class="switch-handle"></span>
 			</label>
 
 		    <div id="billing-form">
 			    <h4 class="ui dividing header">Billing Address</h4>
-			
+
 				<div class="column equal width fields">
 					<div class="required field">
 						<label>Street</label>
@@ -108,8 +108,8 @@
 		    <label>As soon as possible?</label>
 			<label class="switchTime">
 				<input class="switch-input-time" type="checkbox" id="myonoffswitch-time" name="laterTime"/>
-				<span class="switch-label-time" data-on="Later" data-off="ASAP"></span> 
-				<span class="switch-handle-time"></span> 
+				<span class="switch-label-time" data-on="Later" data-off="ASAP"></span>
+				<span class="switch-handle-time"></span>
 			</label>
 
 			<div id="time-form">
@@ -133,8 +133,8 @@
 			<label>Do you agree to <a id="consent">Consent to Provide Care</a> and the <a id="hipaa">HIPAA Privacy Notice</a>?</label>
 			<label class="switchAgree">
 				<input class="switch-input-agree" type="checkbox" id="myonoffswitch" onchange="document.getElementById('reserve').disabled = !this.checked;"/>
-				<span class="switch-label-agree" data-on="I Agree" data-off=""></span> 
-				<span class="switch-handle-agree"></span> 
+				<span class="switch-label-agree" data-on="I Agree" data-off=""></span>
+				<span class="switch-handle-agree"></span>
 			</label>
 
 			<br>
@@ -238,20 +238,70 @@
 			$("#consent").click(function(){
 				$('#provide-care').modal({
 					autofocus: false,	// Prevents the dropdown menu from dropping automatically
-				}).modal('show');	
+				}).modal('show');
 			});
 
 			// Click HIPAA modal
 			$("#hipaa").click(function(){
 				$('#hipaa-modal').modal({
 					autofocus: false,	// Prevents the dropdown menu from dropping automatically
-				}).modal('show');	
+				}).modal('show');
 			});
 
 			// Click to reserve button
 			$("#reserve").click(function(){
+				var emailAddress = Meteor.users.findOne({_id:Meteor.userId()}).emails[0].address;
+				var willSendSMS = Profiles.findOne({email: emailAddress}).preferences;
+				Meteor.subscribe("currProfile", emailAddress);
+				Meteor.subscribe("currRequest", Meteor.userId());
+
+				var providerId = Requests.findOne().providerId;
+				Meteor.subscribe("currProvider", providerId);
+
+				var providerEmail = Meteor.users.findOne({_id:providerId}).emails[0].address;
+				var providerName = Profiles.findOne({email:providerEmail}).lastName;
+				var ETA = Requests.findOne().treatment.ETA;
+
+				if (willSendSMS) {
+					Meteor.call('sendSMS',{
+						to: '+1' + Profiles.findOne({email: emailAddress}).phone,
+						text: 'Doctors To You Update: Reservation Made with ' + providerName + ' ETA: ' + ETA;
+					});
+				}
 				$('#success').show(500);	// Reveals in 500 milliseconds
 				event.preventDefault();		// Prevents from page refreshing on submit
+
+				var emailAddress = Meteor.users.findOne({_id:Meteor.userId()}).emails[0].address;
+				Meteor.subscribe("currProfile", emailAddress);
+				Meteor.subscribe("currRequest", Meteor.userId());
+				var name = Profiles.findOne({email: emailAddress}).firstname;
+	
+				var providerId = Requests.findOne().providerId;
+				Meteor.subscribe("currProvider", providerId);
+
+				var providerEmail = Meteor.users.findOne({_id:providerId}).emails[0].address;
+
+				var provider = Profiles.findOne({email:providerEmail}).lastName;
+
+				var type = "";
+				var housecall = Requests.findOne().treatment.isHouseCall;
+				if (housecall) {
+					type += "house call";
+				} else {
+					type += "phone consultation";
+				}
+
+				var ETA = Requests.findOne().treatment.ETA;
+
+				Meteor.call('sendEmail',{
+					to: emailAddress,
+					from: 'no-reply@doctorstoyouapp.com',
+					subject: 'Doctors To You: Reservation made',
+					text:,
+					html:"Dear " + name +", \n\nYou have successfully reserved Dr. "+provider+" for a "+
+					type+". Your provider will arrive at approximately "+ETA+". Check <a href='care.doctorstoyou.com'>care.doctorstoyou.com</a> for the most recent update."
+				});
+
 			});
 
 			// Makes submit button disabled, needs to check the I Agree toggle first

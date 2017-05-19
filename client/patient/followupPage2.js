@@ -50,7 +50,18 @@ Template.followupPage2.onRendered(function(){
         } else {
             $("#followupContent").delay(3000).fadeOut(500);
             $("#happyDiv").delay(3500).show(500);
-        }	
+
+            var name = Profiles.findOne({email: emailAddress}).firstname;
+
+            Meteor.call('sendEmail',{
+                    to: emailAddress,
+                    from: 'no-reply@doctorstoyouapp.com',
+                    subject: 'Doctors To You: Request sent',
+                    text: '',
+                    html:"Dear " + name +", \n\nWe are glad you are feeling better. Thank you so much for choosing Doctors To You. We have enjoyed treating you.\n\nSincerely,\n the Doctors To You care team"
+                    });
+
+        }
     });
 
     // Click on submit button
@@ -70,13 +81,13 @@ Template.followupPage2.onRendered(function(){
 
     // Rating functionality
     $('.rating').rating();
-    
-    
-    
+
+
+
     var emailAddress = Meteor.users.findOne({_id:Meteor.userId()}).emails[0].address;
 	Meteor.subscribe("currProfile", emailAddress);
 	Meteor.subscribe("currRequest", Meteor.userId());
-	
+
 	var providerId = Requests.findOne().providerId;
 	Meteor.subscribe("currProvider", providerId);
 });
@@ -88,16 +99,16 @@ Template.followupPage2.helpers({
    providerName: function(){
         var providerFullName = "";
 		var isDoctor = Providers.findOne().isDoctor;
-		
+
 		if (isDoctor) {
             providerFullName += "Dr. ";
         }
 		var providerId = Requests.findOne().providerId;
 		var firstName = Profiles.findOne({_id:providerId}).firstname;
 		var lastName = Profiles.findOne({_id:providerId}).lastname;
-		
+
 		providerFullName += firstName + " " + lastName;
-		
+
 		return providerFullName;
    }
 });

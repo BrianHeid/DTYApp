@@ -9,7 +9,7 @@
 		}
 
 		.ui.card {
-			height: 380px;
+			height: 420px;
 			padding-right: 20px;	
 
 		}
@@ -72,7 +72,7 @@
 		  }
 
 		  #extraNotes {
-		  	font-size: 15px;
+		  	font-size: 12px;
 		  	color: white;
 		  }
 
@@ -97,14 +97,18 @@
 
 			width: 100%;
 		}
+		
+		#welcomeDiv {
+			margin-top: 100px;
+		}
 	</style>
 
 	{{> requestModal}}
 	{{> scheduleModal}}
-	<br><br><br>
+	{{> transferModal}}
 
 	<center>
-		<div class="ui center aligned container">
+		<div class="ui center aligned container" id="welcomeDiv">
 		  	<img class="ui centered circular small image" src="/images/drbrown.jpg">
 		  	<h1 class="ui header" id="greeting">
 		  		<!-- Hello, PROVIDER NAME -->
@@ -177,17 +181,13 @@
 				<div class="ui card" id="visibleCard">
 					<div class="one column grid">	
 						<div class="column">
-							<div class="content">
-								<a class="ui red ribbon label"> Client info</a>					
+							<div class="content">			
 								<div class='header' id="nameText">{{firstname}} {{lastname}}</div>
-								 
-								<div class='description' id="extraText">Relationship:{{#if info.for_someone_else}} {{info.for_someone_else}} {{else}} Self {{/if}}</div>
+								<div class="description" id="extraText">Requester Name: {{requesterName}}</div>
+								{{#if requestForSomeoneElse}}<div class='description' id="extraText">Relationship: {{relationship}}</div>{{/if}}
 								<div class='description' id="extraText">Status: {{profile.status}}</div><br><br>
 								<div class='description' id="extraText" >Requested time: {{info.requestTime}}</div>
 
-
-
-								
 							</div>
 						</div>
 					</div>
@@ -215,17 +215,11 @@
 
 				      	<div class="ui tab" data-tab="overview">
 			      			<div class="content" id="overviewText">
-					      		<!-- Name: PATIENT NAME -->
-					      		<!-- Birthday: PATIENT BIRTHDAY -->
-					      		<!-- Region: PATIENT REGION -->
-					      		<!-- Address: PATIENT ADDRESS -->
-					      		<div class='description' id="overText">Email: {{info.email}}</div>
-								<div class='description' id="overText" >DOB: {{profile.birthday}}</div>
-								<div class='description' id="overText" ><i class="call icon"></i>{{profile.phonenumber}}</div>
+					      		<div class='description' id="overText">Email: {{getEmail}}</div>
+								<div class='description' id="overText" >DOB: {{getBirthday}}</div>
+								<div class='description' id="overText" ><i class="call icon"></i>{{getPhonenumber}}</div>
 								<br><br>
-								<div class='description' id="overText" >Address: {{profile.address}}</div>
-
-								
+								<div class='description' id="overText" >Address: {{address}}</div>
 					      	</div>
 					      	<div id="addressButton">
 					      		<!-- Map (Goes to Google Maps) -->
@@ -250,23 +244,13 @@
 					<div class="one column grid">	
 						<div class="column">
 							<div class="content">
-								<a class="ui red ribbon label">   Client info</a>
 								<br>
-
-
-								<div class='header' id="nameText">{{info.firstName}} {{info.lastName}}</div>
-								<div class='description' id="extraText">Relationship:{{#if info.for_someone_else}} {{info.for_someone_else}} {{else}} Self {{/if}}</div>
-								<div class='description' id="extraText" >Email: {{info.email}}</div>
-								<div class='description' id="extraText" >DOB: {{profile.birthday}}</div>
-								<div class='description' id="extraText" ><i class="call icon"></i>{{profile.phonenumber}}</div>
-								<div class='description' id="extraText" >Address: {{profile.address}}</div>
-								<div class='description' id="extraText" >Requested on: {{datetime}}</div>
-								<div class='description' id="extraText" >Symptoms: {{info.symptoms}}</div>
-								<!--placholder for requested time.-->
-								<div class='description' id="extraText" >Requested time: {{info.requestTime}}</div>
-
-									
 								
+								<div class='description' id="extraText" >Address: {{address}}</div>
+								<br>
+								<div class='description' id="extraText" >Requested on: {{times.requestTime}}</div>
+								<br>
+								<div class='description' id="extraText" >Symptoms: {{symptoms}}</div>
 							</div>
 						</div>
 					</div>
@@ -477,6 +461,7 @@
 						<input type="date" name='date' id="date">
 					</div>
 				</div>
+				<br>
 				<div class="actions">
 					<div class="ui two buttons">
 					    <button class="ui primary approve button" type='submit'>Schedule</button>
@@ -484,6 +469,71 @@
 					</div>
 				</div>
 			</form>
+		</div>
+	</div>
+</template>
+
+<!-- ///////////////////////////////////////// TRANSFER MODAL //////////////////////////////////////////////////// -->
+<template name="transferModal">
+	<div class="ui small modal" id="transferModal">
+	  <i class="close icon"></i>
+	  <h2 class="ui header container">
+		<div class="content">
+    		Transfer Patient
+	    	<div class="sub header">To transfer this request, search for and select another provider</div>
+	    </div>
+	  </h2>
+	  
+	  <div class="content">
+	  	{{>validStatesListFluid}}
+		<br>
+
+		<!-- Dynamic provider list from database -->
+
+		<div id="providerDropdown" class="ui fluid search selection dropdown">
+			<input name="provider" type="hidden">
+			<i class="dropdown icon"></i>
+			<div class="default text">Select Provider...</div>
+				<div class="menu">
+					<div class="item" data-value="mEdwards"><img class="ui avatar image" src="/images/matt.png"><span>Matt Edwards</span></div>
+					<div class="item" data-value="hTroy"><img class="ui avatar image" src="/images/helen.jpg"><span>Helen Troy</span></div>
+				</div>
+		</div>
+
+		<br>
+
+	  	<div class="inline"><label>Reason for transfer: </label><textarea rows="3"></textarea></div>
+	  </div>
+
+	  <div class="actions" id="transferActionButtons">
+	  	<div class="ui two buttons">
+			<button class="ui primary ok button" id="submitButton">
+		    	Submit
+		    </button>
+
+		    &nbsp;&nbsp;&nbsp;
+			
+			<button class="ui negative deny button" id="negButton">
+		    	Cancel
+		    </button>
+		</div>
+	  </div>
+	</div>
+
+	<!-- /////////////////////////////////////////// TRANSFER COMPLETE MODAL //////////////////////////////////////////////////////// -->
+
+	<div class="ui small modal" id="transferCompleteModal">
+		<i class="close icon"></i>
+		<div class="header">
+			<center>Transfer Complete!</center>
+	  	</div>
+	  	<div class="content">
+	    	<center><h3>You have successfully transferred <span id="transferPatientName" style="color:#00bde8;">John Doe<!-- PATIENT NAME --></span> to <span id="transferProviderName" style="color:#00bde8;">Matt Edwards<!-- PROVIDER NAME --></span></h3></center>
+		</div>
+		<div class="actions">
+			<button class="ui fluid ok primary button">
+	  			Okay
+			</button>
 		</div>
 	</div>
 </template>

@@ -61,16 +61,22 @@
 		        <div class="field">
 		          <div class="ui left icon input">
 		            <i class="user icon"></i>
-		            <input type="text" name="email" placeholder="E-mail address">
+		            <input type="text" name="email" id="email" placeholder="E-mail address">
 		          </div>
 		        </div>
-		        <div class="field">
+		        <div class="field" style="margin-bottom:0px;">
 		          <div class="ui left icon input">
 		            <i class="lock icon"></i>
 		            <input type="password" name="password" placeholder="Password">
 		          </div>
 		        </div>
-		        <div class="ui fluid large submit button" type="submit" style="color: white; background-color: #00bde8;">Login</div>
+
+		        <div align="left" style="margin-bottom:0px; margin-left:4px;"><a id="reset"><small>Forgot password?</small></a></div>
+		        <div id="sentMsg" class="ui error hidden message">
+				  	<h4 class="ui header" id="innerSentMsg"><!-- Error message --></h4>
+				</div>
+		        <br>
+		        <div class="ui fluid large submit button" style="color: white; background-color: #00bde8;">Login</div>
 		      </div>
 
 		      	<div id="loginErrorMsg" class="ui error hidden message">
@@ -86,6 +92,43 @@
 		</div>
 	</center>
 
+	<div class="ui small modal" id="resetModal">
+	
+	  <i class="close icon" id="resetClose"></i>
+	  <div class="header">
+	  	<center>Reset password</center>
+	  </div>
+
+	  <br>
+
+	  <form class="ui form" id="resetForm" style="margin: 20px;">
+		  
+	  		<div class="required field">
+	  			<label>Email address</label>
+					<input type="email" name="resetemail" placeholder="example@email.com">
+		  	</div>
+		
+		  <br>
+
+		  <div class="actions" id="resetButtons">
+		  	<div class="two ui buttons">
+			    <button class="ui button" type="submit" style="background-color:#00bde8; color:#fff;">
+			      Send reset email
+			    </button>
+			    <button class="ui cancel button" id="resetCancel">
+			      Cancel
+			    </button>
+			</div>
+		  </div>
+
+		  <br>
+
+		  <div id="resetMsg" class="ui error hidden message">
+				  	<h4 class="ui header" id="innerResetMsg"><!-- Error message --></h4>
+			</div>
+
+	  </form>
+	</div>
 
 	<!-- REGISTER MODAL -->
 	<div class="ui modal" id="createAccountModal">
@@ -208,5 +251,20 @@
 				</div>
 		    </form>
 	  	</div>
-	</div>
+	</div>	
+
+	<!-- JavaScript -->
+	<script type="text/javascript">
+		$(document).ready(function(){
+
+			$("#register").click(function(){
+				$("#createAccountModal").modal('setting', 'closable', false).modal('show');
+			});
+		});
+
+		// Allows dropdown function to work
+		$('.ui.dropdown')
+		  .dropdown()
+		;
+	</script>
 </template>

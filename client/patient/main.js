@@ -6,10 +6,78 @@ Template.main_page.onRendered(function(){
 
 	if (Meteor.user()){
 		console.log('user is logged in')
-		// Meteor.users.update( {_id: Meteor.userId()}, {$set: {'profile.status':1,'profile.viewing': 'request'}})
+		
+		if (Meteor.call('isProvider', Meteor.userId())) {
+			console.log('user is a provider');
+            FlowRouter.go('/provider/clients');
+        }
+		console.log('user is a patient');
 		FlowRouter.go('/dashboard')
 		
 	}
+
+	$("#reset").click(function(){
+		$('#sentMsg').hide();
+		$('#resetModal').modal('show');
+		$("#resetForm").form('clear');
+	});
+
+	$("#resetClose").click(function(){
+		$("#resetForm").form('clear');
+		$("#resetModal").modal('hide');
+		$("#resetMsg").hide();
+	});
+
+	$("#resetCancel").click(function(){
+		$("#resetForm").form('clear');
+		$("#resetModal").modal('hide');
+		$("#resetMsg").hide();
+	});
+
+	this.$('#resetForm').form({
+		inline: true,
+		on: 'change',
+		transition: 'slide down',
+
+		onSuccess: function(event, fields){
+			event.preventDefault()
+			Accounts.forgotPassword({email: fields['resetemail']},(error, result)=>{
+				if(error){
+					$('#resetMsg').show().transition('bounce');
+					document.getElementById("innerResetMsg").innerHTML = "<i class=\"warning circle icon\"></i>Oh no! Email not found.";
+					console.log(error.message);
+				}
+				else {
+					$("#resetMsg").hide();
+					console.log('Reset email sent');
+					$("#resetModal").modal('hide');
+					$('#sentMsg').show();
+					document.getElementById("innerSentMsg").innerHTML = "<p>Password reset instructions have been sent to your email.</p>";
+				}
+			});
+		},
+
+		// validate email address
+		fields: {
+			resetemail: {
+				identifier : 'resetemail',
+				rules: 
+				[
+					{
+						type: 'empty',
+						prompt: 'Please enter your e-mail'
+					},
+					{
+						type: 'email',
+						prompt: 'Please enter a valid e-mail'
+					}
+				]
+			}
+		}
+	});
+
+	
+			
 
 	this.$('#loginForm').form({
 		inline: true,
@@ -28,9 +96,24 @@ Template.main_page.onRendered(function(){
 				else{
 					$("#loginErrorMsg").hide();
 					console.log('Login was successful');
+				}
+				
+				var isProvider = Providers.findOne({'email':fields.email});
+				
+				if (isProvider != undefined) {
+					var isAdmin = Admins.findOne({_id:isProvider._id});
+					if (isAdmin != undefined) {
+						console.log('Logged in as admin');
+                        FlowRouter.go('/admin');
+                    } else {
+						console.log('Logged in as provider');
+						FlowRouter.go('/provider/clients');
+					}
+                } else {
+					console.log('Logged in as patient');
 					FlowRouter.go('/dashboard');
 				}
-			})
+			});
 		},
 
 		////////////////////////////// FORM VALIDATION /////////////////////////////////
@@ -110,8 +193,6 @@ Template.main_page.onRendered(function(){
 					var emailTrim = fields.new_email.trim();
 
 					var ret = PatientEmails.findOne({'email':emailTrim});
-
-					console.log(ret);
 
 					if (ret == undefined) {
 						Accounts.createUser({

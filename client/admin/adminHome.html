@@ -1,0 +1,39 @@
+<template name="adminHome">
+    <center>
+		<div class="ui center aligned container" id="welcomeDiv" style="margin-top: 100px;">
+		  	<img class="ui centered circular small image" src="/images/default-physician-avatar.png">
+		  	<h1 class="ui header" id="greeting">
+		  		Hello, {{adminName}} <!-- using spacebar and meteor helper to display name -->
+		  	</h1>
+		</div>
+	</center>
+	
+	<div class="ui container">
+		<div class="ui top attached tabular menu">
+			<a class="item active" data-tab="patients">Patients</a>
+			<a class="item" data-tab="providers">Providers</a>
+			<a class="item" data-tab="shifts">Shifts</a>
+			<a class="item" data-tab="editData">Edit Data</a>
+		</div>
+		<div class="ui bottom attached tab segment active" data-tab="patients">
+			<h1 class="ui header" id="patientsTabHeader">
+				Patients
+			</h1>
+		</div>
+		<div class="ui bottom attached tab segment" data-tab="providers">
+			<h1 class="ui header" id="providersTabHeader">
+				Providers
+			</h1>
+		</div>
+		<div class="ui bottom attached tab segment" data-tab="shifts">
+			<h1 class="ui header" id="shiftsTabHeader">
+				Shifts
+			</h1>
+		</div>
+		<div class="ui bottom attached tab segment" data-tab="editData">
+			<h1 class="ui header" id="editDataTabHeader">
+				Edit Data
+			</h1>
+		</div>
+	</div>
+</template>

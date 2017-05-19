@@ -1,0 +1,164 @@
+<!-- Page to edit provider profile -->
+
+<template name="providerProfile">
+
+	<div id="main-content" class="ui stackable two column centered container">
+
+        <br><br><br>
+        
+		<h2 class="ui header">
+		  <i class="edit icon"></i>
+		  <div class="content">
+            Create a Provider
+		    <div class="sub header">Fill out the information below to create a provider.</div>
+		  </div>
+		</h2>
+
+		<br>
+		
+		<form class="ui column stackable form" id="providerProfileForm">
+			<h4 class="ui dividing header">Account Information</h4>
+            <center>
+                <div class="field card">
+                    <div class="ui small blurring dimmable image" id="propic">
+                      <div class="ui dimmer">
+                        <div class="content">
+                          <div class="center">
+                            <div class="ui small inverted button"><i class="write icon"></i>Edit</div>
+                          </div>
+                        </div>
+                      </div>
+                      <img class="ui small image" src="/images/default-physician-avatar.png">
+                    </div>
+                </div>
+            </center>
+
+            <br>
+            
+			<div class="column equal width fields">
+				<div class="required field">
+					<label>Email</label>
+					<input type="text" placeholder="Email" name="email">
+				</div>
+				<div class="required field">
+					<label>Password</label>
+					<input type="password" placeholder="Password" name="password">
+				</div>
+			</div>
+
+
+			<h4 class="ui dividing header">Personal Information</h4>
+
+			<div class="fields">
+                <div class="three wide field">
+                    <label>Is this provider a doctor?</label>
+                    <label class="ui checkbox switch">
+                        <input class="switch-input" type="checkbox" id="myonoffswitch" name="isDoctor"/>
+                        <span class="switch-label" data-on="Yes" data-off="No"></span> 
+                        <span class="switch-handle"></span> 
+                    </label>
+                </div>
+				<div class="required six wide field">
+					<label>First Name</label>
+					<input type="text" name="firstname" placeholder="First Name">
+				</div>
+				<div class="required seven wide field">
+					<label>Last Name</label>
+					<input type="text" name="lastname" placeholder="Last Name">
+				</div>
+			</div>
+
+			<div class="column equal width fields">
+				<div class="required field">
+					<label>Phone number</label>
+					<input type="text" id="phonenumber" name="phonenumber" placeholder="Phone Number">
+				</div>
+                <div class="required field">
+                    <label>Birthday</label>
+                    <input type="date" name="birthday" min="1887-01-01" max="1999-04-01">
+                </div>
+                <div class="required field">
+					<label>Gender</label>
+					{{>gendersList}}
+				</div>
+			</div>
+
+            <h4 class="ui dividing header">Address</h4>
+			<div class="column equal width fields">
+				<div class="required field">
+                    <label>Street</label>
+					<input type="text" name="street" placeholder="Street address">
+				</div>
+				<div class="field">
+                    <label>Apt # / Suite</label>
+					<input type="text" placeholder="(Apt/Suite#, e.g.)" name="aptNumSuite">
+				</div>
+			</div>
+
+			<div class="column equal width fields">
+				<div class="required field">
+					<label>City</label>
+					<input type="text" name="city" placeholder="City">
+				</div>
+				<div class="required field">
+					<label>State</label>
+					{{>statesList}}
+				</div>
+			</div>
+            
+            <div class="column equal width fields">
+				<div class="required field">
+					<label>Country</label>
+					{{>countriesList}}
+				</div>
+				<div class="required field">
+					<label>Zipcode</label>
+					<input type="text" name="zipcode" placeholder="Zip code" minlength="5">
+				</div>
+			</div>
+		
+		
+            <h4 class="ui dividing header">Medical Information</h4>
+    
+            <div class="column equal width fields required">
+                <div class="required field">
+                    <label>Medical License #</label>
+                    <input type="text" id="licenseNum" name="licenseNum" placeholder="X99999">
+                </div>
+                <div class="required field">
+                    <label>NPI Number</label>
+                    <input type="text" name="npiNum" id="npiNum" placeholder="9999999999">
+                </div>
+            </div>
+    
+            <div class="column equal width fields">
+                <div class="required field">
+                    <label>Regions</label>
+                    {{>validStatesListMulti}}
+                </div>
+                <div class="required field">
+                    <label>Specialties</label>
+                    {{>specialtiesList}}
+                </div>
+            </div>
+            
+            <br>
+            <input class="fluid ui primary button" id="save" type="submit" name="submitBtn" value="Save">
+
+            <div id="errorMsg" class="ui error hidden message">
+                <div class="header">
+                    There were some errors with your account creation.
+                </div>
+                <ul class="list" id="errorList">
+                    <!-- Listed errors -->
+                </ul>
+            </div>
+                
+            <!-- SUCCESS MESSAGE -->
+            <div class="ui success message hidden" id="success">
+                <div class="header">Saved!</div>
+                <p>Provider account created.</p>
+            </div>
+        </form>
+    </div>
+</template>
