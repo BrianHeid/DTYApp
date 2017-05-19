@@ -112,49 +112,11 @@
 			<div class="column equal width fields">
 				<div class="required field">
 					<label>Region</label>
-					<select id="multi-select" name="regionDropdown" multiple="" class="ui search selection dropdown required">
-						<option value="">Select Region...</option>
-						<option value="1">Maryland</option>
-						<option value="2">Washington, DC</option>
-						<option value="3">Virginia</option>
-					</select>
+					{{>validStatesListMulti}}
 				</div>
 				<div class="required field">
 					<label>Specialties</label>
-					<select id="multi-select" name="specialtyDropdown" multiple="" class="ui search selection dropdown required">
-						<option value="">Select Specialty...</option>
-						<option value="1">Addiction psychiatrist</option>
-						<option value="2">Adolescent medicine specialist</option>
-						<option value="3">Allergist (immunologist)</option>
-						<option value="4">Cardiologist</option>
-						<option value="5">Dermatologist</option>
-						<option value="6">Emergency medicine specialist</option>
-						<option value="7">Endocrinologist</option>
-						<option value="8">Family medicine physician</option>
-						<option value="9">Gastroenterologist</option>
-						<option value="10">Gynecologist</option>
-						<option value="11">Hospice and palliative medicine specialist</option>
-						<option value="12">Internist</option>
-						<option value="13">Neurologist</option>
-						<option value="14">Obstetrician</option>
-						<option value="15">Occupational medicine specialist</option>
-						<option value="16">Oncologist</option>
-						<option value="17">Ophthalmologist</option>
-						<option value="18">Orthopedic surgeon</option>
-						<option value="19">Otolaryngologist (ear, nose, and throat specialist)</option>
-						<option value="20">Pain management specialist</option>
-						<option value="21">Pediatrician</option>
-						<option value="22">Podiatrist</option>
-						<option value="23">Physician Assistant</option>
-						<option value="24">Plastic surgeon</option>
-						<option value="25">Psychiatrist</option>
-						<option value="26">Pulmonologist</option>
-						<option value="27">Rheumatologist</option>
-						<option value="28">Sleep disorders specialist</option>
-						<option value="29">Sports medicine specialist</option>
-						<option value="30">Surgeon</option>
-						<option value="31">Urologist</option>
-					</select>
+					{{>specialtiesList}}
 				</div>
 			</div>
 

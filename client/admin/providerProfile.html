@@ -1,0 +1,172 @@
+<!-- Page to edit provider profile -->
+
+<template name="providerProfile">
+
+	<div id="main-content" class="ui stackable two column centered container">
+
+        <br><br><br>
+        
+		<h2 class="ui header">
+		  <i class="edit icon"></i>
+		  <div class="content">
+            Create a Provider
+		    <div class="sub header">Fill out the information below to create a provider.</div>
+		  </div>
+		</h2>
+
+		<br>
+		
+		<div class="ui column stackable form success">
+			<h4 class="ui dividing header">Account Information</h4>
+
+			<div class="field card">
+			    <div class="ui small blurring dimmable image" id="propic">
+			      <div class="ui dimmer">
+			        <div class="content">
+			          <div class="center">
+			            <div class="ui small inverted button"><i class="write icon"></i>Edit</div>
+			          </div>
+			        </div>
+			      </div>
+			      <img class="ui small image" src="/images/drbrown.jpg">
+			    </div>
+			</div>
+
+			<div class="column equal width fields">
+				<div class="required field">
+					<label>Email</label>
+					<input type="text" placeholder="Email">
+				</div>
+				<div class="required field">
+					<label>Password</label>
+					<input type="text" placeholder="Password">
+				</div>
+			</div>
+		</div>	
+
+		<div class ="ui column stackable form success">
+
+			<h4 class="ui dividing header">Personal Information</h4>
+
+			<div class="column equal width fields">
+				<div class="required field">
+					<label>First Name</label>
+					<input type="text" name="firstName" placeholder="First Name" autofocus>
+				</div>
+				<div class="required field">
+					<label>Last Name</label>
+					<input type="text" name="lastName" placeholder="Last Name">
+				</div>
+			</div>
+
+			<div class="column equal width fields">
+				<div class="required field">
+					<label>Email</label>
+					<input type="text" name="email" placeholder="example@gmail.com">
+				</div>
+				<div class="required field">
+					<label>Phone number</label>
+					<input type="text" name="number" placeholder="Phone Number">
+				</div>
+			</div>
+
+            <h4 class="ui dividing header">Address</h4>
+			<div class="column equal width fields">
+				<div class="required field">
+					<input type="text" name="address" placeholder="Street address">
+				</div>
+				<div class="field">
+					<input type="text" placeholder="(Apt/Suite#, e.g.)">
+				</div>
+			</div>
+
+			<div class="column equal width fields">
+				<div class="required field">
+					<label>City</label>
+					<input type="text" name="city" placeholder="City">
+				</div>
+				<div class="required field">
+					<label>State</label>
+					{{>statesList}}
+				</div>
+				<div class="required field">
+					<label>Zipcode</label>
+					<input type="text" name="zipcode" placeholder="Zip code" minlength="5">
+				</div>
+			</div>
+		</div>
+		
+		<h4 class="ui dividing header">Medical Information</h4>
+
+		<div class ="ui column stackable form success">
+			<div class="column equal width fields required">
+				<div class="required field">
+					<label>Medical License #</label>
+					<input type="text" name="licenseNum" placeholder="Medical License number">
+				</div>
+				<div class="required field">
+					<label>NPI Number</label>
+					<input type="text" name="npiNum" placeholder="NPI Number">
+				</div>
+			</div>
+
+			<div class="column equal width fields">
+				<div class="required field">
+					<label>Regions</label>
+					{{>validStatesListMulti}}
+				</div>
+				<div class="required field">
+					<label>Specialties</label>
+					{{>specialtiesList}}
+				</div>
+			</div>
+
+			<h3 id="emailPref" class="ui header">
+			  <i class="alarm outline icon"></i>
+			  <div class="content">
+			    Notification Preferences
+			  </div>
+			</h3>
+			
+			<div class="ui selection dropdown">
+				<input type="hidden" name="notifications">
+				  <i class="dropdown icon"></i>
+				  <div class="default text">Choose your notification preferences...</div>
+				  <div class="menu">
+				    <div class="item" data-value="both">Receive email and text notifications</div>
+				    <div class="item" data-value="emailOnly">Receive email only</div>
+				  </div>
+			</div>
+
+			<br><br>
+			<input class="fluid ui primary button" id="save" type="submit" name="submitBtn" value="Save">
+		</div>
+
+		<!-- SUCCESS MESSAGE -->
+		<div class="ui success message hidden" id="success">
+		    <div class="header">Saved!</div>
+		    <p>Your settings have saved.</p>
+		</div>
+	</div>
+
+	<!-- JavaScript -->
+	<script type="text/javascript">
+		$(document).ready(function(){
+
+			// Click to save button
+			$("#save").click(function(){
+				$('#success').show(500);	// Reveals success message in 500 milliseconds
+				event.preventDefault();		// Prevents page from refreshing
+			});
+		});
+
+		// Dropdown functionality
+		$('.ui.dropdown').dropdown();
+
+		// Dims the profile picture when hovered
+		$('#propic').dimmer({
+  			on: 'hover'
+		});
+	</script>
+	
+</template>
