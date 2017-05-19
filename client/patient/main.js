@@ -6,7 +6,12 @@ Template.main_page.onRendered(function(){
 
 	if (Meteor.user()){
 		console.log('user is logged in')
-		// Meteor.users.update( {_id: Meteor.userId()}, {$set: {'profile.status':1,'profile.viewing': 'request'}})
+		
+		if (Meteor.call('isProvider', Meteor.userId())) {
+			console.log('user is a provider');
+            FlowRouter.go('/provider/clients');
+        }
+		console.log('user is a patient');
 		FlowRouter.go('/dashboard')
 		
 	}
@@ -28,9 +33,16 @@ Template.main_page.onRendered(function(){
 				else{
 					$("#loginErrorMsg").hide();
 					console.log('Login was successful');
+				}
+				
+				if (Meteor.call('isProvider', Meteor.userId())) {
+					console.log('Logged in as provider');
+                    FlowRouter.go('/provider/clients');
+                } else {
+					console.log('Logged in as patient');
 					FlowRouter.go('/dashboard');
 				}
-			})
+			});
 		},
 
 		////////////////////////////// FORM VALIDATION /////////////////////////////////
