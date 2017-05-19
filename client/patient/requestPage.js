@@ -122,7 +122,7 @@ Template.requestPage.onRendered(function(){
 					from: 'no-reply@doctorstoyouapp.com',
 					subject: 'Doctors To You: Request sent',
 					text: '',
-					html:"Dear " + firstName +", \n\nThank you for sending a request to Doctors To You. Please standby for a provider to accept your request. You will receive a call shortly."
+					html:"Dear " + firstName +", <br><br>Thank you for sending a request to Doctors To You. Please standby for a provider to accept your request. You will receive a call shortly."
 					});
 
 					FlowRouter.go('/dashboard');

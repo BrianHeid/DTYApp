@@ -58,7 +58,7 @@ Template.followupPage2.onRendered(function(){
                     from: 'no-reply@doctorstoyouapp.com',
                     subject: 'Doctors To You: Request sent',
                     text: '',
-                    html:"Dear " + name +", \n\nWe are glad you are feeling better. Thank you so much for choosing Doctors To You. We have enjoyed treating you.\n\nSincerely,\n the Doctors To You care team"
+                    html:"Dear " + name +", <br><br>We are glad you are feeling better. Thank you so much for choosing Doctors To You. We have enjoyed treating you.<br><br>Sincerely,<br> the Doctors To You care team"
                     });
 
         }

@@ -38,7 +38,7 @@ Template.callPage.onRendered(function(){
 					from: 'no-reply@doctorstoyouapp.com',
 					subject: 'Doctors To You: Request canceled',
 					text: '',
-					html:"Your request has been canceled. Please visit <a href='care.doctorstoyou.com'>care.doctorstoyou.com</a> to make a new request.\n\nSincerely,\n the Doctors To You care team"
+					html:"Your request has been canceled. Please visit <a href='care.doctorstoyou.com'>care.doctorstoyou.com</a> to make a new request.<br><br>Sincerely,<br>the Doctors To You care team"
 				});
 
 				Meteor.call('resetStatus', Meteor.userId());
