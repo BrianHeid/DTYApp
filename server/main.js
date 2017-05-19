@@ -142,20 +142,20 @@ Patients.attachSchema( PatientsSchema );
 
 
 let ProvidersSchema = new SimpleSchema ({
-	'_id': {
+	'email': {
 		type: String,
-		label: 'Need valid user ID.'
+		label: 'Need valid email.'
 	},
 	'isDoctor': {
 		type: Boolean,
 		label: 'Is the provider a doctor?'
-	},
-	'propic': {
-		type: Object,
-		label: 'Need valid propic',
-		blackbox: true
-	},
-	'licenseNum': {
+	}
+	//,'propic': {
+	//	type: Object,
+	//	label: 'Need valid propic',
+	//	blackbox: true
+	//},
+	,'licenseNum': {
 		type: String,
 		label: 'Need valid license number.',
 		blackbox: true
@@ -168,7 +168,7 @@ let ProvidersSchema = new SimpleSchema ({
 		type: [String],
 		label: 'Need valid region.'
 	},
-	'specialities': {
+	'specialties': {
 		type: [String],
 		label: 'Need valid specialities.'
 	},

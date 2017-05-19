@@ -98,9 +98,17 @@ Template.main_page.onRendered(function(){
 					console.log('Login was successful');
 				}
 				
-				if (Meteor.call('isProvider', Meteor.userId())) {
-					console.log('Logged in as provider');
-                    FlowRouter.go('/provider/clients');
+				var isProvider = Providers.findOne({'email':fields.email});
+				
+				if (isProvider != undefined) {
+					var isAdmin = Admins.findOne({_id:isProvider._id});
+					if (isAdmin != undefined) {
+						console.log('Logged in as admin');
+                        FlowRouter.go('/admin');
+                    } else {
+						console.log('Logged in as provider');
+						FlowRouter.go('/provider/clients');
+					}
                 } else {
 					console.log('Logged in as patient');
 					FlowRouter.go('/dashboard');
@@ -185,8 +193,6 @@ Template.main_page.onRendered(function(){
 					var emailTrim = fields.new_email.trim();
 
 					var ret = PatientEmails.findOne({'email':emailTrim});
-
-					console.log(ret);
 
 					if (ret == undefined) {
 						Accounts.createUser({
