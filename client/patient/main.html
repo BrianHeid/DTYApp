@@ -89,6 +89,43 @@
 		</div>
 	</center>
 
+	<div class="ui small modal" id="resetModal">
+	
+	  <i class="close icon" id="resetClose"></i>
+	  <div class="header">
+	  	<center>Reset password</center>
+	  </div>
+
+	  <br>
+
+	  <form class="ui form" id="resetForm" style="margin: 20px;">
+		  
+	  		<div class="required field">
+	  			<label>Email address</label>
+					<input type="email" name="resetemail" id="sendToEmail" placeholder="example@email.com">
+		  	</div>
+		
+		  <br>
+
+		  <div class="actions" id="resetButtons">
+		  	<div class="two ui buttons">
+			    <button class="ui submit button" style="background-color:#00bde8; color:#fff;">
+			      Send reset email
+			    </button>
+			    <button class="ui cancel button" id="resetCancel">
+			      Cancel
+			    </button>
+			</div>
+		  </div>
+
+		  <br>
+
+		  <div id="resetMsg" class="ui error hidden message">
+				  	<h4 class="ui header" id="innerResetMsg"><!-- Error message --></h4>
+			</div>
+
+	  </form>
+	</div>
 
 	<!-- REGISTER MODAL -->
 	<div class="ui modal" id="createAccountModal">
@@ -220,10 +257,6 @@
 			$("#register").click(function(){
 				$("#createAccountModal").modal('setting', 'closable', false).modal('show');
 			});
-			$("#reset").click(function(){
-				Accounts.sendResetPasswordEmail;
-			});
-
 		});
 
 		// Allows dropdown function to work

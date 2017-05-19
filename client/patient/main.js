@@ -17,9 +17,67 @@ Template.main_page.onRendered(function(){
 	}
 
 	$("#reset").click(function(){
-			Accounts.forgotPassword({email: document.getElementById('email').value})
-			console.log('reset email')
-		});
+		$('#resetModal').modal('show');
+	});
+
+	$("#resetClose").click(function(){
+		$("#resetForm").form('clear');
+		$("#resetModal").modal('hide');
+		$("#resetMsg").hide();
+	});
+
+	$("#resetCancel").click(function(){
+		$("#resetForm").form('clear');
+		$("#resetModal").modal('hide');
+		$("#resetMsg").hide();
+	});
+
+	this.$('#resetForm').form({
+		inline: true,
+		on: 'change',
+		transition: 'slide down',
+
+		onSuccess: function(event, fields){
+			event.preventDefault()
+			Accounts.forgotPassword({email: fields['resetemail']},(error, result)=>{
+				if(error){
+					$('#resetMsg').show().transition('bounce');
+					document.getElementById("innerResetMsg").innerHTML = "<i class=\"warning circle icon\"></i>Oh no! Email not found.";
+					console.log(error.message);
+				}
+				else {
+					$('#resetMsg').hide();
+					$('#resetMsg').show().transition('bounce');
+					console.log('Reset email sent');
+					document.getElementById("innerResetMsg").innerHTML = "<p>Password reset instructions have been sent to your email.</p>";
+					$("#resetMsg").delay(500).fadeOut(4000);
+					$("#resetMsg").hide();
+						setTimeout(function(){$("#resetModal").modal('hide');}, 5500);
+				}
+			});
+		},
+
+		// validate email address
+		fields: {
+			resetemail: {
+				identifier : 'resetemail',
+				rules: 
+				[
+					{
+						type: 'empty',
+						prompt: 'Please enter your e-mail'
+					},
+					{
+						type: 'email',
+						prompt: 'Please enter a valid e-mail'
+					}
+				]
+			}
+		}
+	});
+
+	
+			
 
 	this.$('#loginForm').form({
 		inline: true,
