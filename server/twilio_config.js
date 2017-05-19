@@ -2,9 +2,9 @@ Meteor.methods({
   sendSMS: function(smsFields) {
     console.log("about to send SMS...");
 
-    var ACCOUNT_SID = 'AC36df726375aa8ed532b11a8ddd75bc4a';
-    var AUTH_TOKEN = 'e3e8776a0e3a27d1f1c0d0ee9acf5c0e';
-    var TWILIO_PHONE_NUMBER = '+16178588481'
+    var ACCOUNT_SID = 'ACe03974a912b1c7654c99d656c1e3902e';
+    var AUTH_TOKEN = 'f6270ad767b46d2c27ac508bb279e7a4';
+    var TWILIO_PHONE_NUMBER = '+12025686895'
 
     var twilio = Twilio(ACCOUNT_SID, AUTH_TOKEN);
     twilio.sendSms({
@@ -18,6 +18,7 @@ Meteor.methods({
       // "responseData" is a JavaScript object containing data received from Twilio.
       // A sample response from sending an SMS message is here (click "JSON" to see how the data appears in JavaScript):
       // http://www.twilio.com/docs/api/rest/sending-sms#example-1
+      console.log("SMS sent successfully");
     }
   });
 }

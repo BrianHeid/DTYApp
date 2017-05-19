@@ -1,128 +1,47 @@
-import { Accounts } from 'meteor/accounts-base'
+Template.providerProfile.onRendered(function(){
+        // Click to save button
+    $("#save").click(function(){
+        $('#success').show(500);	// Reveals success message in 500 milliseconds
+        event.preventDefault();		// Prevents page from refreshing
+    });
+    
+    // Dropdown functionality
+    $('.ui.dropdown').dropdown();
 
-// Template for handling user login with semantic ui
-Template.main_page.onRendered(function(){
-	var valid = false;
-
-	if (Meteor.user()){
-		console.log('user is logged in')
-		
-		if (Meteor.call('isProvider', Meteor.userId())) {
-			console.log('user is a provider');
-            FlowRouter.go('/provider/clients');
-        }
-		console.log('user is a patient');
-		FlowRouter.go('/dashboard')
-		
-	}
-
-	$("#reset").click(function(){
-			Accounts.forgotPassword({email: document.getElementById('email').value})
-			console.log('reset email')
-		});
-
-	this.$('#loginForm').form({
-		inline: true,
-		on: 'submit',
-		transition: 'slide down',
-		keyboardShortcuts: true,
-
-		onSuccess: function(event,fields){
-			event.preventDefault()
-	
-			Meteor.loginWithPassword(fields['email'],fields['password'],(error,result)=>{
-				if(error){
-					document.getElementById("innerLoginErrorMsg").innerHTML = "<i class=\"warning circle icon\"></i>Oh no! Email or password is incorrect.";
-					$('#loginErrorMsg').show().transition('bounce');
-				}
-				else{
-					$("#loginErrorMsg").hide();
-					console.log('Login was successful');
-				}
-				
-				if (Meteor.call('isProvider', Meteor.userId())) {
-					console.log('Logged in as provider');
-                    FlowRouter.go('/provider/clients');
-                } else {
-					console.log('Logged in as patient');
-					FlowRouter.go('/dashboard');
-				}
-			});
-		},
-
-		////////////////////////////// FORM VALIDATION /////////////////////////////////
-		fields: {
-			email: {
-				identifier : 'email',
-				rules: 
-				[
-					{
-						type: 'empty',
-						prompt: 'Please enter your e-mail'
-					},
-					{
-						type: 'email',
-						prompt: 'Please enter a valid e-mail'
-					}
-				]
-			},
-			password: {
-				identifier : 'password',
-				rules: 
-				[
-					{
-						type: 'empty',
-						prompt: 'Please enter your password'
-					}
-				]
-			}
-		}
-	});
-
-	// Handle for account creation.
-	/*
-		On a successful account creation, users are added to the Meteor.users mongo collection.
-		Users are initialized with their name, email, and a status number that indicates where the account is in the requesting process.
-	*/ 
-
-	$('.ui.dropdown').dropdown();
-
-	// Prevents clicking outside the modal to close
-	$("#register").click(function(){
-		$("#createAccountModal").modal({
-		    closable  : false,
-		    transition: 'fade'
-		}).modal('show');
-	});
-
-	// Canceling the modal will clear the form and hide the modal
-	$("#cancelBtn").click(function(){
-		$("#registerForm").form('clear');
-		$("#createAccountModal").modal('hide');
-		$("#errorMsg").hide();
-	});
-
-	// Input mask for phone number for the format (XXX) XXX-XXXX
+    // Dims the profile picture when hovered
+    $('#propic').dimmer({
+        on: 'hover'
+    });
+    
+    var valid = false; // Check for valid address and show error message
+    
+   // Input mask for phone number for the format (XXX) XXX-XXXX
 	$("#phonenumber").inputmask({"mask": "(999) 999-9999"});
-
-	$('#registerForm').form({
-		inline: true,
+    
+    // Input mask for medical license number for the format X-99999
+	$("#licenseNum").inputmask({"mask": "a99999"});
+    
+    // Input mask for npi number for the format 9999999999
+	$("#npiNum").inputmask({"mask": "9999999999"});
+    
+    $("#providerProfileForm").form({
+        inline: true,
 		on: 'blur',
 		transition: 'slide down',
 		keyboardShortcuts: true,
-
-		onSuccess: function(event,fields){
+        
+        onSuccess: function(event,fields){
 			event.preventDefault();
-
-			var streetTrim = fields.street.trim();
+            
+            var streetTrim = fields.street.trim();
 			var aptNumSuiteTrim = fields.aptNumSuite.trim();
 			var cityTrim = fields.city.trim();
 			var stateTrim = fields.state.trim();
 			var zipTrim = fields.zipcode.trim();
 
 			CheckValidAddress(streetTrim, cityTrim, stateTrim, zipTrim, fields.country);
-
-			setTimeout(function(){
+            
+            setTimeout(function(){
 				if (valid) {
 					var emailTrim = fields.new_email.trim();
 
@@ -133,7 +52,7 @@ Template.main_page.onRendered(function(){
 					if (ret == undefined) {
 						Accounts.createUser({
 							email: emailTrim,
-							password: fields.new_password,
+							password: fields.password,
 							createdAt: new Date().toLocaleString(),
 							profile: {
 								curStep: 'Request',
@@ -169,12 +88,37 @@ Template.main_page.onRendered(function(){
 				}
 
 			}, 500);
-
-			
-		},
-
-		////////////////////////////// FORM VALIDATION /////////////////////////////////
+            
+        },
+       
+        ////////////////////////////// FORM VALIDATION /////////////////////////////////
 		fields: {
+            email: {
+				identifier : 'email',
+				rules: [
+                    {
+                        type: 'empty',
+                        prompt: 'Please enter an e-mail'
+                    },
+                    {
+                        type: 'email',
+                        prompt: 'Please enter a valid e-mail'
+                    }
+				]
+			},
+			password: {
+				identifier : 'password',
+				rules: [
+                    {
+                        type: 'empty',
+                        prompt: 'Please create a password'
+                    },
+					{
+						type: 'minLength[6]',
+						prompt: 'Your password must be at least 6 characters'
+					}
+				]
+			},
 			firstname: {
 				identifier : 'firstname',
 				rules: [
@@ -183,7 +127,7 @@ Template.main_page.onRendered(function(){
 					prompt: 'Please enter a first name.'
 				},
 				{
-					type: 'regExp[/^[a-zA-Z]{3,20}$/]',
+					type: 'regExp[/^[a-zA-Z]{2,20}$/]',
 					prompt: 'Please enter a valid name.'
 				}
 				]
@@ -206,7 +150,7 @@ Template.main_page.onRendered(function(){
 				rules: [
 				{
 					type: 'empty',
-					prompt: 'Please enter your primary phone number.'
+					prompt: 'Please enter a primary phone number.'
 				},
 				{
 					type: 'regExp[/^(\\+\\d{1,2}\\s)?\\(?\\d{3}\\)?[\\s.-]\\d{3}[\\s.-]\\d{4}$/]',
@@ -219,7 +163,7 @@ Template.main_page.onRendered(function(){
 				rules: [
 				{
 					type: 'empty',
-					prompt: 'Please enter your birthday.'
+					prompt: 'Please enter a birthday.'
 				}
 				]
 			},
@@ -228,7 +172,7 @@ Template.main_page.onRendered(function(){
 				rules: [
 				{
 					type: 'empty',
-					prompt: 'Please specify your gender.'
+					prompt: 'Please specify a gender.'
 				}
 				]
 			},
@@ -277,64 +221,79 @@ Template.main_page.onRendered(function(){
                 }
                 ]
             },
-			new_email: {
-				identifier : 'new_email',
+			licenseNum: {
+				identifier : 'licenseNum',
 				rules: [
-				{
-					type: 'empty',
-					prompt: 'Please enter your e-mail'
-				},
-				{
-					type: 'email',
-					prompt: 'Please enter a valid e-mail'
-				}
+                    {
+                        type: 'empty',
+                        prompt: 'Please enter a medical license number'
+                    },
+                    {
+                        type: 'regExp[/^[a-zA-Z]\d{5}$/]',
+                        prompt: 'Please enter a valid medical license number'
+                    }
 				]
 			},
-			new_password: {
-				identifier : 'new_password',
+			npiNum: {
+				identifier : 'npiNum',
 				rules: [
 					{
-						type: 'minLength[6]',
-						prompt: 'Your password must be at least 6 characters'
+                        type: 'empty',
+                        prompt: 'Please enter an NPI number'
+                    },
+                    {
+						type: 'regExp[/^\d{10}$/]',
+						prompt: 'The NPI number must be 10 digits'
 					}
 				]
 			},
-			password_confirm: {
-				identifier: 'password_confirm',
-				rules: [
-					{
-						type: 'match[new_password]',
-						prompt: 'Password does not match.'
-					}
-				]
-			},
-			acquisition: {
-				identifier: 'acquisition',
-				rules: [
-					{
-						type: 'empty',
-						prompt: 'Please select one.'
-					}
-				]
-			}
+            validStatesMulti: {
+                identifier: 'validStatesMulti',
+                rules: [
+                    {
+                        type: 'empty',
+                        prompt: 'Please select at least one region'
+                    }
+                ]
+            },
+            specialties: {
+                identifier: 'specialties',
+                rules: [
+                    {
+                        type: 'empty',
+                        prompt: 'Please select at least one specialty'
+                    }
+                ]
+            },
+            notifications: {
+                identifier: 'notifications',
+                rules: [
+                    {
+                        type: 'empty',
+                        prompt: 'Please select a notification prference'
+                    }
+                ]
+            }
 		}
-	});
-
-	function CheckValidAddress(street,city,state,zip,country) {
-		var streetAdd = street.trim();
-		var cityAdd = city.trim();
-		var stateAdd = state;
-		var zipAdd = zip;
-		var countryAdd = country;
-
- 		// Merges the address into one string to query the Geocoder
-		var address = streetAdd + " " + cityAdd + " " + stateAdd + " " + zipAdd + " " + countryAdd;
-
+        
+    });
+    
+    
+    function CheckValidAddress(street,city,state,zip,country) {
+        var streetAdd = street.trim();
+        var cityAdd = city.trim();
+        var stateAdd = state;
+        var zipAdd = zip;
+        var countryAdd = country;
+    
+        // Merges the address into one string to query the Geocoder
+        var address = streetAdd + " " + cityAdd + " " + stateAdd + " " + zipAdd + " " + countryAdd;
+    
         geocoder = new google.maps.Geocoder();
         geocoder.geocode({ 'address': address }, function (results, status) {
             switch (status) {
                 case google.maps.GeocoderStatus.OK:
-					$("#errorMsg").hide();
+                    $("#errorMsg").hide();
                     valid = true;
                     break;
                 case google.maps.GeocoderStatus.ZERO_RESULTS:
@@ -343,9 +302,9 @@ Template.main_page.onRendered(function(){
                     $('#state').val('')
                     $('#zipcode').val('');
                     $("#aptNumSuite").val('');
-
+    
                     document.getElementById("errorList").innerHTML = "<li>Address is invalid!</li>";
-					$("#errorMsg").show();
+                    $("#errorMsg").show();
                     valid = false;
                     break;
                 case google.maps.GeocoderStatus.ERROR:
@@ -354,9 +313,9 @@ Template.main_page.onRendered(function(){
                     $('#state').val('')
                     $('#zipcode').val('');
                     $("#aptNumSuite").val('');
-
+    
                     document.getElementById("errorList").innerHTML = "<li>Address is invalid!</li>";
-					$("#errorMsg").show();
+                    $("#errorMsg").show();
                     valid = false;
                     break;
                 case google.maps.GeocoderStatus.UNKNOWN_ERROR:
@@ -365,12 +324,13 @@ Template.main_page.onRendered(function(){
                     $('#state').val('')
                     $('#zipcode').val('');
                     $("#aptNumSuite").val('');
-
-					document.getElementById("errorList").innerHTML = "<li>Address is invalid!</li>";
-					$("#errorMsg").show();
+    
+                    document.getElementById("errorList").innerHTML = "<li>Address is invalid!</li>";
+                    $("#errorMsg").show();
                     valid = false;
                     break;
-       		}
-       	});
-	}
+            }
+        });
+    }
+
 });

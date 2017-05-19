@@ -1,4 +1,4 @@
-Template.menu_temp.events({
+Template.header_temp_provider.events({
 	
     'click .logout': function(event){
         event.preventDefault();
