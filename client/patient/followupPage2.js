@@ -51,7 +51,16 @@ Template.followupPage2.onRendered(function(){
             $("#followupContent").delay(3000).fadeOut(500);
             $("#happyDiv").delay(3500).show(500);
 
-            // charge them now with Braintree
+            var name = Profiles.findOne({email: emailAddress}).firstname;
+
+            Meteor.call('sendEmail',{
+                    to: emailAddress,
+                    from: 'no-reply@doctorstoyouapp.com',
+                    subject: 'Doctors To You: Request sent',
+                    text: '',
+                    html:"Dear " + name +", \n\nWe are glad you are feeling better. Thank you so much for choosing Doctors To You. We have enjoyed treating you.\n\nSincerely,\n the Doctors To You care team"
+                    });
+
         }
     });
 

@@ -73,6 +73,14 @@ Template.treatmentPage.onRendered(function(){
         text: 'Doctors To You Update: Request Cancelled.'
       });
     }
+        Meteor.call('sendEmail',{
+                    to: Meteor.users.findOne({_id:Meteor.userId()}).emails[0].address,
+                    from: 'no-reply@doctorstoyouapp.com',
+                    subject: 'Doctors To You: Request canceled',
+                    text: '',
+                    html:"Your request has been canceled and you have been charged a $50 cancellation fee. Please visit <a href='care.doctorstoyou.com'>care.doctorstoyou.com</a> to make a new request.\n\nSincerely, the Doctors To You care team"
+                });
+
 		Meteor.call('cancelRequest', id, reason, true);
 	});
 
