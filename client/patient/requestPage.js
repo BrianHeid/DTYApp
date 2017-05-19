@@ -4,7 +4,7 @@ Template.requestPage.onRendered(function(){
 	var emailAddress = Meteor.users.findOne({_id:Meteor.userId()}).emails[0].address;
 	Meteor.subscribe("currProfile", emailAddress);
 	Meteor.subscribe("currRequest", Meteor.userId());
-	
+
 	var valid = false;
 
 	$('.ui.dropdown').dropdown();
@@ -36,7 +36,7 @@ Template.requestPage.onRendered(function(){
 	var mins = today.getMinutes();
 	var ampm = hh >= 12 ? "PM" : "AM";
 
-	hh = hh %= 12; 
+	hh = hh %= 12;
 
 	if (hh < 10) {
 		hh = "0" + hh;
@@ -95,22 +95,27 @@ Template.requestPage.onRendered(function(){
 					var firstName = Profiles.findOne({email: emailAddress}).firstname;
 					var lastName = Profiles.findOne({email: emailAddress}).lastname;
 					var requesterName =  firstName + " " + lastName;
-          
+
 					if (!fields.laterTime) {
 						fields.date = today;
 						fields.time = time;
 					}
 					Meteor.call('pushRequest', Meteor.userId(), fields, requesterName);
 					//////////////////////////////////////////////////////////
-					
+
 					$("#successMsg").show(500);
 					Meteor.call('updateCurStep', Meteor.userId(), 'ProcessingRequest');
 					Meteor.call('updateStatus', Meteor.userId(), 3);
 					Meteor.call('updateView', Meteor.userId(), 'ProcessingRequest');
-					// Meteor.call('sendSMS',{
-					// 	to: '+16176509969',
-					// 	text: 'This is a test message from DTY'
-					// });
+					var willSendSMS = Profiles.findOne({email: emailAddress}).preferences;
+
+					if (willSendSMS) {
+						Meteor.call('sendSMS',{
+							to: '+1' + Profiles.findOne({email: emailAddress}).phone,
+							text: 'Doctors To You Update: Request Received.'
+						});
+					}
+					
 					FlowRouter.go('/dashboard');
 				}
 			},500);
@@ -124,7 +129,7 @@ Template.requestPage.onRendered(function(){
 				rules:[
 				{
 					type: 'empty',
-					prompt: "Pleaase specify your relationship."
+					prompt: "Please specify your relationship."
 				}
 				]
 			},
