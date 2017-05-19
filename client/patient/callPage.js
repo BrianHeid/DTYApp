@@ -22,6 +22,15 @@ Template.callPage.onRendered(function(){
 			// Click to return to dashboard button. Reset request
 			$("#returnDashboard").click(function(){
 				$('#returnDashboard').modal('hide');
+
+				Meteor.call('sendEmail',{
+					to: Meteor.users.findOne({_id:Meteor.userId()}).emails[0].address,
+					from: 'no-reply@doctorstoyouapp.com',
+					subject: 'Doctors To You: Request canceled',
+					text:,
+					html:"Your request has been canceled. Please visit <a href='care.doctorstoyou.com'>care.doctorstoyou.com</a> to make a new request.\n\nSincerely,\n the Doctors To You care team"
+				});
+
 				Meteor.call('resetStatus', Meteor.userId());
 			});
 

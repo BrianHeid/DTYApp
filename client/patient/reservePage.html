@@ -252,6 +252,38 @@
 			$("#reserve").click(function(){
 				$('#success').show(500);	// Reveals in 500 milliseconds
 				event.preventDefault();		// Prevents from page refreshing on submit
+
+				var emailAddress = Meteor.users.findOne({_id:Meteor.userId()}).emails[0].address;
+				Meteor.subscribe("currProfile", emailAddress);
+				Meteor.subscribe("currRequest", Meteor.userId());
+				var name = Profiles.findOne({email: emailAddress}).firstname;
+	
+				var providerId = Requests.findOne().providerId;
+				Meteor.subscribe("currProvider", providerId);
+
+				var providerEmail = Meteor.users.findOne({_id:providerId}).emails[0].address;
+
+				var provider = Profiles.findOne({email:providerEmail}).lastName;
+
+				var type = "";
+				var housecall = Requests.findOne().treatment.isHouseCall;
+				if (housecall) {
+					type += "house call";
+				} else {
+					type += "phone consultation";
+				}
+
+				var ETA = Requests.findOne().treatment.ETA;
+
+				Meteor.call('sendEmail',{
+					to: emailAddress,
+					from: 'no-reply@doctorstoyouapp.com',
+					subject: 'Doctors To You: Reservation made',
+					text:,
+					html:"Dear " + name +", \n\nYou have successfully reserved Dr. "+provider+" for a "+
+					type+". Your provider will arrive at approximately "+ETA+". Check <a href='care.doctorstoyou.com'>care.doctorstoyou.com</a> for the most recent update."
+				});
+
 			});
 
 			// Makes submit button disabled, needs to check the I Agree toggle first
