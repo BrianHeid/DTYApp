@@ -1,10 +1,4 @@
 Template.providerProfile.onRendered(function(){
-        // Click to save button
-    $("#save").click(function(){
-        $('#success').show(500);	// Reveals success message in 500 milliseconds
-        event.preventDefault();		// Prevents page from refreshing
-    });
-    
     // Dropdown functionality
     $('.ui.dropdown').dropdown();
 
@@ -43,25 +37,17 @@ Template.providerProfile.onRendered(function(){
             
             setTimeout(function(){
 				if (valid) {
-					var emailTrim = fields.new_email.trim();
+					var emailTrim = fields.email.trim();
+					var emailValid = Meteor.call('checkValidEmail', emailTrim);
+                    
+                    console.log(emailValid);
 
-					var ret = PatientEmails.findOne({'email':emailTrim});
-
-					console.log(ret);
-
-					if (ret == undefined) {
+					if (emailValid == undefined) {
 						Accounts.createUser({
 							email: emailTrim,
 							password: fields.password,
-							createdAt: new Date().toLocaleString(),
-							profile: {
-								curStep: 'Request',
-								status: 1,
-								viewing: 'Request'
-							}
+							createdAt: new Date().toLocaleString()
 						});
-
-						Meteor.call('addPatientEmail', emailTrim);
 
 						var fullAddress = streetTrim + ' ' + aptNumSuiteTrim + ' ' + cityTrim + ' ' + 
 										  stateTrim + ' ' + zipTrim + ' ' + fields.country;
@@ -72,15 +58,19 @@ Template.providerProfile.onRendered(function(){
 						var phoneNum = parseInt(phoneStrip);
 
 						Meteor.call('addProfile', emailTrim, firstTrim, lastTrim, phoneNum, fullAddress, fields.birthday, fields.gender);
+                        if (fields.isDoctor == "on") {
+                            Meteor.call('addProvider', emailTrim, true, fields.licenseNum, fields.npiNum, fields.validStatesMulti, fields.specialties);
+                        } else {
+                            Meteor.call('addProvider', emailTrim, false, fields.licenseNum, fields.npiNum, fields.validStatesMulti, fields.specialties);
+                        }
 						
 						console.log('Account created.....');
 						console.log(fields);
 
 						$("#successMsg").show(500);
 						$("#successMsg").delay(1000).fadeOut(500);
-						setTimeout(function(){$("#createAccountModal").modal('hide');}, 500); 
 
-						setTimeout(function(){FlowRouter.go('/dashboard');}, 2000);
+						setTimeout(function(){FlowRouter.go('/admin');}, 2000);
 					} else {
 						document.getElementById("errorList").innerHTML = "<li>Email already exists!</li>";
 						$("#errorMsg").show();
@@ -227,11 +217,11 @@ Template.providerProfile.onRendered(function(){
                     {
                         type: 'empty',
                         prompt: 'Please enter a medical license number'
-                    },
-                    {
-                        type: 'regExp[/^[a-zA-Z]\d{5}$/]',
-                        prompt: 'Please enter a valid medical license number'
                     }
+                    //,{
+                    //    type: 'regExp[/^[a-zA-Z]\d{5}$/]',
+                    //    prompt: 'Please enter a valid medical license number'
+                    //}
 				]
 			},
 			npiNum: {
@@ -240,11 +230,11 @@ Template.providerProfile.onRendered(function(){
 					{
                         type: 'empty',
                         prompt: 'Please enter an NPI number'
-                    },
-                    {
-						type: 'regExp[/^\d{10}$/]',
-						prompt: 'The NPI number must be 10 digits'
-					}
+                    }
+//                    ,{
+//						type: 'regExp[/^\d{10}$/]',
+//						prompt: 'The NPI number must be 10 digits'
+//					}
 				]
 			},
             validStatesMulti: {

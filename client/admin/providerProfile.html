@@ -16,7 +16,7 @@
 
 		<br>
 		
-		<div class="ui column stackable form" id="providerProfileForm">
+		<form class="ui column stackable form" id="providerProfileForm">
 			<h4 class="ui dividing header">Account Information</h4>
             <center>
                 <div class="field card">
@@ -42,7 +42,7 @@
 				</div>
 				<div class="required field">
 					<label>Password</label>
-					<input type="text" placeholder="Password" name="password">
+					<input type="password" placeholder="Password" name="password">
 				</div>
 			</div>
 
@@ -141,32 +141,24 @@
                     {{>specialtiesList}}
                 </div>
             </div>
-    
-            <h3 id="emailPref" class="ui header">
-              <i class="alarm outline icon"></i>
-              <div class="content">
-                Notification Preferences
-              </div>
-            </h3>
             
-            <div class="ui selection dropdown">
-                <input type="hidden" name="notifications">
-                  <i class="dropdown icon"></i>
-                  <div class="default text">Choose your notification preferences...</div>
-                  <div class="menu">
-                    <div class="item" data-value="both">Receive email and text notifications</div>
-                    <div class="item" data-value="emailOnly">Receive email only</div>
-                  </div>
-            </div>
-    
-            <br><br>
+            <br>
             <input class="fluid ui primary button" id="save" type="submit" name="submitBtn" value="Save">
 
+            <div id="errorMsg" class="ui error hidden message">
+                <div class="header">
+                    There were some errors with your account creation.
+                </div>
+                <ul class="list" id="errorList">
+                    <!-- Listed errors -->
+                </ul>
+            </div>
+                
             <!-- SUCCESS MESSAGE -->
             <div class="ui success message hidden" id="success">
                 <div class="header">Saved!</div>
-                <p>Your settings have saved.</p>
+                <p>Provider account created.</p>
             </div>
-        </div>
+        </form>
     </div>
 </template>
