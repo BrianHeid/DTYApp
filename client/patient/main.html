@@ -72,6 +72,9 @@
 		        </div>
 
 		        <div align="left" style="margin-bottom:0px; margin-left:4px;"><a id="reset"><small>Forgot password?</small></a></div>
+		        <div id="sentMsg" class="ui error hidden message">
+				  	<h4 class="ui header" id="innerSentMsg"><!-- Error message --></h4>
+				</div>
 		        <br>
 		        <div class="ui fluid large submit button" style="color: white; background-color: #00bde8;">Login</div>
 		      </div>
@@ -102,14 +105,14 @@
 		  
 	  		<div class="required field">
 	  			<label>Email address</label>
-					<input type="email" name="resetemail" id="sendToEmail" placeholder="example@email.com">
+					<input type="email" name="resetemail" placeholder="example@email.com">
 		  	</div>
 		
 		  <br>
 
 		  <div class="actions" id="resetButtons">
 		  	<div class="two ui buttons">
-			    <button class="ui submit button" style="background-color:#00bde8; color:#fff;">
+			    <button class="ui button" type="submit" style="background-color:#00bde8; color:#fff;">
 			      Send reset email
 			    </button>
 			    <button class="ui cancel button" id="resetCancel">

@@ -17,7 +17,9 @@ Template.main_page.onRendered(function(){
 	}
 
 	$("#reset").click(function(){
+		$('#sentMsg').hide();
 		$('#resetModal').modal('show');
+		$("#resetForm").form('clear');
 	});
 
 	$("#resetClose").click(function(){
@@ -46,13 +48,11 @@ Template.main_page.onRendered(function(){
 					console.log(error.message);
 				}
 				else {
-					$('#resetMsg').hide();
-					$('#resetMsg').show().transition('bounce');
-					console.log('Reset email sent');
-					document.getElementById("innerResetMsg").innerHTML = "<p>Password reset instructions have been sent to your email.</p>";
-					$("#resetMsg").delay(500).fadeOut(4000);
 					$("#resetMsg").hide();
-						setTimeout(function(){$("#resetModal").modal('hide');}, 5500);
+					console.log('Reset email sent');
+					$("#resetModal").modal('hide');
+					$('#sentMsg').show();
+					document.getElementById("innerSentMsg").innerHTML = "<p>Password reset instructions have been sent to your email.</p>";
 				}
 			});
 		},
