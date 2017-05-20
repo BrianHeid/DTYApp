@@ -262,12 +262,25 @@
 				var providerName = Profiles.findOne({email:providerEmail}).lastName;
 				var ETA = Requests.findOne().treatment.ETA;
 
+        // send SMS if user has that preference
 				if (willSendSMS) {
 					Meteor.call('sendSMS',{
 						to: '+1' + Profiles.findOne({email: emailAddress}).phone,
 						text: 'Doctors To You Update: Reservation Made with ' + providerName + ' ETA: ' + ETA;
 					});
 				}
+
+        // store billing info **DELETED AFTER USED FOR PAYMENT**
+				Meteor.call('storeBillingInfo', Meteor.user(),{
+					nameOnCard: '',
+					cardNumber: '',
+					cvc: '',
+					expirationDate: '',
+					billingAddress: '';
+				});
+
+
+
 				$('#success').show(500);	// Reveals in 500 milliseconds
 				event.preventDefault();		// Prevents from page refreshing on submit
 
@@ -275,7 +288,7 @@
 				Meteor.subscribe("currProfile", emailAddress);
 				Meteor.subscribe("currRequest", Meteor.userId());
 				var name = Profiles.findOne({email: emailAddress}).firstname;
-	
+
 				var providerId = Requests.findOne().providerId;
 				Meteor.subscribe("currProvider", providerId);
 

@@ -108,7 +108,31 @@ let ProfilesSchema = new SimpleSchema({
 	'preferences': {
 		type: Boolean,
 		label: 'Need valid preference.'
-	}
+	},
+
+  //billing info for user
+  'nameOnCard': {
+    type: String,
+    label: 'Need valid name'
+  },
+  'cardNumber': {
+    type: Number,
+    label: 'Need valid credit card number'
+  },
+  'cvc': {
+    type: Number,
+    label: 'Need valid CVC'
+  },
+  'expirationDate': {
+    type: String,
+    label: 'Need valid expiration date'
+  },
+  'billingAddress': {
+    type: String,
+    label: 'Need valid address'
+  }
+
+
 });
 
 Profiles.attachSchema( ProfilesSchema );
@@ -309,7 +333,7 @@ let ShiftsSchema = new SimpleSchema({
 	'completed': {
 		type: Boolean,
 		label: 'Is this shift completed?'
-	} 
+	}
 });
 
 Shifts.attachSchema( ShiftsSchema );
@@ -347,7 +371,7 @@ let TreatmentsSchema = new SimpleSchema({
 	'address': {
 		type: String,
 		label: 'Need valid address.'
-	} 
+	}
 });
 
 Treatments.attachSchema( TreatmentsSchema );
