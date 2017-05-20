@@ -51,6 +51,9 @@ Template.followupPage2.onRendered(function(){
             $("#followupContent").delay(3000).fadeOut(500);
             $("#happyDiv").delay(3500).show(500);
 
+            // Process payment using stored billing info
+            
+
             var name = Profiles.findOne({email: emailAddress}).firstname;
 
             Meteor.call('sendEmail',{

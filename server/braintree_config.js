@@ -29,5 +29,24 @@ Meteor.methods({
 
     var response = generateToken(options);
     return response.clientToken;
-  }
+  },
+ createTransaction: function(nonceFromTheClient, customerInfo, fee) {
+   var user = Meteor.user();
+
+   // Let's create transaction.
+   gateway.transaction.sale({
+     amount: fee, //'10.00',
+     paymentMethodNonce: nonceFromTheClient, // Generated nonce passed from client
+     options: {
+       submitForSettlement: true, // Payment is submitted for settlement immediately
+     }
+   }, function (err, success) {
+     if (err) {
+       console.log(err);
+     } else {
+       // When payment's successful, add "paid" role to current user.
+       console.log("Payment successful");
+     }
+   });
+}
 });

@@ -270,15 +270,26 @@
 					});
 				}
 
+
+
+				var form = document.forms[0];
+
         // store billing info **DELETED AFTER USED FOR PAYMENT**
 				Meteor.call('storeBillingInfo', Meteor.user(),{
-					nameOnCard: '',
-					cardNumber: '',
-					cvc: '',
-					expirationDate: '',
-					billingAddress: '';
+					nameOnCard: form.elements["lastName"].value,
+					cardNumber: form.elements["card[number]"].value,
+					cvc: form.elements["card[cvc]"].value,
+					expirationDate: {
+						month: form.elements["card[expire-month]"].value;
+						year: form.elements["card[expire-year]"].value;
+					},
+					billingAddress: {
+						'street': form.elements["street"].value,
+						'city': form.elements["city"].value,,
+						'state': form.elements["state"].value,,
+						'zip': form.elements["zipcode"].value,
+					};
 				});
-
 
 
 				$('#success').show(500);	// Reveals in 500 milliseconds
