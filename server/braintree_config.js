@@ -30,8 +30,7 @@ Meteor.methods({
     var response = generateToken(options);
     return response.clientToken;
   },
- createTransaction: function(nonceFromTheClient, customerInfo, fee) {
-   var user = Meteor.user();
+ createTransaction: function(nonceFromTheClient, fee) {
 
    // Let's create transaction.
    gateway.transaction.sale({

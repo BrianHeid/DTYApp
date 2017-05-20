@@ -58,12 +58,19 @@ Template.followupPage2.onRendered(function(){
               }
               else {
                 var client = new braintree.api.Client({clientToken: token});
-                var expirationMonth =
+                var fee = '10.00';
                 client.tokenizeCard({
                   number: Profiles.findOne({email: emailAddress}).cardNumber,
                   expirationDate: '10/20'
               }, function (err, nonce) {
                 // Send nonce to your server
+                Meteor.call('createTransaction', nonce, fee, function(error, success) {
+                  if (error) {
+                    throw new Meteor.Error('transaction-creation-failed');
+                  } else {
+                    console.log("Payment Received")
+                  }
+                });
               });
 
                 //remove the used billing info

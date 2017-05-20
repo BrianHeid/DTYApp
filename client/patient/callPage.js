@@ -23,6 +23,34 @@ Template.callPage.onRendered(function(){
 			$("#returnDashboard").click(function(){
 				$('#returnDashboard').modal('hide');
 
+				// Process cancellation payment using stored billing info
+				Meteor.call('getClientToken', function(error, clientToken) {
+					if (error) {
+						console.log(error);
+					}
+					else {
+						var client = new braintree.api.Client({clientToken: token});
+						var fee = '10.00';
+						client.tokenizeCard({
+							number: Profiles.findOne({email: emailAddress}).cardNumber,
+							expirationDate: '10/20'
+					}, function (err, nonce) {
+						// Send nonce to your server
+						Meteor.call('createTransaction', nonce, fee, function(error, success) {
+							if (error) {
+								throw new Meteor.Error('transaction-creation-failed');
+							} else {
+								console.log("Payment Received")
+							}
+						});
+					});
+
+						//remove the used billing info
+						Meteor.call('removeBillingInfo', Meteor.user());
+					}
+				});
+
+
 				var emailAddress = Meteor.users.findOne({_id:Meteor.userId()}).emails[0].address;
 				var willSendSMS = Profiles.findOne({email: emailAddress}).preferences;
 
