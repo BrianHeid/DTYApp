@@ -78,7 +78,7 @@ Template.treatmentPage.onRendered(function(){
                     from: 'no-reply@doctorstoyouapp.com',
                     subject: 'Doctors To You: Request canceled',
                     text: '',
-                    html:"Your request has been canceled and you have been charged a $50 cancellation fee. Please visit <a href='care.doctorstoyou.com'>care.doctorstoyou.com</a> to make a new request.\n\nSincerely, the Doctors To You care team"
+                    html:"Your request has been canceled and you have been charged a $50 cancellation fee. Please visit <a href='care.doctorstoyou.com'>care.doctorstoyou.com</a> to make a new request.<br><br>Sincerely,<br>the Doctors To You care team"
                 });
 
 		Meteor.call('cancelRequest', id, reason, true);
