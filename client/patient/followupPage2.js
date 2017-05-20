@@ -52,10 +52,28 @@ Template.followupPage2.onRendered(function(){
             $("#happyDiv").delay(3500).show(500);
 
             // Process payment using stored billing info
-            
+            Meteor.call('getClientToken', function(error, clientToken) {
+              if (error) {
+                console.log(error);
+              }
+              else {
+                var client = new braintree.api.Client({clientToken: token});
+                var expirationMonth =
+                client.tokenizeCard({
+                  number: Profiles.findOne({email: emailAddress}).cardNumber,
+                  expirationDate: '10/20'
+              }, function (err, nonce) {
+                // Send nonce to your server
+              });
+
+                //remove the used billing info
+                Meteor.call('removeBillingInfo', Meteor.user());
+              }
+            });
 
             var name = Profiles.findOne({email: emailAddress}).firstname;
 
+            // send email
             Meteor.call('sendEmail',{
                     to: emailAddress,
                     from: 'no-reply@doctorstoyouapp.com',
