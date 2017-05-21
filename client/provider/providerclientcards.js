@@ -55,11 +55,8 @@ Template.client.onRendered(
 				var op = $(event.currentTarget).text()
 				var id = $(event.currentTarget).attr('data')
 				
-				//client = Session.get('client') 		// Use this when dealing with actual client data
-				//target = client.find(findUser,id) 	// to update the user account's status
 				target = Requests.findOne({_id:id})
-
-				console.log('Executing:', op, ' on ', target._id)
+				
 				if (op == 'Schedule') {
 					$('#schedulePrompt').text('Requested time by ' + target.firstname)
 					$('#requestedTime').text(target.times.requestTime)
@@ -73,8 +70,12 @@ Template.client.onRendered(
 						autofocus: false,	// Prevents dropdown from dropping automatically
 					}).modal('show');
                 }
+				
 	});
 		
+	Meteor.subscribe("requests");
+	Meteor.subscribe("allUsers");
+	
 	// Click to submit button
 	$("#submitButton").click(function(){
 		$("#transferModal").modal("hide");
@@ -83,19 +84,74 @@ Template.client.onRendered(
 	
 	// Dropdown functionality
 	$('.ui.dropdown').dropdown();
+	
+	$("#scheduleSwitch").click(function(){
+			$('#datetime-form').toggle();
+		});
+
+		$('#scheduleForm').form({
+			inline: true,
+			on: 'blur',
+			transition: 'slide down',
+			keyboardShortcuts: true,
+
+			onSuccess: (event, fields)=>{
+				event.preventDefault()
+				console.log(fields)
+				var id = $("#editButton").attr('data');
+				
+				if (fields.sameTime == "on") {
+                    Meteor.call('updateRequestedDate', id, false, fields.date);
+					Meteor.call('updateRequestedTime', id, false, fields.time);
+                } else {
+					Meteor.call('updateRequestedDate', id, true, fields.date);
+					Meteor.call('updateRequestedTime', id, true, fields.time);
+				}
+				console.log(id);
+				var patientId = Requests.findOne({_id:id}).patientId;
+				console.log(patientId);
+				Meteor.call('updateCurStep', patientId, 'Call');
+				Meteor.call('updateStatus', patientId, 4);
+				Meteor.call('updateView', patientId, 'Call');
+			},
+
+			fields: {
+				time:{
+					identifier: 'time',
+					rule: [
+						{
+							type: 'empty',
+							prompt: 'Please pick a time.'
+						}
+					]
+				},
+				date: {
+					identifier: 'date',
+					rule: [
+						{
+							type: 'empty',
+							prompt: 'Please pick a date.'
+						}
+					]
+				}
+			}
+			})
 });
 
 Template.client.helpers({
-	getPhonenumber: function(){
-		var emailAddress = Meteor.users.findOne({_id:Meteor.userId()}).emails[0].address;
+	getPhonenumber: function(id){
+		var emailAddress = Meteor.users.findOne({_id:id}).emails[0].address;
 		return Profiles.findOne({email: emailAddress}).phone;
 	},
-	getEmail: function(){
-		return Meteor.users.findOne({_id:Meteor.userId()}).emails[0].address;
+	getEmail: function(id){
+		return Meteor.users.findOne({_id:id}).emails[0].address;
 	},
-	getBirthday: function(){
-		var emailAddress = Meteor.users.findOne({_id:Meteor.userId()}).emails[0].address;
+	getBirthday: function(id){
+		var emailAddress = Meteor.users.findOne({_id:id}).emails[0].address;
 		return Profiles.findOne({email: emailAddress}).birthday;
+	},
+	getStatus: function(id){
+		return Meteor.users.findOne({_id:id}).profile.curStep;
 	}
 });
 
@@ -124,6 +180,7 @@ Template.newClient.onRendered(function(){
 	
 	var emailAddress = Meteor.users.findOne({_id:Meteor.userId()}).emails[0].address;
 	Meteor.subscribe("currProfile", emailAddress);
+	
 });
 
 Template.newClient.helpers({
@@ -139,48 +196,6 @@ Template.newClient.helpers({
 		return Profiles.findOne({email: emailAddress}).birthday;
 	}
 });
-
-
-Template.scheduleModal.onRendered(
-	()=>{
-		$("#scheduleSwitch").click(function(){
-			$('#datetime-form').toggle();
-		});
-
-		$('#scheduleForm').form({
-			inline: true,
-			on: 'blur',
-			transition: 'slide down',
-			keyboardShortcuts: true,
-
-			onSuccess: (event, fields)=>{
-				event.preventDefault()
-				console.log(fields)
-			},
-
-			fields: {
-				time:{
-					identifier: 'time',
-					rule: [
-						{
-							type: 'empty',
-							prompt: 'Please pick a time.'
-						}
-					]
-				},
-				date: {
-					identifier: 'date',
-					rule: [
-						{
-							type: 'empty',
-							prompt: 'Please pick a date.'
-						}
-					]
-				}
-			}
-			})
-	}
-	)
 
 Template.clientListPage.helpers({
 	'providerName': function(){

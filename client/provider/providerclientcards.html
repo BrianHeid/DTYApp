@@ -104,8 +104,6 @@
 	</style>
 
 	{{> requestModal}}
-	{{> scheduleModal}}
-	{{> transferModal}}
 
 	<center>
 		<div class="ui center aligned container" id="welcomeDiv">
@@ -185,8 +183,8 @@
 								<div class='header' id="nameText">{{firstname}} {{lastname}}</div>
 								<div class="description" id="extraText">Requester Name: {{requesterName}}</div>
 								{{#if requestForSomeoneElse}}<div class='description' id="extraText">Relationship: {{relationship}}</div>{{/if}}
-								<div class='description' id="extraText">Status: {{profile.status}}</div><br><br>
-								<div class='description' id="extraText" >Requested time: {{info.requestTime}}</div>
+								<div class='description' id="extraText">Status: {{getStatus _id}}</div><br><br>
+								<div class='description' id="extraText" >Requested time: {{times.requestTime}}</div>
 
 							</div>
 						</div>
@@ -215,9 +213,9 @@
 
 				      	<div class="ui tab" data-tab="overview">
 			      			<div class="content" id="overviewText">
-					      		<div class='description' id="overText">Email: {{getEmail}}</div>
-								<div class='description' id="overText" >DOB: {{getBirthday}}</div>
-								<div class='description' id="overText" ><i class="call icon"></i>{{getPhonenumber}}</div>
+					      		<div class='description' id="overText">Email: {{getEmail _id}}</div>
+								<div class='description' id="overText" >DOB: {{getBirthday _id}}</div>
+								<div class='description' id="overText" ><i class="call icon"></i>{{getPhonenumber _id}}</div>
 								<br><br>
 								<div class='description' id="overText" >Address: {{address}}</div>
 					      	</div>
@@ -228,6 +226,105 @@
 				      	</div>
 				</div>
 			</div>
+		</div>
+	</div>
+	
+	<div class="ui small modal" id="scheduleRequest">
+		<div class="header">
+			Schedule a date/time
+		</div>
+		<div class="content">
+			<form class="ui form" id="scheduleForm">
+				<label id="schedulePrompt">Requested time</label>
+				<div id='requestedTime'>00:00</div>
+				<label> Use patient's requested time?</label>
+				<div class="field">
+					<label class="ui checkbox switch">
+						<input class="switch-input" type="checkbox" id="scheduleSwitch" name="sameTime"/>
+						<span class="switch-label" data-on="Yes" data-off="No"></span> 
+						<span class="switch-handle"></span> 
+					</label>
+				</div>
+				<div id="datetime-form">
+					<div class="field ">
+						<label>Time</label>
+						<input type="time" name='time' id="time">
+					</div>
+					<div class="field ">
+						<label>Date</label>
+						<input type="date" name='date' id="date">
+					</div>
+				</div>
+				<br>
+				<div class="actions">
+					<div class="ui two buttons">
+					    <button class="ui primary approve button" type='submit'>Schedule</button>
+					    <button class="ui negative cancel button">Cancel</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+	
+	<div class="ui small modal" id="transferModal">
+	  <i class="close icon"></i>
+	  <h2 class="ui header container">
+		<div class="content">
+    		Transfer Patient
+	    	<div class="sub header">To transfer this request, search for and select another provider</div>
+	    </div>
+	  </h2>
+	  
+	  <div class="content">
+	  	{{>validStatesListFluid}}
+		<br>
+
+		<!-- Dynamic provider list from database -->
+
+		<div id="providerDropdown" class="ui fluid search selection dropdown">
+			<input name="provider" type="hidden">
+			<i class="dropdown icon"></i>
+			<div class="default text">Select Provider...</div>
+				<div class="menu">
+					<div class="item" data-value="mEdwards"><img class="ui avatar image" src="/images/matt.png"><span>Matt Edwards</span></div>
+					<div class="item" data-value="hTroy"><img class="ui avatar image" src="/images/helen.jpg"><span>Helen Troy</span></div>
+				</div>
+		</div>
+
+		<br>
+
+	  	<div class="inline"><label>Reason for transfer: </label><textarea rows="3"></textarea></div>
+	  </div>
+
+	  <div class="actions" id="transferActionButtons">
+	  	<div class="ui two buttons">
+			<button class="ui primary ok button" id="submitButton">
+		    	Submit
+		    </button>
+
+		    &nbsp;&nbsp;&nbsp;
+			
+			<button class="ui negative deny button" id="negButton">
+		    	Cancel
+		    </button>
+		</div>
+	  </div>
+	</div>
+
+	<!-- /////////////////////////////////////////// TRANSFER COMPLETE MODAL //////////////////////////////////////////////////////// -->
+
+	<div class="ui small modal" id="transferCompleteModal">
+		<i class="close icon"></i>
+		<div class="header">
+			<center>Transfer Complete!</center>
+	  	</div>
+	  	<div class="content">
+	    	<center><h3>You have successfully transferred <span id="transferPatientName" style="color:#00bde8;">John Doe<!-- PATIENT NAME --></span> to <span id="transferProviderName" style="color:#00bde8;">Matt Edwards<!-- PROVIDER NAME --></span></h3></center>
+		</div>
+		<div class="actions">
+			<button class="ui fluid ok primary button">
+	  			Okay
+			</button>
 		</div>
 	</div>
 </template>
@@ -426,111 +523,5 @@
 				</div>
 			</form>
 	    </div>
-	</div>
-</template>
-
-
-	<!-- /////////////////////////////////////////// SCHEDULE REQUEST MODAL ////////////////////////////////////////////////////// -->
-<template name="scheduleModal">
-	<div class="ui small modal" id="scheduleRequest">
-		<div class="header">
-			Schedule a date/time
-		</div>
-		<div class="content">
-			<form class="ui form" id="scheduleForm">
-				<label id="schedulePrompt">Requested time</label>
-				<div id='requestedTime'>00:00</div>
-				<label> Use patient's requested time?</label>
-				<div class="field">
-					<label class="ui checkbox switch">
-						<input class="switch-input" type="checkbox" id="scheduleSwitch" name="sameTime"/>
-						<span class="switch-label" data-on="Yes" data-off="No"></span> 
-						<span class="switch-handle"></span> 
-					</label>
-				</div>
-				<div id="datetime-form">
-					<div class="field ">
-						<label>Time</label>
-						<input type="time" name='time' id="time">
-					</div>
-					<div class="field ">
-						<label>Date</label>
-						<input type="date" name='date' id="date">
-					</div>
-				</div>
-				<br>
-				<div class="actions">
-					<div class="ui two buttons">
-					    <button class="ui primary approve button" type='submit'>Schedule</button>
-					    <button class="ui negative cancel button">Cancel</button>
-					</div>
-				</div>
-			</form>
-		</div>
-	</div>
-</template>
-
-<!-- ///////////////////////////////////////// TRANSFER MODAL //////////////////////////////////////////////////// -->
-<template name="transferModal">
-	<div class="ui small modal" id="transferModal">
-	  <i class="close icon"></i>
-	  <h2 class="ui header container">
-		<div class="content">
-    		Transfer Patient
-	    	<div class="sub header">To transfer this request, search for and select another provider</div>
-	    </div>
-	  </h2>
-	  
-	  <div class="content">
-	  	{{>validStatesListFluid}}
-		<br>
-
-		<!-- Dynamic provider list from database -->
-
-		<div id="providerDropdown" class="ui fluid search selection dropdown">
-			<input name="provider" type="hidden">
-			<i class="dropdown icon"></i>
-			<div class="default text">Select Provider...</div>
-				<div class="menu">
-					<div class="item" data-value="mEdwards"><img class="ui avatar image" src="/images/matt.png"><span>Matt Edwards</span></div>
-					<div class="item" data-value="hTroy"><img class="ui avatar image" src="/images/helen.jpg"><span>Helen Troy</span></div>
-				</div>
-		</div>
-
-		<br>
-
-	  	<div class="inline"><label>Reason for transfer: </label><textarea rows="3"></textarea></div>
-	  </div>
-
-	  <div class="actions" id="transferActionButtons">
-	  	<div class="ui two buttons">
-			<button class="ui primary ok button" id="submitButton">
-		    	Submit
-		    </button>
-
-		    &nbsp;&nbsp;&nbsp;
-			
-			<button class="ui negative deny button" id="negButton">
-		    	Cancel
-		    </button>
-		</div>
-	  </div>
-	</div>
-
-	<!-- /////////////////////////////////////////// TRANSFER COMPLETE MODAL //////////////////////////////////////////////////////// -->
-
-	<div class="ui small modal" id="transferCompleteModal">
-		<i class="close icon"></i>
-		<div class="header">
-			<center>Transfer Complete!</center>
-	  	</div>
-	  	<div class="content">
-	    	<center><h3>You have successfully transferred <span id="transferPatientName" style="color:#00bde8;">John Doe<!-- PATIENT NAME --></span> to <span id="transferProviderName" style="color:#00bde8;">Matt Edwards<!-- PROVIDER NAME --></span></h3></center>
-		</div>
-		<div class="actions">
-			<button class="ui fluid ok primary button">
-	  			Okay
-			</button>
-		</div>
 	</div>
 </template>

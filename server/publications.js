@@ -31,3 +31,6 @@ Meteor.publish("currProvider", function(id){
 	return Providers.findOne({_id:id});
 });
 
+Meteor.publish("allUsers", function(){
+	return Meteor.users.find();
+});
