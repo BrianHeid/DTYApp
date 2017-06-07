@@ -5,32 +5,40 @@
 			</h1>
 	</center>
 	
-	<div class="ui container">
-		<div class="ui top attached tabular menu">
-			<a class="item" data-tab="patients">Patients</a>
-			<a class="item active" data-tab="providers">Providers</a>
-			<a class="item" data-tab="shifts">Shifts</a>
-			<a class="item" data-tab="editData">Edit Data</a>
-		</div>
-		<div class="ui bottom attached tab segment active" data-tab="patients">
-			<h1 class="ui header" id="patientsTabHeader">
-				Patients
-			</h1>
-		</div>
-		<div class="ui bottom attached tab segment" data-tab="providers">
-			<h1 class="ui header" id="providersTabHeader">
-				Providers
-			</h1>
-		</div>
-		<div class="ui bottom attached tab segment" data-tab="shifts">
-			<h1 class="ui header" id="shiftsTabHeader">
-				Shifts
-			</h1>
-		</div>
-		<div class="ui bottom attached tab segment" data-tab="editData">
-			<h1 class="ui header" id="editDataTabHeader">
-				Edit Data
-			</h1>
-		</div>
+	<div>
+	{{>providerProfile}}
+	</div>
+
+	<div>
+	<h1>Search Providers</h1>
+	<div class="ui labeled input"> <!-- Start of provider seach using email -->
+	  <div class="ui label">
+	    Provider Email
+	  </div>
+	  <input type="text" id="searchProviderEmail" placeholder="xxx@xxx.com">
+	  <button class="ui primary button right attached" id="searchEmailButton">
+	  Search
+	  </button>
+	</div>		<!-- End of provider seach using email -->
+	<br> <br>
+	<div class="ui labeled input">		<!-- Start of provider seach using first and last name -->
+	  <div class="ui label">
+	    First Name
+	  </div>
+	  <input type="text" id="searchProviderFirstName" placeholder="John">
+	</div>
+	<div class="ui labeled input">
+	  <div class="ui label">
+	    Last Name
+	  </div>
+	  <input type="text" id="searchProviderLastName" placeholder="Doe">
+	  <button class="ui primary button right attached" id="searchNameButton">
+	  Search
+	  </button>
+	</div>		<!-- End of provider seach using email -->
+	<br><br>
+	<div id="providerResults"> 		<!-- Beginning of display of provider information -->
+
+	</div>		<!-- End of display of provider information -->
 	</div>
 </template>

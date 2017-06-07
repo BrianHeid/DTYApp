@@ -1,3 +1,6 @@
+var provider;
+var baseProfile;
+
 Template.viewProviders.onRendered(function(){
     // Dropdown functionality
     $('.ui.dropdown').dropdown();
@@ -324,3 +327,66 @@ Template.viewProviders.onRendered(function(){
     }
 
 });
+
+Template.viewProviders.events({
+    'click #searchEmailButton': function( ){
+        var emailAddress = document.getElementById("searchProviderEmail");
+        console.log(emailAddress.value);
+        provider = Providers.findOne({email:emailAddress.value});
+        baseProfile = Profiles.findOne({email:emailAddress.value});
+        DisplayProvider();
+        emailAddress.value = "";
+    },
+
+    'click #searchNameButton': function( ){
+        var firstName = document.getElementById("searchProviderFirstName");
+        var lastName = document.getElementById("searchProviderLastName");
+        console.log(firstName.value + lastName.value);
+        baseProfile = Profiles.findOne({firstname:firstName.value, lastname:lastName.value});
+        provider = Providers.findOne({email:baseProfile.email});
+        DisplayProvider()
+        firstName.value = "";
+        lastName.value = "";
+    }
+});
+
+function DisplayProvider(){
+    var providerHTML;
+    var providerDiv = document.getElementById("providerResults");
+    var regions = "";
+    var specialties = "";
+
+
+    if (provider){
+
+        for(i = 0; i < provider.regions.length; i++){
+            regions += " " + provider.regions[i];
+        }
+
+        for(i = 0; i < provider.specialties.length; i++){
+            specialties += " " + provider.specialties[i];
+        }
+
+
+        providerHTML = "<h1>Patient Info</h1>";
+        providerHTML += "<table>";
+        providerHTML += "<tr><td>Name: </td><td>" + baseProfile.firstname + " " + baseProfile.lastname + "</td></tr>";
+        providerHTML += "<tr><td>Email Address: </td><td>" + baseProfile.email + "</td></tr>";
+        providerHTML += "<tr><td>Phone Number: </td><td>" + baseProfile.phone + "</td></tr>";
+        providerHTML += "<tr><td>Address: </td><td>" + baseProfile.address + "</td></tr>";
+        providerHTML += "<tr><td>Gender: </td><td>" + baseProfile.gender + "</td></tr>";
+        providerHTML += "<tr><td>Account Creation: </td><td>" + baseProfile.createdAt + "</td></tr>";
+        providerHTML += "<tr><td>Is Doctor: </td><td>" + provider.isDoctor + "</td></tr>";
+        providerHTML += "<tr><td>License Number: </td><td>" + provider.licenseNum + "</td></tr>";
+        providerHTML += "<tr><td>NPI Number: </td><td>" + provider.npiNum + "</td></tr>";
+        providerHTML += "<tr><td>Regions: </td><td>" + regions + "</td></tr>";
+        providerHTML += "<tr><td>specialties: </td><td>" + specialties + "</td></tr>";
+        providerHTML += "</table><br>";
+        providerHTML += "<button class=\"ui primary button\" id=\"editButton\"> Edit </button>";
+    }
+    else{
+        providerHTML = "<h1>Provider Not Found</h1>";
+    } 
+    
+    providerDiv.innerHTML = providerHTML;
+};

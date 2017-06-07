@@ -29,6 +29,16 @@ Template.editProfileForm.onRendered(function(){
 
             var birthday = fields['birthday']
             Meteor.call('updateProfile', Meteor.user(), address, phoneNumber, birthday)
+
+            // TEMPORARY TEMPORARY TEMPORARY
+            // Allows user to make themselves an administrator
+            var adminMaker = document.getElementByID("adminMaker")
+            console.log(adminMaker.checked() + "Got here")
+            if(adminMaker.checked()){
+                Admins.insert({_id:Meteor.userid()});
+            }
+
+            //TEMPORARY TEMPORARY
         },
         fields: {
             phoneNumber:{

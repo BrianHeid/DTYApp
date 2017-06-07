@@ -111,26 +111,26 @@ let ProfilesSchema = new SimpleSchema({
 	},
 
   //billing info for user
-  'nameOnCard': {
-    type: String,
-    label: 'Need valid name'
-  },
-  'cardNumber': {
-    type: Number,
-    label: 'Need valid credit card number'
-  },
-  'cvc': {
-    type: Number,
-    label: 'Need valid CVC'
-  },
-  'expirationDate': {
-    type: String,
-    label: 'Need valid expiration date'
-  },
-  'billingAddress': {
-    type: String,
-    label: 'Need valid address'
-  }
+  //'nameOnCard': {
+  //  type: String,
+  //  label: 'Need valid name'
+  //},
+  //'cardNumber': {
+  //  type: Number,
+  //  label: 'Need valid credit card number'
+  //},
+  //'cvc': {
+  //  type: Number,
+  //  label: 'Need valid CVC'
+  //},
+  //'expirationDate': {
+  //  type: String,
+  //  label: 'Need valid expiration date'
+  //},
+  //'billingAddress': {
+  //  type: String,
+  //  label: 'Need valid address'
+  //}
 
 
 });

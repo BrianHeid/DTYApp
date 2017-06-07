@@ -1,0 +1,37 @@
+<template name="shiftsCalender">
+	{{> addEditEventModal }}
+	<center>
+		<h1>Calendar</h1>
+		<h4>Click on a date to add an event</h4>
+	</center>
+	<div id="shifts-calendar"></div>
+	<div class="small ui modal" id="event-info">
+		<i class="close icon"></i>
+		<div class="header top attached">
+			Event Information
+		</div>
+			<table class="ui definition table bottom attached">
+			  	<tbody>
+			    	<tr>
+			      		<td>Title</td>
+			      		<td id="eventTitle"></td>
+			    	</tr>
+			    	<tr>
+			      		<td class="two wide column">Date</td>
+			      		<td id="eventDate"></td>
+			    	</tr>
+			    	<tr>
+			      		<td>Time Start</td>
+			      		<td id="eventStart"></td>
+			    	</tr>
+			    	<tr>
+			    		<td>Time End</td>
+			    		<td id="eventEnd"></td>
+			    	</tr>
+
+			  	</tbody>
+			</table>
+	</div>
+</template>
+
+
