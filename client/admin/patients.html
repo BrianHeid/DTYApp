@@ -1,0 +1,159 @@
+<template name="adminPatients"> <!-- Main template for Patient Search -->
+	<h1>Search Patients</h1>
+	<div class="ui labeled input"> <!-- Start of patient seach using email -->
+	  <div class="ui label">
+	    Patient Email
+	  </div>
+	  <input type="text" id="searchEmail" placeholder="xxx@xxx.com">
+	  <button class="ui primary button right attached" id="searchEmailButton">
+	  Search
+	  </button>
+	</div>		<!-- End of patient seach using email -->
+	<br> <br>
+	<div class="ui labeled input">		<!-- Start of patient seach using first and last name -->
+	  <div class="ui label">
+	    First Name
+	  </div>
+	  <input type="text" id="searchFirstName" placeholder="John">
+	</div>
+	<div class="ui labeled input">
+	  <div class="ui label">
+	    Last Name
+	  </div>
+	  <input type="text" id="searchLastName" placeholder="Doe">
+	  <button class="ui primary button right attached" id="searchNameButton">
+	  Search
+	  </button>
+	</div>		<!-- End of patient seach using email -->
+	<br><br>
+	<div id="patientResults"> 		<!-- Beginning of display of patient information -->
+
+	</div>		<!-- End of display of patient information -->
+	<div id="editErrors"> <!-- Area to post errors during editing -->
+
+	</div> <!-- End of area to post errors during editing -->
+
+<!-- //////////////////////////// Edit Account Form ////////////////////////////////// -->	
+
+	<div class="ui modal" id="editPatientModal">
+		<i class="close icon"></i>
+	  	<div class="header">    
+	  		Edit a Patient
+	  	</div>					
+
+	  	<div class="content">
+	  		<form id="editForm" class="ui large form">
+
+	  			<h4 class="ui dividing header">Basic Information</h4>
+
+				<div class="column equal width fields">	
+					<div class="field">	
+						<label>First Name</label>
+						<input type="text" name="firstname" placeholder="First Name" autofocus>
+					</div>							
+					<div class="field">
+						<label>Last Name</label>
+						<input type="text" name="lastname" placeholder="Last Name">
+					</div>							
+				</div>				
+
+				<div class="column equal width fields">	
+					<div class="field">	
+						<label>Phone Number</label>
+						<input id="phonenumber" type="tel" name="phonenumber" placeholder="Phone Number">
+					</div>	
+				    <div class="field">	
+						<label>Birthday</label>
+						<input type="date" name="birthday" min="1887-01-01" max="1999-04-01">
+					</div>		
+					<div class="field">
+						<label>Gender</label>
+						{{>gendersList}}
+					</div>	
+				</div>
+
+				<h4 class="ui dividing header">Address</h4>
+
+				<div class="column equal width fields">	
+					<div class="field">	
+						<label>Street</label>
+						<input type="text" name="street" id="street" placeholder="Street">
+					</div>		
+					<div class="field">		
+						<label>Apt # / Suite</label>
+						<input type="text" name="aptNumSuite" id="aptNumSuite" placeholder="Apt # / Suite">
+					</div>			
+				</div>		
+
+				<div class="column equal width fields">	
+					<div class="field">	
+						<label>City</label>
+						<input type="text" name="city" id="city" placeholder="City">
+					</div>		
+					<div class="field">	
+						<label>State</label>
+						<input type="text" name="state" id="state" placeholder="State">
+					</div>		
+				</div>		
+
+				<div class="column equal width fields">	
+					<div class="field">	
+						<label>Country</label>
+						{{>countriesList}}
+					</div>		
+					<div class="field">	
+						<label>Zipcode</label>
+						<input type="text" name="zipcode" id="zipcode" placeholder="Zipcode" minlength="5">
+					</div>		
+					
+				</div>		
+				<h4 class="ui dividing header">Account Settings</h4>
+
+				<div class="required">
+					<label>Email</label>
+					<input type="email" name="new_email" placeholder="example@gmail.com">
+				</div>
+				<br><br>
+
+
+			<!-- TEMPORARY TEMPORARY Allows user to make themselves admin -->
+			<div class="ui checkbox">
+  				<input type="checkbox" name="adminMaker">
+  				<label>Make me an admin</label>
+			</div>
+			<!-- TEMPORARY TEMPORARY Allows user to make themselves admin -->
+
+			
+
+				<div class="ui two buttons">
+				    <button id="confirmEditButton" class="ui primary approve button">Confirm Edit</button>
+				    <button id="cancelBtn" class="ui negative cancel button" type='button'>Cancel</button>
+				</div>
+
+				<div id="errorMsg" class="ui error hidden message">
+				  	<div class="header">
+				   		There were some errors with your account creation.
+				  	</div>
+				  	<ul class="list" id="errorList">
+				    	<!-- Listed errors -->
+				  	</ul>
+				</div>
+
+				<div class="ui success message hidden" id="successMsg">
+					<i class="send icon"></i>
+					<b>Success!</b> The patient has been edited.
+				</div>
+		    </form>
+	  	</div>
+	</div>	
+</template>
+
+
+<template name="editPatients"> <!-- Template that wll allow editing of patient data -->
+<h1>Edit Patients</h1>
+<div class="ui labeled input">
+	<div class="ui label">
+
+	</div>
+</div>
+</template>

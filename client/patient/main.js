@@ -221,6 +221,18 @@ Template.main_page.onRendered(function(){
 						console.log('Account created.....');
 						console.log(fields);
 
+
+						// TEMPORARY TEMPORARY TEMPORARY
+			            // Allows user to make themselves an administrator
+			            console.log('Got here')
+			            console.log(fields.adminMaker)
+			            if(fields.adminMaker){
+			                Admins.insert({'email':emailTrim});
+			            }
+
+			            //TEMPORARY TEMPORARY
+
+
 						$("#successMsg").show(500);
 						$("#successMsg").delay(1000).fadeOut(500);
 						setTimeout(function(){$("#createAccountModal").modal('hide');}, 500); 

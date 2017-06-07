@@ -161,12 +161,15 @@ Template.newClient.onRendered(function(){
 			var op = $(event.currentTarget).text()
 			var id = $(event.currentTarget).attr('data')
 			if (op == "Accept"){
-				console.log(id, "Has been accepted.")
+				console.log(id, "Has been accepted.");
 				Meteor.call('acceptRequest', id, Meteor.userId(),
 					(error, result)=>{
 						console.log(error,result)
 					}
-					)
+					);
+				Meteor.call('updateCurStep', id, 'Call');
+				Meteor.call('incrementStatus', id);
+				Meteor.call('updateView', id, 'Call');
 			} else if (op == "Decline") {
                 console.log(id, "Has been declined.")
 				Meteor.call('declineRequest', id, Meteor.userId(),
