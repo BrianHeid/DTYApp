@@ -1,122 +1,177 @@
 Template.dashboard.helpers({
 	'isRequest': function(){
 		if (Meteor.user()){
-			console.log("isRequest");
-			console.log(Meteor.user().profile['status']);
-			return parseInt(Meteor.user().profile['status']) == 1;
+			var patientEmail = Meteor.users.findOne({_id:Meteor.userId()}).emails[0].address;
+			console.log("Patient email");
+			console.log(patientEmail);
+			console.log("Status");
+			console.log(Profiles.findOne({email:patientEmail}).status)
+			return parseInt(Profiles.findOne({email:patientEmail}).status == 1);
 		}
 	},
 	'isRequestOverview': function(){
-		if (Meteor.user())
-			return parseInt(Meteor.user().profile['status']) == 2
+		if (Meteor.user()){
+			var patientEmail = Meteor.users.findOne({_id:Meteor.userId()}).emails[0].address;
+			return parseInt(Profiles.findOne({email:patientEmail})) == 2;
+		}
 	},
 	'isProcessingRequest': function(){
-		if (Meteor.user())
-			return parseInt(Meteor.user().profile['status']) == 3
+		if (Meteor.user()){
+			var patientEmail = Meteor.users.findOne({_id:Meteor.userId()}).emails[0].address;
+			return parseInt(Profiles.findOne({email:patientEmail})) == 3;
+		}
 	},
 	'isCall': function(){
-		if (Meteor.user())
-			return parseInt(Meteor.user().profile['status']) == 4
+		if (Meteor.user()){
+			var patientEmail = Meteor.users.findOne({_id:Meteor.userId()}).emails[0].address;
+			return parseInt(Profiles.findOne({email:patientEmail})) == 4;
+		}
 	},
 	'isCallOverview': function(){
-		if (Meteor.user())
-			return parseInt(Meteor.user().profile['status']) == 5
+		if (Meteor.user()){
+			var patientEmail = Meteor.users.findOne({_id:Meteor.userId()}).emails[0].address;
+			return parseInt(Profiles.findOne({email:patientEmail})) == 5;
+		}
 	},
 	'isReserve': function(){
-		if (Meteor.user())
-			return parseInt(Meteor.user().profile['status']) == 6
+		if (Meteor.user()){
+			var patientEmail = Meteor.users.findOne({_id:Meteor.userId()}).emails[0].address;
+			return parseInt(Profiles.findOne({email:patientEmail})) == 6;
+		}
 	},
 	'isReserveOverview': function(){
-		if (Meteor.user())
-			return parseInt(Meteor.user().profile['status']) == 7
+		if (Meteor.user()){
+			var patientEmail = Meteor.users.findOne({_id:Meteor.userId()}).emails[0].address;
+			return parseInt(Profiles.findOne({email:patientEmail})) == 7;
+		}
 	},
 	'isTreatment': function(){
-		if (Meteor.user())
-			return parseInt(Meteor.user().profile['status']) == 8
+		if (Meteor.user()){
+			var patientEmail = Meteor.users.findOne({_id:Meteor.userId()}).emails[0].address;
+			return parseInt(Profiles.findOne({email:patientEmail})) == 8;
+		}
 	},
 	'isTreatmentOverview': function(){
-		if (Meteor.user())
-			return parseInt(Meteor.user().profile['status']) == 9
+		if (Meteor.user()){
+			var patientEmail = Meteor.users.findOne({_id:Meteor.userId()}).emails[0].address;
+			return parseInt(Profiles.findOne({email:patientEmail})) == 9;
+		}
 	},
 	'isFollowUp': function(){
-		if (Meteor.user())
-			return parseInt(Meteor.user().profile['status']) == 10
+		if (Meteor.user()){
+			var patientEmail = Meteor.users.findOne({_id:Meteor.userId()}).emails[0].address;
+			return parseInt(Profiles.findOne({email:patientEmail})) == 10;
+		}
 	},
 	'isFollowUp2': function(){
-		if (Meteor.user())
-			return parseInt(Meteor.user().profile['status']) == 11
+		if (Meteor.user()){
+			var patientEmail = Meteor.users.findOne({_id:Meteor.userId()}).emails[0].address;
+			return parseInt(Profiles.findOne({email:patientEmail})) == 11;
+		}
 	},
 	'isFollowUpOverview': function(){
-		if (Meteor.user())
-			return parseInt(Meteor.user().profile['status']) == 12
+		if (Meteor.user()){
+			var patientEmail = Meteor.users.findOne({_id:Meteor.userId()}).emails[0].address;
+			return parseInt(Profiles.findOne({email:patientEmail})) == 12;
+		}
 	},
 	'isReview': function(){
-		if (Meteor.user())
-			return parseInt(Meteor.user().profile['status']) == 13
+		if (Meteor.user()){
+			var patientEmail = Meteor.users.findOne({_id:Meteor.userId()}).emails[0].address;
+			return parseInt(Profiles.findOne({email:patientEmail})) == 13;
+		}
 	},
 	'isReview2': function(){
-		if (Meteor.user())
-			return parseInt(Meteor.user().profile['status']) == 14
+		if (Meteor.user()){
+			var patientEmail = Meteor.users.findOne({_id:Meteor.userId()}).emails[0].address;
+			return parseInt(Profiles.findOne({email:patientEmail})) == 14;
+		}
 	}
 	})
 
 Template.show_dashboard_page.helpers({
 	'isRequest': function(){
 		if (Meteor.user()){
-			console.log("isRequest");
-			return Meteor.user().profile['viewing'] == 'Request';
+			var patientEmail = Meteor.users.findOne({_id:Meteor.userId()}).emails[0].address;
+			return parseInt(Profiles.findOne({email:patientEmail}).status) == 1;
 		}
 	},
 	'isRequestOverview': function(){
-		if (Meteor.user())
-			return Meteor.user().profile['viewing'] == 'RequestOverview'
+		if (Meteor.user()){
+			var patientEmail = Meteor.users.findOne({_id:Meteor.userId()}).emails[0].address;
+			return parseInt(Profiles.findOne({email:patientEmail}).status) == 2;
+		}
 	},
 	'isProcessingRequest': function(){
-		if (Meteor.user())
-			return Meteor.user().profile['viewing'] == 'ProcessingRequest'
+		if (Meteor.user()){
+			var patientEmail = Meteor.users.findOne({_id:Meteor.userId()}).emails[0].address;
+			return parseInt(Profiles.findOne({email:patientEmail}).status) == 3;
+		}
 	},
 	'isCall': function(){
-		if (Meteor.user())
-			return Meteor.user().profile['viewing'] == 'Call'
+		if (Meteor.user()){
+			var patientEmail = Meteor.users.findOne({_id:Meteor.userId()}).emails[0].address;
+			return parseInt(Profiles.findOne({email:patientEmail}).status) == 4;
+		}
 	},
 	'isCallOverview': function(){
-		if (Meteor.user())
-			return Meteor.user().profile['viewing'] == 'CallOverview'
+		if (Meteor.user()){
+			var patientEmail = Meteor.users.findOne({_id:Meteor.userId()}).emails[0].address;
+			return parseInt(Profiles.findOne({email:patientEmail}).status) == 5;
+		}
 	},
 	'isReserve': function(){
-		if (Meteor.user())
-			return Meteor.user().profile['viewing'] == 'Reserve'
+		if (Meteor.user()){
+			var patientEmail = Meteor.users.findOne({_id:Meteor.userId()}).emails[0].address;
+			return parseInt(Profiles.findOne({email:patientEmail}).status) == 6;
+		}
 	},
 	'isReserveOverview': function(){
-		if (Meteor.user())
-			return Meteor.user().profile['viewing'] == 'ReserveOverview'
+		if (Meteor.user()){
+			var patientEmail = Meteor.users.findOne({_id:Meteor.userId()}).emails[0].address;
+			return parseInt(Profiles.findOne({email:patientEmail}).status) == 7;
+		}
 	},
 	'isTreatment': function(){
-		if (Meteor.user())
-			return Meteor.user().profile['viewing'] == 'Treatment'
+		if (Meteor.user()){
+			var patientEmail = Meteor.users.findOne({_id:Meteor.userId()}).emails[0].address;
+			return parseInt(Profiles.findOne({email:patientEmail}).status) == 8;
+		}
 	},
 	'isTreatmentOverview': function(){
-		if (Meteor.user())
-			return Meteor.user().profile['viewing'] == 'TreatmentOverview'
+		if (Meteor.user()){
+			var patientEmail = Meteor.users.findOne({_id:Meteor.userId()}).emails[0].address;
+			return parseInt(Profiles.findOne({email:patientEmail}).status) == 9;
+		}
 	},
 	'isFollowUp': function(){
-		if (Meteor.user())
-			return Meteor.user().profile['viewing'] == 'Follow-up'
+		if (Meteor.user()){
+			var patientEmail = Meteor.users.findOne({_id:Meteor.userId()}).emails[0].address;
+			return parseInt(Profiles.findOne({email:patientEmail}).status) == 10;
+		}
 	},
 	'isFollowUp2': function(){
-		if (Meteor.user())
-			return Meteor.user().profile['viewing'] == 'Follow-up2'
+		if (Meteor.user()){
+			var patientEmail = Meteor.users.findOne({_id:Meteor.userId()}).emails[0].address;
+			return parseInt(Profiles.findOne({email:patientEmail}).status) == 11;
+		}
 	},
 	'isFollowUpOverview': function(){
-		if (Meteor.user())
-			return Meteor.user().profile['viewing'] == 'Follow-upOverview'
+		if (Meteor.user()){
+			var patientEmail = Meteor.users.findOne({_id:Meteor.userId()}).emails[0].address;
+			return parseInt(Profiles.findOne({email:patientEmail}).status) == 12;
+		}
 	},
 	'isReview': function(){
-		if (Meteor.user())
-			return Meteor.user().profile['viewing'] == 'Review'
+		if (Meteor.user()){
+			var patientEmail = Meteor.users.findOne({_id:Meteor.userId()}).emails[0].address;
+			return parseInt(Profiles.findOne({email:patientEmail}).status) == 13;
+		}
 	},
 	'isReview2': function(){
-		if (Meteor.user())
-			return Meteor.user().profile['viewing'] == 'Review2'
+		if (Meteor.user()){
+			var patientEmail = Meteor.users.findOne({_id:Meteor.userId()}).emails[0].address;
+			return parseInt(Profiles.findOne({email:patientEmail}).status) == 14;
+		}
 	}
 	})

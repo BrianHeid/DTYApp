@@ -45,6 +45,9 @@ Template.clientListPage.onRendered(
 
 		var statusText = "Your status: " + status;
 		document.getElementById("status").innerHTML = statusText;
+
+		Meteor.subscribe('allUsers');
+		Meteor.subscribe('reqq')
 	})
 
 Template.client.onRendered(
@@ -53,9 +56,9 @@ Template.client.onRendered(
 		this.$('.ui.button').click(
 			function(event, template){
 				var op = $(event.currentTarget).text()
-				var id = $(event.currentTarget).attr('data')
-				
-				target = Requests.findOne({_id:id})
+				var requestId = $(event.currentTarget).attr('data')
+				Meteor.subscribe('singleRequest', requestId);
+				var target = Requests.findOne({_id:requestId})
 				
 				if (op == 'Schedule') {
 					$('#schedulePrompt').text('Requested time by ' + target.firstname)
@@ -64,7 +67,7 @@ Template.client.onRendered(
 				} else if (op == 'Call') {
 					// CALL ACTION NOT YET IMPLEMENTED                    
                 } else if (op == 'Decline') {
-                    Meteor.call('declineRequest', id, Meteor.userId());
+                    Meteor.call('declineRequest', requestId, Meteor.userId());
                 } else if (op == 'Transfer') {
 					$('#transferModal').modal({
 						autofocus: false,	// Prevents dropdown from dropping automatically
@@ -72,9 +75,6 @@ Template.client.onRendered(
                 }
 				
 	});
-		
-	Meteor.subscribe("requests");
-	Meteor.subscribe("allUsers");
 	
 	// Click to submit button
 	$("#submitButton").click(function(){
@@ -98,21 +98,19 @@ Template.client.onRendered(
 			onSuccess: (event, fields)=>{
 				event.preventDefault()
 				console.log(fields)
-				var id = $("#editButton").attr('data');
+				var requestId = $("#editButton").attr('data');
 				
 				if (fields.sameTime == "on") {
-                    Meteor.call('updateRequestedDate', id, false, fields.date);
-					Meteor.call('updateRequestedTime', id, false, fields.time);
+                    Meteor.call('updateRequestedDate', requestId, false, fields.date);
+					Meteor.call('updateRequestedTime', requestId, false, fields.time);
                 } else {
-					Meteor.call('updateRequestedDate', id, true, fields.date);
-					Meteor.call('updateRequestedTime', id, true, fields.time);
+					Meteor.call('updateRequestedDate', requestId, true, fields.date);
+					Meteor.call('updateRequestedTime', requestId, true, fields.time);
 				}
-				console.log(id);
+				console.log(requestId);
 				var patientId = Requests.findOne({_id:id}).patientId;
 				console.log(patientId);
-				Meteor.call('updateCurStep', patientId, 'Call');
-				Meteor.call('updateStatus', patientId, 4);
-				Meteor.call('updateView', patientId, 'Call');
+				Meteor.call('incrementStatus', patientId);
 			},
 
 			fields: {
@@ -150,40 +148,45 @@ Template.client.helpers({
 		var emailAddress = Meteor.users.findOne({_id:id}).emails[0].address;
 		return Profiles.findOne({email: emailAddress}).birthday;
 	},
-	getStatus: function(id){
-		return Meteor.users.findOne({_id:id}).profile.curStep;
+	getStatus: function(patientId){
+		return Profiles.findOne({_id:patientId}).status;
 	}
 });
 
 Template.newClient.onRendered(function(){
 	this.$('#accept_button,#decline_button').click(
 		(event, template)=>{
-			var op = $(event.currentTarget).text()
-			var id = $(event.currentTarget).attr('data')
+			var op = $(event.currentTarget).text();
+			var requestId = $(event.currentTarget).attr('data');
+			var patientId = Requests.findOne({_id:requestId}).patientId;
+			var patientEmailAddress = Meteor.users.findOne({_id:patientId}).emails[0].address;
+			Meteor.subscribe("currProfile", patientEmailAddress);
+			console.log("Patient ID:");
+			console.log(patientId);
+
 			if (op == "Accept"){
-				console.log(id, "Has been accepted.");
-				Meteor.call('acceptRequest', id, Meteor.userId(),
+				console.log(patientEmailAddress, "Has been accepted.");
+				Meteor.call('acceptRequest', requestId, Meteor.userId(),
 					(error, result)=>{
 						console.log(error,result)
 					}
 					);
-				Meteor.call('updateCurStep', id, 'Call');
-				Meteor.call('incrementStatus', id);
-				Meteor.call('updateView', id, 'Call');
+				Meteor.call('incrementStatus', patientId);
 			} else if (op == "Decline") {
-                console.log(id, "Has been declined.")
-				Meteor.call('declineRequest', id, Meteor.userId(),
+                console.log(id, "Has been declined.");
+				Meteor.call('declineRequest', requestId, Meteor.userId(),
 					(error, result)=>{
 						console.log(error,result)
 					}
-					)
+					);
+				Meteor.call('resetStatus', patientId);
             }
 		});
 	
 	
-	var emailAddress = Meteor.users.findOne({_id:Meteor.userId()}).emails[0].address;
-	Meteor.subscribe("currProfile", emailAddress);
-	
+	var providerEmailAddress = Meteor.users.findOne({_id:Meteor.userId()}).emails[0].address;
+	Meteor.subscribe("currProfile", providerEmailAddress);
+
 });
 
 Template.newClient.helpers({

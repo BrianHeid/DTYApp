@@ -34,3 +34,7 @@ Meteor.publish("currProvider", function(id){
 Meteor.publish("allUsers", function(){
 	return Meteor.users.find();
 });
+
+Meteor.publish("singleRequest", function(requestId){
+	return Requests.findOne({_id:requestId});
+})

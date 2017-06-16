@@ -79,7 +79,7 @@ let ProfilesSchema = new SimpleSchema({
 	},
 	'createdAt': {
 		type: String,
-		label: 'Need valid created time'
+		label: 'Need valid created time.'
 	},
 	'firstname': {
 		type: String,
@@ -109,6 +109,14 @@ let ProfilesSchema = new SimpleSchema({
 		type: Boolean,
 		label: 'Need valid preference.'
 	},
+	'status': {
+		type: Number,
+		label: 'Status'
+	}
+/*	'currRequest': {
+		type: String,
+		label: 'Need valid request.'
+	} */
 
   //billing info for user
   //'nameOnCard': {
@@ -225,7 +233,7 @@ let RequestsSchema = new SimpleSchema ({
 		label: 'Need valid patient ID.'
 	},
 	'requestForSomeoneElse': {
-		type: String,
+		type: Boolean,
 		label: 'Need valid request for someone.'
 	},
 	'relationship': {

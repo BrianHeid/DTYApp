@@ -198,13 +198,10 @@ Template.main_page.onRendered(function(){
 						Accounts.createUser({
 							email: emailTrim,
 							password: fields.new_password,
-							createdAt: new Date().toLocaleString(),
-							profile: {
-								curStep: 'Request',
-								status: 1,
-								viewing: 'Request'
-							}
+							createdAt: new Date().toLocaleString()
 						});
+
+
 
 						Meteor.call('addPatientEmail', emailTrim);
 
@@ -217,6 +214,7 @@ Template.main_page.onRendered(function(){
 						var phoneNum = parseInt(phoneStrip);
 
 						Meteor.call('addProfile', emailTrim, firstTrim, lastTrim, phoneNum, fullAddress, fields.birthday, fields.gender);
+						
 						
 						console.log('Account created.....');
 						console.log(fields);
