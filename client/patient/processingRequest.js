@@ -15,7 +15,7 @@ Template.processingRequestPage.onRendered(function(){
 		onSuccess: function(event, fields) {
 			event.preventDefault();
 			// Add cancel reason to database
-
+			var reason = fields.reason;
 			// Click to cancel request button
 			$('#reasonModal').modal('hide');
 			$('.cancelled-redirect').modal('show');
@@ -24,6 +24,7 @@ Template.processingRequestPage.onRendered(function(){
 			$("#returnDashboard").click(function(){
 				$('#returnDashboard').modal('hide');
 				Meteor.call('resetStatus', Meteor.userId());
+				Meteor.call('cancelRequest', reason, Requests.findOne({patientId:Meteor.userId()})._id, false);
 			});
 
 			

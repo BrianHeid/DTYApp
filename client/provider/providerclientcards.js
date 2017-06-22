@@ -1,4 +1,10 @@
 
+Template.clientListPage.onCreated(
+	function(){
+		Meteor.subscribe('allUsers');
+		Meteor.subscribe('requeste');
+		Meteor.subscribe('profiles');
+	});
 
 Template.clientListPage.onRendered(
 	function(){
@@ -46,11 +52,100 @@ Template.clientListPage.onRendered(
 		var statusText = "Your status: " + status;
 		document.getElementById("status").innerHTML = statusText;
 
-		Meteor.subscribe('allUsers');
-		Meteor.subscribe('reqq')
-	})
+	});
 
-Template.client.onRendered(
+Template.patient.onRendered(
+	function(){
+		var requestId = document.getElementById("patientCard").dataset.id;
+		var patientId = Requests.findOne({_id:requestId}).patientId;
+
+
+
+		this.$('.ui.button').click(
+			function(event, template){
+				var op = $(event.currentTarget).text()
+				var requestId = document.getElementById("patientCard").dataset.id;
+				Meteor.subscribe('singleRequest', requestId);
+				var target = Requests.findOne({_id:requestId});
+				patientId = Requests.findOne({_id:requestId}).patientId;
+				Meteor.subscribe('currProfile', patientId);
+				
+				if (op == 'Schedule') {
+					$('#scheduleModal').modal('show');
+				} else if (op == 'Call') {
+					// CALL ACTION NOT YET IMPLEMENTED                    
+                } else if (op == 'Decline') {
+                    Meteor.call('declineRequest', requestId, Meteor.userId());
+                } else if (op == 'Transfer') {
+					$('#transferModal').modal({
+						autofocus: false,	// Prevents dropdown from dropping automatically
+					}).modal('show');
+                }
+				
+		});
+
+			// Click to submit button
+		$("#submitButton").click(function(){
+			$("#transferModal").modal("hide");
+			$("#transferCompleteModal").modal("show");
+		});
+		
+		// Dropdown functionality
+		$('.ui.dropdown').dropdown();
+
+		this.$('#scheduleNow').click(function(){
+			console.log("Success!");
+			$('#scheduleModal').modal('hide');
+			var requestId = document.getElementById("patientCard").dataset.id;
+			var patientId = Requests.findOne({_id:requestId}).patientId;
+			Meteor.call('setStatusReserve', patientId);
+		});
+
+		this.$('#scheduleCancel').click(function(){
+			console.log("Cancel!");
+			$('#scheduleModal').modal('hide');
+		});
+	});
+
+
+/*Template.patient.events({
+	'click .scheduleNow': function(){
+		$('#scheduleModal').modal('hide');
+		console.log("Success!");
+	},
+	'click .scheduleCancel': function(){
+		$('#scheduleModal').modal('hide');
+		console.log("Cancel!");
+	}
+}); */
+
+
+Template.patient.helpers({
+	getPhonenumber: function(requestId){
+		var patientId = Requests.findOne({_id:requestId}).patientId;
+		console.log(patientId);
+		var email = Meteor.users.findOne({_id:patientId}).emails[0].address;
+		return Profiles.findOne({email:email}).phone;
+	},
+	getEmail: function(requestId){
+		var patientId = Requests.findOne({_id:requestId}).patientId;
+		console.log(patientId);
+		return Meteor.users.findOne({_id:patientId}).emails[0].address;
+	},
+	getBirthday: function(patientId){
+		var emailAddress = Meteor.users.findOne({_id:patientId}).emails[0].address;
+		console.log("Birthday");
+		console.log(emailAddress);
+		return Profiles.findOne({email:emailAddress}).birthday;
+	},
+	getStatus: function(requestId){
+		var patientId = Requests.findOne({_id:requestId}).patientId
+		console.log(patientId);
+		return Requests.findOne({_id:patientId}).status;
+	}
+});
+
+/* Template.client.onRendered(
 	function(){
 		this.$('.menu .item').tab();
 		this.$('.ui.button').click(
@@ -58,7 +153,9 @@ Template.client.onRendered(
 				var op = $(event.currentTarget).text()
 				var requestId = $(event.currentTarget).attr('data')
 				Meteor.subscribe('singleRequest', requestId);
-				var target = Requests.findOne({_id:requestId})
+				var target = Requests.findOne({_id:requestId});
+				patientId = Requests.findOne({_id:requestId}).patientId;
+				Meteor.subscribe('currProfile', patientId);
 				
 				if (op == 'Schedule') {
 					$('#schedulePrompt').text('Requested time by ' + target.firstname)
@@ -89,52 +186,53 @@ Template.client.onRendered(
 			$('#datetime-form').toggle();
 		});
 
-		$('#scheduleForm').form({
-			inline: true,
-			on: 'blur',
-			transition: 'slide down',
-			keyboardShortcuts: true,
+	$('#scheduleForm').form({
+		inline: true,
+		on: 'blur',
+		transition: 'slide down',
+		keyboardShortcuts: true,
 
-			onSuccess: (event, fields)=>{
-				event.preventDefault()
-				console.log(fields)
-				var requestId = $("#editButton").attr('data');
-				
-				if (fields.sameTime == "on") {
-                    Meteor.call('updateRequestedDate', requestId, false, fields.date);
-					Meteor.call('updateRequestedTime', requestId, false, fields.time);
-                } else {
-					Meteor.call('updateRequestedDate', requestId, true, fields.date);
-					Meteor.call('updateRequestedTime', requestId, true, fields.time);
-				}
-				console.log(requestId);
-				var patientId = Requests.findOne({_id:id}).patientId;
-				console.log(patientId);
-				Meteor.call('incrementStatus', patientId);
-			},
-
-			fields: {
-				time:{
-					identifier: 'time',
-					rule: [
-						{
-							type: 'empty',
-							prompt: 'Please pick a time.'
-						}
-					]
-				},
-				date: {
-					identifier: 'date',
-					rule: [
-						{
-							type: 'empty',
-							prompt: 'Please pick a date.'
-						}
-					]
-				}
+		onSuccess: (event, fields)=>{
+			event.preventDefault()
+			console.log(fields)
+			var requestId = $("#editButton").attr('data');
+			
+			if (fields.sameTime == "on") {
+                Meteor.call('updateRequestedDate', requestId, false, fields.date);
+				Meteor.call('updateRequestedTime', requestId, false, fields.time);
+            } else {
+				Meteor.call('updateRequestedDate', requestId, true, fields.date);
+				Meteor.call('updateRequestedTime', requestId, true, fields.time);
 			}
-			})
+			console.log(requestId);
+			var patientId = Requests.findOne({_id:requestId}).patientId;
+			console.log(patientId);
+			Meteor.call('updateStatus', patientId, 6);
+		},
+
+		fields: {
+			time:{
+				identifier: 'time',
+				rule: [
+					{
+						type: 'empty',
+						prompt: 'Please pick a time.'
+					}
+				]
+			},
+		date: {
+			identifier: 'date',
+			rule: [
+				{
+					type: 'empty',
+					prompt: 'Please pick a date.'
+				}
+			]
+		}
+	}
+	})
 });
+
 
 Template.client.helpers({
 	getPhonenumber: function(id){
@@ -151,7 +249,7 @@ Template.client.helpers({
 	getStatus: function(patientId){
 		return Profiles.findOne({_id:patientId}).status;
 	}
-});
+}); */
 
 Template.newClient.onRendered(function(){
 	this.$('#accept_button,#decline_button').click(
@@ -171,9 +269,9 @@ Template.newClient.onRendered(function(){
 						console.log(error,result)
 					}
 					);
-				Meteor.call('incrementStatus', patientId);
+				Meteor.call('setStatusCall', patientId);
 			} else if (op == "Decline") {
-                console.log(id, "Has been declined.");
+                console.log(patientId, "Has been declined.");
 				Meteor.call('declineRequest', requestId, Meteor.userId(),
 					(error, result)=>{
 						console.log(error,result)

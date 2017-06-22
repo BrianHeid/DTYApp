@@ -8,6 +8,11 @@
 			padding-right: 100px;
 		}
 
+		#patientCard{
+			padding-right: 10px;
+			margin-left: 10px;
+		}
+
 		.ui.card {
 			height: 420px;
 			padding-right: 20px;	
@@ -152,7 +157,7 @@
 			<h1>This tab indicates all the current requests</h1>
 			<div class="ui four column stackable grid">
 				{{#each clients}}
-				{{> client}}
+				{{> patient}}
 				{{/each}}
 			</div>
 		</div>
@@ -169,6 +174,104 @@
 
 </template>
 
+<template name='patient'>
+	<div class="column">
+		<div class="ui card" id="patientCard" data-id={{_id}}>
+			<div class="content">
+				<div class='header'>{{firstname}} {{lastname}}</div>
+				<div class="description">Requester Name: {{requesterName}}</div>
+				{{#if requestForSomeoneElse}}<div class='description'>Relationship: {{relationship}}</div>{{/if}}
+				<div class='description'>Status: {{patientId}}</div><br><br>
+				<div class='description'>Requested time: {{times.requestTime}}</div>
+				<div class='description'>Email: {{getEmail (_id)}}</div>
+				<div class='description'>DOB: {{getBirthday (patientId)}}</div>
+				<div class='description'><i class="call icon"></i>{{getPhonenumber (_id)}}</div>
+				<div class='description'>Address: {{address}}</div>
+			</div>
+			<div class="content">
+				<div class="two ui buttons top attached">
+	      			<button id="editButton" class="ui blue button" data={{_id}}><center><i class="call square small icon"></i>Call</center></button>
+					<button id="editButton" class="ui positive button" data={{_id}}><center><i class="checkmark box small icon"></i>Schedule</center></button>
+				</div>
+				<div class="two ui buttons bottom attached">
+	      			<button id="editButton" class="ui negative button" data={{_id}}><center><i class="remove circle small icon"></i>Decline</center></button>
+					<button id="editButton" class="ui orange button" data={{_id}}><center><i class="exchange small icon"></i>Transfer</center></button>
+	      		</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="ui small modal" id="scheduleModal">
+		<p style="text-align:center">Do you wish to schedule now?</p>
+		<div class="two ui buttons">
+			<button class="ui positive approve button scheduleNow" id="scheduleNow"><i class="checkmark box small icon" type="submit"></i>Schedule Now</button>
+			<button class="ui negative cancel button scheduleCancel" id="scheduleCancel"><i class="remove circle small icon" ></i>Cancel</button>
+		</div>
+	</div>
+	
+	<div class="ui small modal" id="transferModal">
+	  <i class="close icon"></i>
+	  <h2 class="ui header container">
+		<div class="content">
+    		Transfer Patient
+	    	<div class="sub header">To transfer this request, search for and select another provider</div>
+	    </div>
+	  </h2>
+	  
+	  <div class="content">
+	  	{{>validStatesListFluid}}
+		<br>
+
+		<!-- Dynamic provider list from database -->
+
+		<div id="providerDropdown" class="ui fluid search selection dropdown">
+			<input name="provider" type="hidden">
+			<i class="dropdown icon"></i>
+			<div class="default text">Select Provider...</div>
+				<div class="menu">
+					<div class="item" data-value="mEdwards"><img class="ui avatar image" src="/images/matt.png"><span>Matt Edwards</span></div>
+					<div class="item" data-value="hTroy"><img class="ui avatar image" src="/images/helen.jpg"><span>Helen Troy</span></div>
+				</div>
+		</div>
+
+		<br>
+
+	  	<div class="inline"><label>Reason for transfer: </label><textarea rows="3"></textarea></div>
+	  </div>
+
+	  <div class="actions" id="transferActionButtons">
+	  	<div class="ui two buttons">
+			<button class="ui primary ok button" id="submitButton">
+		    	Submit
+		    </button>
+
+		    &nbsp;&nbsp;&nbsp;
+			
+			<button class="ui negative deny button" id="negButton">
+		    	Cancel
+		    </button>
+		</div>
+	  </div>
+	</div>
+
+	<!-- /////////////////////////////////////////// TRANSFER COMPLETE MODAL //////////////////////////////////////////////////////// -->
+
+	<div class="ui small modal" id="transferCompleteModal">
+		<i class="close icon"></i>
+		<div class="header">
+			<center>Transfer Complete!</center>
+	  	</div>
+	  	<div class="content">
+	    	<center><h3>You have successfully transferred <span id="transferPatientName" style="color:#00bde8;">John Doe<!-- PATIENT NAME --></span> to <span id="transferProviderName" style="color:#00bde8;">Matt Edwards<!-- PROVIDER NAME --></span></h3></center>
+		</div>
+		<div class="actions">
+			<button class="ui fluid ok primary button">
+	  			Okay
+			</button>
+		</div>
+	</div>
+</template>
+
 
 <template name='client'>
 
@@ -180,12 +283,15 @@
 					<div class="one column grid">	
 						<div class="column">
 							<div class="content">			
-								<div class='header' id="nameText">{{firstname}} {{lastname}}</div>
-								<div class="description" id="extraText">Requester Name: {{requesterName}}</div>
-								{{#if requestForSomeoneElse}}<div class='description' id="extraText">Relationship: {{relationship}}</div>{{/if}}
-								<div class='description' id="extraText">Status: {{patientId}}</div><br><br>
-								<div class='description' id="extraText">Requested time: {{times.requestTime}}</div>
-
+								<div class='header'>{{firstname}} {{lastname}}</div>
+								<div class="description">Requester Name: {{requesterName}}</div>
+								{{#if requestForSomeoneElse}}<div class='description'>Relationship: {{relationship}}</div>{{/if}}
+								<div class='description'>Status: {{patientId}}</div><br><br>
+								<div class='description'>Requested time: {{times.requestTime}}</div>
+								<div class='description'>Email: {{getEmail _id}}</div>
+								<div class='description'>DOB: {{getBirthday _id}}</div>
+								<div class='description'><i class="call icon"></i>{{getPhonenumber _id}}</div>
+								<div class='description'>Address: {{address}}</div>
 							</div>
 						</div>
 					</div>

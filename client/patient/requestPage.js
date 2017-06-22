@@ -104,9 +104,7 @@ Template.requestPage.onRendered(function(){
 					//////////////////////////////////////////////////////////
 
 					$("#successMsg").show(500);
-					Meteor.call('updateCurStep', Meteor.userId(), 'ProcessingRequest');
-					Meteor.call('updateStatus', Meteor.userId(), 3);
-					Meteor.call('updateView', Meteor.userId(), 'ProcessingRequest');
+					Meteor.call('setStatusProcessingRequest', Meteor.userId());
 					var willSendSMS = Profiles.findOne({email: emailAddress}).preferences;
 
 					if (willSendSMS) {
