@@ -2,7 +2,7 @@
 Template.clientListPage.onCreated(
 	function(){
 		Meteor.subscribe('allUsers');
-		Meteor.subscribe('requeste');
+		Meteor.subscribe('requests');
 		Meteor.subscribe('profiles');
 	});
 

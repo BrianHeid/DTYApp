@@ -1,51 +1,48 @@
-// Define gateway variable
 var gateway;
 
+// Sets up the Braintree environment
+
 Meteor.startup(function () {
-  var env;
-  // Pick Braintree environment based on environment defined in Meteor settings.
-  if (Meteor.settings.public.env === 'Production') {
-    env = Braintree.Environment.Production;
-  } else {
-    env = Braintree.Environment.Sandbox;
-  }
-  // Initialize Braintree connection:
-  gateway = BrainTreeConnect({
-    environment: env,
-    publicKey: Meteor.settings.public.BT_PUBLIC_KEY,
-    privateKey: Meteor.settings.private.BT_PRIVATE_KEY,
-    merchantId: Meteor.settings.public.BT_MERCHANT_ID
+  var braintree = require('braintree');
+  gateway = braintree.connect({
+    environment: braintree.Environment.Sandbox,
+    publicKey: Meteor.settings.BT_PUBLIC_KEY,
+    privateKey: Meteor.settings.BT_PRIVATE_KEY,
+    merchantId: Meteor.settings.BT_MERCHANT_ID
   });
 });
 
 Meteor.methods({
-  getClientToken: function (clientId) {
-    var generateToken = Meteor.wrapAsync(gateway.clientToken.generate, gateway.clientToken);
+  getClientToken: function (userId) {
+    //var generateToken = Meteor.wrapAsync(gateway.clientToken.generate, gateway.clientToken);
+
     var options = {};
 
-    if (clientId) {
-      options.clientId = clientId;
+    if (userId) {
+      options.clientId = userId;
     }
 
-    var response = generateToken(options);
+    var response = gateway.clientToken.generate(options);
+
     return response.clientToken;
   },
- createTransaction: function(nonceFromTheClient, fee) {
+  createTransaction: function (data) {
+    var transaction = Meteor.wrapAsync(gateway.transaction.sale, gateway.transaction);
+    // this is very naive, do not do this in production!
+    var amount = parseInt(data.quantity, 10) * 100;
 
-   // Let's create transaction.
-   gateway.transaction.sale({
-     amount: fee, //'10.00',
-     paymentMethodNonce: nonceFromTheClient, // Generated nonce passed from client
-     options: {
-       submitForSettlement: true, // Payment is submitted for settlement immediately
-     }
-   }, function (err, success) {
-     if (err) {
-       console.log(err);
-     } else {
-       // When payment's successful, add "paid" role to current user.
-       console.log("Payment successful");
-     }
-   });
-}
+    var response = transaction({
+      amount: amount,
+      paymentMethodNonce: data.nonce,
+      customer: {
+        firstName: data.firstName
+      }
+    });
+
+    // ...
+    // perform a server side action with response
+    // ...
+
+    return response;
+  }
 });

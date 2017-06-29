@@ -23,6 +23,7 @@ Meteor.publish("currProfile", function(emailAddress){
 	return Profiles.findOne({email:emailAddress});
 });
 
+
 Meteor.publish("currPatient", function(id){
 	return Patients.findOne({_id:id});
 })
