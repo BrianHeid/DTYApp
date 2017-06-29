@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*Template.braintree.onRendered({
 	braintree.setup('CLIENT-TOKEN-FROM-SERVER', 'dropin', {
   		container: 'dropin-container'
@@ -34,3 +35,10 @@ Template.braintree.onRendered(function(){
 
 
 
+=======
+// Template.braintree.onRendered({
+// 	braintree.setup('CLIENT-TOKEN-FROM-SERVER', 'dropin', {
+//   		container: 'dropin-container'
+// 	});
+// });
+>>>>>>> origin/master
