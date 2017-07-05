@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 /*Template.braintree.onRendered({
 	braintree.setup('CLIENT-TOKEN-FROM-SERVER', 'dropin', {
   		container: 'dropin-container'
@@ -23,22 +23,38 @@ Template.braintree.onCreated(function(){
 });
 
 Template.braintree.onRendered(function(){
+
 	console.log("Start on render")
-	var clientToken = Meteor.call('getClientToken', Meteor.userId());
+
+  var promise = new Promise(function(resolve, reject) {
+      Meteor.call('getClientToken', Meteor.userId(), function (err, response) {  
+      if (response) {
+        //console.log(response.clientToken);
+        resolve("Stuff worked!");
+      }
+      else {
+        reject(Error("It broke"));
+      }
+  });
+  });
+	
+
+  var clientToken = Meteor.call('getClientToken', Meteor.userId());
+
+//  var clientToken = Session.get('clientToken');
 	console.log("Client Token");
 	console.log(clientToken);
 
-	braintree.setup(clientToken, 'dropin', {
+	/*braintree.setup(clientToken, 'dropin', {
 		container: 'dropin-container' 
-	});
+	}); */
 });
 
 
 
-=======
 // Template.braintree.onRendered({
 // 	braintree.setup('CLIENT-TOKEN-FROM-SERVER', 'dropin', {
 //   		container: 'dropin-container'
 // 	});
 // });
->>>>>>> origin/master
+
