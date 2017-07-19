@@ -24,31 +24,42 @@ Template.braintree.onCreated(function(){
 
 Template.braintree.onRendered(function(){
 
-	console.log("Start on render")
+	console.log("Start on render");
 
-  var promise = new Promise(function(resolve, reject) {
-      Meteor.call('getClientToken', Meteor.userId(), function (err, response) {  
-      if (response) {
-        //console.log(response.clientToken);
-        resolve("Stuff worked!");
-      }
-      else {
-        reject(Error("It broke"));
-      }
+  var emailAddress = "bwh520@gmail.com";
+
+  Meteor.call('getClientToken', emailAddress, function (err, response) {  
+    if (response) {
+      console.log("It worked!")
+      console.log(response);
+      braintree.setup(response, 'dropin', {
+        container: 'dropin-container',
+        onPaymentMethodReceived: function (data) {
+          Meteor.call('createCustomer', data.nonce);  
+          console.log("Go!");  
+        }
+      }); 
+    }
+    else {
+      console.log("It broke");
+      console.log(err);
+    }
   });
-  });
+
+});
+
 	
 
-  var clientToken = Meteor.call('getClientToken', Meteor.userId());
+//  Meteor.call('getClientToken', Meteor.userId(), (response, err));
 
 //  var clientToken = Session.get('clientToken');
-	console.log("Client Token");
-	console.log(clientToken);
+//	console.log("Client Token");
+//	console.log(clientToken);
 
 	/*braintree.setup(clientToken, 'dropin', {
 		container: 'dropin-container' 
 	}); */
-});
+
 
 
 

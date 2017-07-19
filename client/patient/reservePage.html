@@ -15,56 +15,34 @@
 	<br>
 
 	<div class="ui container">
-		<form class="ui form">
+		<form class="ui form" id="paymentForm">
 			<h4 class="ui dividing header">Credit Card Information</h4>
 
 			<div class="field required">
 				<label>Name on card</label>
-				<input type="text" name="lastName" placeholder="First and last name">
+				<input type="text" name="fullName" placeholder="First and last name">
 			</div>
 
-			<div class="fields">
-			    <div class="seven wide required field">
-			      <label>Card Number</label>
-			      <input name="card[number]" maxlength="16" placeholder="Card #" type="text">
-			    </div>
-			    <div class="three wide required field">
-			      <label>CVC</label>
-			      <input name="card[cvc]" maxlength="3" placeholder="CVC" type="text">
-			    </div>
-			    <div class="six wide field">
-			      <label>Expiration</label>
-			      <div class="two fields">
-			        <div class="required field">
-			          <select class="ui fluid search dropdown" name="card[expire-month]">
-			            <option value="">Month</option>
-				            <option value="1">January</option>
-				            <option value="2">February</option>
-				            <option value="3">March</option>
-				            <option value="4">April</option>
-				            <option value="5">May</option>
-				            <option value="6">June</option>
-				            <option value="7">July</option>
-				            <option value="8">August</option>
-				            <option value="9">September</option>
-				            <option value="10">October</option>
-				            <option value="11">November</option>
-				            <option value="12">December</option>
-			          </select>
-			        </div>
-			        <div class="required field">
-			          <input name="card[expire-year]" maxlength="4" placeholder="Year" type="text">
-			        </div>
-			      </div>
-			    </div>
-			</div>
+			<!-- BRAINTREE GOES HERE -->
+			
+			<div id="dropin-container"></div> 
+
+			<br>
 
 			<label>Billing address different from current address?</label>
-			<label class="switch">
+			<!-- <label class="switch">
 				<input class="switch-input" type="checkbox" id="myonoffswitch"/>
-				<span class="switch-label" data-on="Yes" data-off="No"></span>
+				<span class="switch-label" data-on="No" data-off="Yes"></span>
 				<span class="switch-handle"></span>
-			</label>
+			</label> -->
+
+			<div class="field">
+				<label class="ui checkbox switch">
+					<input class="switch-input" type="checkbox" id="myonoffswitch" name="differentAddress"/>
+					<span class="switch-label" data-on="No" data-off="Yes"></span> 
+					<span class="switch-handle"></span> 
+				</label>
+			</div>
 
 		    <div id="billing-form">
 			    <h4 class="ui dividing header">Billing Address</h4>
@@ -98,32 +76,6 @@
 					<div class="field">
 						<label>Apt # / Suite</label>
 						<input type="text" name="aptNumSuite" placeholder="Apt # / Suite">
-					</div>
-				</div>
-			</div>
-
-			<br>
-
-			<!-- If checked, date and time will hide. Should pull same information given from request page -->
-		    <label>As soon as possible?</label>
-			<label class="switchTime">
-				<input class="switch-input-time" type="checkbox" id="myonoffswitch-time" name="laterTime"/>
-				<span class="switch-label-time" data-on="Later" data-off="ASAP"></span>
-				<span class="switch-handle-time"></span>
-			</label>
-
-			<div id="time-form">
-			    <h4 class="ui dividing header">Date and Time</h4>
-
-				<div class="two fields">
-					<div class="field">
-						<label>Date</label>
-						<input type="date" name="date">
-					</div>
-
-					<div class="field">
-				      <label>Time</label>
-				      <input type="time" name="time">
 					</div>
 				</div>
 			</div>
@@ -217,124 +169,4 @@
 	    	<i id="infoIcon" class="large info circle icon"></i>Your card will NOT be charged until after all care has been provided.<br>Cancellation beyond this point will result in a cancellation fee.
 	  	</h4>
 	</div>
-
-	<!-- JavaScript -->
-	<script type="text/javascript">
-		$(document).ready(function(){
-			$("#billing-form").hide();
-			$("#time-form").hide();
-
-			// Click billing address toggle
-			$("#myonoffswitch").click(function(){
-				$('#billing-form').toggle();
-			});
-
-			// Click date and time toggle
-			$("#myonoffswitch-time").click(function(){
-				$('#time-form').toggle();
-			});
-
-			// Click consent modal
-			$("#consent").click(function(){
-				$('#provide-care').modal({
-					autofocus: false,	// Prevents the dropdown menu from dropping automatically
-				}).modal('show');
-			});
-
-			// Click HIPAA modal
-			$("#hipaa").click(function(){
-				$('#hipaa-modal').modal({
-					autofocus: false,	// Prevents the dropdown menu from dropping automatically
-				}).modal('show');
-			});
-
-			// Click to reserve button
-			$("#reserve").click(function(){
-				var emailAddress = Meteor.users.findOne({_id:Meteor.userId()}).emails[0].address;
-				var willSendSMS = Profiles.findOne({email: emailAddress}).preferences;
-				Meteor.subscribe("currProfile", emailAddress);
-				Meteor.subscribe("currRequest", Meteor.userId());
-
-				var providerId = Requests.findOne().providerId;
-				Meteor.subscribe("currProvider", providerId);
-
-				var providerEmail = Meteor.users.findOne({_id:providerId}).emails[0].address;
-				var providerName = Profiles.findOne({email:providerEmail}).lastName;
-				var ETA = Requests.findOne().treatment.ETA;
-
-        // send SMS if user has that preference
-				if (willSendSMS) {
-					Meteor.call('sendSMS',{
-						to: '+1' + Profiles.findOne({email: emailAddress}).phone,
-						text: 'Doctors To You Update: Reservation Made with ' + providerName + ' ETA: ' + ETA;
-					});
-				}
-
-
-
-				var form = document.forms[0];
-
-        // store billing info **DELETED AFTER USED FOR PAYMENT**
-				Meteor.call('storeBillingInfo', Meteor.user(),{
-					nameOnCard: form.elements["lastName"].value,
-					cardNumber: form.elements["card[number]"].value,
-					cvc: form.elements["card[cvc]"].value,
-					expirationDate: {
-						month: form.elements["card[expire-month]"].value;
-						year: form.elements["card[expire-year]"].value;
-					},
-					billingAddress: {
-						'street': form.elements["street"].value,
-						'city': form.elements["city"].value,,
-						'state': form.elements["state"].value,,
-						'zip': form.elements["zipcode"].value,
-					};
-				});
-
-
-				$('#success').show(500);	// Reveals in 500 milliseconds
-				event.preventDefault();		// Prevents from page refreshing on submit
-
-				var emailAddress = Meteor.users.findOne({_id:Meteor.userId()}).emails[0].address;
-				Meteor.subscribe("currProfile", emailAddress);
-				Meteor.subscribe("currRequest", Meteor.userId());
-				var name = Profiles.findOne({email: emailAddress}).firstname;
-
-				var providerId = Requests.findOne().providerId;
-				Meteor.subscribe("currProvider", providerId);
-
-				var providerEmail = Meteor.users.findOne({_id:providerId}).emails[0].address;
-
-				var provider = Profiles.findOne({email:providerEmail}).lastName;
-
-				var type = "";
-				var housecall = Requests.findOne().treatment.isHouseCall;
-				if (housecall) {
-					type += "house call";
-				} else {
-					type += "phone consultation";
-				}
-
-				var ETA = Requests.findOne().treatment.ETA;
-
-				Meteor.call('sendEmail',{
-					to: emailAddress,
-					from: 'no-reply@doctorstoyouapp.com',
-					subject: 'Doctors To You: Reservation made',
-					text:,
-					html:"Dear " + name +", <br><br>You have successfully reserved Dr. "+provider+" for a "+ type+". Your provider will arrive at approximately "+ETA+". Check <a href='care.doctorstoyou.com'>care.doctorstoyou.com</a> for the most recent update."
-				});
-
-			});
-
-			// Makes submit button disabled, needs to check the I Agree toggle first
-			document.getElementById("reserve").disabled = true;
-		});
-
-		// Allows dropdown function to work
-		$('.ui.dropdown').dropdown();
-
-		// Nag functionality
-		$('.nag').nag('show');
-	</script>
 </template>

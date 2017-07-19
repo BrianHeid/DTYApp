@@ -14,58 +14,31 @@ Meteor.startup(function () {
   console.log(Meteor.settings.BT_MERCHANT_ID);
   console.log(Meteor.settings.BT_PUBLIC_KEY);
   console.log(Meteor.settings.BT_PRIVATE_KEY);
- /* var braintree = require("braintree");
-  gateway = braintree.connect({
-    environment: braintree.Environment.Sandbox,
-    publicKey: Meteor.settings.BT_PUBLIC_KEY,
-    privateKey: Meteor.settings.BT_PRIVATE_KEY,
-    merchantId: Meteor.settings.BT_MERCHANT_ID
-  }); */
 });
 
 Meteor.methods({
-  getClientToken: function (userId) {
-
-    console.log("Server side token generation");
-    console.log(userId);
+  getClientToken: function (email) {
+    var generateToken = Meteor.wrapAsync(gateway.clientToken.generate, gateway.clientToken);
     var options = {};
-    var response = "bubbles";
+    var brainTreeId = Profiles.findOne({email:email}).brainTreeId;
 
-    if (userId) {
-      options.clientId = userId;
+    if (brainTreeId) {
+      options.customerId = userId;
     }
 
-    var promise = new Promise(function(resolve, reject) {
-      gateway.clientToken.generate({}, function (err, response) {
-       // console.log(response.clientToken);
-      if (response) {
-        resolve("Stuff worked!");
-      }
-      else {
-        reject(Error("It broke"));
-      }
-    });
-    });
+    var response = generateToken(options);
 
-    promise.then(function(result) {
-      console.log(result); // "Stuff worked!"
-      return result;
-    }, function(err) {
-      console.log(err); // Error: "It broke"
-      return err;
-    });
+    console.log("response");
+   // console.log(response.clientToken);
 
-  /*  gateway.clientToken.generate({}, function (err, response) {
-      console.log(response.clientToken);
-      answer = response.clientToken;
-      }); */
+    return response.clientToken;
 
   },
 
   createTransaction: function (data) {
     var transaction = Meteor.wrapAsync(gateway.transaction.sale, gateway.transaction);
     // This is very naive, do not do this in production!
-    var amount = parseInt(data.quantity, 10) * 100;
+    var amount = 0.00;
 
     var response = transaction({
       amount: amount,
@@ -80,5 +53,12 @@ Meteor.methods({
     // ...
 
     return response;
+  },
+
+  createCustomer: function (fields) {
+    console.log("Fields");
+    console.log(fields);
+
+    return;
   }
 });
