@@ -1,3 +1,8 @@
+Template.dashboard.onCreated(function(){
+	email = Meteor.users.findOne({_id:Meteor.userId()});
+	Meteor.subscribe("currProfile", email);
+});
+
 Template.dashboard.helpers({
 	'isRequest': function(){
 		if (Meteor.user()){
