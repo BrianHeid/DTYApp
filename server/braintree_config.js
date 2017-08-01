@@ -18,12 +18,12 @@ Meteor.startup(function () {
 });
 
 Meteor.methods({
-  getClientToken: function (email) {
+  getClientToken: function (email, userId) {
     var generateToken = Meteor.wrapAsync(gateway.clientToken.generate, gateway.clientToken);
     var options = {};
-    var brainTreeId = Profiles.findOne({email:email}).brainTreeId;
+     var paymentMethodMade = Profiles.findOne({email:email}).paymentMethodMade;
 
-    if (brainTreeId) {
+    if (paymentMethodMade) {
       options.customerId = userId;
     }
 
@@ -56,11 +56,24 @@ Meteor.methods({
     return response;
   },
 
-  createCustomer: function (fields) {
+  createCustomer: function (paymentNonce, patientId) {
     console.log("Fields");
-    console.log(fields);
+    console.log(paymentNonce);
 
+    gateway.customer.create({
+      id: patientId,
+      paymentMethodNonce: paymentNonce
+    }, function(err, result){
+      if(result){
+        console.log("Success customer created");
+        var email = Meteor.users.findOne({_id:patientId}).emails[0].address;
+        Profiles.update({email:email},{$set: {paymentMethodMade:true}});
+        console.log(Profiles.findOne({email:email}).paymentMethodMade);
+      }else{
+        console.log("Sucks");
+      }
+    });
     return;
   }
 });
->>>>>>> 0fe92a4c06331c359eaddfd95187eca4d41aeb09
+

@@ -60,7 +60,6 @@ Template.braintree.onRendered(function(){
 	}); */
 
 
->>>>>>> 0fe92a4c06331c359eaddfd95187eca4d41aeb09
 
 // Template.braintree.onRendered(function(){
 // 	console.log("Start on render")
@@ -68,14 +67,14 @@ Template.braintree.onRendered(function(){
 // 	console.log("Client Token");
 // 	console.log(clientToken);
 
-<<<<<<< HEAD
+
 // 	braintree.setup(clientToken, 'dropin', {
 // 		container: 'dropin-container' 
-=======
+
 // Template.braintree.onRendered({
 // 	braintree.setup('CLIENT-TOKEN-FROM-SERVER', 'dropin', {
 //   		container: 'dropin-container'
->>>>>>> 0fe92a4c06331c359eaddfd95187eca4d41aeb09
+
 // 	});
 // });
 

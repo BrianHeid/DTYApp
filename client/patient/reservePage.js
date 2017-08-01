@@ -1,16 +1,16 @@
 Template.reservePage.onRendered(function(){
-	console.log("Start on render")
+  console.log("Start on render")
   var emailAddress = Meteor.users.findOne({_id:Meteor.userId()}).emails[0].address;
 
-  Meteor.call('getClientToken', emailAddress, function (err, response) {  
+  Meteor.call('getClientToken', emailAddress, Meteor.userId(), function (err, response) {  
     if (response) {
       console.log("It worked!")
       console.log(response);
       braintree.setup(response, 'dropin', {
         container: 'dropin-container',
         onPaymentMethodReceived: function (data) {
-          Meteor.call('createCustomer', data.nonce);  
-          console.log("Go!");  
+          Meteor.call('createCustomer', data.nonce, Meteor.userId());  
+          Meteor.call('setStatusFollowup', Meteor.userId());  
         }
       }); 
     }
@@ -20,8 +20,16 @@ Template.reservePage.onRendered(function(){
     }
   });
 
-  $("#myonoffswitch").click(function(){
-    $('#billing-form').toggle();
+  $('#paymentForm')
+  .form({
+    fields: {
+      fullName     : 'empty',
+      street   : 'empty',
+      city : 'empty',
+      state : 'empty',
+      zipcode   : 'empty',
+      agree    : 'checked'
+    }
   });
 
 });
@@ -35,14 +43,6 @@ Template.reservePage.events({
 });
 
 $(document).ready(function(){
-  $("#billing-form").hide();
-  $("#time-form").hide();
-
-  // Click billing address toggle
-  $("#myonoffswitch").click(function(){
-    $('#billing-form').toggle();
-  });
-
   // Click consent modal
   $("#consent").click(function(){
     $('#provide-care').modal({
