@@ -27,6 +27,17 @@
 
 			width: 100%;
 		}
+		@media only screen and (max-device-width: 480px) {
+			#happy{
+				width: 30%;
+			}
+			#straight{
+				width: 30%;
+			}
+			#unhappy{
+				width: 30%;
+			}
+		}
 	</style>
 
 	<!-- IF PATIENT IS "SOMEWHAT BETTER" OR FEELS "NO IMPROVEMENT" -->
@@ -34,9 +45,10 @@
 	<div id="followupSent" class="ui raised text container segment" style="display: none;">
 		<center>
 		<h3 class="ui header container">
-		  <div class="content" id="followupNeededTitle">
-			{{providerName}} has received your feedback and will follow-up with you shortly, {{patientName}}.
-		  </div>
+		  	<div class="content" id="followupNeededTitle">
+		  		We're sorry to hear you aren't feeling better.
+				{{providerName}} has received your feedback and will follow-up with you shortly, {{patientName}}.
+		  	</div>
 		</h3>
 		</center>
 	</div>
@@ -49,7 +61,7 @@
 		<center>
 			<h3 class="ui header container">
 			  <div class="content" id="followupTitle">
-			    Please let {{providerName}} know how you are feeling by selecting your current status below
+			    Let {{providerName}} know how you are feeling by selecting your current status below.
 			  </div>
 			</h3>
 		</center>
@@ -60,9 +72,9 @@
 		<div class="ui column centered grid">
 			<center>
 				<div class="ui images">
-					<img id="happy" class="ui circular image" height="100" width="100" src="/images/happy-face.png">
-					<img id="straight" class="ui circular image" height="100" width="100" src="/images/straight-face.png">
-					<img id="unhappy" class="ui circular image" height="100" width="100" src="/images/unhappy-face.png">
+					<img id="happy" class="ui circular image" width="100" src="/images/happy-face.png">
+					<img id="straight" class="ui circular image" width="100" src="/images/straight-face.png">
+					<img id="unhappy" class="ui circular image" width="100" src="/images/unhappy-face.png">
 				</div>
 			</center>
 		</div>
@@ -99,7 +111,7 @@
 
 	<!-- IF PATIENT IS "ALL BETTER" -->
 
-	<div id="happyDiv" class="ui raised text container segment" style="display: none;">
+	<div id="happyDiv" class="ui raised text container segment" style="display: none; text-align:center;">
 		<center>
 			<div id="share-content" style="display: none;">
 
@@ -139,54 +151,30 @@
 			<div id="feedbackContent">
 				<h2 class="header">Feedback</h2>
 
-				<table class="ui celled unstackable blue table attached segment">
-				  <thead>
-				    <tr>
-				    	<th class="nine wide"><h3 class="header">Category</h3></th>
-				    	<th class="seven wide"><h3 class="header">Rating</h3></th>
-				  	</tr>
-				  </thead>
+				<table>
 				  <tbody>
 				    <tr>
 				      <td>
-				      	<h4 class="header">Punctual</h4>
-				      	<div class="sub header">Was your provider on time? Were the time estimates accurate?</div>
+				      	<div class="header" style="text-align:center;">How would you rate the care you recieved from your medical provider?</div>
 				      </td>
-				      <td><div class="ui massive star rating" data-rating="5" data-max-rating="5"></div></td>
+				    </tr>
+				    <tr>
+				      <td style="text-align:center;"><div class="ui massive star rating" data-rating="5" data-max-rating="5"></div><br><br></td>
 				    </tr>
 				    <tr>
 				      <td>
-				      	<h4 class="header">Professional</h4>
-				      	<div class="sub header">Was your provider professional?</div>
+				      	<div class="header" style="text-align:center;">How would you rate your overall experience with Doctors To You?</div>
 				      </td>
-				      <td><div class="ui massive star rating" data-rating="5" data-max-rating="5"></div></td>
+				    </tr>
+				    <tr>
+				      <td style="text-align:center;"><div class="ui massive star rating" data-rating="5" data-max-rating="5"></div><br><br></td>
 				    </tr>
 				    <tr>
 				      <td>
-				      	<h4 class="header">Courteous</h4>
-				      	<div class="sub header">Was your provider polite throughout your care?</div>
+				      	<div class="header">Additional Comments:</div>
 				      </td>
-				      <td><div class="ui massive star rating" data-rating="5" data-max-rating="5"></div></td>
 				    </tr>
 				    <tr>
-				      <td>
-				      	<h4 class="header">Caring</h4>
-				      	<div class="sub header">Was your provider gentle? Did they listen to your concerns?</div>
-				      </td>
-				      <td><div class="ui massive star rating" data-rating="5" data-max-rating="5"></div></td>
-				    </tr>
-				    <tr>
-				      <td>
-				      	<h4 class="header">Follow-Up</h4>
-				      	<div class="sub header">Did you receive quality follow-up care? Did you feel cared for?</div>
-				      </td>
-				      <td><div class="ui massive star rating" data-rating="5" data-max-rating="5"></div></td>
-				    </tr>
-				    <tr>
-				      <td>
-				      	<h4 class="header">Additional Comments:</h4>
-				      	<div class="sub header">Is there anything else you would like to share with us? How can we improve?</div>
-				      </td>
 				      <td><textarea rows="2" maxlength="1000" placeholder="Additional comments..."></textarea></td>
 				    </tr>
 				  </tbody>
@@ -202,4 +190,6 @@
 	</div>
 
 	<!-- END OF "ALL BETTER" -->
+
+
 </template>

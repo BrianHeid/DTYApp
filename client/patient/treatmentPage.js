@@ -5,7 +5,12 @@ Template.treatmentPage.onRendered(function(){
     var imageHTML = "<img src=\"" + imageSrc + "\">";
     document.getElementById("imageProvider").innerHTML = imageHTML;
 
-
+    Meteor.call('getCurrProviderName', Meteor.userId(), function(err, response){
+        console.log("Reponse");
+        console.log(response);
+        Session.set('providerName', response);
+    });
+    
     // Click to open cancel request button
     $(".cancelBtn").click(function(){
         $('#reasonModal').modal('show');
@@ -53,7 +58,7 @@ Template.treatmentPage.onRendered(function(){
         }
     });
 
-  var emailAddress = Meteor.users.findOne({_id:Meteor.userId()}).emails[0].address;
+    var emailAddress = Meteor.users.findOne({_id:Meteor.userId()}).emails[0].address;
 	Meteor.subscribe("currProfile", emailAddress);
 	Meteor.subscribe("currRequest", Meteor.userId());
 
@@ -92,25 +97,14 @@ Template.treatmentPage.onRendered(function(){
 
 Template.treatmentPage.helpers({
    providerName: function(){
-        var providerFullName = "";
-		var isDoctor = Providers.findOne().isDoctor;
-
-		if (isDoctor) {
-            providerFullName += "Dr. ";
-        }
-		var providerId = Requests.findOne().providerId;
-		var firstName = Profiles.findOne({_id:providerId}).firstname;
-		var lastName = Profiles.findOne({_id:providerId}).lastname;
-
-		providerFullName += firstName + " " + lastName;
-
-		return providerFullName;
+        providerName = Session.get('providerName');
+		return providerName;
    },
    ETA: function(){
-        return Requests.findOne().treatment.ETA;
+        return Requests.findOne({patientId:Meteor.userId()}).treatment.ETA;
    },
    patientName: function(){
-		return Profiles.findOne().firstname;
+		return Profiles.findOne({_id:Meteor.userId()}).firstname;
    }
 
 });

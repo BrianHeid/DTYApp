@@ -1,19 +1,16 @@
 <!-- First follow-Up page that a patient will first see up until the follow-up time -->
 
 <template name="followupPage">
+
+
 	<center>
 		<div class="ui raised padded text container segment">
 			<h1 class="ui header container">
-			  <div class="content" id="followupTitle">
-			    Please rest up now, {{patientName}}
+			  <div class="textContent" id="followupTitle">
+			    We hope you are feeling better, {{patientName}}. We will follow up with you in the upcoming days to see how you feel.
 			  </div>
 			</h1>
-
-			<h2 class="ui header container">
-			  <div class="content" id="followupText">
-			  	{{providerName}} will follow up with you on {{datetimeFollowup}} to make sure everything is OK.
-			  </div>
-			</h2>
+			{{> socialBox}}
 		</div>
 	</center>
 

@@ -17,24 +17,21 @@
 
 			width: 100%;
 	  	}
+
 	</style>
 
 	<!-- Informative box about how long call wait will be -->
 	
 	<center>
 		<div class="ui raised very padded text container segment">
-			<h2 class="ui header">We are processing your request and will take care of you soon, {{getFirstName}}<br><br>
-			Thank you for choosing Doctors To You!</h2>
 
+			<h2 class="ui header">{{getFirstName}}, thank you for submitting your request. Please standby for a medical provider to review and accept your request.</h2>
 			<br>
 
-			<button class="cancelBtn negative ui button">Cancel Request</button>
-
-			<br>
-
-			<h3 class="ui header">Doctors To You Blog</h3>
-
-		   	<hr>
+			{{> socialBoxNewsletter}}
+			<br><br>
+			<button id="cancelButton" class="cancelBtn negative ui button">Cancel Request</button>
+		   	<br>
 
 		   	<!-- blog posts -->
 		</div>

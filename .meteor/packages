@@ -35,8 +35,10 @@ fullcalendar:fullcalendar
 momentjs:moment
 aldeed:simple-schema
 aldeed:collection2
-session
 accolver:twilio-meteor
 cunneen:mailgun
 
 patrickml:braintree
+percolate:synced-cron
+carlosbaraza:meteor-socicon
+session

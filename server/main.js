@@ -89,22 +89,6 @@ let ProfilesSchema = new SimpleSchema({
 		type: String,
 		label: 'Need valid last name.'
 	},
-	'phone': {
-		type: Number,
-		label: 'Need valid phone number.'
-	},
-	'address': {
-		type: String,
-		label: 'Need valid address.'
-	},
-	'birthday': {
-		type: String,
-		label: 'Need valid age.'
-	},
-	'gender': {
-		type: String,
-		label: 'Need valid gender.'
-	},
 	'preferences': {
 		type: Boolean,
 		label: 'Need valid preference.'
@@ -112,6 +96,10 @@ let ProfilesSchema = new SimpleSchema({
 	'status': {
 		type: Number,
 		label: 'Status'
+	},
+	'paymentMethodMade': {
+		type: Boolean,
+		label: 'Payment Method'
 	}
 /*	'currRequest': {
 		type: String,
@@ -292,6 +280,10 @@ let RequestsSchema = new SimpleSchema ({
 		type: Boolean,
 		label: 'Need to know if canceled after reserving'
 	},
+	'readyForPayment': {
+		type: Boolean,
+		label: 'Ready for payment'
+	},
 	'requestComplete': {
 		type: Boolean,
 		label: 'Need to know if request is complete.'
@@ -303,6 +295,18 @@ let RequestsSchema = new SimpleSchema ({
 	'providerId': {
 		type: String,
 		label: 'Need valid provider ID.'
+	},
+	'phone': {
+		type: Number,
+		label: 'Need valid phone number.'
+	},
+	'birthday': {
+		type: String,
+		label: 'Need valid age.'
+	},
+	'gender': {
+		type: String,
+		label: 'Need valid gender.'
 	}
 });
 

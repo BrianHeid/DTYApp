@@ -26,11 +26,15 @@
 			</div>
 
 			<div id="relationship-form">
-			  <div class="field">
+			  <div class="required field">
+			  	<label>Relationship</label>
 			      <select class="ui dropdown" id="relationship" name="relationship">
 			        <option value="">Choose your relationship</option>
 			        <option value="family">For my family member</option>
 			        <option value="friend">For my friend</option>
+			        <option value="employee">For my employee/colleague</option>
+					<option value="resident">For my condo/apartment resident</option>
+					<option value="guest">For a hotel guest</option>
 			        <option value="other">Other</option>
 			      </select>
 			   </div>
@@ -48,20 +52,28 @@
 
 		    </div>
 
-		    <!-- If checked, address will show -->
-		    <label>Different address?</label>
-			<label class="switchAddress">
-				<input class="switch-input-address" type="checkbox" id="myonoffswitch-address" name="different_address"/>
-				<span class="switch-label-address" data-on="Yes" data-off="No"></span> 
-				<span class="switch-handle-address"></span> 
-			</label>
+		    <h4 class="ui dividing header">Basic Information</h4>
+	    	<div class="column equal width fields required">
+				<div class="required field">
+					<label>Phone Number</label>
+					<input id="phonenumber" type="tel" name="phonenumber" placeholder="Phone Number">
+				</div>
+			    <div class="required field">
+					<label>Birthday</label>
+					<input {{attributes}}>
+				</div>
+				<div class="required field">
+					<label>Gender</label>
+					{{>gendersList}}
+				</div>	
+			</div>
 
 			<div id="address_form" name="address_form">
 			    <h4 class="ui dividing header">Address</h4>
 			
 				<div class="column equal width fields">
 					<div class="required field">
-						<label>Street</label>
+						<label>Street Address</label>
 						<input type="text" name="street" id="street" placeholder="Street">
 					</div>
 					<div class="field">
@@ -86,36 +98,9 @@
 					
 				</div>
 			</div>
-
-			<!-- If checked, date and time will hide -->
-		    <label>As soon as possible?</label>
-			<label class="switchTime">
-				<input class="switch-input-time" type="checkbox" id="myonoffswitch-time" name="laterTime"/>
-				<span class="switch-label-time" data-on="Later" data-off="ASAP"></span> 
-				<span class="switch-handle-time"></span> 
-			</label>
-
-			<div id="time-form">
-			    <h4 class="ui dividing header">Date and Time</h4>
-
-				<div class="two fields">
-					<div class="required field">
-						<label>Date</label>
-						<input type="date" name="date" id="date">
-					</div>
-
-					<div class="required field">
-				      <label>Time</label>
-				      <input type="time" name="time">
-					</div>
-				</div>
-			</div>
-
-			<br>
-
+			<h4 class="ui dividing header">Symptoms</h4>
 			<div class="required field">
-				<label>Symptoms</label>
-	    		<textarea rows="3" name= 'symptoms'></textarea>
+	    		<textarea rows="3" name= 'symptoms' placeholder="Symptoms"></textarea>
 			</div>
 
 			<!-- Need to implement upload functionality! Then can preview images as well. -->

@@ -21,7 +21,7 @@ Meteor.methods({
   getClientToken: function (email, userId) {
     var generateToken = Meteor.wrapAsync(gateway.clientToken.generate, gateway.clientToken);
     var options = {};
-     var paymentMethodMade = Profiles.findOne({email:email}).paymentMethodMade;
+    var paymentMethodMade = Profiles.findOne({email:email}).paymentMethodMade;
 
     if (paymentMethodMade) {
       options.customerId = userId;

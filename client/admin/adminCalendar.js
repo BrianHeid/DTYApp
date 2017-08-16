@@ -19,11 +19,11 @@ Template.adminCalendar.onCreated(
 		}
 	);
 
-Template.addEditEventModal.onRendered(
+/*Template.addEditEventModal.onRendered(
 	()=>{
 		this.$('#add-edit-event-modal').modal()
 	}
-	)
+	)*/
 
 Template.adminCalendar.onRendered(
 	function(){
