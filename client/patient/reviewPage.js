@@ -1,4 +1,10 @@
 Template.reviewPage.onRendered(function(){
+
+	Meteor.call('getCurrProviderName', Meteor.userId(), function(err, response){
+		console.log("Reponse");
+		console.log(response);
+		Session.set('providerName', response);
+	});
     
     $("#emailPrefBtn").click(function(){
         FlowRouter.go('/account#emailPref');	
@@ -15,18 +21,7 @@ Template.reviewPage.onRendered(function(){
 
 Template.reviewPage.helpers({
     providerName: function(){
-        var providerFullName = "";
-		var isDoctor = Providers.findOne().isDoctor;
-		
-		if (isDoctor) {
-            providerFullName += "Dr. ";
-        }
-		var providerId = Requests.findOne().providerId;
-		var firstName = Profiles.findOne({_id:providerId}).firstname;
-		var lastName = Profiles.findOne({_id:providerId}).lastname;
-		
-		providerFullName += firstName + " " + lastName;
-		
-		return providerFullName;
+		providerName = Session.get('providerName');		
+		return providerName;
    }
 });

@@ -8,7 +8,18 @@
 	      type="text/javascript">
 	    </script>
 	     <script src="https://js.braintreegateway.com/v2/braintree.js"></script>
+	     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 	</head>
+	<style>
+	@media only screen and (max-device-width: 480px) {
+		.textContent{
+			font-size: 0.75em;
+		}
+		#dtylogo{
+			display: none;
+		}
+	}
+	</style>
 
 	{{>menu_temp}}
 </template>
@@ -18,7 +29,7 @@
 	<div class="ui top fixed menu">
 		{{#if currentUser}}
 		<a class="item" href="/dashboard">
-    		<img src="/images/logo.png" class="ui small image">
+    		<img src="/images/logo.svg" class="ui small image" id="dtylogo">
   		</a>
 		<a class="item" href="/history">
 		  	<i class="history icon" ></i>
@@ -26,7 +37,7 @@
 		</a>
 		{{else}}
 		<a class="item" href="/">
-    		<img src="/images/logo.png" class="ui small image">
+    		<img src="/images/logo.svg" class="ui small image" id="dtylogo">
   		</a>
   		{{/if}}
 

@@ -1,8 +1,9 @@
 import { Accounts } from 'meteor/accounts-base'
 
+
 // Template for handling user login with semantic ui
 Template.main_page.onRendered(function(){
-	var valid = false;
+	var valid = true;
 
 	if (Meteor.user()){
 		console.log('user is logged in')
@@ -96,23 +97,25 @@ Template.main_page.onRendered(function(){
 				else{
 					$("#loginErrorMsg").hide();
 					console.log('Login was successful');
+
+					var isProvider = Providers.findOne({'email':fields.email});
+					
+					if (isProvider != undefined) {
+						var isAdmin = Admins.findOne({_id:isProvider._id});
+						if (isAdmin != undefined) {
+							console.log('Logged in as admin');
+	                        FlowRouter.go('/admin');
+	                    } else {
+							console.log('Logged in as provider');
+							FlowRouter.go('/provider/clients');
+						}
+	                } else {
+						console.log('Logged in as patient');
+						FlowRouter.go('/dashboard');
+					}	
 				}
 				
-				var isProvider = Providers.findOne({'email':fields.email});
-				
-				if (isProvider != undefined) {
-					var isAdmin = Admins.findOne({_id:isProvider._id});
-					if (isAdmin != undefined) {
-						console.log('Logged in as admin');
-                        FlowRouter.go('/admin');
-                    } else {
-						console.log('Logged in as provider');
-						FlowRouter.go('/provider/clients');
-					}
-                } else {
-					console.log('Logged in as patient');
-					FlowRouter.go('/dashboard');
-				}
+
 			});
 		},
 
@@ -168,9 +171,6 @@ Template.main_page.onRendered(function(){
 		$("#errorMsg").hide();
 	});
 
-	// Input mask for phone number for the format (XXX) XXX-XXXX
-	$("#phonenumber").inputmask({"mask": "(999) 999-9999"});
-
 	$('#registerForm').form({
 		inline: true,
 		on: 'blur',
@@ -180,13 +180,13 @@ Template.main_page.onRendered(function(){
 		onSuccess: function(event,fields){
 			event.preventDefault();
 
-			var streetTrim = fields.street.trim();
+		/*	var streetTrim = fields.street.trim();
 			var aptNumSuiteTrim = fields.aptNumSuite.trim();
 			var cityTrim = fields.city.trim();
 			var stateTrim = fields.state.trim();
 			var zipTrim = fields.zipcode.trim();
 
-			CheckValidAddress(streetTrim, cityTrim, stateTrim, zipTrim, fields.country);
+			CheckValidAddress(streetTrim, cityTrim, stateTrim, zipTrim, fields.country); */
 
 			setTimeout(function(){
 				if (valid) {
@@ -205,28 +205,24 @@ Template.main_page.onRendered(function(){
 
 						Meteor.call('addPatientEmail', emailTrim);
 
-						var fullAddress = streetTrim + ' ' + aptNumSuiteTrim + ' ' + cityTrim + ' ' + 
+					/*	var fullAddress = streetTrim + ' ' + aptNumSuiteTrim + ' ' + cityTrim + ' ' + 
 										  stateTrim + ' ' + zipTrim + ' ' + fields.country;
 
+
+						var phoneStrip = fields.phonenumber.replace('(', "").replace(')', "").replace(' ', '').replace('-', '');
+						var phoneNum = parseInt(phoneStrip); */
 						var firstTrim = fields.firstname.trim();
 						var lastTrim = fields.lastname.trim();
-						var phoneStrip = fields.phonenumber.replace('(', "").replace(')', "").replace(' ', '').replace('-', '');
-						var phoneNum = parseInt(phoneStrip);
-
-						Meteor.call('addProfile', emailTrim, firstTrim, lastTrim, phoneNum, fullAddress, fields.birthday, fields.gender);
+							
+						Meteor.call('addProfile', emailTrim, firstTrim, lastTrim);
 						
-						
+					
 						console.log('Account created.....');
 						console.log(fields);
 
 
 						// TEMPORARY TEMPORARY TEMPORARY
 			            // Allows user to make themselves an administrator
-			            console.log('Got here')
-			            console.log(fields.adminMaker)
-			            if(fields.adminMaker){
-			                Admins.insert({'email':emailTrim});
-			            }
 
 			            //TEMPORARY TEMPORARY
 
@@ -255,10 +251,6 @@ Template.main_page.onRendered(function(){
 				{
 					type: 'empty',
 					prompt: 'Please enter a first name.'
-				},
-				{
-					type: 'regExp[/^[a-zA-Z]{3,20}$/]',
-					prompt: 'Please enter a valid name.'
 				}
 				]
 			},
@@ -268,89 +260,9 @@ Template.main_page.onRendered(function(){
 				{
 					type: 'empty',
 					prompt: 'Please enter a last name.'
-				},
-				{
-					type: 'regExp[/^[a-zA-Z]{2,20}$/]',
-					prompt: 'Please enter a valid name.'
 				}
 				]
 			},
-			phonenumber: {
-				identifier: 'phonenumber',
-				rules: [
-				{
-					type: 'empty',
-					prompt: 'Please enter your primary phone number.'
-				},
-				{
-					type: 'regExp[/^(\\+\\d{1,2}\\s)?\\(?\\d{3}\\)?[\\s.-]\\d{3}[\\s.-]\\d{4}$/]',
-					prompt: 'Please enter a valid phone number.'
-				}
-				]
-			},
-			birthday: {
-				identifier: 'birthday',
-				rules: [
-				{
-					type: 'empty',
-					prompt: 'Please enter your birthday.'
-				}
-				]
-			},
-			gender: {
-				identifier: 'gender',
-				rules: [
-				{
-					type: 'empty',
-					prompt: 'Please specify your gender.'
-				}
-				]
-			},
-			street:{
-                identifier: 'street',
-                rules:[
-                {
-                    type: 'empty',
-                    prompt: 'Please enter a street address.'
-                }
-                ]
-            },
-            city:{
-                identifier: 'city',
-                rules:[
-                {
-                    type: 'empty',
-                    prompt: 'Please enter a city.'
-                }
-                ]
-            },
-            state:{
-                identifier: 'state',
-                rules:[
-                {
-                    type: 'empty',
-                    prompt: 'Please enter a state.'
-                }
-                ]
-            },
-            country:{
-            	identifier: 'country',
-            	rules:[
-            	{
-            		type: 'empty',
-            		prompt: 'Please select a country.'
-            	}
-            	]
-            },
-            zipcode:{
-                identifier: 'zipcode',
-                rules: [
-                {
-                    type: 'empty',
-                    prompt: 'Please enter a zip code.'
-                }
-                ]
-            },
 			new_email: {
 				identifier : 'new_email',
 				rules: [

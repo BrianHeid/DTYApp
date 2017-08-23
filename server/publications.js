@@ -37,5 +37,5 @@ Meteor.publish("allUsers", function(){
 });
 
 Meteor.publish("singleRequest", function(requestId){
-	return Requests.findOne({_id:requestId});
+	return Requests.find({_id:requestId});
 })

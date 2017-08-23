@@ -1,6 +1,12 @@
 Template.followupPage2.onRendered(function(){
     var status;
 
+    Meteor.call('getCurrProviderName', Meteor.userId(), function(err, response){
+        console.log("Reponse");
+        console.log(response);
+        Session.set('providerName', response);
+    });
+
     // Click on happy face
     $("#happy").click(function(){
         $("#happy").css("opacity", "1.0");	//Full opacity for happy
@@ -44,7 +50,7 @@ Template.followupPage2.onRendered(function(){
         $("#success").delay(500).fadeOut(1000);	// Hides success message after 500 milliseconds and then another 1000 milliseconds
 
         // If "Somewhat better" or "No improvement" will show short message
-        // Otherwise "All better" will show ratings box (Not yet implemented)
+        // Otherwise "All better" will show ratings box
         if (status == "straight" || status == "unhappy") {
             $("#followupSent").delay(2000).show(500);
         } else {
@@ -122,21 +128,12 @@ Template.followupPage2.onRendered(function(){
 
 Template.followupPage2.helpers({
     patientName: function(){
-        return Profiles.findOne().firstname;
+        var patientEmail = Meteor.users.findOne({_id:Meteor.userId()}).emails[0].address;
+        return Profiles.findOne({email:patientEmail}).firstname;
    },
    providerName: function(){
-        var providerFullName = "";
-		var isDoctor = Providers.findOne().isDoctor;
+        providerName = Session.get('providerName');
 
-		if (isDoctor) {
-            providerFullName += "Dr. ";
-        }
-		var providerId = Requests.findOne().providerId;
-		var firstName = Profiles.findOne({_id:providerId}).firstname;
-		var lastName = Profiles.findOne({_id:providerId}).lastname;
-
-		providerFullName += firstName + " " + lastName;
-
-		return providerFullName;
+		return providerName;
    }
 });

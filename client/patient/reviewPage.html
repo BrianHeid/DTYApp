@@ -3,19 +3,25 @@
 	 media posts. -->
 
 <template name="reviewPage">
+<style>
+	@media only screen and (max-device-width: 480px) {
+		#reviewText{
+			 font-size: 0.5em;
+			 line-height: 150%;
+		}
+	}
+</style>
 	<center>
 		<div class="ui raised very padded text container segment">
 			<h1 class="ui header container">
 			  <div id="providerConcludeCareText" class="content">
-			   {{providerName}} is concluding your care and will let you know when your medical report and invoice are ready.
+			  <div id="reviewText">
+			   {{providerName}} is concluding your care and will send you a message when your medical report and invoice are available.
+			   </div>
 			  </div>
 			</h1>
+			{{> socialBox}}
 
-			<br>
-
-			<button id="emailPrefBtn" class="ui button">
-			  Set Email and Messaging Preferences
-			</button>
 		</div>
 	</center>
 

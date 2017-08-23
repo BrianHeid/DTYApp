@@ -27,13 +27,13 @@ Template.providerProfile.onRendered(function(){
         onSuccess: function(event,fields){
 			event.preventDefault();
             
-            var streetTrim = fields.street.trim();
+        /*    var streetTrim = fields.street.trim();
 			var aptNumSuiteTrim = fields.aptNumSuite.trim();
 			var cityTrim = fields.city.trim();
 			var stateTrim = fields.state.trim();
 			var zipTrim = fields.zipcode.trim();
 
-			CheckValidAddress(streetTrim, cityTrim, stateTrim, zipTrim, fields.country);
+			CheckValidAddress(streetTrim, cityTrim, stateTrim, zipTrim, fields.country); */
             
             setTimeout(function(){
 				if (valid) {
@@ -49,15 +49,15 @@ Template.providerProfile.onRendered(function(){
 							createdAt: new Date().toLocaleString()
 						});
 
-						var fullAddress = streetTrim + ' ' + aptNumSuiteTrim + ' ' + cityTrim + ' ' + 
-										  stateTrim + ' ' + zipTrim + ' ' + fields.country;
+					/*	var fullAddress = streetTrim + ' ' + aptNumSuiteTrim + ' ' + cityTrim + ' ' + 
+										  stateTrim + ' ' + zipTrim + ' ' + fields.country; */
 
 						var firstTrim = fields.firstname.trim();
 						var lastTrim = fields.lastname.trim();
-						var phoneStrip = fields.phonenumber.replace('(', "").replace(')', "").replace(' ', '').replace('-', '');
-						var phoneNum = parseInt(phoneStrip);
+					/*	var phoneStrip = fields.phonenumber.replace('(', "").replace(')', "").replace(' ', '').replace('-', '');
+						var phoneNum = parseInt(phoneStrip); */
 
-						Meteor.call('addProfile', emailTrim, firstTrim, lastTrim, phoneNum, fullAddress, fields.birthday, fields.gender);
+						Meteor.call('addProfile', emailTrim, firstTrim, lastTrim);
                         if (fields.isDoctor == "on") {
                             Meteor.call('addProvider', emailTrim, true, fields.licenseNum, fields.npiNum, fields.validStatesMulti, fields.specialties);
                         } else {

@@ -2,7 +2,7 @@
 	<br>
 
 	<div class="ui header">
-		<div class="ui yellow message">
+		<div class="ui orange message">
 			<center>
 				<i class="warning circle icon"></i>
 	  			IF THIS IS AN EMERGENCY PLEASE CALL 9-1-1
@@ -70,7 +70,14 @@
 </template>
 
 <template name="dashboard">
-	<div class="ui six top attached steps">
+	<style>
+		@media only screen and (max-device-width: 480px) {
+			#dashboard {
+				display: none;
+			}
+		}
+	</style>
+	<div class="ui six top attached steps" id="dashboard">
 
 		{{#if isRequest}}
 		<a class="active step">

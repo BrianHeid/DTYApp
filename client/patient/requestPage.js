@@ -10,24 +10,26 @@ Template.requestPage.onRendered(function(){
 	$('.ui.dropdown').dropdown();
 
 	$("#relationship-form").hide();
-	$("#address_form").hide();
-	$("#time-form").hide();
 
 	$("#myonoffswitch").click(function(){
 		$('#relationship-form').toggle();
 	});
 
-	// Click billing address toggle
-	$("#myonoffswitch-address").click(function(){
-		$('#address_form').toggle();
-	});
+	$("#phonenumber").inputmask({"mask": "(999) 999-9999"});
 
-	// Click billing address toggle
-	$("#myonoffswitch-time").click(function(){
-		$('#time-form').toggle();
-	});
+	//Age validation rule////////////////////////////////////
+	/*$.fn.form.settings.rules.age = function(value, age) {
+		console.log(age);
+		console.log(value);
+	    if(moment(value, "DD/MM/YYYY").isBefore(moment().subtract(parseInt(age, 10), "year"))){
+	        return true;
+	    }else{
+	        return true;
+	    }
+	};*/
 
-	// Sets the date minimum to today's date
+
+/*	// Sets the date minimum to today's date
 	var today = new Date();
 	var dd = today.getDate();
 	var mm = today.getMonth()+1;
@@ -56,7 +58,7 @@ Template.requestPage.onRendered(function(){
 	    }
 
 	today = yyyy+'-'+mm+'-'+dd;
-	document.getElementById("date").setAttribute("min", today);
+	document.getElementById("date").setAttribute("min", today); */
 
 	$('.ui.form').form({
 		inline: true,
@@ -69,21 +71,16 @@ Template.requestPage.onRendered(function(){
 			console.log(fields);
 
 			// Checks that an address was inputted
-			if (fields.different_address) {
-				var streetTrim = fields.street.trim();
-				var aptNumSuiteTrim = fields.aptNumSuite.trim();
-				var cityTrim = fields.city.trim();
-				var zipTrim = fields.zipcode.trim();
+			var streetTrim = fields.street.trim();
+			var aptNumSuiteTrim = fields.aptNumSuite.trim();
+			var cityTrim = fields.city.trim();
+			var zipTrim = fields.zipcode.trim();
 
-				var fullAddress = streetTrim + ' ' + aptNumSuiteTrim + ' ' + cityTrim + ' ' +
-										  fields.activeStates + ' ' + zipTrim
+			var fullAddress = streetTrim + ' ' + aptNumSuiteTrim + ' ' + cityTrim + ' ' +
+									  fields.activeStates + ' ' + zipTrim
+			// Checks if address is valid before adding to database and moving forward with request
+			CheckValidAddress(streetTrim, cityTrim, fields.activeStates, zipTrim);
 
-				// Checks if address is valid before adding to database and moving forward with request
-				CheckValidAddress(streetTrim, cityTrim, fields.activeStates, zipTrim);
-			} else {
-				$("#errorMsg").hide();
-				valid = true;
-			}
 
 			/// ADDRESS HAS TO BE VALID IN REGIONS!!! /////////////////////////////////////////////////////////////////////////
 			//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -96,10 +93,9 @@ Template.requestPage.onRendered(function(){
 					var lastName = Profiles.findOne({email: emailAddress}).lastname;
 					var requesterName =  firstName + " " + lastName;
 
-					if (!fields.laterTime) {
-						fields.date = today;
-						fields.time = time;
-					}
+					fields.date = moment().format('YYYY MMMM DD');
+					fields.time = moment().format('h:mm a');
+
 					Meteor.call('pushRequest', Meteor.userId(), fields, requesterName);
 					//////////////////////////////////////////////////////////
 
@@ -110,7 +106,7 @@ Template.requestPage.onRendered(function(){
 					if (willSendSMS) {
 						Meteor.call('sendSMS',{
 							to: '+1' + Profiles.findOne({email: emailAddress}).phone,
-							text: 'Doctors To You Update: Request Received.'
+							text: firstName + ', we\'ve received your request and you are being connected to one of our on-call providers.'
 						});
 					}
 
@@ -218,26 +214,6 @@ Template.requestPage.onRendered(function(){
                 }
                 ]
             },
-            date:{
-                identifier: 'date',
-                depends: 'laterTime',
-                rules:[
-                {
-                    type: 'empty',
-                    prompt: 'Please choose a date.'
-                }
-                ]
-            },
-            time:{
-                identifier: 'time',
-                depends: 'laterTime',
-                rules: [
-                {
-                    type: 'empty',
-                    prompt: 'Please choose a time.'
-                }
-                ]
-            },
 			symptoms: {
 				identifier: 'symptoms',
 				rules: [
@@ -248,6 +224,41 @@ Template.requestPage.onRendered(function(){
 				{
 					type: "minLength[10]",
 					prompt: "Please enter at least 10 characters."
+				}
+				]
+			},
+			phonenumber: {
+				identifier: 'phonenumber',
+				rules: [
+				{
+					type: 'empty',
+					prompt: 'Please enter your primary phone number.'
+				},
+				{
+					type: 'regExp[/^(\\+\\d{1,2}\\s)?\\(?\\d{3}\\)?[\\s.-]\\d{3}[\\s.-]\\d{4}$/]',
+					prompt: 'Please enter a valid phone number.'
+				}
+				]
+			},
+			birthday: {
+				identifier: 'birthday',
+				rules: [
+				{
+					type: 'empty',
+					prompt: 'Please enter your birthday.'
+				}/*,
+				{
+					type: 'age[18]',
+					prompt: 'You need to be at least 18'
+				}*/
+				]
+			},
+			gender: {
+				identifier: 'gender',
+				rules: [
+				{
+					type: 'empty',
+					prompt: 'Please specify your gender.'
 				}
 				]
 			}
@@ -302,5 +313,22 @@ Template.requestPage.onRendered(function(){
                     break;
        		}
        	});
+	}
+});
+
+Template.requestPage.helpers({
+	attributes: function(){
+		var dateLimit = moment().subtract(18, 'years').format('YYYY-M-D');
+		console.log("Date Limit");
+		console.log(dateLimit);
+		return {
+			type: "date",
+			name: "birthday",
+			min: "1887-01-01",
+			max: dateLimit
+		};
+
+
+		//type="date" name="birthday" min= max={{dateLimit}}
 	}
 });

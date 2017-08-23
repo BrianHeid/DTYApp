@@ -52,37 +52,11 @@ Template.clientListPage.onRendered(
 		var statusText = "Your status: " + status;
 		document.getElementById("status").innerHTML = statusText;
 
+		////////////////////////////////////////// Set provider name for texts ////////////////////////////////////////////////
+
 	});
 
-Template.patient.onRendered(
-	function(){
-		var requestId = document.getElementById("patientCard").dataset.id;
-		var patientId = Requests.findOne({_id:requestId}).patientId;
-
-
-
-		this.$('.ui.button').click(
-			function(event, template){
-				var op = $(event.currentTarget).text()
-				var requestId = document.getElementById("patientCard").dataset.id;
-				Meteor.subscribe('singleRequest', requestId);
-				var target = Requests.findOne({_id:requestId});
-				patientId = Requests.findOne({_id:requestId}).patientId;
-				Meteor.subscribe('currProfile', patientId);
-				
-				if (op == 'Schedule') {
-					$('#scheduleModal').modal('show');
-				} else if (op == 'Call') {
-					// CALL ACTION NOT YET IMPLEMENTED                    
-                } else if (op == 'Decline') {
-                    Meteor.call('declineRequest', requestId, Meteor.userId());
-                } else if (op == 'Transfer') {
-					$('#transferModal').modal({
-						autofocus: false,	// Prevents dropdown from dropping automatically
-					}).modal('show');
-                }
-				
-		});
+Template.patient.onRendered(function(){
 
 			// Click to submit button
 		$("#submitButton").click(function(){
@@ -93,31 +67,123 @@ Template.patient.onRendered(
 		// Dropdown functionality
 		$('.ui.dropdown').dropdown();
 
-		this.$('#scheduleNow').click(function(){
-			console.log("Success!");
-			$('#scheduleModal').modal('hide');
-			var requestId = document.getElementById("patientCard").dataset.id;
-			var patientId = Requests.findOne({_id:requestId}).patientId;
-			Meteor.call('setStatusReserve', patientId);
+		var requestId = this.data._id;
+
+		Meteor.call('returnStatus', requestId, function(error, result){
+			console.log("Call session");
+			console.log(requestId);
+			Session.set(requestId, result);
 		});
 
-		this.$('#scheduleCancel').click(function(){
-			console.log("Cancel!");
-			$('#scheduleModal').modal('hide');
-		});
 	});
 
 
-/*Template.patient.events({
-	'click .scheduleNow': function(){
-		$('#scheduleModal').modal('hide');
-		console.log("Success!");
+Template.patient.events({
+	'click #sendFollowUp' : function (event) {
+		event.preventDefault();
+		var requestId = this._id;
+		var patientId = Requests.findOne({_id:requestId}).patientId;
+    	Meteor.call('setStatusFollowup2', patientId);
+  		var patientEmail = Meteor.users.findOne({_id:patientId}).emails[0].address;
+    	console.log("Follow up sent to ");
+    	console.log(patientId);
+		Meteor.call('sendSMS',{
+			to: '+1' + Profiles.findOne({email: patientEmail}).phone,
+			text: 'Are you feeling better? Please let us know so we can conclude your care: http://newcare.doctorstoyou.com'
+		});
 	},
-	'click .scheduleCancel': function(){
+	'click #treatmentComplete' : function (event) {
+		event.preventDefault();
+		var requestId = this._id;
+		var patientId = Requests.findOne({_id:requestId}).patientId;
+  		var patientEmail = Meteor.users.findOne({_id:patientId}).emails[0].address;
+        Meteor.call('setStatusFollowup', patientId);
+    	console.log("Completed treatment for");
+    	console.log(patientId);
+	},
+	'click #schedule' : function (event) {
+		event.preventDefault();
+		var requestId = this._id;
+		var patientId = Requests.findOne({_id:requestId}).patientId;
+  		var patientEmail = Meteor.users.findOne({_id:patientId}).emails[0].address;
+
+		Meteor.call('setStatusReserve', patientId);
+        Meteor.call('sendSMS',{
+			to: '+1' + Profiles.findOne({email: patientEmail}).phone,
+			text: 'Return to the request page to complete your reservation: http://newcare.doctorstoyou.com'
+		});
+
+	//	Session.set("patientId", patientId);
+	//	Session.set("schedule", true);
+	},
+	'click #scheduleNow' : function (event) {
+		event.preventDefault();
+		var requestId = this._id;
+		var patientId = Requests.findOne({_id:requestId}).patientId;
+		console.log(patientId);
+  		var patientEmail = Meteor.users.findOne({_id:patientId}).emails[0].address;
+
+		Meteor.call('setStatusReserve', patientId);
+        Meteor.call('sendSMS',{
+			to: '+1' + Profiles.findOne({email: patientEmail}).phone,
+			text: 'Return to the request page to complete your reservation: http://newcare.doctorstoyou.com'
+		});
+
 		$('#scheduleModal').modal('hide');
-		console.log("Cancel!");
+	},
+	'click #scheduleCancel' : function (event) {
+		event.preventDefault();
+		$('#scheduleModal').modal('hide');
+	},
+	'click #decline' : function (event) {
+		event.preventDefault();
+		var requestId = this._id;
+		var patientId = Requests.findOne({_id:requestId}).patientId;
+  		var patientEmail = Meteor.users.findOne({_id:patientId}).emails[0].address;
+        Meteor.call('declineRequest', requestId, Meteor.userId());
+        Meteor.call('sendSMS',{
+			to: '+1' + Profiles.findOne({email: patientEmail}).phone,
+			text: 'Your request has been declined.'
+		});
+	},
+	'click #transfer' : function (event) {
+		event.preventDefault();
+		var requestId = this._id;
+		$('#transferModal').modal({
+			autofocus: false,	// Prevents dropdown from dropping automatically
+		}).modal('show');
+	},
+	'click #concludeCare' : function (event) {
+		event.preventDefault();
+		var requestId = this._id;
+		var patientId = Requests.findOne({_id:requestId}).patientId;
+  		var patientEmail = Meteor.users.findOne({_id:patientId}).emails[0].address;
+		Meteor.call('requestComplete', patientId);
+		console.log("Request complete");
+		console.log(patientId);
+		Meteor.call('sendSMS',{
+			to: '+1' + Profiles.findOne({email: patientEmail}).phone,
+			text: 'Thank you for choosing Doctors To You. Your invoice and medical records are available here: http://newcare.doctorstoyou.com'
+		});
+	},
+	'click #call' : function(event) {
+		event.preventDefault();
+		var requestId = this._id;
+		var patientId = Requests.findOne({_id:requestId}).patientId;
+		console.log("Client Patient ID");
+		console.log(patientId);
+	},
+	'click #onYourWay' : function (event) {
+		event.preventDefault();
+		var requestId = this._id;
+		var patientId = Requests.findOne({_id:requestId}).patientId;
+  		var patientEmail = Meteor.users.findOne({_id:patientId}).emails[0].address;
+		Meteor.call('sendSMS',{
+			to: '+1' + Profiles.findOne({email: patientEmail}).phone,
+			text: 'Your provider is now on their way'
+		});
 	}
-}); */
+});
 
 
 Template.patient.helpers({
@@ -138,10 +204,11 @@ Template.patient.helpers({
 		console.log(emailAddress);
 		return Profiles.findOne({email:emailAddress}).birthday;
 	},
-	getStatus: function(requestId){
-		var patientId = Requests.findOne({_id:requestId}).patientId
-		console.log(patientId);
-		return Requests.findOne({_id:patientId}).status;
+	getStatus: function(){
+		var statusText = Session.get(this._id);
+		console.log("getStatus session");
+		console.log(this._id);
+		return statusText;
 	}
 });
 
@@ -258,6 +325,8 @@ Template.newClient.onRendered(function(){
 			var requestId = $(event.currentTarget).attr('data');
 			var patientId = Requests.findOne({_id:requestId}).patientId;
 			var patientEmailAddress = Meteor.users.findOne({_id:patientId}).emails[0].address;
+			var providerEmail = Meteor.users.findOne({_id:Meteor.userId()}).emails[0].address;
+			var providerName = Profiles.findOne({email:providerEmail}).firstname;
 			Meteor.subscribe("currProfile", patientEmailAddress);
 			console.log("Patient ID:");
 			console.log(patientId);
@@ -269,6 +338,10 @@ Template.newClient.onRendered(function(){
 						console.log(error,result)
 					}
 					);
+				Meteor.call('sendSMS',{
+					to: '+1' + Profiles.findOne({email: patientEmailAddress}).phone,
+					text: providerName + ' has accepted your request and will contact you shortly.'
+				});
 				Meteor.call('setStatusCall', patientId);
 			} else if (op == "Decline") {
                 console.log(patientId, "Has been declined.");
@@ -310,13 +383,13 @@ Template.clientListPage.helpers({
 		return Session.get('client');
 	},
 	'clients': function(){
-		return Requests.find({'accepted':true, 'providerId': Meteor.userId()}).fetch();
+		return Requests.find({'accepted':true, 'providerId': Meteor.userId(), 'requestComplete': false}).fetch();
 	},
 	'newRequests': function(){
 		return Requests.find({'accepted':false, 'requestComplete':false}).fetch();
 	},
 	'treatedPatients': function(){
-		return Requests.find({'requestComplete':true}).fetch();
+		return Requests.find({'requestComplete':true, 'providerId': Meteor.userId()}).fetch();
 	}
 })
 
