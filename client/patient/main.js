@@ -360,3 +360,149 @@ Template.main_page.onRendered(function(){
        	});
 	}
 });
+
+Template.entrance.events({
+	'click #oldpatient': function(){
+		FlowRouter.go('/login');
+	},
+	'click #newpatient': function(){
+		FlowRouter.go('/newuser');
+	}
+});
+
+Template.newuser.onRendered(function(){
+$('#createForm').form({
+		inline: true,
+		on: 'blur',
+		transition: 'slide down',
+		keyboardShortcuts: true,
+
+		onSuccess: function(event,fields){
+			event.preventDefault();
+
+		/*	var streetTrim = fields.street.trim();
+			var aptNumSuiteTrim = fields.aptNumSuite.trim();
+			var cityTrim = fields.city.trim();
+			var stateTrim = fields.state.trim();
+			var zipTrim = fields.zipcode.trim();
+
+			CheckValidAddress(streetTrim, cityTrim, stateTrim, zipTrim, fields.country); */
+
+			setTimeout(function(){
+
+				var emailTrim = fields.email.trim();
+
+				var ret = PatientEmails.findOne({'email':emailTrim});
+
+				if (ret == undefined) {
+					Accounts.createUser({
+						email: emailTrim,
+						password: fields.password,
+						createdAt: new Date().toLocaleString()
+					});
+
+
+
+					Meteor.call('addPatientEmail', emailTrim);
+
+				/*	var fullAddress = streetTrim + ' ' + aptNumSuiteTrim + ' ' + cityTrim + ' ' + 
+									  stateTrim + ' ' + zipTrim + ' ' + fields.country;
+
+
+					var phoneStrip = fields.phonenumber.replace('(', "").replace(')', "").replace(' ', '').replace('-', '');
+					var phoneNum = parseInt(phoneStrip); */
+					var firstTrim = fields.firstname.trim();
+					var lastTrim = fields.lastname.trim();
+						
+					Meteor.call('addProfile', emailTrim, firstTrim, lastTrim);
+					
+				
+					console.log('Account created.....');
+					console.log(fields);
+
+
+					// TEMPORARY TEMPORARY TEMPORARY
+		            // Allows user to make themselves an administrator
+
+		            //TEMPORARY TEMPORARY
+
+
+					$("#successMsg").show(500);
+					$("#successMsg").delay(1000).fadeOut(500);
+					setTimeout(function(){$("#createAccountModal").modal('hide');}, 500); 
+
+					setTimeout(function(){FlowRouter.go('/dashboard');}, 2000);
+				} else {
+					document.getElementById("errorList").innerHTML = "<li>Email already exists!</li>";
+					$("#errorMsg").show();
+				}
+				
+
+			}, 500);
+
+			
+		},
+
+		////////////////////////////// FORM VALIDATION /////////////////////////////////
+		fields: {
+			firstname: {
+				identifier : 'firstname',
+				rules: [
+				{
+					type: 'empty',
+					prompt: 'Please enter a first name.'
+				}
+				]
+			},
+			lastname: {
+				identifier: 'lastname',
+				rules: [
+				{
+					type: 'empty',
+					prompt: 'Please enter a last name.'
+				}
+				]
+			},
+			new_email: {
+				identifier : 'email',
+				rules: [
+				{
+					type: 'empty',
+					prompt: 'Please enter your e-mail'
+				},
+				{
+					type: 'email',
+					prompt: 'Please enter a valid e-mail'
+				}
+				]
+			},
+			new_password: {
+				identifier : 'password',
+				rules: [
+					{
+						type: 'minLength[6]',
+						prompt: 'Your password must be at least 6 characters'
+					}
+				]
+			},
+			password_confirm: {
+				identifier: 'confirmpassword',
+				rules: [
+					{
+						type: 'match[password]',
+						prompt: 'Password does not match.'
+					}
+				]
+			},
+			acquisition: {
+				identifier: 'acquisition',
+				rules: [
+					{
+						type: 'empty',
+						prompt: 'Please select one.'
+					}
+				]
+			}
+		}
+	});
+});

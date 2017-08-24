@@ -23,9 +23,10 @@ Template.processingRequestPage.onRendered(function(){
 			// Click to return to dashboard button. Reset request
 			$("#returnDashboard").click(function(){
 				$('#returnDashboard').modal('hide');
-				Meteor.call('resetStatus', Meteor.userId());
-				Meteor.call('cancelRequest', reason, Requests.findOne({patientId:Meteor.userId()})._id, false);
-			});
+
+			patientEmail = Meteor.users.findOne({_id:Meteor.userId()}).emails[0].address;			
+			Meteor.call('cancelRequest', Profiles.findOne({email:patientEmail}).currRequest, reason, false);
+		});
 
 			
 		},

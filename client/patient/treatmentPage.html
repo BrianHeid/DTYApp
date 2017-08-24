@@ -20,9 +20,17 @@
 
 			width: 100%;
 	  	}
+	  	@media only screen and (max-device-width: 480px) {
+			.content{
+				 font-size: 1em;
+				 line-height: 130%;
+			}
+			#overbox{
+				padding: 1em;
+			}
 	</style>
 
-	<div class="ui raised very padded text container segment">
+	<div class="ui raised very padded text container segment" id="overbox">
 		<!-- dashboard -->
 		<div class="ui centered card">
 		  <div id="imageProvider" class="image">
@@ -63,7 +71,7 @@
 	  </div>
 
 	  <div class="ui warning message">
-	  	<i id="infoIcon" class="large info circle icon"></i><b>Cancellation will result in a cancellation fee!</b>
+	  	<i id="infoIcon" class="large info circle icon"></i><b>Cancellation will result in a $50 cancellation fee!</b>
 	  </div>
 
 	  <form class="ui form" id="reasonForm">

@@ -37,20 +37,21 @@
 						<label>Street</label>
 						<input type="text" name="street" placeholder="Street">
 					</div>
-					<div class="required field">
-						<label>City</label>
-						<input type="text" name="city" placeholder="City">
-					</div>
+					<div class="field">
+						<label>Apt # / Suite</label>
+						<input type="text" name="aptNumSuite" placeholder="Apt # / Suite">
+					</div>					
+
 				</div>
 
 				<div class="column equal width fields">
 					<div class="required field">
+						<label>City</label>
+						<input type="text" name="city" placeholder="City">
+					</div>				
+					<div class="required field">
 						<label>State</label>
 						<input type="text" name="state" placeholder="State">
-					</div>
-					<div class="required field">
-						<label>Country</label>
-						{{>countriesList}}	<!-- Template shorthand, puts countriesList select search dropdown here -->
 					</div>
 				</div>
 				<div class="column equal width fields">
@@ -58,9 +59,13 @@
 						<label>Zipcode</label>
 						<input type="text" name="zipcode" placeholder="Zipcode" minlength="5">
 					</div>
+					<div class="required field">
+						<label>Country</label>
+						{{>countriesList}}	<!-- Template shorthand, puts countriesList select search dropdown here -->
+					</div>
 					<div class="field">
-						<label>Apt # / Suite</label>
-						<input type="text" name="aptNumSuite" placeholder="Apt # / Suite">
+						<label>Source Code (Optional)</label>
+						<input type="text" name="source" placeholder="Souce Code">
 					</div>
 				</div>
 			</div>

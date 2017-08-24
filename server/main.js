@@ -2,14 +2,6 @@ import { Meteor } from 'meteor/meteor';
 import '../lib/collections.js'
 // /imports/startup/server/mail-url.js
 
-Meteor.startup(() => {
-  // code to run on server at startup
-//export const Documents = new Mongo.Collection('User_Documents')
-//export const Reviews = new Mongo.Collection('Reviews')
-process.env.MAIL_URL = 'smtp://postmaster%40sandboxc325b32bfc38422ea41238133f509d15.mailgun.org:ff6851dffef29d15f252de3ae979c60c@smtp.mailgun.org:587'
-// Meteor.call('email','DoxToYou@gmail.com','DoxToYou@gmail.com','Test','Test 2 message')
-});
-
 
 Accounts.onCreateUser(
     function(options, user){
@@ -93,18 +85,14 @@ let ProfilesSchema = new SimpleSchema({
 		type: Boolean,
 		label: 'Need valid preference.'
 	},
-	'status': {
-		type: Number,
-		label: 'Status'
-	},
 	'paymentMethodMade': {
 		type: Boolean,
 		label: 'Payment Method'
-	}
-/*	'currRequest': {
+	},
+	'currRequest': {
 		type: String,
 		label: 'Need valid request.'
-	} */
+	}
 
   //billing info for user
   //'nameOnCard': {
@@ -258,10 +246,6 @@ let RequestsSchema = new SimpleSchema ({
 		label: 'Need valid treatment object.',
 		blackbox: true
 	},
-	'cardEnd': {
-		type: Number,
-		label: 'Need valid four digit card ending of credit card'
-	},
 	'followups': {
 		type: [Object],
 		label: 'Need valid followups',
@@ -307,6 +291,10 @@ let RequestsSchema = new SimpleSchema ({
 	'gender': {
 		type: String,
 		label: 'Need valid gender.'
+	},
+	'status': {
+		type: Number,
+		label: 'Status'
 	}
 });
 

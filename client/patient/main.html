@@ -20,6 +20,44 @@
 
 </template>
 
+<template name='entrance'>
+<style>
+	#pageContent {
+		padding-top: 80px;
+	}
+	.buttonclass{
+		width:30%;
+		height: 100px;
+	}
+	@media only screen and (max-device-width: 480px) {
+		.buttonclass{
+			width: 80%;
+			height: 100px;
+		}
+	}
+</style>
+	
+<center>
+	<div id="pageContent">
+		<img class="ui large centered image" src="/images/logo.svg">
+		<img class="ui large centered image" src="/images/slogan.svg">
+		<br>
+		<br>			
+		<button class="ui orange button buttonclass" id="newpatient">
+		  <h1>New Patient</h1>
+		</button>
+		<br><br><br>
+		<button class="ui blue button buttonclass" id="oldpatient">
+		  <h1>Returning Patient</h1>
+		</button>
+		<br>
+		<br>
+		<br>
+		<br>
+	</div>
+</center>
+
+</template>
 
 <template name='main_page'>
 	<!-- CSS -->
@@ -50,7 +88,7 @@
 
 			<center>
 			    <h3 class="ui header">
-			    	Login to your account
+			    	Login to your account to start your request.
 			    </h3>
 			</center>
 
@@ -130,7 +168,7 @@
 	  </form>
 	</div>
 
-	<!-- REGISTER MODAL -->
+	<!--
 	<div class="ui modal" id="createAccountModal">
 		<i class="close icon"></i>
 	  	<div class="header" id="createAccountHeader">
@@ -153,7 +191,7 @@
 					</div>
 				</div>
 
-				<!--
+			
 
 				<div class="column equal width fields required">
 					<div class="required field">
@@ -204,7 +242,7 @@
 						<input type="text" name="zipcode" id="zipcode" placeholder="Zipcode" minlength="5">
 					</div>
 					
-				</div> -->
+				</div>
 
 				<h4 class="ui dividing header">Account Settings</h4>
 
@@ -241,12 +279,12 @@
 				<br><br>
 
 
-			<!-- TEMPORARY TEMPORARY Allows user to make themselves admin -->
+			 TEMPORARY TEMPORARY Allows user to make themselves admin 
 			<div class="ui checkbox">
   				<input type="checkbox" name="adminMaker">
   				<label>Make me an admin</label>
 			</div>
-			<!-- TEMPORARY TEMPORARY Allows user to make themselves admin -->
+			 TEMPORARY TEMPORARY Allows user to make themselves admin 
 
 			
 
@@ -260,7 +298,7 @@
 				   		There were some errors with your account creation.
 				  	</div>
 				  	<ul class="list" id="errorList">
-				    	<!-- Listed errors -->
+				    	
 				  	</ul>
 				</div>
 
@@ -270,11 +308,11 @@
 				</div>
 		    </form>
 	  	</div>
-	</div>	
+	</div>	-->
 
 	<!-- JavaScript -->
 	<script type="text/javascript">
-		$(document).ready(function(){
+		/* $(document).ready(function(){
 
 			$("#register").click(function(){
 				$("#createAccountModal").modal('setting', 'closable', false).modal('show');
@@ -284,6 +322,95 @@
 		// Allows dropdown function to work
 		$('.ui.dropdown')
 		  .dropdown()
-		;
+		; */
 	</script>
+</template>
+
+<template name="newuser">
+<style>
+		#login-content {
+			padding-top: 80px;
+		}
+</style>
+  	<center>
+		<div id="login-content" class="ui raised very padded text container">
+		  <div class="column">
+		  	<img class="ui large centered image" src="/images/logo.svg">
+			<img class="ui large centered image" src="/images/slogan.svg">
+
+			<br>
+
+			<center>
+			    <h3 class="ui header">
+			    	Create your account to start your request.
+			    </h3>
+			</center>
+
+			<br>
+
+		    <form class="ui large form" id="createForm">
+		      <div class="ui stacked secondary segment">
+		        <div class="field required">
+		          <div class="ui left icon input">
+		            <i class="user icon"></i>
+		            <input type="text" name="firstname" id="firstname" placeholder="First Name">
+		          </div>
+		        </div>
+		        <div class="field required">
+		          <div class="ui left icon input">
+		            <i class="user icon"></i>
+		            <input type="text" name="lastname" id="lastname" placeholder="Last Name">
+		          </div>
+		        </div>
+		        <div class="field required">
+		          <div class="ui left icon input">
+		            <i class="user icon"></i>
+		            <input type="text" name="email" id="email" placeholder="Email">
+		          </div>
+		        </div>
+		        <div class="field required">
+		          <div class="ui left icon input">
+		            <i class="lock icon"></i>
+		            <input type="password" name="password" placeholder="Password">
+		          </div>
+		        </div>
+		        <div class="field required">
+		          <div class="ui left icon input">
+		            <i class="lock icon"></i>
+		            <input type="password" name="confirmpassword" placeholder="Confirm Password">
+		          </div>
+		        </div>
+				<div class="field required">
+					<select class="ui selection dropdown" name="acquisition">
+						<option value="">Where did you hear about us?</option>
+						<option value="friendOrFamily">Friends or family</option>
+						<option value="google">Google</option>
+						<option value="othersearch">Other internet search</option>
+						<option value="yelp">Yelp</option>
+						<option value="hotelconcierge">Hotel Concierge</option>
+						<option value="apartmentconcierge">Apartment/Condo Concierge</option>
+						<option value="digitalad">Digital Advertisement</option>
+						<option value="print">Print advertisement</option>
+						<option value="socialmedia">Social Media</option>
+						<option value="businessref">Business Referral</option>
+						<option value="Other">Other</option>
+					</select>
+				</div>
+
+		        <div id="sentMsg" class="ui error hidden message">
+				  	<h4 class="ui header" id="innerSentMsg"><!-- Error message --></h4>
+				</div>
+		        <br>
+		        <div class="ui fluid large submit button" style="color: white; background-color: #00bde8;">Create</div>
+		      </div>
+
+		      	<div id="loginErrorMsg" class="ui error hidden message">
+				  	<h4 class="ui header" id="innerLoginErrorMsg"><!-- Error message --></h4>
+				</div>
+
+		    </form>
+
+		  </div>
+		</div>
+	</center>
 </template>
