@@ -32,6 +32,7 @@ Template.reservePage.onRendered(function(){
     }
   });
 
+  $('#reserve').prop('disabled', true);
   // Click consent modal
   $("#consent").click(function(){
     $('#provide-care').modal({

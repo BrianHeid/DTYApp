@@ -26,7 +26,6 @@ check
 less
 juliancwirko:postcss
 semantic:ui
-email
 semantic:ui-nag
 bigdsk:inputmask
 
@@ -42,3 +41,4 @@ patrickml:braintree
 percolate:synced-cron
 carlosbaraza:meteor-socicon
 session
+email

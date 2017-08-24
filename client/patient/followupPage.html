@@ -1,10 +1,19 @@
 <!-- First follow-Up page that a patient will first see up until the follow-up time -->
 
 <template name="followupPage">
-
+<style>
+  	@media only screen and (max-device-width: 480px) {
+		#followupTitle{
+			 font-size: 0.75em;
+			 line-height: 130%;
+		}
+		#overbox{
+			padding: 1em;
+		}
+</style>
 
 	<center>
-		<div class="ui raised padded text container segment">
+		<div class="ui raised padded text container segment" id="overbox">
 			<h1 class="ui header container">
 			  <div class="textContent" id="followupTitle">
 			    We hope you are feeling better, {{patientName}}. We will follow up with you in the upcoming days to see how you feel.

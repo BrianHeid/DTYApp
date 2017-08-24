@@ -37,16 +37,10 @@
 		}
 
 		#accept_button, #decline_button{
-			height: 110px;
+			height: 50px;
 			padding-left: 0px;
-			width: 250px;
+			width: 90%;
 		}
-
-
-		.ui.move.reveal {
-		    width: 290px;
-		    white-space: normal;
-		  }
 
 		  .ui.labeled.icon.menu .item{
 		    min-width: 33.3333%;
@@ -62,7 +56,25 @@
 		  	padding-left: 10px;
 		  }
 
-		  #extraText, #requestText {
+		  #extraText{
+
+		  	color: black;
+		  	word-wrap: break-word;
+		  	padding-left: 15px;		  	
+		  }
+
+		  #newRequestBox{
+		  	border-style: solid;
+		  	border-radius: 5px;
+		  	border-color: blue;
+		  	border-width: 2px;
+		  	padding: 10px;
+		  	margin-left: 20px;
+		  	margin-bottom: 10px;
+		  	margin-top: 10px;
+		  }
+
+		  #requestText {
 		  	font-size:20px;
 		  	color: white;
 		  	word-wrap: break-word;
@@ -93,6 +105,56 @@
 		  .dropdown {
 			display:none;
 		  }
+
+		#mobileNewRequest {
+			display: none;
+		}
+
+		#desktopNewRequest {
+			display: block;
+			width: 90%;
+		}
+
+		.patient{
+			width: 100%;
+			height: 100%;
+		}
+
+		.patientTop{
+			width: 100%;
+			height: 50%;
+		}
+
+		#patientBox{
+			font-size: 1em;
+		  	border-style: solid;
+		  	border-radius: 5px;
+		  	border-color: blue;
+		  	border-width: 2px;
+		  	padding: 10px;
+		  	margin-left: 20px;
+		  	margin-bottom: 10px;
+		  	margin-top: 10px;			
+		}
+
+		@media only screen and (max-device-width: 480px) {
+			#mobileNewRequest {
+				display: block;
+				width: 90%;
+			}
+
+			#desktopNewRequest {
+				display: none;
+			}
+
+			.description{
+				font-size: 1.5em;
+			}
+
+			#requestHeader {
+				font-size: 1.5em;
+			}
+		}
 
 		/*Makes textarea fluid (Full width of container) */
 		textarea {
@@ -145,7 +207,6 @@
 		</div>
 
 		<div class="ui tab" data-tab='New'>
-			<h1>This tab indicates all the new requests</h1>
 			<div class="ui four column stackable grid">
 				{{#each newRequests}}
 				{{> newClient}}
@@ -154,7 +215,6 @@
 		</div>
 
 		<div class="ui tab active" data-tab='Current'>
-			<h1>This tab indicates all the current requests</h1>
 			<div class="ui four column stackable grid">
 				{{#each clients}}
 				{{> patient}}
@@ -163,9 +223,9 @@
 		</div>
 
 		<div class="ui tab" data-tab='History'>
-			<h1>This tab stores all the treated patients</h1>
 			<div class="ui four column stackable grid">
 				{{#each treatedPatients}}
+				Patient
 				{{> client}}
 				{{/each}}
 			</div>
@@ -175,6 +235,56 @@
 </template>
 
 <template name='patient'>
+
+	<div id="mobilePatient">
+		<div id="patientBox">
+			<div class="ui equal width grid">
+				<div class="row">	
+					<div class="column">
+						<div class="content">
+							<div class='header' id="requestHeader">{{firstname}} {{lastname}}</div>
+							<div class="description">Requester Name: {{requesterName}}</div>
+							{{#if requestForSomeoneElse}}<div class='description'>Relationship: {{relationship}}</div>{{/if}}
+							<div class='description'>Status: {{getStatus}}</div>
+						</div>
+					</div>
+					<div class="column">
+						<div class="content">
+							<div class='description'>Requested time: {{times.requestTime}}</div>
+							<div class='description'>Email: {{getEmail (_id)}}</div>
+							<div class='description'>DOB: {{birthday}}</div>
+							<div class='description'><i class="call icon"></i>{{phone}}</div>
+							<div class='description'>Address: {{address}}</div>
+						</div>
+					</div>
+		
+					<div class="column">
+		      			<button id="call" class="ui blue button top attached patientTop" data-id={{_id}}><center><i class="call square small icon"></i>Call</center></button>
+	      				<button id="decline" class="ui negative button bottom attached patientTop" data-id={{_id}}><center><i class="remove circle small icon"></i>Decline</center></button>
+					</div>
+				</div>
+				<div class="row">
+					<div class="column">
+						<button id="schedule" class="ui positive button patient" data-id={{_id}}><center><i class="checkmark box small icon"></i>Schedule</center></button>
+					</div>
+					<div class="column">
+						<button id="onYourWay" class="ui green button patient" data-id={{_id}}><center>On Your Way</center></button>
+					</div>
+					<div class="column">
+						<button id="treatmentComplete" class="ui pink button patient" data-id={{_id}}><center>Treatment Complete</center></button>
+					</div>
+					<div class="column">
+						<button id="sendFollowUp" class="ui purple button patient" data-id={{_id}}><center>FollowUp</center></button>
+					</div>
+					<div class="column">
+	      				<button id="concludeCare" class="ui yellow button patient" data-id={{_id}}><center>Conclude Care</center></button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- 
 	<div class="column">
 		<div class="ui card" id="patientCard" data-id={{_id}}>
 			<div class="content">
@@ -208,6 +318,7 @@
 			</div>
 		</div>
 	</div>
+	-->
 
 	<div class="ui small modal" id="scheduleModal">
 		<p style="text-align:center">Do you wish to schedule now?</p>
@@ -291,7 +402,7 @@
 					<div class="one column grid">	
 						<div class="column">
 							<div class="content">			
-								<div class='header'>{{firstname}} {{lastname}}</div>
+								<div class='header' id="requestHeader">{{firstname}} {{lastname}}</div>
 								<div class="description">Requester Name: {{requesterName}}</div>
 								{{#if requestForSomeoneElse}}<div class='description'>Relationship: {{relationship}}</div>{{/if}}
 								<div class='description'>Status: {{patientId}}</div><br><br>
@@ -445,42 +556,58 @@
 
 
 <template name='newClient'>
-	<div class='column'>
-		<div class="ui move reveal">
-			<div class="visible content">
-				<div class="ui card" id='visibleCard'>
-					<div class="one column grid">	
-						<div class="column">
-							<div class="content">
-								<br>
-								<div class='description' id="extraText"> Name: {{firstname}} {{lastname}}</div>
-								<div class='description' id="extraText" >Address: {{address}}</div>
-								<br>
-								<div class='description' id="extraText" >Requested on: {{times.requestTime}}</div>
-								<br>
-								<div class='description' id="extraText" >Symptoms: {{symptoms}}</div>
-							</div>
-						</div>
+	<div id="desktopNewRequest">
+		<div id="newRequestBox">
+			<div class="ui grid">	
+				<div class="four wide column">
+					<div class="content">
+						<div class='description' id="extraText"> Name: {{firstname}} {{lastname}}</div>
+						<div class='description' id="extraText" >Address: {{address}}</div>
 					</div>
 				</div>
-			</div>
-			<div class="hidden content">
-				<div class="ui card">
-					<a class="ui red ribbon label"> Actions</a>	
-					<div class="ui equal width center aligned padded grid">
-						<div class='ui row'>
-							<button class='ui green left  button' id="accept_button" data={{_id}}>Accept</button>
-						</div>
-						<div class='ui row'>
-							<button class='ui red left button' id="decline_button" data={{_id}}>Decline</button>
-						</div>
+				<div class="four wide column">
+					<div class="content">
+						<div class='description' id="extraText" >Requested on: {{times.requestTime}}</div>
+						<div class='description' id="extraText" >Symptoms: {{symptoms}}</div>
 					</div>
 				</div>
+	
+				<div class="four wide column">
+					<button class='ui green left  button' id="accept_button" data={{_id}}>Accept</button>
+				</div>
+				<div class="four wide column">
+					<button class='ui red left button' id="decline_button" data={{_id}}>Decline</button>
+				</div>
 			</div>
-			
-
 		</div>
 	</div>
+
+	<div id="mobileNewRequest">
+		<div id="newRequestBox">
+			<div class="ui  equal width grid">	
+				<div class="column">
+					<div class="content">
+						<div class='description' id="extraText"> Name: {{firstname}} {{lastname}}</div>
+						<div class='description' id="extraText" >Address: {{address}}</div>
+					</div>
+				</div>
+				<div class="column">
+					<div class="content">
+						<div class='description' id="extraText" >Requested on: {{times.requestTime}}</div>
+						<div class='description' id="extraText" >Symptoms: {{symptoms}}</div>
+					</div>
+				</div>
+	
+				<div class="column">
+					<button class='ui green left  button' id="accept_button" data={{_id}}>Accept</button>
+					<br>
+					<button class='ui red left button' id="decline_button" data={{_id}}>Decline</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
 </template>
 
 

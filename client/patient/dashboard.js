@@ -1,182 +1,443 @@
 Template.dashboard.onCreated(function(){
-	email = Meteor.users.findOne({_id:Meteor.userId()});
-	Meteor.subscribe("currProfile", email);
+
 });
+
+Template.dashboard.onRendered(function(){
+
+/*	Meteor.call('returnStatusNum', Meteor.userId(), function(error, response){
+		if(response == 0){
+			FlowRouter.go('/');
+		} else {
+			Session.set('status', response);
+			console.log('status');
+			console.log(response);
+		}		
+	}); */
+
+})
 
 Template.dashboard.helpers({
 	'isRequest': function(){
-		if (Meteor.user()){
-			var patientEmail = Meteor.users.findOne({_id:Meteor.userId()}).emails[0].address;
-			console.log("Patient email");
-			console.log(patientEmail);
-			console.log("Status");
-			console.log(Profiles.findOne({email:patientEmail}).status)
-			return parseInt(Profiles.findOne({email:patientEmail}).status) == 1;
+		emailAddress = Meteor.users.findOne({_id:Meteor.userId()}).emails[0].address;
+		currRequest = Profiles.findOne({email:emailAddress}).currRequest;
+		if(currRequest != "0"){
+			status = Requests.findOne({_id:currRequest}).status;
+		} else {
+			status = 1;
+		}
+		
+		if(status == 1){
+			return true;
+		} else {
+			return false;
 		}
 	},
 	'isRequestOverview': function(){
-		if (Meteor.user()){
-			var patientEmail = Meteor.users.findOne({_id:Meteor.userId()}).emails[0].address;
-			return parseInt(Profiles.findOne({email:patientEmail}).status) == 2;
+		emailAddress = Meteor.users.findOne({_id:Meteor.userId()}).emails[0].address;
+		currRequest = Profiles.findOne({email:emailAddress}).currRequest;
+		if(currRequest != "0"){
+			status = Requests.findOne({_id:currRequest}).status;
+		} else {
+			status = 1;
+		}
+
+		if(status == 2){
+			return true;
+		} else {
+			return false;
 		}
 	},
 	'isProcessingRequest': function(){
-		if (Meteor.user()){
-			var patientEmail = Meteor.users.findOne({_id:Meteor.userId()}).emails[0].address;
-			return parseInt(Profiles.findOne({email:patientEmail}).status) == 3;
+		emailAddress = Meteor.users.findOne({_id:Meteor.userId()}).emails[0].address;
+		currRequest = Profiles.findOne({email:emailAddress}).currRequest;
+		if(currRequest != "0"){
+			status = Requests.findOne({_id:currRequest}).status;
+		} else {
+			status = 1;
+		}
+		
+		if(status == 3){
+			return true;
+		} else {
+			return false;
 		}
 	},
 	'isCall': function(){
-		if (Meteor.user()){
-			var patientEmail = Meteor.users.findOne({_id:Meteor.userId()}).emails[0].address;
-			return parseInt(Profiles.findOne({email:patientEmail}).status) == 4;
+		emailAddress = Meteor.users.findOne({_id:Meteor.userId()}).emails[0].address;
+		currRequest = Profiles.findOne({email:emailAddress}).currRequest;
+		if(currRequest != "0"){
+			status = Requests.findOne({_id:currRequest}).status;
+		} else {
+			status = 1;
+		}
+		
+		if(status == 4){
+			return true;
+		} else {
+			return false;
 		}
 	},
 	'isCallOverview': function(){
-		if (Meteor.user()){
-			var patientEmail = Meteor.users.findOne({_id:Meteor.userId()}).emails[0].address;
-			return parseInt(Profiles.findOne({email:patientEmail}).status) == 5;
+		emailAddress = Meteor.users.findOne({_id:Meteor.userId()}).emails[0].address;
+		currRequest = Profiles.findOne({email:emailAddress}).currRequest;
+		if(currRequest != "0"){
+			status = Requests.findOne({_id:currRequest}).status;
+		} else {
+			status = 1;
+		}
+		
+		if(status == 5){
+			return true;
+		} else {
+			return false;
 		}
 	},
 	'isReserve': function(){
-		if (Meteor.user()){
-			var patientEmail = Meteor.users.findOne({_id:Meteor.userId()}).emails[0].address;
-			return parseInt(Profiles.findOne({email:patientEmail}).status) == 6;
+		emailAddress = Meteor.users.findOne({_id:Meteor.userId()}).emails[0].address;
+		currRequest = Profiles.findOne({email:emailAddress}).currRequest;
+		if(currRequest != "0"){
+			status = Requests.findOne({_id:currRequest}).status;
+		} else {
+			status = 1;
+		}
+		
+		if(status == 6){
+			return true;
+		} else {
+			return false;
 		}
 	},
 	'isReserveOverview': function(){
-		if (Meteor.user()){
-			var patientEmail = Meteor.users.findOne({_id:Meteor.userId()}).emails[0].address;
-			return parseInt(Profiles.findOne({email:patientEmail}).status) == 7;
+		emailAddress = Meteor.users.findOne({_id:Meteor.userId()}).emails[0].address;
+		currRequest = Profiles.findOne({email:emailAddress}).currRequest;
+		if(currRequest != "0"){
+			status = Requests.findOne({_id:currRequest}).status;
+		} else {
+			status = 1;
+		}
+		
+		if(status == 7){
+			return true;
+		} else {
+			return false;
 		}
 	},
 	'isTreatment': function(){
-		if (Meteor.user()){
-			var patientEmail = Meteor.users.findOne({_id:Meteor.userId()}).emails[0].address;
-			return parseInt(Profiles.findOne({email:patientEmail}).status) == 8;
+		emailAddress = Meteor.users.findOne({_id:Meteor.userId()}).emails[0].address;
+		currRequest = Profiles.findOne({email:emailAddress}).currRequest;
+		if(currRequest != "0"){
+			status = Requests.findOne({_id:currRequest}).status;
+		} else {
+			status = 1;
+		}
+		
+		if(status == 8){
+			return true;
+		} else {
+			return false;
 		}
 	},
 	'isTreatmentOverview': function(){
-		if (Meteor.user()){
-			var patientEmail = Meteor.users.findOne({_id:Meteor.userId()}).emails[0].address;
-			return parseInt(Profiles.findOne({email:patientEmail}).status) == 9;
+		emailAddress = Meteor.users.findOne({_id:Meteor.userId()}).emails[0].address;
+		currRequest = Profiles.findOne({email:emailAddress}).currRequest;
+		if(currRequest != "0"){
+			status = Requests.findOne({_id:currRequest}).status;
+		} else {
+			status = 1;
+		}
+		
+		if(status == 9){
+			return true;
+		} else {
+			return false;
 		}
 	},
 	'isFollowUp': function(){
-		if (Meteor.user()){
-			var patientEmail = Meteor.users.findOne({_id:Meteor.userId()}).emails[0].address;
-			return parseInt(Profiles.findOne({email:patientEmail}).status) == 10;
+		emailAddress = Meteor.users.findOne({_id:Meteor.userId()}).emails[0].address;
+		currRequest = Profiles.findOne({email:emailAddress}).currRequest;
+		if(currRequest != "0"){
+			status = Requests.findOne({_id:currRequest}).status;
+		} else {
+			status = 1;
+		}
+		
+		if(status == 10){
+			return true;
+		} else {
+			return false;
 		}
 	},
 	'isFollowUp2': function(){
-		if (Meteor.user()){
-			var patientEmail = Meteor.users.findOne({_id:Meteor.userId()}).emails[0].address;
-			return parseInt(Profiles.findOne({email:patientEmail}).status) == 11;
+		emailAddress = Meteor.users.findOne({_id:Meteor.userId()}).emails[0].address;
+		currRequest = Profiles.findOne({email:emailAddress}).currRequest;
+		if(currRequest != "0"){
+			status = Requests.findOne({_id:currRequest}).status;
+		} else {
+			status = 1;
+		}
+		
+		if(status == 11){
+			return true;
+		} else {
+			return false;
 		}
 	},
 	'isFollowUpOverview': function(){
-		if (Meteor.user()){
-			var patientEmail = Meteor.users.findOne({_id:Meteor.userId()}).emails[0].address;
-			return parseInt(Profiles.findOne({email:patientEmail}).status) == 12;
+		emailAddress = Meteor.users.findOne({_id:Meteor.userId()}).emails[0].address;
+		currRequest = Profiles.findOne({email:emailAddress}).currRequest;
+		if(currRequest != "0"){
+			status = Requests.findOne({_id:currRequest}).status;
+		} else {
+			status = 1;
+		}
+		
+		if(status == 12){
+			return true;
+		} else {
+			return false;
 		}
 	},
 	'isReview': function(){
-		if (Meteor.user()){
-			var patientEmail = Meteor.users.findOne({_id:Meteor.userId()}).emails[0].address;
-			return parseInt(Profiles.findOne({email:patientEmail}).status) == 13;
+		emailAddress = Meteor.users.findOne({_id:Meteor.userId()}).emails[0].address;
+		currRequest = Profiles.findOne({email:emailAddress}).currRequest;
+		if(currRequest != "0"){
+			status = Requests.findOne({_id:currRequest}).status;
+		} else {
+			status = 1;
+		}
+		
+		if(status == 13){
+			return true;
+		} else {
+			return false;
 		}
 	},
 	'isReview2': function(){
-		if (Meteor.user()){
-			var patientEmail = Meteor.users.findOne({_id:Meteor.userId()}).emails[0].address;
-			return parseInt(Profiles.findOne({email:patientEmail}).status) == 14;
+		emailAddress = Meteor.users.findOne({_id:Meteor.userId()}).emails[0].address;
+		currRequest = Profiles.findOne({email:emailAddress}).currRequest;
+		if(currRequest != "0"){
+			status = Requests.findOne({_id:currRequest}).status;
+		} else {
+			status = 1;
+		}
+		
+		if(status == 14){
+			return true;
+		} else {
+			return false;
 		}
 	}
 	})
 
 Template.show_dashboard_page.helpers({
 	'isRequest': function(){
-		if (Meteor.user()){
-			var patientEmail = Meteor.users.findOne({_id:Meteor.userId()}).emails[0].address;
-			return parseInt(Profiles.findOne({email:patientEmail}).status) == 1;
+		emailAddress = Meteor.users.findOne({_id:Meteor.userId()}).emails[0].address;
+		currRequest = Profiles.findOne({email:emailAddress}).currRequest;
+		if(currRequest != "0"){
+			status = Requests.findOne({_id:currRequest}).status;
+		} else {
+			status = 1;
+		}
+		
+		if(status == 1){
+			return true;
+		} else {
+			return false;
 		}
 	},
 	'isRequestOverview': function(){
-		if (Meteor.user()){
-			var patientEmail = Meteor.users.findOne({_id:Meteor.userId()}).emails[0].address;
-			return parseInt(Profiles.findOne({email:patientEmail}).status) == 2;
+		emailAddress = Meteor.users.findOne({_id:Meteor.userId()}).emails[0].address;
+		currRequest = Profiles.findOne({email:emailAddress}).currRequest;
+		if(currRequest != "0"){
+			status = Requests.findOne({_id:currRequest}).status;
+		} else {
+			status = 1;
+		}
+		
+		if(status == 2){
+			return true;
+		} else {
+			return false;
 		}
 	},
 	'isProcessingRequest': function(){
-		if (Meteor.user()){
-			var patientEmail = Meteor.users.findOne({_id:Meteor.userId()}).emails[0].address;
-			return parseInt(Profiles.findOne({email:patientEmail}).status) == 3;
+		emailAddress = Meteor.users.findOne({_id:Meteor.userId()}).emails[0].address;
+		currRequest = Profiles.findOne({email:emailAddress}).currRequest;
+		if(currRequest != "0"){
+			status = Requests.findOne({_id:currRequest}).status;
+		} else {
+			status = 1;
+		}
+		
+		if(status == 3){
+			return true;
+		} else {
+			return false;
 		}
 	},
 	'isCall': function(){
-		if (Meteor.user()){
-			var patientEmail = Meteor.users.findOne({_id:Meteor.userId()}).emails[0].address;
-			return parseInt(Profiles.findOne({email:patientEmail}).status) == 4;
+		emailAddress = Meteor.users.findOne({_id:Meteor.userId()}).emails[0].address;
+		currRequest = Profiles.findOne({email:emailAddress}).currRequest;
+		if(currRequest != "0"){
+			status = Requests.findOne({_id:currRequest}).status;
+		} else {
+			status = 1;
+		}
+		
+		if(status == 4){
+			return true;
+		} else {
+			return false;
 		}
 	},
 	'isCallOverview': function(){
-		if (Meteor.user()){
-			var patientEmail = Meteor.users.findOne({_id:Meteor.userId()}).emails[0].address;
-			return parseInt(Profiles.findOne({email:patientEmail}).status) == 5;
+		emailAddress = Meteor.users.findOne({_id:Meteor.userId()}).emails[0].address;
+		currRequest = Profiles.findOne({email:emailAddress}).currRequest;
+		if(currRequest != "0"){
+			status = Requests.findOne({_id:currRequest}).status;
+		} else {
+			status = 1;
+		}
+		
+		if(status == 5){
+			return true;
+		} else {
+			return false;
 		}
 	},
 	'isReserve': function(){
-		if (Meteor.user()){
-			var patientEmail = Meteor.users.findOne({_id:Meteor.userId()}).emails[0].address;
-			return parseInt(Profiles.findOne({email:patientEmail}).status) == 6;
+		emailAddress = Meteor.users.findOne({_id:Meteor.userId()}).emails[0].address;
+		currRequest = Profiles.findOne({email:emailAddress}).currRequest;
+		if(currRequest != "0"){
+			status = Requests.findOne({_id:currRequest}).status;
+		} else {
+			status = 1;
+		}
+		
+		if(status == 6){
+			return true;
+		} else {
+			return false;
 		}
 	},
 	'isReserveOverview': function(){
-		if (Meteor.user()){
-			var patientEmail = Meteor.users.findOne({_id:Meteor.userId()}).emails[0].address;
-			return parseInt(Profiles.findOne({email:patientEmail}).status) == 7;
+		emailAddress = Meteor.users.findOne({_id:Meteor.userId()}).emails[0].address;
+		currRequest = Profiles.findOne({email:emailAddress}).currRequest;
+		if(currRequest != "0"){
+			status = Requests.findOne({_id:currRequest}).status;
+		} else {
+			status = 1;
+		}
+		
+		if(status == 7){
+			return true;
+		} else {
+			return false;
 		}
 	},
 	'isTreatment': function(){
-		if (Meteor.user()){
-			var patientEmail = Meteor.users.findOne({_id:Meteor.userId()}).emails[0].address;
-			return parseInt(Profiles.findOne({email:patientEmail}).status) == 8;
+		emailAddress = Meteor.users.findOne({_id:Meteor.userId()}).emails[0].address;
+		currRequest = Profiles.findOne({email:emailAddress}).currRequest;
+		if(currRequest != "0"){
+			status = Requests.findOne({_id:currRequest}).status;
+		} else {
+			status = 1;
+		}
+		
+		if(status == 8){
+			return true;
+		} else {
+			return false;
 		}
 	},
 	'isTreatmentOverview': function(){
-		if (Meteor.user()){
-			var patientEmail = Meteor.users.findOne({_id:Meteor.userId()}).emails[0].address;
-			return parseInt(Profiles.findOne({email:patientEmail}).status) == 9;
+		emailAddress = Meteor.users.findOne({_id:Meteor.userId()}).emails[0].address;
+		currRequest = Profiles.findOne({email:emailAddress}).currRequest;
+		if(currRequest != "0"){
+			status = Requests.findOne({_id:currRequest}).status;
+		} else {
+			status = 1;
+		}
+		
+		if(status == 9){
+			return true;
+		} else {
+			return false;
 		}
 	},
 	'isFollowUp': function(){
-		if (Meteor.user()){
-			var patientEmail = Meteor.users.findOne({_id:Meteor.userId()}).emails[0].address;
-			return parseInt(Profiles.findOne({email:patientEmail}).status) == 10;
+		emailAddress = Meteor.users.findOne({_id:Meteor.userId()}).emails[0].address;
+		currRequest = Profiles.findOne({email:emailAddress}).currRequest;
+		if(currRequest != "0"){
+			status = Requests.findOne({_id:currRequest}).status;
+		} else {
+			status = 1;
+		}
+		
+		if(status == 10){
+			return true;
+		} else {
+			return false;
 		}
 	},
 	'isFollowUp2': function(){
-		if (Meteor.user()){
-			var patientEmail = Meteor.users.findOne({_id:Meteor.userId()}).emails[0].address;
-			return parseInt(Profiles.findOne({email:patientEmail}).status) == 11;
+		emailAddress = Meteor.users.findOne({_id:Meteor.userId()}).emails[0].address;
+		currRequest = Profiles.findOne({email:emailAddress}).currRequest;
+		if(currRequest != "0"){
+			status = Requests.findOne({_id:currRequest}).status;
+		} else {
+			status = 1;
+		}
+		
+		if(status == 11){
+			return true;
+		} else {
+			return false;
 		}
 	},
 	'isFollowUpOverview': function(){
-		if (Meteor.user()){
-			var patientEmail = Meteor.users.findOne({_id:Meteor.userId()}).emails[0].address;
-			return parseInt(Profiles.findOne({email:patientEmail}).status) == 12;
+		emailAddress = Meteor.users.findOne({_id:Meteor.userId()}).emails[0].address;
+		currRequest = Profiles.findOne({email:emailAddress}).currRequest;
+		if(currRequest != "0"){
+			status = Requests.findOne({_id:currRequest}).status;
+		} else {
+			status = 1;
+		}
+		
+		if(status == 12){
+			return true;
+		} else {
+			return false;
 		}
 	},
 	'isReview': function(){
-		if (Meteor.user()){
-			var patientEmail = Meteor.users.findOne({_id:Meteor.userId()}).emails[0].address;
-			return parseInt(Profiles.findOne({email:patientEmail}).status) == 13;
+		emailAddress = Meteor.users.findOne({_id:Meteor.userId()}).emails[0].address;
+		currRequest = Profiles.findOne({email:emailAddress}).currRequest;
+		if(currRequest != "0"){
+			status = Requests.findOne({_id:currRequest}).status;
+		} else {
+			status = 1;
+		}
+		
+		if(status == 13){
+			return true;
+		} else {
+			return false;
 		}
 	},
 	'isReview2': function(){
-		if (Meteor.user()){
-			var patientEmail = Meteor.users.findOne({_id:Meteor.userId()}).emails[0].address;
-			return parseInt(Profiles.findOne({email:patientEmail}).status) == 14;
+		emailAddress = Meteor.users.findOne({_id:Meteor.userId()}).emails[0].address;
+		currRequest = Profiles.findOne({email:emailAddress}).currRequest;
+		if(currRequest != "0"){
+			status = Requests.findOne({_id:currRequest}).status;
+		} else {
+			status = 1;
+		}
+		
+		if(status == 14){
+			return true;
+		} else {
+			return false;
 		}
 	}
 	})

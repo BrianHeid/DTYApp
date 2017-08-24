@@ -17,15 +17,23 @@
 
 			width: 100%;
 	  	}
+	  	@media only screen and (max-device-width: 480px) {
+			#processingText{
+				 font-size: 1em;
+				 line-height: 130%;
+			}
+			#overbox{
+				padding: 1em;
+			}
 
 	</style>
 
 	<!-- Informative box about how long call wait will be -->
 	
 	<center>
-		<div class="ui raised very padded text container segment">
+		<div class="ui raised very padded text container segment" id="overbox">
 
-			<h2 class="ui header">{{getFirstName}}, thank you for submitting your request. Please standby for a medical provider to review and accept your request.</h2>
+			<h2 class="ui header" id="processingText">{{getFirstName}}, thank you for submitting your request. Please standby for a medical provider to review and accept your request.</h2>
 			<br>
 
 			{{> socialBoxNewsletter}}

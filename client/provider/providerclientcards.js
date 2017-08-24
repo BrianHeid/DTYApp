@@ -88,7 +88,7 @@ Template.patient.events({
     	console.log("Follow up sent to ");
     	console.log(patientId);
 		Meteor.call('sendSMS',{
-			to: '+1' + Profiles.findOne({email: patientEmail}).phone,
+			to: '+1' + Requests.findOne({_id:requestId}).phone,
 			text: 'Are you feeling better? Please let us know so we can conclude your care: http://newcare.doctorstoyou.com'
 		});
 	},
@@ -109,7 +109,7 @@ Template.patient.events({
 
 		Meteor.call('setStatusReserve', patientId);
         Meteor.call('sendSMS',{
-			to: '+1' + Profiles.findOne({email: patientEmail}).phone,
+			to: '+1' + Requests.findOne({_id:requestId}).phone,
 			text: 'Return to the request page to complete your reservation: http://newcare.doctorstoyou.com'
 		});
 
@@ -125,7 +125,7 @@ Template.patient.events({
 
 		Meteor.call('setStatusReserve', patientId);
         Meteor.call('sendSMS',{
-			to: '+1' + Profiles.findOne({email: patientEmail}).phone,
+			to: '+1' + Requests.findOne({_id:requestId}).phone,
 			text: 'Return to the request page to complete your reservation: http://newcare.doctorstoyou.com'
 		});
 
@@ -142,7 +142,7 @@ Template.patient.events({
   		var patientEmail = Meteor.users.findOne({_id:patientId}).emails[0].address;
         Meteor.call('declineRequest', requestId, Meteor.userId());
         Meteor.call('sendSMS',{
-			to: '+1' + Profiles.findOne({email: patientEmail}).phone,
+			to: '+1' + Requests.findOne({_id:requestId}).phone,
 			text: 'Your request has been declined.'
 		});
 	},
@@ -158,11 +158,11 @@ Template.patient.events({
 		var requestId = this._id;
 		var patientId = Requests.findOne({_id:requestId}).patientId;
   		var patientEmail = Meteor.users.findOne({_id:patientId}).emails[0].address;
-		Meteor.call('requestComplete', patientId);
+		Meteor.call('requestComplete', patientId, requestId);
 		console.log("Request complete");
 		console.log(patientId);
 		Meteor.call('sendSMS',{
-			to: '+1' + Profiles.findOne({email: patientEmail}).phone,
+			to: '+1' + Requests.findOne({_id:requestId}).phone,
 			text: 'Thank you for choosing Doctors To You. Your invoice and medical records are available here: http://newcare.doctorstoyou.com'
 		});
 	},
@@ -178,10 +178,13 @@ Template.patient.events({
 		var requestId = this._id;
 		var patientId = Requests.findOne({_id:requestId}).patientId;
   		var patientEmail = Meteor.users.findOne({_id:patientId}).emails[0].address;
-		Meteor.call('sendSMS',{
-			to: '+1' + Profiles.findOne({email: patientEmail}).phone,
-			text: 'Your provider is now on their way'
+	  	Meteor.call('getCurrProviderName', patientId, function(err, response){
+			Meteor.call('sendSMS',{
+				to: '+1' + Requests.findOne({_id:requestId}).phone,
+				text: response + ' is now on their way.'
+			});
 		});
+
 	}
 });
 
@@ -324,23 +327,21 @@ Template.newClient.onRendered(function(){
 			var op = $(event.currentTarget).text();
 			var requestId = $(event.currentTarget).attr('data');
 			var patientId = Requests.findOne({_id:requestId}).patientId;
-			var patientEmailAddress = Meteor.users.findOne({_id:patientId}).emails[0].address;
-			var providerEmail = Meteor.users.findOne({_id:Meteor.userId()}).emails[0].address;
-			var providerName = Profiles.findOne({email:providerEmail}).firstname;
-			Meteor.subscribe("currProfile", patientEmailAddress);
 			console.log("Patient ID:");
 			console.log(patientId);
 
 			if (op == "Accept"){
-				console.log(patientEmailAddress, "Has been accepted.");
+				console.log(patientId, "Has been accepted.");
 				Meteor.call('acceptRequest', requestId, Meteor.userId(),
 					(error, result)=>{
 						console.log(error,result)
 					}
 					);
-				Meteor.call('sendSMS',{
-					to: '+1' + Profiles.findOne({email: patientEmailAddress}).phone,
-					text: providerName + ' has accepted your request and will contact you shortly.'
+			  	Meteor.call('getCurrProviderName', patientId, function(err, response){
+					Meteor.call('sendSMS',{
+						to: '+1' + Requests.findOne({_id:requestId}).phone,
+						text: response + ' has accepted your request and will call you shortly.'
+					});
 				});
 				Meteor.call('setStatusCall', patientId);
 			} else if (op == "Decline") {
@@ -350,7 +351,11 @@ Template.newClient.onRendered(function(){
 						console.log(error,result)
 					}
 					);
-				Meteor.call('resetStatus', patientId);
+				Meteor.call('sendSMS',{
+					to: '+1' + Requests.findOne({_id:requestId}).phone,
+					text: 'Your request has been declined.'
+				});
+
             }
 		});
 	
@@ -389,7 +394,7 @@ Template.clientListPage.helpers({
 		return Requests.find({'accepted':false, 'requestComplete':false}).fetch();
 	},
 	'treatedPatients': function(){
-		return Requests.find({'requestComplete':true, 'providerId': Meteor.userId()}).fetch();
+		return Requests.find(/*{'requestComplete':true, 'providerId': Meteor.userId()}*/).fetch();
 	}
 })
 

@@ -1,11 +1,9 @@
-Meteor.startup(function(){
-  Meteor.Mailgun.config({
-    username: 'postmaster@sandboxc325b32bfc38422ea41238133f509d15.mailgun.org',
-    password: 'ff6851dffef29d15f252de3ae979c60c'
-  });
+
+Meteor.startup(function () {
+  process.env.MAIL_URL = "smtp://postmaster%40mail.doctorstoyou.com:d165a4d4f5c6c7b8353b0c3309607c32@smtp.mailgun.org:587";
 });
 
-// In your server code: define a method that the client can call
+
 Meteor.methods({
   sendEmail: function (mailFields) {
       console.log("about to send email...");
@@ -15,13 +13,13 @@ Meteor.methods({
       // without waiting for the email sending to complete.
       this.unblock();
 
-      Meteor.Mailgun.send({
-          to: mailFields.to,
-          from: mailFields.from,
-          subject: mailFields.subject,
-          text: mailFields.text,
-          html: mailFields.html
+      Email.send({
+        to: mailFields.to,
+        from: mailFields.from,
+        subject: mailFields.subject,
+        text: mailFields.text
       });
+
       console.log("email sent!");
   }
 });

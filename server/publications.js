@@ -12,20 +12,19 @@ Meteor.publish("followUps",function(){return Followups.find();});
 Meteor.publish("messages",function(){return Messages.find();});
 Meteor.publish("reviews",function(){return Reviews.find();});
 
-Meteor.publish("events",function(){return Events.find();});
+Meteor.publish("events",function(){return Events.find();}); 
 
 // Gets all requests that correspond to id and are incomplete
-Meteor.publish("currRequest", function(id){
-	return Requests.findOne({patientId:id, requestComplete:false});
+
+Meteor.publish("currProfile", function( ){
+	emailAddress = Meteor.users.findOne({_id:this.userId}).emails[0].address;
+	console.log(emailAddress);
+	return Profiles.find({email:emailAddress});
 });
 
-Meteor.publish("currProfile", function(emailAddress){
-	return Profiles.findOne({email:emailAddress});
-});
 
-
-Meteor.publish("currPatient", function(id){
-	return Patients.findOne({_id:id});
+/* Meteor.publish("currPatient", function(id){
+	return Patients.find({_id:id});
 })
 
 Meteor.publish("currProvider", function(id){
@@ -38,4 +37,15 @@ Meteor.publish("allUsers", function(){
 
 Meteor.publish("singleRequest", function(requestId){
 	return Requests.find({_id:requestId});
-})
+}) */
+
+Meteor.publish('currStatus', function(currRequest) {
+  if (!this.userId) {
+    return this.ready();
+  }
+  return Requests.find({
+  	_id:currRequest
+  }, {
+    fields: Requests.status
+  });
+});

@@ -96,30 +96,36 @@ Template.requestPage.onRendered(function(){
 					fields.date = moment().format('YYYY MMMM DD');
 					fields.time = moment().format('h:mm a');
 
-					Meteor.call('pushRequest', Meteor.userId(), fields, requesterName);
+					Meteor.call('pushRequest', Meteor.userId(), fields, requesterName, function(error, result){
+						if(error){
+							console.log(error);
+						}else{
+							$("#successMsg").show(500);
+							var willSendSMS = Profiles.findOne({email: emailAddress}).preferences;
+
+							if (willSendSMS) {
+								Meteor.call('sendSMS',{
+									to: '+1' + fields.phonenumber,
+									text: firstName + ', we\'ve received your request and you are being connected to one of our on-call providers.'
+								});
+							}
+
+
+							Meteor.call('sendEmail',{
+							to: emailAddress,
+							from: 'no-reply@doctorstoyouapp.com',
+							subject: 'Doctors To You: Request sent',
+							text: '',
+							html:"Dear " + firstName +", <br><br>Thank you for sending a request to Doctors To You. Please standby for a provider to accept your request. You will receive a call shortly."
+							});
+
+							FlowRouter.go('/dashboard');
+						}
+						
+					});
 					//////////////////////////////////////////////////////////
 
-					$("#successMsg").show(500);
-					Meteor.call('setStatusProcessingRequest', Meteor.userId());
-					var willSendSMS = Profiles.findOne({email: emailAddress}).preferences;
 
-					if (willSendSMS) {
-						Meteor.call('sendSMS',{
-							to: '+1' + Profiles.findOne({email: emailAddress}).phone,
-							text: firstName + ', we\'ve received your request and you are being connected to one of our on-call providers.'
-						});
-					}
-
-
-					Meteor.call('sendEmail',{
-					to: emailAddress,
-					from: 'no-reply@doctorstoyouapp.com',
-					subject: 'Doctors To You: Request sent',
-					text: '',
-					html:"Dear " + firstName +", <br><br>Thank you for sending a request to Doctors To You. Please standby for a provider to accept your request. You will receive a call shortly."
-					});
-
-					FlowRouter.go('/dashboard');
 				}
 			},500);
 		},

@@ -18,12 +18,21 @@
 
 			width: 100%;
 	  	}
+	  	@media only screen and (max-device-width: 480px) {
+			#callText{
+				 font-size: 1em;
+				 line-height: 130%;
+			}
+			#overbox{
+				padding: 1em;
+			}
+	}
 	</style>
 
 	<!-- Informative box about how long call wait will be -->
 	<center>
-		<div class="ui raised very padded text container segment">
-			<h1 class="ui header container">Please standby for your call...</h1>
+		<div class="ui raised very padded text container segment" id="overbox">
+			<h1 class="ui header container" id="callText">Please standby for your call...</h1>
 
 			<h2 class="ui header container" id="callText">
 				{{providerName}} has accepted your request. They will call you within 15 minutes to assess your needs.
