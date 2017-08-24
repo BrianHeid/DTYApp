@@ -1,0 +1,32 @@
+<!-- Header for all admin pages -->
+<template name="header_temp_admin">
+	<head>
+  		<title>Doctors To You</title>
+ 		<link rel="icon" sizes="16x16 32x32" href="/images/favicon.ico">
+		
+		<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBcZFbV2A2SR-IeiChwe_ZYItbQJAUm0nQ"
+	      type="text/javascript">
+	    </script>
+	</head>
+
+	{{>menu_temp_admin}}
+</template>
+
+<template name="menu_temp_admin">
+	<div class="ui top fixed menu" id="admin_menu">
+	  <a class="item" href="/admin/clients">
+		<img src="/images/logo.png" class="ui small image">
+	  </a>
+
+	  <div class="labeled icon right menu">
+	  	<a class="item" href="/admin/shifts">
+	  		<i class="calendar icon" ></i>
+	    	Schedule
+	  	</a>
+	    
+	    <div class="item">
+	    	<div class="ui logout primary button">Sign Out</div>
+	    </div>
+	  </div>
+	</div>
+</template>

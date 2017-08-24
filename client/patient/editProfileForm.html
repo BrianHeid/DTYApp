@@ -25,70 +25,33 @@
 					<label>First Name</label>
 					<input {{getFirstName}}/>
 				</div>
-				<div class="field required">
+				<div class="required field">
 					<label>Last Name</label>
 					<input {{getLastName}}/>
 				</div>
 			</div>
 
-			<div class="column equal width fields required">
+			<div class="column equal width fields">
 				<div class="required field">
-					<label>Phone Number</label>
-					<input {{getPhoneNumber}}/>
+					<label>Gender</label>
+					{{>gendersList}}
 				</div>
 				<div class="required field">
 					<label>Birthday</label>
 					<input {{getBirthday}}/>
 				</div>
-				<div class="required field">
-					<label>Gender</label>
-					{{>gendersList}}
-				</div>
 			</div>
 
 			<div class="column equal width fields">
 				<div class="required field">
-					<label>Street</label>
-					<input type="text" name="street" placeholder="Street">
-				</div>
-				<div class="field">
-					<label>Apt # / Suite</label>
-					<input type="text" name="aptNumSuite" placeholder="Apt # / Suite">
-				</div>
-			</div>
-			<div class="column equal width fields">
-				<div class="required field">
-					<label>City</label>
-					<input type="text" name="city" placeholder="City">
+					<label>Phone Number</label>
+					<input {{getPhoneNumber}}/>
 				</div>
 				<div class="required field">
-					<label>State</label>
-					<input type="text" name="state" placeholder="State">
+					<label>Email</label>
+					<input type="email" name="email" placeholder="example@gmail.com">
 				</div>
 			</div>
-			<div class="column equal width fields">
-				<div class="required field">
-					<label>Country</label>
-					{{>countriesList}}
-				</div>
-				<div class="required field">
-					<label>Zipcode</label>
-					<input type="text" name="zipcode" placeholder="Zipcode" minlength="5">
-				</div>
-			</div>
-			<div class="field required">
-				<label>Email</label>
-				<input type="email" name="email" placeholder="example@gmail.com">
-			</div>
-			<div class="field required">
-				<label>Password</label>
-				<input type="password" name="password" placeholder="Password">
-			</div>
-			<div class="field required">
-				<label>Confirm Password</label>
-				<input type="password" name="confirmPassword" placeholder="Confirm Password">
-			</div>
-
 
 			<h3 class="ui header">
 				<i class="alarm outline icon"></i>

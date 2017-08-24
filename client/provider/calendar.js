@@ -58,7 +58,7 @@ Template.calendarEvents.onRendered(
 	});
 
 
-/*Template.addEditEventModal.helpers({
+Template.addEditEventModal.helpers({
 	modalType( type ) {
 		let eventModal = Session.get( 'eventModal' );
 		if ( eventModal ) {
@@ -132,7 +132,7 @@ Template.addEditEventModal.events({
 			});
 		}
 	}
-});*/
+});
 
 
 

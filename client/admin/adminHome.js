@@ -34,10 +34,3 @@ Template.adminHome.helpers({
         return Profiles.findOne({email: emailAddress}).firstname;
    }
 });
-
-Template.adminHome.events({
-  'click #shiftTab': function( ){
-      $('#shifts-calendar').fullCalendar('render');
-  }
-
-});

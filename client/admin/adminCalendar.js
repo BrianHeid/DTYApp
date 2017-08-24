@@ -34,6 +34,7 @@ Template.adminCalendar.onRendered(
         	events: {
             	googleCalendarId: 'apod7e1ing2q65gqen6bas2a94@group.calendar.google.com'
             	// add more calendars for more shifts in future
+            	// each calendar corresponds to a given provider's schedule
         	},
 
         	header: {

@@ -151,7 +151,7 @@ Template.editProfileForm.helpers({
         return {
           name: "birthday",
           min: "1887-01-01",
-          max: "1999-04-01",
+          max: "1999-09-01",
           type: 'date',
           value: Session.get('birthday')
         }
